@@ -1,10 +1,17 @@
 Package: mlr3fda
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R:
     person("Sebastian", "Fischer", , "sebf.fischer@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
+Imports:
+  R6,
+  checkmate,
+  data.table,
+  mlr3,
+  mlr3misc,
+  paradox
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
