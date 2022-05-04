@@ -9,10 +9,7 @@ test_that("functional works", {
   args = unlist(lapply(nobs, function(x) sort(runif(x))))
   values = f(args)
   funct = functional(args, values, ids)
-
-  dt = data.table(id = ids_orig, funct = funct)
-
-  dt[, .(x = list(value)), "ids"]
+  expect_true(inherits(funct, "functional"))
 })
 
 

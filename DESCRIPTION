@@ -11,7 +11,8 @@ Imports:
   data.table,
   mlr3,
   mlr3misc,
-  paradox
+  paradox,
+  mlr3pipelines
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

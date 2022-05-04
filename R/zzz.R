@@ -6,6 +6,7 @@
 #' @import R6
 #' @import data.table
 #'
+#'
 #' @description
 #' Extends mlr3 with the functional data type.
 #' `r tools::toRd(citation("mlr3"))`
@@ -14,8 +15,12 @@
 
 register_mlr3 = function() {
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
-
+  mlr_pipeops = utils::getFromNamespace("mlr_pipeops", ns = "mlr3pipelines")
+  mlr_task = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
+  mlr_tasks$add("fuel", load_task_fuel)
   mlr_reflections$task_feature_types[["fun"]] = "functional"
+  mlr_pipeops$add("flatfunct", PipeOpFlatFunct)
+  mlr_pipeops$add("ffe", PipeOpFFE)
 }
 
 

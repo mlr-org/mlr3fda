@@ -1,0 +1,65 @@
+#' @title Flattens Functional Columns
+#'
+#' @section Parameters
+#' * `as_features` :: `logical()`\cr
+#'   Whether to add the Flattened values to the features of the task.
+#' * `selector
+
+#' * `selector` :: `function` | [`Selector`] \cr
+#'   [`Selector`] function, takes a `Task` as argument and returns a `character`
+#'   of features to keep. The flattening is only applied to those columns.\cr
+#'   See [`Selector`] for example functions. Default is selector_type("functional")`.
+#'   All features selected by this selector must be of type functional, otherwise an error is cast.
+#' @export
+PipeOpFlatFunct = R6Class("PipeOpFlatFunct",
+  inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
+  public = list(
+    initialize = function(id = "flatfunct", param_vals = list()) {
+      param_set = ps()
+
+      input = data.table(
+        name = "input", train = "Task", predict = "Task"
+      )
+      output = data.table(
+        name = "output", train = "Task", predict = "Task"
+      )
+      super$initialize(
+        id = id,
+        param_set = ps(),
+        param_vals = param_vals,
+        packages = c("mlr3fda", "mlr3pipelines"),
+        feature_types = "functional"
+      )
+    }
+  ),
+  private = list(
+    .transform = function(task) {
+      cols = self$state$dt_columns
+      if (!length(cols)) {
+        return(task)
+      }
+      dt = task$data(cols = cols)
+
+      # TODO: check that there are no name clashes
+
+      # TODO: to be save we should write the .transform function (and not transform_dt), because
+      # we cannot ensure that we don't have name-clashes with the original data.table
+      flattened = imap(dt,
+        function(x, nm) {
+          flat = flatten_functional(x)
+          d = as.data.table(flat)
+          d
+        }
+      )
+      # convert to data.table and append names
+      dt_flat = invoke(cbind, .args = flattened)
+
+      task$select(setdiff(task$feature_names, cols))$cbind(dt_flat)
+    }
+  )
+)
+
+#' `private$.get_state` must not change its input value in-place and must return
+#' something that will be written into `$state`
+#' (which must not be NULL), `private$.transform()` should modify its argument in-place;
+#' it is called both during training and prediction.
