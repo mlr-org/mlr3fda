@@ -15,7 +15,8 @@ test_that("functional works", {
 
 test_that("as_functional works for matrix", {
   m = matrix(runif(1000L), ncol = 10L)
-  f = as_functional(m, arguments = 1:10)
+  funct = as_functional(m)
+  expect_true(inherits(funct, "functional"))
 })
 
 test_that("as_function works for data.table", {
@@ -28,6 +29,6 @@ test_that("as_function works for data.table", {
   args = unlist(lapply(nobs, function(x) sort(runif(x))))
   values = f(args)
   dt = data.table(x = args, y = values, z = ids)
-  funct = as_functional(dt, arg = "x", value = "y", id = "z")
-
+  funct = as_functional(dt, args = "x", values = "y", ids = "z")
+  expect_true(inherits(funct, "functional"))
 })
