@@ -7,12 +7,24 @@
 functional(args, values, ids)
 }
 \arguments{
-\item{args}{(\code{numeric})}
+\item{args}{(\code{numeric()}) Arguments of the functionals.}
 
-\item{value}{(\code{numeric()})
+\item{value}{(\code{numeric()}) Values of the functionals.}
 
-export}
+\item{(`atomic`)}{Ids assigning the the (arg, value) combinations to a id.}
 }
 \description{
-Creates an object of class functional.
+Creates an vector of class \code{functional}, that contains function evaluations
+from a usually unknown function f. This function is assumed to be deterministic for each
+inidividual, i.e. for each argument $x$, there is only one $y = f(x)$, i.e. within a subject
+there is at most one evaluation for each argument.
+Currently only numeric functions are supported.
+}
+\details{
+Under the hood, \code{functional} are lists,
+where each element is a named list (list(arg = ..., value = ...)) with two equally
+long vectors \code{arg} and \code{value} such that \code{value[i] = f(arg[i])}.
+}
+\examples{
+
 }
