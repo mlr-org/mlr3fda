@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 ## What is `mlr3fda`
 
 `mlr3fda` extends `mlr3` to [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
-It introduces introduces the feature type `"functional"`, as well as basic
+It introduces the feature type `"functional"`, as well as basic
 infrastructure for common operations, such as flattening of functional data
 using e.g. `PipeOpFlatFunct`, or feature extraction from functional data via
 `PipeOpFFE` (Functional Feature Extraction).

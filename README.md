@@ -19,7 +19,7 @@ status](https://www.r-pkg.org/badges/version/mlr3fda)](https://CRAN.R-project.or
 
 `mlr3fda` extends `mlr3` to [functional
 data](https://en.wikipedia.org/wiki/Functional_data_analysis). It
-introduces introduces the feature type `"functional"`, as well as basic
+introduces the feature type `"functional"`, as well as basic
 infrastructure for common operations, such as flattening of functional
 data using e.g. `PipeOpFlatFunct`, or feature extraction from functional
 data via `PipeOpFFE` (Functional Feature Extraction).
@@ -67,11 +67,11 @@ glrn$train(task, row_ids = ids$train)
 glrn$predict(task, row_ids = ids$test)
 #> <PredictionRegr> for 43 observations:
 #>     row_ids   truth response
-#>          17 25.3460 24.98813
-#>          26 31.0020 21.15174
-#>          27 25.9900 21.18105
+#>           3 23.8400 23.85014
+#>          18 26.1760 22.93755
+#>          19 30.6730 23.10221
 #> ---                         
-#>          14  7.0037 27.43870
-#>          47 11.5560 26.87144
-#>         128 11.3450 20.56277
+#>          14  7.0037 26.67273
+#>          25  6.1689 21.72150
+#>          36 12.1890 24.24161
 ```
