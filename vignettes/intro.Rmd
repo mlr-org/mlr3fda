@@ -1,0 +1,106 @@
+---
+title: Functional Example
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(1)
+```
+
+This article shows how to use the (experimental) data type `functional`.
+
+First, we load the packages and simulate a functional dataset in long format.
+
+```{r, simulate-data}
+library(mlr3verse)
+library(mlr3fda)
+library(data.table)
+
+f = function(x) {
+  x * 3 + 1
+}
+ids_orig = letters[1:10]
+nobs = replicate(10, sample.int(5, 1))
+ids = rep(ids_orig, times = nobs)
+args = unlist(lapply(nobs, function(x) sort(runif(x))))
+values = f(args)
+
+dat = data.table(id = ids, arg = args, value = values)
+head(dat, n = 10)
+```
+
+Then, we create a vector of class `functional`, that is simply a list of lists
+with arguments and values.
+
+```{r, create-functional}
+funct = functional(ids = dat$id, arg = dat$arg, value = dat$value)
+print(funct)
+print(unclass(funct)[1:2])
+```
+
+For the rest of the article the predefined *fuel* regression task will be used. It has 
+two functional and one numeric feature.
+
+```{r, fuel}
+task = tsk("fuel")
+print(task)
+```
+
+
+Currently two `PipeOp`s are implemented: 
+
+* `PipeOpFlatFunct` - Flattens functional features.
+* `PipeOpFFE` - **F**unctional **F**eature **E**xtractor
+
+**Flatten a Functional Column**
+
+Flattening a functional feature creates a new column for each unique `arg` in 
+the `functional` column. Missing values for individuals are set to `NA`.
+
+*Parameters*
+* `affect_columns` - Selects a subset of the functional columns that will be flattened (see `mlr3pipelines` for predefined selectors). 
+
+```{r, flatten}
+po_flatfunct = po("flatfunct", affect_columns = selector_name("NIR"))
+
+task_flat = po_flatfunct$train(list(task))[[1L]]
+print(task_flat)
+```
+
+**Extract Features from a Functional Column**
+
+For feature extraction, one can use the `PipeOpFFE` (Functional Feature Extractor).
+
+*Parameters*: 
+
+* `drop` - Whether to drop the original functional column(s) from the features.
+* `affect_columns` - Selects a subset of the functional columns for which to extract the features (see `mlr3pipelines` for predefined selectors)
+* `extractors` - A named list of functions. Each function takes as input a functional vector and either outputs a vector or a  named list of vectors.
+
+An example is the predefined `extractor_mean`, which calculates the average value for each individual.
+
+```{r, extract_mean}
+print(extractor_mean(na.rm = FALSE))
+```
+Here, we extract the mean, slope and intercept for all functional columns
+
+```{r, ffe}
+po_ffe = po("ffe", 
+  extractors = list(average = extractor_mean(), lm = extractor_lm(TRUE)), 
+  affect_columns = selector_all(), 
+  drop = TRUE
+)
+
+task_ffe = po_ffe$train(list(task))[[1L]]
+print(task_ffe)
+```
+
+
+
+
+
+
+
+
+
