@@ -39,9 +39,9 @@ print(funct)
 print(unclass(funct)[1:2])
 ```
 
-Alternatively one can use the converter `as_functional()`, that takes in a `data.table()` and one has to specify the 'id', 'arg' and 'value' column: 
+Alternatively one can use the converter `as_functional()`, that takes in a `data.table()` and one has to specify the 'id', 'arg' and 'value' column:
 
-```{r, convert-functiopnal}
+```{r, convert-functional}
 funct = as_functional(dat, args = "arg", ids = "id", values = "value")
 
 ```
