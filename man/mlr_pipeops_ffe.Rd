@@ -13,6 +13,21 @@
 
 (F)unctional (F)eature (E)xtractor
 }
+\section{Parameters}{
+
+\itemize{
+\item \code{extractors} :: \code{list(x1 = fn1, x2 = fn2, ...)}\cr
+Named list of functions, that extract the features. The names are the suffixes that are
+appended to the original column names, and the values are the feature extractors and must
+return a list with values (i.e. the features). If there is more than one features, the
+corresponding number is additionally suffixed to the name of the extracted feature.
+\item \code{drop} :: \code{logical(1)}\cr
+Whether to drop the original \code{functional} features and only keep the extracted features.
+Note that this does not remove the features from the backend, but only from the active
+column role \code{feature}.
+}
+}
+
 \section{Internals}{
 
 Applies \code{flatten_functional()}, converts to a data.table and appends it to the features of
@@ -48,10 +63,23 @@ Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{P
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+Initializes a new instance of this Class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PipeOpFFE$new(id = "ffe", param_vals = list())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{()\code{character(1)})\cr
+Identifier of resulting object, default \code{"ffe"}.}
+
+\item{\code{param_vals}}{(named \code{list})\cr
+List of hyperparameter settings, overwriting the hyperparameter settings that would
+otherwise be set during construction. Default \code{list()}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

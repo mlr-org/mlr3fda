@@ -47,10 +47,23 @@ selector_all()\verb{, which selects all of the }functional` features.
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+Initializes a new instance of this Class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PipeOpFlatFunct$new(id = "flatfunct", param_vals = list())}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{()\code{character(1)})\cr
+Identifier of resulting object, default \code{"ffe"}.}
+
+\item{\code{param_vals}}{(named \code{list})\cr
+List of hyperparameter settings, overwriting the hyperparameter settings that would
+otherwise be set during construction. Default \code{list()}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

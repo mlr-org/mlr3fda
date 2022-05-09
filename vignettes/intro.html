@@ -172,8 +172,7 @@ pre code {
 </div>
 
 
-<p>This article shows how to use the (experimental) data type <code>functional</code>.</p>
-<p>First, we load the packages and simulate a functional dataset in long format.</p>
+<p>This article shows how to use the (experimental) data type <code>functional</code>. We will start by constructing a <code>functional</code> vector from simulated data. For that we start by loading the required packages and simulating some data.</p>
 <pre class="r"><code>library(mlr3verse)</code></pre>
 <pre><code>## Loading required package: mlr3</code></pre>
 <pre class="r"><code>library(mlr3fda)
@@ -202,7 +201,7 @@ head(dat, n = 10)</code></pre>
 ##  8:      d 0.9347052 3.804116
 ##  9:      e 0.1255551 1.376665
 ## 10:      e 0.2121425 1.636428</code></pre>
-<p>Then, we create a vector of class <code>functional</code>, that is simply a list of lists with arguments and values.</p>
+<p>From this data.table, one could create a <code>functional</code> vector, using the constructor <code>functional()</code> as shown below. Not that the <code>ids</code> are only used to correctly split up the <code>arg</code> and <code>value</code> vector.</p>
 <pre class="r"><code>funct = functional(ids = dat$id, arg = dat$arg, value = dat$value)
 print(funct)</code></pre>
 <pre><code>## &lt;functional[10]&gt;</code></pre>
@@ -221,6 +220,8 @@ print(funct)</code></pre>
 ## 
 ## [[2]]$value
 ## [1] 2.493098 3.152856 3.309524 3.975718</code></pre>
+<p>Alternatively one can use the converter <code>as_functional()</code>, that takes in a <code>data.table()</code> and one has to specify the ‘id’, ‘arg’ and ‘value’ column:</p>
+<pre class="r"><code>funct = as_functional(dat, args = &quot;arg&quot;, ids = &quot;id&quot;, values = &quot;value&quot;)</code></pre>
 <p>For the rest of the article the predefined <em>fuel</em> regression task will be used. It has two functional and one numeric feature.</p>
 <pre class="r"><code>task = tsk(&quot;fuel&quot;)
 print(task)</code></pre>
@@ -237,7 +238,10 @@ print(task)</code></pre>
 </ul>
 <p><strong>Flatten a Functional Column</strong></p>
 <p>Flattening a functional feature creates a new column for each unique <code>arg</code> in the <code>functional</code> column. Missing values for individuals are set to <code>NA</code>.</p>
-<p><em>Parameters</em> * <code>affect_columns</code> - Selects a subset of the functional columns that will be flattened (see <code>mlr3pipelines</code> for predefined selectors).</p>
+<p><em>Parameters</em></p>
+<ul>
+<li><code>affect_columns</code> - Selects a subset of the functional columns that will be flattened (see <code>mlr3pipelines</code> for predefined selectors).</li>
+</ul>
 <pre class="r"><code>po_flatfunct = po(&quot;flatfunct&quot;, affect_columns = selector_name(&quot;NIR&quot;))
 
 task_flat = po_flatfunct$train(list(task))[[1L]]
@@ -276,12 +280,12 @@ print(task_flat)</code></pre>
 ## {
 ##     map_dbl(unclass(x), function(x) mean(x$value, na.rm = na.rm))
 ## }
-## &lt;bytecode: 0x55ed4c086db8&gt;
-## &lt;environment: 0x55ed4c0876e8&gt;</code></pre>
+## &lt;bytecode: 0x56236707eb40&gt;
+## &lt;environment: 0x562366ccf648&gt;</code></pre>
 <p>Here, we extract the mean, slope and intercept for all functional columns</p>
-<pre class="r"><code>po_ffe = po(&quot;ffe&quot;, 
-  extractors = list(average = extractor_mean(), lm = extractor_lm(TRUE)), 
-  affect_columns = selector_all(), 
+<pre class="r"><code>po_ffe = po(&quot;ffe&quot;,
+  extractors = list(average = extractor_mean(), lm = extractor_lm(TRUE)),
+  affect_columns = selector_all(),
   drop = TRUE
 )
 

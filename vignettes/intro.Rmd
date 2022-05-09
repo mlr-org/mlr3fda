@@ -9,8 +9,8 @@ set.seed(1)
 ```
 
 This article shows how to use the (experimental) data type `functional`.
-
-First, we load the packages and simulate a functional dataset in long format.
+We will start by constructing a `functional` vector from simulated data. For that we start
+by loading the required packages and simulating some data.
 
 ```{r, simulate-data}
 library(mlr3verse)
@@ -30,8 +30,8 @@ dat = data.table(id = ids, arg = args, value = values)
 head(dat, n = 10)
 ```
 
-Then, we create a vector of class `functional`, that is simply a list of lists
-with arguments and values.
+From this data.table, one could create a `functional` vector, using the constructor `functional()` as shown below.
+Not that the `ids` are only used to correctly split up the `arg` and `value` vector.
 
 ```{r, create-functional}
 funct = functional(ids = dat$id, arg = dat$arg, value = dat$value)
@@ -39,7 +39,14 @@ print(funct)
 print(unclass(funct)[1:2])
 ```
 
-For the rest of the article the predefined *fuel* regression task will be used. It has 
+Alternatively one can use the converter `as_functional()`, that takes in a `data.table()` and one has to specify the 'id', 'arg' and 'value' column: 
+
+```{r, convert-functiopnal}
+funct = as_functional(dat, args = "arg", ids = "id", values = "value")
+
+```
+
+For the rest of the article the predefined *fuel* regression task will be used. It has
 two functional and one numeric feature.
 
 ```{r, fuel}
@@ -48,18 +55,19 @@ print(task)
 ```
 
 
-Currently two `PipeOp`s are implemented: 
+Currently two `PipeOp`s are implemented:
 
 * `PipeOpFlatFunct` - Flattens functional features.
 * `PipeOpFFE` - **F**unctional **F**eature **E**xtractor
 
 **Flatten a Functional Column**
 
-Flattening a functional feature creates a new column for each unique `arg` in 
+Flattening a functional feature creates a new column for each unique `arg` in
 the `functional` column. Missing values for individuals are set to `NA`.
 
 *Parameters*
-* `affect_columns` - Selects a subset of the functional columns that will be flattened (see `mlr3pipelines` for predefined selectors). 
+
+* `affect_columns` - Selects a subset of the functional columns that will be flattened (see `mlr3pipelines` for predefined selectors).
 
 ```{r, flatten}
 po_flatfunct = po("flatfunct", affect_columns = selector_name("NIR"))
@@ -72,7 +80,7 @@ print(task_flat)
 
 For feature extraction, one can use the `PipeOpFFE` (Functional Feature Extractor).
 
-*Parameters*: 
+*Parameters*:
 
 * `drop` - Whether to drop the original functional column(s) from the features.
 * `affect_columns` - Selects a subset of the functional columns for which to extract the features (see `mlr3pipelines` for predefined selectors)
@@ -86,9 +94,9 @@ print(extractor_mean(na.rm = FALSE))
 Here, we extract the mean, slope and intercept for all functional columns
 
 ```{r, ffe}
-po_ffe = po("ffe", 
-  extractors = list(average = extractor_mean(), lm = extractor_lm(TRUE)), 
-  affect_columns = selector_all(), 
+po_ffe = po("ffe",
+  extractors = list(average = extractor_mean(), lm = extractor_lm(TRUE)),
+  affect_columns = selector_all(),
   drop = TRUE
 )
 
