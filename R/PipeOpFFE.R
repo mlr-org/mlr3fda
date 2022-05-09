@@ -1,10 +1,11 @@
-#' @title (F)unctional (F)eature (E)xtractor
+#' (F)unctional (F)eature (E)xtractor
+#'
 #' @usage NULL
 #' @name mlr_pipeops_ffe
 #' @format [`R6Class`] object inheriting from
 #' [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]
 #'
-#' @section Parameters
+#' @section Parameters:
 #' * `extractors` :: `list(x1 = fn1, x2 = fn2, ...)`\cr
 #'   Named list of functions, that extract the features. The names are the suffixes that are
 #'   appended to the original column names, and the values are the feature extractors and must
@@ -27,6 +28,13 @@
 PipeOpFFE = R6Class("PipeOpFFE",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
+
+    #' @description Initializes a new instance of this Class.
+    #' @param id ()`character(1)`)\cr
+    #'   Identifier of resulting object, default `"ffe"`.
+    #' @param param_vals (named `list`)\cr
+    #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
+    #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "ffe", param_vals = list()) {
       param_set = ps(
         extractors = p_uty(tags = c("train", "predict", "required")),

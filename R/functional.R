@@ -51,6 +51,12 @@ print.functional = function(x, ...) {
   invisible(x)
 }
 
+#' Converts object to class 'functional'
+#' @description
+#'   Convenience S3 generic that allows to construct vectors of class 'functional' from objects
+#'   types in which functional data is usually stored (e.g. `data.table()` or `matrix()`).
+#'
+#' @param x (any)
 #' @export
 as_functional = function(x, ...) {
   UseMethod("as_functional", x)
@@ -61,10 +67,27 @@ as_functional.functional = function(x, ...) {
   x
 }
 
+#' Convert a Matrix to a functional
+#' @description
+#'   Converts a matrix to a vector of class `functional`.
+#'   Rows contain various function evaluations for an individual.
+#' @param args (numeric())\cr
+#'   Arguments, such that $x_{i, j} = f_i(args_j)$.
+#'   Default =
+#'   1:ncol(x).
+#' @param ids (any)\cr
+#'   The ids, that assign labels to the rows of a matrix. Default is `1:nrow(x)`.
+#' @param args (`numeric()`)\cr
+#'   The arguments for the function evaluation. Default is `1:ncol(x)`.
+#' @param args (`numeric()`)
 #' @export
 as_functional.matrix = function(x, args = NULL, ids = NULL, ...) {
-  ids = ids %??% rep(seq_len(nrow(x)), each = ncol(x))
-  args = args %??% rep(seq_len(ncol(x)), times = nrow(x))
+  args = args %??% seq_len(ncol(x))
+  ids = ids %??% seq_len(nrow(x))
+  assert_true(length(args) == ncol(x))
+  assert_true(length(ids) == nrow(x))
+  ids = rep(ids, each = ncol(x))
+  args = rep(args, times = nrow(x))
   x = c(x)
   functional(args = args, values = x, ids = ids)
 }

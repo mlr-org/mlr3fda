@@ -19,7 +19,7 @@ test_that("as_functional works for matrix", {
   expect_true(inherits(funct, "functional"))
 })
 
-test_that("as_function works for data.table", {
+test_that("as_functional works for data.table", {
   f = function(x) {
     x * 3 + 1
   }
