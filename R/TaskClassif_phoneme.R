@@ -1,0 +1,33 @@
+#' @title Phoneme Classification Task
+#'
+#' @name mlr_tasks_phoneme
+#' @format [R6::R6Class] inheriting from [TaskClassif].
+#'
+#' @description
+#' The task contains a single functional covariate and 5 equally big classes (aa, ao, dcl, iy, sh).
+#' The aim is to predict the class of the phoneme in the functional, which is a
+#' log-periodogram.\cr
+#' This is a subset of the full dataset, which is contained in the package `fda.usc`.
+#'
+#' @section Construction:
+#' ```
+#' mlr_tasks$get("phoneme")
+#' tsk("phoneme")
+#' ```
+#' @references `r format_bib("ferraty2003curves")`
+#'
+NULL
+
+load_task_phoneme = function(id = "phoneme") {
+  b = as_data_backend(load_dataset("phoneme", package = "mlr3fda"))
+
+  task = TaskClassif$new(
+    id = id,
+    backend = b,
+    target = "class",
+    label = "Phoneme Classification"
+  )
+  b$hash = task$man = "mlr3::mlr_tasks_phoneme"
+  task
+}
+
