@@ -1,4 +1,9 @@
 #' @title (F)unctional (F)eature (E)xtractor
+#' @usage NULL
+#' @name mlr_pipeops_ffe
+#' @format [`R6Class`] object inheriting from
+#' [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]
+#'
 #' @section Parameters
 #' * `extractors` :: `list(x1 = fn1, x2 = fn2, ...)`\cr
 #'   Named list of functions, that extract the features. The names are the suffixes that are
@@ -9,13 +14,22 @@
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
 #'   column role `feature`.
+#'
+#' @section Internals:
+#' Applies `flatten_functional()`, converts to a data.table and appends it to the features of
+#' the task.
+#'
+#' @section Methods:
+#' Only methods inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]/
+#' [`PipeOp`][mlr3pipelines::PipeOp]
+#'
 #' @export
 PipeOpFFE = R6Class("PipeOpFFE",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
-    initialize = function(id = "ffe", param_vals = list(), can_subset) {
+    initialize = function(id = "ffe", param_vals = list()) {
       param_set = ps(
-        extractors = p_uty(tags = c("train", "predict", "required"), custom_check = check_named_functions),
+        extractors = p_uty(tags = c("train", "predict", "required")),
         drop = p_lgl(default = TRUE, tags = c("train"))
       )
       param_set$values$drop = TRUE
@@ -74,32 +88,31 @@ PipeOpFFE = R6Class("PipeOpFFE",
         feature_names[[i]] = uniqueify(feature_names[[i]], c(other_names))
       }
 
+      features = list()
 
       for (j in seq_along(cols)) {
         col = cols[[j]]
         for (i in seq_along(extractors)) {
           nm = feature_names[i, j]
-          extractor = extractors[[i]]
-          # TODO: should not make this dbl assumption here?
-          # TODO take care of name clashes here (?)
-          features = map(unclass(dt[[col]]), function(x) invoke(extractor, .args = x))
-          # maybe use simplify2array (?) what is the difference?
-          features = pmap(features, c)
-          if (length(features) > 1L) {
-            nm = paste(nm, seq_along(features))
+          feature = extractors[[i]](dt[[col]])
+          if (is.list(feature)) {
+            assert_names(names(feature))
+            for (name in names(feature)) {
+              features[[paste0(nm, ".", name)]] = feature[[name]]
+            }
+          } else {
+            features[[nm]] = feature
           }
-          features = set_names(as.data.table(features), nm)
-          dt = cbind(dt, features)
-
         }
       }
 
+      features = cbind(as.data.table(features), dt)
 
       if (drop) {
-        map(cols, function(col) dt[, get("col") := NULL])
+        map(cols, function(col) features[, get("col") := NULL])
       }
 
-      task$select(setdiff(task$feature_names, cols))$cbind(dt)
+      task$select(setdiff(task$feature_names, cols))$cbind(features)
       return(task)
     }
   )
@@ -108,33 +121,42 @@ PipeOpFFE = R6Class("PipeOpFFE",
 #
 
 #' @export
-extract_mean = function(arg, value) {
-  mean(value, na.rm = TRUE)
-}
-
-#' @export
-extract_max = function(arg, value) {
-  max(value, na.rm = TRUE)
-}
-
-#' @export
-extract_min = function(arg, value) {
-  min(value, na.rm = TRUE)
-}
-
-#' @export
-extract_slope = function(arg, value) {
-  coefficients(lm(value ~ arg))[[2L]]
-}
-
-check_named_functions = function(x) {
-  assert_list(x, any.missing = FALSE, min.len = 1L, names = "unique")
-  all_functions = all(map_lgl(x, is.function))
-  correct_args = map_lgl(x, function(x) test_subset(formalArgs(x), c("arg", "value")))
-  if (all_functions && all(correct_args)) {
-    return(TRUE)
+extractor_mean = function(na.rm = TRUE) {
+  function(x) {
+    map_dbl(unclass(x), function(x) mean(x$value, na.rm = na.rm))
   }
-  "Must be a list of functions with parameter 'value' and 'arg'."
+}
+
+#' @export
+extractor_max = function(na.rm = TRUE) {
+  function(x) {
+    map_dbl(unclass(x), function(x) max(x$value, na.rm = na.rm))
+  }
+}
+
+#' @export
+extractor_min = function(na.rm = TRUE) {
+  function(x) {
+    map_dbl(unclass(x), function(x) min(x$value, na.rm = na.rm))
+  }
+}
+
+#' @export
+extractor_slope = function() {
+  extractor_lm()
+}
+
+#' @export
+extractor_lm = function(intercept = FALSE) {
+  function(x) {
+    out = map(unclass(x), function(l) coefficients(lm(value ~ arg, data = l)))
+    slopes = map_dbl(out, "arg")
+    if (!intercept) {
+      return(slopes)
+    }
+    intercepts = map_dbl(out, "(Intercept)")
+    list(slope = slopes, intercept = intercepts)
+  }
 }
 
 

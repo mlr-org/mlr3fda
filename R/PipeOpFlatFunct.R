@@ -1,15 +1,18 @@
 #' @title Flattens Functional Columns
 #'
-#' @section Parameters
+#' @name mlr_pipeops_flatfunct
+#'
+#' @section Parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
+#' parameters:
 #' * `as_features` :: `logical()`\cr
 #'   Whether to add the Flattened values to the features of the task.
-#' * `selector
-
-#' * `selector` :: `function` | [`Selector`] \cr
-#'   [`Selector`] function, takes a `Task` as argument and returns a `character`
+#' * `selector` :: `function` | [`Selector`][mlr3pipelines::Selector] \cr
+#'   [`Selector`][mlr3pipelines::Selector] function, takes a `Task` as argument and returns a `character`
 #'   of features to keep. The flattening is only applied to those columns.\cr
-#'   See [`Selector`] for example functions. Default is selector_type("functional")`.
-#'   All features selected by this selector must be of type functional, otherwise an error is cast.
+#'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
+#'   selector_all()`, which selects all of the `functional` features.
+#'
 #' @export
 PipeOpFlatFunct = R6Class("PipeOpFlatFunct",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
@@ -59,7 +62,3 @@ PipeOpFlatFunct = R6Class("PipeOpFlatFunct",
   )
 )
 
-#' `private$.get_state` must not change its input value in-place and must return
-#' something that will be written into `$state`
-#' (which must not be NULL), `private$.transform()` should modify its argument in-place;
-#' it is called both during training and prediction.
