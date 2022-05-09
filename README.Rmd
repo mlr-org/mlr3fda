@@ -28,3 +28,33 @@ knitr::opts_chunk$set(
 ```r
 remotes::install_github("mlr-org/mlr3fda")
 ```
+
+
+## Example Usage
+
+```{r}
+library(mlr3fda)
+library(mlr3verse)
+
+task = tsk("fuel")
+print(task)
+```
+
+```{r}
+ids = partition(task)
+
+# define the features we want to extract
+extractors = list(
+  mean = extractor_mean(na.rm = TRUE),
+  max = extractor_max(na.rm = TRUE),
+  slope = extractor_slope()
+)
+graph = po("ffe", extractors = extractors) %>>%
+  po("learner", learner = lrn("regr.ranger"))
+
+glrn = as_learner(graph)
+
+glrn$train(task, row_ids = ids$train)
+
+glrn$predict(task, row_ids = ids$test)
+```
