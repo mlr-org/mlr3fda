@@ -15,6 +15,15 @@ status](https://www.r-pkg.org/badges/version/mlr3fda)](https://CRAN.R-project.or
 
 `mlr3` extension for functional data analysis.
 
+## What is `mlr3fda`
+
+`mlr3fda` extends `mlr3` to [functional
+data](https://en.wikipedia.org/wiki/Functional_data_analysis). It
+introduces introduces the feature type `"functional"`, as well as basic
+infrastructure for common operations, such as flattening of functional
+data using e.g. `PipeOpFlatFunct`, or feature extraction from functional
+data via `PipeOpFFE` (Functional Feature Extraction).
+
 ## Installation
 
 ``` r
@@ -22,6 +31,9 @@ remotes::install_github("mlr-org/mlr3fda")
 ```
 
 ## Example Usage
+
+Build a `GraphLearner` that first extracts features from the functional
+data and then fits a standard random forest.
 
 ``` r
 library(mlr3fda)
@@ -36,9 +48,7 @@ print(task)
 #> * Features (3):
 #>   - fun (2): NIR, UVVIS
 #>   - dbl (1): h20
-```
 
-``` r
 ids = partition(task)
 
 # define the features we want to extract
@@ -57,11 +67,11 @@ glrn$train(task, row_ids = ids$train)
 glrn$predict(task, row_ids = ids$test)
 #> <PredictionRegr> for 43 observations:
 #>     row_ids   truth response
-#>           3 23.8400 25.43000
-#>          10 24.9480 23.42850
-#>          12 26.8770 24.69694
+#>          17 25.3460 24.98813
+#>          26 31.0020 21.15174
+#>          27 25.9900 21.18105
 #> ---                         
-#>          14  7.0037 25.93584
-#>          36 12.1890 25.22261
-#>         127  8.8315 27.97107
+#>          14  7.0037 27.43870
+#>          47 11.5560 26.87144
+#>         128 11.3450 20.56277
 ```

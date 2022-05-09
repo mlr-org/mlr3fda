@@ -23,14 +23,25 @@ knitr::opts_chunk$set(
 
 `mlr3` extension for functional data analysis.
 
+
+## What is `mlr3fda`
+
+`mlr3fda` extends `mlr3` to [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
+It introduces introduces the feature type `"functional"`, as well as basic
+infrastructure for common operations, such as flattening of functional data
+using e.g. `PipeOpFlatFunct`, or feature extraction from functional data via
+`PipeOpFFE` (Functional Feature Extraction).
+
 ## Installation
 
 ```r
 remotes::install_github("mlr-org/mlr3fda")
 ```
 
-
 ## Example Usage
+
+Build a `GraphLearner` that first extracts features from the functional 
+data and then fits a standard random forest.
 
 ```{r}
 library(mlr3fda)
@@ -38,9 +49,7 @@ library(mlr3verse)
 
 task = tsk("fuel")
 print(task)
-```
 
-```{r}
 ids = partition(task)
 
 # define the features we want to extract
