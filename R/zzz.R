@@ -19,7 +19,7 @@ register_mlr3 = function() {
   mlr_task = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
   mlr_tasks$add("fuel", load_task_fuel)
   mlr_tasks$add("phoneme", load_task_phoneme)
-  mlr_reflections$task_feature_types[["fun"]] = "functional"
+  mlr_reflections$task_feature_types[["fun"]] = "tfd_irreg"
   mlr_pipeops$add("flatfunct", PipeOpFlatFunct)
   mlr_pipeops$add("ffe", PipeOpFFE)
 }
