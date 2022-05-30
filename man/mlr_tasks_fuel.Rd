@@ -13,9 +13,11 @@ infrared ray radiation and one scalar column called h2o.\cr
 This is a subset of the full dataset, which is contained in the package \code{FDboost}.
 }
 \section{Construction}{
-\preformatted{mlr_tasks$get("fuel")
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("fuel")
 tsk("fiel")
-}
+}\if{html}{\out{</div>}}
 }
 
 \references{

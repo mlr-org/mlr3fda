@@ -13,9 +13,11 @@ log-periodogram.\cr
 This is a subset of the full dataset, which is contained in the package \code{fda.usc}.
 }
 \section{Construction}{
-\preformatted{mlr_tasks$get("phoneme")
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("phoneme")
 tsk("phoneme")
-}
+}\if{html}{\out{</div>}}
 }
 
 \references{

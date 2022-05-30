@@ -5,6 +5,7 @@
 #' @import mlr3misc
 #' @import R6
 #' @import data.table
+#' @import mlr3pipelines
 #'
 #'
 #' @description
@@ -16,6 +17,7 @@
 register_mlr3 = function() {
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_pipeops = utils::getFromNamespace("mlr_pipeops", ns = "mlr3pipelines")
+  mlr_pipeops$add("fmean", PipeOpFMean)
   mlr_task = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
   mlr_tasks$add("fuel", load_task_fuel)
   mlr_tasks$add("phoneme", load_task_phoneme)
