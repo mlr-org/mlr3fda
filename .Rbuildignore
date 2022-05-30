@@ -1,7 +1,8 @@
+^.*\.Rproj$
+^CITATION.cff$
 ^LICENSE$
 ^README.html$
 ^README\.Rmd$
-^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.ccache$
 ^\.editorconfig$
@@ -22,4 +23,3 @@
 ^pkgdown$
 ^revdep$
 ^tic\.R$
-^CITATION.cff$

@@ -1,12 +1,11 @@
-test_that("PipeOpFlatFunct works", {
+test_that("PipeOpFlatFun works", {
   task = tsk("fuel")
-  pop = PipeOpFlatFunct$new()
+  pop = PipeOpFlatFun$new()
   x = pop$train(list(task))[[1L]]
   expected_features = c(
     "h20",
     paste0("UVVIS.", 1:134),
     paste0("NIR.", 1:231)
-
   )
   expect_set_equal(x$feature_names, expected_features)
 
@@ -28,4 +27,3 @@ test_that("PipeOpFlatFunct works", {
   )
   expect_set_equal(x$feature_names, expected_features)
 })
-

@@ -1,4 +1,3 @@
-# We need this to avoid name clashes in PipeOpFFE
 uniqueify_once = function(name, existing, count = 0L) {
   # Special case that covers 99.99 % of the cases in the PipeOp above
   if ((count == 0L) && name %nin% existing) {
@@ -18,6 +17,7 @@ uniqueify_once = function(name, existing, count = 0L) {
   }
 }
 
+# We need this to avoid name clashes in PipeOpFFS
 uniqueify = function(names, existing) {
   names_unique = character(length(names))
   for (i in seq_along(names)) {

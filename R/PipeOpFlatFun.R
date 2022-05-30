@@ -1,6 +1,6 @@
 #' @title Flattens Functional Columns
 #'
-#' @name mlr_pipeops_flatfunct
+#' @name mlr_pipeops_flatfun
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
@@ -14,7 +14,7 @@
 #'   selector_all()`, which selects all of the `functional` features.
 #'
 #' @export
-PipeOpFlatFunct = R6Class("PipeOpFlatFunct",
+PipeOpFlatFun = R6Class("PipeOpFlatFun",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
@@ -23,7 +23,7 @@ PipeOpFlatFunct = R6Class("PipeOpFlatFunct",
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
-    initialize = function(id = "flatfunct", param_vals = list()) {
+    initialize = function(id = "flatfun", param_vals = list()) {
       param_set = ps()
 
       input = data.table(
@@ -53,7 +53,8 @@ PipeOpFlatFunct = R6Class("PipeOpFlatFunct",
 
       # TODO: to be save we should write the .transform function (and not transform_dt), because
       # we cannot ensure that we don't have name-clashes with the original data.table
-      flattened = imap(dt,
+      flattened = imap(
+        dt,
         function(x, nm) {
           flat = flatten_functional(x)
           d = as.data.table(flat)
@@ -67,4 +68,3 @@ PipeOpFlatFunct = R6Class("PipeOpFlatFunct",
     }
   )
 )
-

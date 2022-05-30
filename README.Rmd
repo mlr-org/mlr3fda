@@ -27,10 +27,7 @@ knitr::opts_chunk$set(
 ## What is `mlr3fda`
 
 `mlr3fda` extends `mlr3` to [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
-It introduces the feature type `"functional"`, as well as basic
-infrastructure for common operations, such as flattening of functional data
-using e.g. `PipeOpFlatFunct`, or feature extraction from functional data via
-`PipeOpFFE` (Functional Feature Extraction).
+We use the `tfd_irreg` datatype that is defined in the [tf][https://github.com/fabian-s/tf] R package
 
 ## Installation
 
@@ -40,25 +37,18 @@ remotes::install_github("mlr-org/mlr3fda")
 
 ## Example Usage
 
-Build a `GraphLearner` that first extracts features from the functional 
+Build a `GraphLearner` that first extracts a `numeric()` feature (`"mean"`) from the functional
 data and then fits a standard random forest.
 
 ```{r}
-library(mlr3fda)
-library(mlr3verse)
+library("mlr3fda")
+library("mlr3verse")
 
 task = tsk("fuel")
 print(task)
-
 ids = partition(task)
 
-# define the features we want to extract
-extractors = list(
-  mean = extractor_mean(na.rm = TRUE),
-  max = extractor_max(na.rm = TRUE),
-  slope = extractor_slope()
-)
-graph = po("ffe", extractors = extractors) %>>%
+graph = po("ffs", feature = "mean", window = 5, drop = TRUE) %>>%
   po("learner", learner = lrn("regr.ranger"))
 
 glrn = as_learner(graph)

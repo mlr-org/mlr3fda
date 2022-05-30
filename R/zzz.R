@@ -17,13 +17,12 @@
 register_mlr3 = function() {
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_pipeops = utils::getFromNamespace("mlr_pipeops", ns = "mlr3pipelines")
-  mlr_pipeops$add("fmean", PipeOpFMean)
+  mlr_pipeops$add("ffs", PipeOpFFS)
   mlr_task = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
   mlr_tasks$add("fuel", load_task_fuel)
   mlr_tasks$add("phoneme", load_task_phoneme)
   mlr_reflections$task_feature_types[["fun"]] = "tfd_irreg"
-  mlr_pipeops$add("flatfunct", PipeOpFlatFunct)
-  mlr_pipeops$add("ffe", PipeOpFFE)
+  mlr_pipeops$add("flatfun", PipeOpFlatFun)
 }
 
 

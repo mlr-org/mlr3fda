@@ -18,11 +18,9 @@ status](https://www.r-pkg.org/badges/version/mlr3fda)](https://CRAN.R-project.or
 ## What is `mlr3fda`
 
 `mlr3fda` extends `mlr3` to [functional
-data](https://en.wikipedia.org/wiki/Functional_data_analysis). It
-introduces the feature type `"functional"`, as well as basic
-infrastructure for common operations, such as flattening of functional
-data using e.g. `PipeOpFlatFunct`, or feature extraction from functional
-data via `PipeOpFFE` (Functional Feature Extraction).
+data](https://en.wikipedia.org/wiki/Functional_data_analysis). We use
+the `tfd_irreg` datatype that is defined in the
+\[tf\]\[<https://github.com/fabian-s/tf>\] R package
 
 ## Installation
 
@@ -32,12 +30,13 @@ remotes::install_github("mlr-org/mlr3fda")
 
 ## Example Usage
 
-Build a `GraphLearner` that first extracts features from the functional
-data and then fits a standard random forest.
+Build a `GraphLearner` that first extracts a `numeric()` feature
+(`"mean"`) from the functional data and then fits a standard random
+forest.
 
 ``` r
-library(mlr3fda)
-library(mlr3verse)
+library("mlr3fda")
+library("mlr3verse")
 #> Loading required package: mlr3
 
 task = tsk("fuel")
@@ -48,16 +47,9 @@ print(task)
 #> * Features (3):
 #>   - fun (2): NIR, UVVIS
 #>   - dbl (1): h20
-
 ids = partition(task)
 
-# define the features we want to extract
-extractors = list(
-  mean = extractor_mean(na.rm = TRUE),
-  max = extractor_max(na.rm = TRUE),
-  slope = extractor_slope()
-)
-graph = po("ffe", extractors = extractors) %>>%
+graph = po("ffs", feature = "mean", window = 5, drop = TRUE) %>>%
   po("learner", learner = lrn("regr.ranger"))
 
 glrn = as_learner(graph)
@@ -67,11 +59,11 @@ glrn$train(task, row_ids = ids$train)
 glrn$predict(task, row_ids = ids$test)
 #> <PredictionRegr> for 43 observations:
 #>     row_ids   truth response
-#>           3 23.8400 23.85014
-#>          18 26.1760 22.93755
-#>          19 30.6730 23.10221
+#>           3 23.8400 22.21507
+#>          15 31.1860 28.92541
+#>          16 29.9330 26.06360
 #> ---                         
-#>          14  7.0037 26.67273
-#>          25  6.1689 21.72150
-#>          36 12.1890 24.24161
+#>          25  6.1689 12.32691
+#>          47 11.5560 16.28625
+#>         117  7.6153 19.13527
 ```
