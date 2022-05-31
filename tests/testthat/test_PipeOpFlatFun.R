@@ -4,8 +4,8 @@ test_that("PipeOpFlatFun works", {
   x = pop$train(list(task))[[1L]]
   expected_features = c(
     "h20",
-    paste0("UVVIS.", 1:134),
-    paste0("NIR.", 1:231)
+    paste0("UVVIS_", 1:134),
+    paste0("NIR_", 1:231)
   )
   expect_set_equal(x$feature_names, expected_features)
 
@@ -13,7 +13,7 @@ test_that("PipeOpFlatFun works", {
   x = pop$train(list(task))[[1L]]
   expected_features = c(
     "h20",
-    paste0("UVVIS.", 1:134),
+    paste0("UVVIS_", 1:134),
     "NIR"
   )
   expect_set_equal(x$feature_names, expected_features)

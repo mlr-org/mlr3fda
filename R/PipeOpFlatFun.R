@@ -5,9 +5,7 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
-#' * `as_features` :: `logical()`\cr
-#'   Whether to add the Flattened values to the features of the task.
-#' * `selector` :: `function` | [`Selector`][mlr3pipelines::Selector] \cr
+#' * `affect_columns` :: `function` | [`Selector`][mlr3pipelines::Selector] \cr
 #'   [`Selector`][mlr3pipelines::Selector] function, takes a `Task` as argument and returns a `character`
 #'   of features to keep. The flattening is only applied to those columns.\cr
 #'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
@@ -37,7 +35,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
         param_set = ps(),
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = "functional"
+        feature_types = "tfd_irreg"
       )
     }
   ),
@@ -49,20 +47,20 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
       }
       dt = task$data(cols = cols)
 
-      # TODO: check that there are no name clashes
-
-      # TODO: to be save we should write the .transform function (and not transform_dt), because
-      # we cannot ensure that we don't have name-clashes with the original data.table
       flattened = imap(
         dt,
         function(x, nm) {
-          flat = flatten_functional(x)
+          flat = as.matrix(x)
           d = as.data.table(flat)
+          d = set_names(d, sprintf("%s_%s", nm, seq(ncol(flat))))
           d
         }
       )
+      names(flattened) = NULL # this does not set the data.table names to NULL but the list names
       # convert to data.table and append names
       dt_flat = invoke(cbind, .args = flattened)
+      unique_names = uniqueify(colnames(dt_flat), task$col_info$id)
+      set_names(dt_flat, unique_names)
 
       task$select(setdiff(task$feature_names, cols))$cbind(dt_flat)
     }

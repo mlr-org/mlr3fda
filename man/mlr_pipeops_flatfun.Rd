@@ -14,9 +14,7 @@ Flattens Functional Columns
 The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
 parameters:
 \itemize{
-\item \code{as_features} :: \code{logical()}\cr
-Whether to add the Flattened values to the features of the task.
-\item \code{selector} :: \code{function} | \code{\link[mlr3pipelines:Selector]{Selector}} \cr
+\item \code{affect_columns} :: \code{function} | \code{\link[mlr3pipelines:Selector]{Selector}} \cr
 \code{\link[mlr3pipelines:Selector]{Selector}} function, takes a \code{Task} as argument and returns a \code{character}
 of features to keep. The flattening is only applied to those columns.\cr
 See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Default is
@@ -37,7 +35,6 @@ selector_all()\verb{, which selects all of the }functional` features.
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="help"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-help'><code>mlr3pipelines::PipeOp$help()</code></a></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-predict'><code>mlr3pipelines::PipeOp$predict()</code></a></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-print'><code>mlr3pipelines::PipeOp$print()</code></a></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-train'><code>mlr3pipelines::PipeOp$train()</code></a></li>
