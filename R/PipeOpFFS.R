@@ -27,9 +27,11 @@
 #'   The window specifies the d such that all values within $[x - w, x]$ are used to compute the
 #'   simple feature. Here $x$ is the rightmost (or leftmost, if `left == TRUE`) argument for
 #'   which the function was observed.
-#' * `feature` :: `charater()` \cr
+#' * `feature` :: `character()` \cr
 #'   One of `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`.
 #'   The feature that is extracted.
+#' * `left` :: `logical()` \cr
+#'   Whether to construct the window on the "left" (TRUE) or the "right" (FALSE) side.
 #'
 #' @section Methods:
 #' Only methods inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]/
@@ -100,11 +102,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
       features = map(
         cols,
         function(col) {
-          if (one_window) {
-            window_col = window
-          } else {
-            window_col = window[[col]]
-          }
+          window_col = ifelse(one_window, window, window[[col]])
           x = dt[[col]]
           invoke(fextractor, x = x, window = window_col, left = left)
         }
@@ -126,18 +124,17 @@ PipeOpFFS = R6Class("PipeOpFFS",
 
 make_fextractor = function(f) {
   function(x, window = Inf, left = FALSE) {
-    assert_numeric(window, len = 1L, min = 0, null.ok = TRUE)
+    assert_numeric(window, len = 1L, lower = 0, null.ok = FALSE)
     m = numeric(length(x))
 
-    args_vec = tf::tf_arg(x)
-    values_vec = map(unclass(x), "value")
+    args = tf::tf_arg(x)
 
     for (i in seq_along(x)) {
-      args = args_vec[[i]]
-      values = values_vec[[i]]
+      arg = args[[i]]
+      value = tf::tf_evaluate(x[i], arg)[[1L]]
 
       if (is.infinite(window)) {
-        m[i] = mean(values)
+        m[i] = f(arg, value)
       } else {
         # here it is assumed that there are no NAs (NA values are dropped when creating tfd)
         # Here it holds that:
@@ -146,25 +143,25 @@ make_fextractor = function(f) {
         # necessarily the lower arg)
         if (left) {
           lower = 1
-          upper_max = args[1L] + window
-          upper = Position(function(v) v <= upper_max, args, right = left)
+          upper_max = arg[1L] + window
+          upper = Position(function(v) v <= upper_max, arg, right = left)
         } else {
-          lower_min = args[length(args)] - window
-          lower = Position(function(v) v >= lower_min, args, right = left)
-          upper = length(args)
+          lower_min = arg[length(arg)] - window
+          lower = Position(function(v) v >= lower_min, arg, right = left)
+          upper = length(arg)
         }
-        m[i] = f(values[lower:upper])
+        m[i] = f(arg = arg[lower:upper], value = value[lower:upper])
       }
     }
     return(m)
   }
 }
 
-fmean = make_fextractor(mean)
-fmax = make_fextractor(max)
-fmin = make_fextractor(min)
-fmedian = make_fextractor(median)
-fslope = make_fextractor(function(x) coefficients(lm(arg ~ value, x))["(Intercept)"])
+fmean = make_fextractor(function(arg, value) mean(value))
+fmax = make_fextractor(function(arg, value) max(value))
+fmin = make_fextractor(function(arg, value) min(value))
+fmedian = make_fextractor(function(arg, value) median(value))
+fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))["(Intercept)"])
 
 check_window = function(x) {
   if (test_numeric(x, len = 1, lower = 0, null.ok = FALSE)) {
@@ -172,6 +169,6 @@ check_window = function(x) {
   } else if (test_numeric(x, min.len = 1L, any.missing = FALSE, names = "named", lower = 0)) {
     return(TRUE)
   } else {
-    return("Window must be numeric, named list or NULL.")
+    return("Window must be either scalar numeric or named numeric.")
   }
 }

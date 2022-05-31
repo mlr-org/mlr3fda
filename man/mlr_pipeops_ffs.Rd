@@ -28,9 +28,11 @@ of features to use.\cr
 See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
 \item \code{window} :: \code{integer()} | named \code{list()} | \verb{NULL \\cr The window size. When passing a named list, different window sizes can be specified for each feature by using it's name. If left }NULL\verb{, the window size is set to Inf. The window specifies the d such that all values within $[x - w, x]$ are used to compute the simple feature. Here $x$ is the rightmost (or leftmost, if }left == TRUE`) argument for
 which the function was observed.
-\item \code{feature} :: \code{charater()} \cr
+\item \code{feature} :: \code{character()} \cr
 One of \code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"}.
 The feature that is extracted.
+\item \code{left} :: \code{logical()} \cr
+Whether to construct the window on the "left" (TRUE) or the "right" (FALSE) side.
 }
 }
 
@@ -53,7 +55,6 @@ Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{P
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="help"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-help'><code>mlr3pipelines::PipeOp$help()</code></a></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-predict'><code>mlr3pipelines::PipeOp$predict()</code></a></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-print'><code>mlr3pipelines::PipeOp$print()</code></a></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-train'><code>mlr3pipelines::PipeOp$train()</code></a></li>
