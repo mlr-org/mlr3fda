@@ -85,7 +85,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
       left = pars$left
       window = pars$window
 
-      feature_names = uniqueify(sprintf("%s.f%s", cols, feature), task$col_info$id)
+      feature_names = uniqueify(sprintf("%s.%s", cols, feature), task$col_info$id)
 
       one_window = length(window) == 1L
 
