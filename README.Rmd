@@ -21,39 +21,78 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/mlr3fda)](https://CRAN.R-project.org/package=mlr3fda)
 <!-- badges: end -->
 
-`mlr3` extension for functional data analysis.
-
-
-## What is `mlr3fda`
-
-`mlr3fda` extends `mlr3` to [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
-We use the `tfd_irreg` datatype that is defined in the [tf][https://github.com/fabian-s/tf] R package
+The goal of mlr3fda is to extend `mlr3` to
+[functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
+We use the `tfd_irreg` datatype that is defined in the [tf](https://github.com/fabian-s/tf) R package.
 
 ## Installation
 
-```r
-remotes::install_github("mlr-org/mlr3fda")
+You can install the development version of `mlr3fda` from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("mlr-org/mlr3fda")
 ```
 
-## Example Usage
+## Example
 
-Build a `GraphLearner` that first extracts a `numeric()` feature (`"mean"`) from the functional
-data and then fits a standard random forest.
+After loading `mlr3fda` a new feature type is available.
 
-```{r}
+```{r task_feature_types}
+library(mlr3)
+mlr_reflections$task_feature_types
+
+library(mlr3fda)
+mlr_reflections$task_feature_types
+```
+
+For tutorials on how to create functional data, see the [documentation](https://github.com/fabian-s/tf)
+of the `tf` package.
+
+```{r data, dpi = 300}
+data("fuel", package = "mlr3fda")
+
+plot(fuel$UVVIS)
+```
+
+Data with `tf_irreg` columns can be converted to a `Task` just like any other
+dataset.
+
+```{r task}
+task = as_task_regr(fuel, target = "heatan")
+task
+```
+
+Currently there are no `Learner`s that directly operate on functional data.
+However one can extract simple functional features using the `PipeOpFFS`.
+
+
+```{r ffs, fig.width = 5, fig.height = 3}
 library("mlr3fda")
 library("mlr3verse")
 
-task = tsk("fuel")
-print(task)
+po_fmean = po("ffs", feature = "mean", window = 5)
+
+po_fmean$train(list(task))[[1L]]
+```
+
+This can be combined with a `Learner` into a complete `Graph`.
+
+```{r graph}
+library(mlr3pipelines)
+
 ids = partition(task)
 
+# drop = TRUE means we remove the functional columns as features
 graph = po("ffs", feature = "mean", window = 5, drop = TRUE) %>>%
-  po("learner", learner = lrn("regr.ranger"))
+  po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
 
 glrn$train(task, row_ids = ids$train)
 
 glrn$predict(task, row_ids = ids$test)
+
 ```
+
+
