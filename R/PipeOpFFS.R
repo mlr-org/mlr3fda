@@ -161,7 +161,7 @@ fmean = make_fextractor(function(arg, value) mean(value))
 fmax = make_fextractor(function(arg, value) max(value))
 fmin = make_fextractor(function(arg, value) min(value))
 fmedian = make_fextractor(function(arg, value) median(value))
-fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))["(Intercept)"])
+fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
 
 check_window = function(x) {
   if (test_numeric(x, len = 1, lower = 0, null.ok = FALSE)) {
