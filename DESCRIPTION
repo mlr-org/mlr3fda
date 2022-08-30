@@ -15,7 +15,7 @@ Imports:
   mlr3pipelines,
   tf
 Remotes:
-  fabian-s/tf
+  tidyfun/tf
 License: LGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
