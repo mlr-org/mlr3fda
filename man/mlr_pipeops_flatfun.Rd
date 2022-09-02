@@ -5,9 +5,8 @@
 \alias{PipeOpFlatFun}
 \title{Flattens Functional Columns}
 \description{
-Flattens Functional Columns
-
-Flattens Functional Columns
+Convert regular functional features (e.g. all individuals are observed at the same time-points)
+to new columns, one for each value.
 }
 \section{Parameters}{
 
@@ -22,6 +21,12 @@ selector_all()\verb{, which selects all of the }functional` features.
 }
 }
 
+\examples{
+library(mlr3pipelines)
+task = tsk("fuel")
+pop = po("flatfun")
+task_flat = pop$train(list(task))
+}
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFlatFun}
 }

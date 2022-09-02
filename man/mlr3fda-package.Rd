@@ -4,15 +4,27 @@
 \name{mlr3fda-package}
 \alias{mlr3fda}
 \alias{mlr3fda-package}
-\title{mlr3fda: What the Package Does (One Line, Title Case)}
+\title{mlr3fda: Extending mlr3 to functional data analysis.}
 \description{
-Extends mlr3 with the functional data type.
+What the package does (one paragraph).
+}
+\section{Data types}{
+
+To extend mlr3 to functional data, two data types from the {tf} package are added:
+\itemize{
+\item \code{tfd_irreg} - Irregular functional data, i.e. the functions are observed for
+potentiall different inputs for each observation.
+\item \code{tfd_reg} - Regular functional data, i.e. the functions are observed for the same input
+for each individual.
+}
+
 Lang M, Binder M, Richter J, Schratz P, Pfisterer F, Coors S, Au Q, Casalicchio G, Kotthoff L, Bischl B (2019).
 \dQuote{mlr3: A modern object-oriented machine learning framework in R.}
 \emph{Journal of Open Source Software}.
 \doi{10.21105/joss.01903}, \url{https://joss.theoj.org/papers/10.21105/joss.01903}.
 }
+
 \author{
-\strong{Maintainer}: Sebastian Fischer \email{sebf.fischer@gmail.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Sebastian Fischer \email{sebf.fischer@gmail.com} (\href{https://orcid.org/0000-0002-9609-3197}{ORCID})
 
 }
