@@ -73,7 +73,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = "tfd_irreg"
+        feature_types = c("tfd_irreg", "tfd_reg")
       )
     }
   ),
@@ -92,7 +92,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
       feature = pars$feature
       left = pars$left
       right = pars$right
-      expect_true(left <= right)
+      assert_true(left <= right)
 
       # handle name clashes of generated features with existing columns
       feature_names = sprintf("%s_%s", cols, feature)
