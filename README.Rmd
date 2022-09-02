@@ -2,15 +2,10 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
+lgr::get_logger("mlr3")$set_threshold("warn")
+set.seed(1)
+options(datatable.print.class = FALSE, datatable.print.keys = FALSE)
 ```
 
 # mlr3fda
@@ -23,20 +18,20 @@ knitr::opts_chunk$set(
 
 The goal of mlr3fda is to extend `mlr3` to
 [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
-We use the `tfd_irreg` datatype that is defined in the [tf](https://github.com/fabian-s/tf) R package.
+We use the `tfd_irreg` datatype that is defined in the [tf](https://github.com/tidyfun/tf) R package.
 
 ## Installation
 
-You can install the development version of `mlr3fda` from [GitHub](https://github.com/) with:
+This package is not yet on CRAN, you can install the development version of `mlr3fda` from [GitHub](https://github.com/) with:
 
-``` r
+```{r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("mlr-org/mlr3fda")
 ```
 
 ## Example
 
-After loading `mlr3fda` a new feature type is available.
+After loading `mlr3fda` two new feature types are available.
 
 ```{r task_feature_types}
 library(mlr3)
@@ -46,45 +41,40 @@ library(mlr3fda)
 mlr_reflections$task_feature_types
 ```
 
-For tutorials on how to create functional data, see the [documentation](https://github.com/fabian-s/tf)
-of the `tf` package.
+The data types are:
+
+  * `tfd_irreg` - irregular functional data, i.e. the function of each observation is observed for potentially different values.
+  * `tfd_reg` - regular functional data, i.e. the function of each observation is observed for the same values.
+
+For tutorials on how to create functional data, see the [documentation](https://github.com/tidyfun/tf) of the tf package.
+
+Here we will start with the predefined fuel task, that has two regular functional columns as features.
 
 ```{r data, dpi = 300}
-data("fuel", package = "mlr3fda")
-
-plot(fuel$UVVIS)
-```
-
-Data with `tf_irreg` columns can be converted to a `Task` just like any other
-dataset.
-
-```{r task}
-task = as_task_regr(fuel, target = "heatan")
+task = tsk("fuel")
 task
 ```
 
 Currently there are no `Learner`s that directly operate on functional data.
-However one can extract simple functional features using the `PipeOpFFS`.
-
+However, it is possible to extract simple functional features using the `PipeOpFFS`, which in the example below calculates the average functional responses.
 
 ```{r ffs, fig.width = 5, fig.height = 3}
-library("mlr3fda")
-library("mlr3verse")
+library(mlr3pipelines)
 
-po_fmean = po("ffs", feature = "mean", window = 5)
+po_fmean = po("ffs", feature = "mean")
 
-po_fmean$train(list(task))[[1L]]
+task_fmean = po_fmean$train(list(task))[[1L]]
+task_fmean$head()
 ```
 
 This can be combined with a `Learner` into a complete `Graph`.
+We have to set `drop = TRUE`, so that the original functional features are removed from the task.
 
 ```{r graph}
-library(mlr3pipelines)
-
 ids = partition(task)
 
 # drop = TRUE means we remove the functional columns as features
-graph = po("ffs", feature = "mean", window = 5, drop = TRUE) %>>%
+graph = po("ffs", feature = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
@@ -92,7 +82,6 @@ glrn = as_learner(graph)
 glrn$train(task, row_ids = ids$train)
 
 glrn$predict(task, row_ids = ids$test)
-
 ```
 
 
