@@ -1,21 +1,23 @@
 Package: mlr3fda
-Title: What the Package Does (One Line, Title Case)
+Title: Extending mlr3 to functional data analysis
 Version: 0.0.0.9000
 Authors@R:
     person("Sebastian", "Fischer", , "sebf.fischer@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "0000-0002-9609-3197"))
 Description: What the package does (one paragraph).
+Depends:
+    R (>= 3.1.0),
+    mlr3 (>= 0.14.0)
 Imports:
-  R6,
-  checkmate,
-  data.table,
-  mlr3,
-  mlr3misc,
-  paradox,
-  mlr3pipelines,
-  tf
+    R6,
+    checkmate,
+    data.table,
+    mlr3misc,
+    paradox,
+    mlr3pipelines,
+    tf
 Remotes:
-  tidyfun/tf
+    tidyfun/tf
 License: LGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

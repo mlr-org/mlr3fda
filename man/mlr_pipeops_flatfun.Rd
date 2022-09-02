@@ -5,9 +5,8 @@
 \alias{PipeOpFlatFun}
 \title{Flattens Functional Columns}
 \description{
-Flattens Functional Columns
-
-Flattens Functional Columns
+Convert regular functional features (e.g. all individuals are observed at the same time-points)
+to new columns, one for each input value to the function.
 }
 \section{Parameters}{
 
@@ -22,6 +21,22 @@ selector_all()\verb{, which selects all of the }functional` features.
 }
 }
 
+\section{Naming}{
+
+The new names generally append a \verb{_1}, ...,  to the corresponding column name.
+However this can lead to name clashes with existing columns.
+This is solved as follows:
+If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
+be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
+a warning is given.
+}
+
+\examples{
+library(mlr3pipelines)
+task = tsk("fuel")
+pop = po("flatfun")
+task_flat = pop$train(list(task))
+}
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFlatFun}
 }

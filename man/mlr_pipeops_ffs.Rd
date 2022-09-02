@@ -48,6 +48,12 @@ Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{P
 \code{\link[mlr3pipelines:PipeOp]{PipeOp}}
 }
 
+\examples{
+library(mlr3pipelines)
+task = tsk("fuel")
+pop = po("ffs", feature = "mean")
+task_fmean = pop$train(list(task))[[1L]]
+}
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFFS}
 }
