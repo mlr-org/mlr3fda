@@ -26,4 +26,27 @@ test_that("PipeOpFlatFun works", {
     "NIR"
   )
   expect_set_equal(x$feature_names, expected_features)
+
+  # does not touch irreg
+  dat = data.table(
+    id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
+    arg = c(1, 7, 2, 3, 5),
+    value = c(1, 2, 3, 4, 5)
+  )
+  f = tf::tfd(dat, id = "id", arg = "arg", value = "value")
+  y = c(1, 2)
+  dat = data.table(f = f, y = y)
+  task = as_task_regr(dat, target = "y")
+  task_flat = pop$train(list(task))[[1L]]
+  expect_set_equal(task$feature_names, task_flat$feature_names)
+
+  # name clashes
+  dat = tsk("fuel")$select("NIR")$data(1)
+  dat$NIR_1 = 1
+  task = as_task_regr(dat, target = "heatan")
+
+  pop$train(list(task))
+
 })
+
+
