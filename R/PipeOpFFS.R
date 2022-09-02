@@ -39,6 +39,11 @@
 #' [`PipeOp`][mlr3pipelines::PipeOp]
 #'
 #' @export
+#' @examples
+#' library(mlr3pipelines)
+#' task = tsk("fuel")
+#' pop = po("ffs", feature = "mean")
+#' task_fmean = pop$train(list(task))[[1L]]
 PipeOpFFS = R6Class("PipeOpFFS",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
