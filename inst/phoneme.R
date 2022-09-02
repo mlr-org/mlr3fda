@@ -5,7 +5,7 @@ task = mlr::phoneme.task
 dat = task$env$data
 
 m = as.matrix(dat[, -151])
-X = as.tfd_irreg(tfd(m))
+X = as.tfd(tfd(m))
 
 
 phoneme = data.table(
@@ -13,12 +13,6 @@ phoneme = data.table(
   X = X
 )
 
+save(file = system.file("data", "phoneme.rda", package = "mlr3fda"), phoneme)
 
-save(file = "~/mlr/mlr3fda/data/phoneme.rda", phoneme)
-
-load(file = "~/mlr/mlr3fda/data/phoneme.rda")
-
-
-
-
-
+load(file = system.file("data", "phoneme.rda", package = "mlr3fda"))

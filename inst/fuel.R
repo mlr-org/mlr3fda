@@ -9,8 +9,8 @@ ids_nir = rep(1:129, each = 231)
 args_nir = rep(1:231, times = 129)
 
 
-UVVIS = as.tfd_irreg(tfd(dat[["UVVIS"]]))
-NIR = as.tfd_irreg(tfd(dat[["NIR"]]))
+UVVIS = as.tfd(tfd(dat[["UVVIS"]]))
+NIR = as.tfd(tfd(dat[["NIR"]]))
 
 dat_new = data.table(
   heatan = dat$heatan,
@@ -21,11 +21,6 @@ dat_new = data.table(
 
 
 fuel = dat_new
-save(file = "~/mlr/mlr3fda/data/fuel.rda", fuel)
+save(file = system.file("data", "fuel.rda", package = "mlr3fda"), fuel)
 
-load(file = "~/mlr/mlr3fda/data/fuel.rda")
-
-
-
-
-
+load(file = system.file("data", "fuel.rda", package = "mlr3fda"))

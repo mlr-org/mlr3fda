@@ -9,14 +9,15 @@
 \description{
 This dataset contains two functional covariates and one scalar covariate. The goal is
 to predict the heat value of some fuel based on the ultraviolet radiation spectrum and
-infrared ray radiation and one scalar column called h2o.\cr
+infrared ray radiation and one scalar column called h2o.
+
 This is a subset of the full dataset, which is contained in the package \code{FDboost}.
 }
 \section{Construction}{
 
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("fuel")
-tsk("fiel")
+tsk("fuel")
 }\if{html}{\out{</div>}}
 }
 
