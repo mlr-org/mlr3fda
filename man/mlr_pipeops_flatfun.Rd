@@ -6,7 +6,7 @@
 \title{Flattens Functional Columns}
 \description{
 Convert regular functional features (e.g. all individuals are observed at the same time-points)
-to new columns, one for each value.
+to new columns, one for each input value to the function.
 }
 \section{Parameters}{
 
@@ -19,6 +19,16 @@ of features to keep. The flattening is only applied to those columns.\cr
 See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Default is
 selector_all()\verb{, which selects all of the }functional` features.
 }
+}
+
+\section{Naming}{
+
+The new names generally append a \verb{_1}, ...,  to the corresponding column name.
+However this can lead to name clashes with existing columns.
+This is solved as follows:
+If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
+be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
+a warning is given.
 }
 
 \examples{

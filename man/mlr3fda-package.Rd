@@ -4,7 +4,7 @@
 \name{mlr3fda-package}
 \alias{mlr3fda}
 \alias{mlr3fda-package}
-\title{mlr3fda: Extending mlr3 to functional data analysis.}
+\title{mlr3fda: Extending mlr3 to functional data analysis}
 \description{
 What the package does (one paragraph).
 }
