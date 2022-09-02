@@ -19,21 +19,27 @@ Whether to drop the original \code{functional} features and only keep the extrac
 Note that this does not remove the features from the backend, but only from the active
 column role \code{feature}.
 \item \code{affect_columns} :: \code{function} | \code{\link{Selector}} | \code{NULL} \cr
-What columns the \code{\link{PipeOpTaskPreproc}} should operate on. This parameter
-is only present if the constructor is called with the \code{can_subset_cols}
-argument set to \code{TRUE} (the default).\cr The parameter must be a
-\code{\link{Selector}} function, which takes a \code{\link[mlr3:Task]{Task}} as argument and
-returns a \code{character}
-of features to use.\cr
+What columns the \code{\link{PipeOpTaskPreproc}} should operate on.
 See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
-\item \code{window} :: \code{integer()} | named \code{list()} | \verb{NULL \\cr The window size. When passing a named list, different window sizes can be specified for each feature by using it's name. If left }NULL\verb{, the window size is set to Inf. The window specifies the d such that all values within $[x - w, x]$ are used to compute the simple feature. Here $x$ is the rightmost (or leftmost, if }left == TRUE`) argument for
-which the function was observed.
 \item \code{feature} :: \code{character()} \cr
-One of \code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"}.
+One of \code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"},\code{"var"}.
 The feature that is extracted.
-\item \code{left} :: \code{logical()} \cr
-Whether to construct the window on the "left" (TRUE) or the "right" (FALSE) side.
+\item \code{left} :: \code{numeric()} \cr
+The left boundary of the window. Default is \code{-Inf}.
+The window is specified such that the all values >=left and <=right are kept for the computations.
+\item \code{right} :: \code{numeric()} \cr
+The right boundary of the window.
 }
+}
+
+\section{Naming}{
+
+The new names generally append a \verb{_\{feature\}} to the corresponding column name.
+However this can lead to name clashes with existing columns.
+This is solved as follows:
+If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
+be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
+a warning is given.
 }
 
 \section{Methods}{
@@ -55,9 +61,9 @@ Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{P
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-predict'><code>mlr3pipelines::PipeOp$predict()</code></a></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-print'><code>mlr3pipelines::PipeOp$print()</code></a></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-train'><code>mlr3pipelines::PipeOp$train()</code></a></li>
+<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-predict'><code>mlr3pipelines::PipeOp$predict()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-print'><code>mlr3pipelines::PipeOp$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-train'><code>mlr3pipelines::PipeOp$train()</code></a></span></li>
 </ul>
 </details>
 }}

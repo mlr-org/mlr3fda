@@ -8,30 +8,31 @@
 #' @description
 #' This is the class that extracts simple features from functional columns.
 #'
+#'
 #' @section Parameters:
 #' * `drop` :: `logical(1)`\cr
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
 #'   column role `feature`.
 #' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
-#'   What columns the [`PipeOpTaskPreproc`] should operate on. This parameter
-#'   is only present if the constructor is called with the `can_subset_cols`
-#'   argument set to `TRUE` (the default).\cr The parameter must be a
-#'   [`Selector`] function, which takes a [`Task`][mlr3::Task] as argument and
-#'   returns a `character`
-#'   of features to use.\cr
+#'   What columns the [`PipeOpTaskPreproc`] should operate on.
 #'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
-#' * `window` :: `integer()` | named `list()` | `NULL \cr
-#'   The window size. When passing a named list, different window sizes can be specified for each
-#'   feature by using it's name. If left `NULL`, the window size is set to Inf.
-#'   The window specifies the d such that all values within $[x - w, x]$ are used to compute the
-#'   simple feature. Here $x$ is the rightmost (or leftmost, if `left == TRUE`) argument for
-#'   which the function was observed.
 #' * `feature` :: `character()` \cr
-#'   One of `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`.
+#'   One of `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
 #'   The feature that is extracted.
-#' * `left` :: `logical()` \cr
-#'   Whether to construct the window on the "left" (TRUE) or the "right" (FALSE) side.
+#' * `left` :: `numeric()` \cr
+#'   The left boundary of the window. Default is `-Inf`.
+#'   The window is specified such that the all values >=left and <=right are kept for the computations.
+#' * `right` :: `numeric()` \cr
+#'   The right boundary of the window.
+#'
+#' @section Naming:
+#' The new names generally append a `_{feature}` to the corresponding column name.
+#' However this can lead to name clashes with existing columns.
+#' This is solved as follows:
+#' If a column was called `"x"` and the feature is `"mean"`, the corresponding new column will
+#' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()` and
+#' a warning is given.
 #'
 #' @section Methods:
 #' Only methods inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]/
@@ -49,17 +50,17 @@ PipeOpFFS = R6Class("PipeOpFFS",
     initialize = function(id = "ffe", param_vals = list()) {
       param_set = ps(
         drop = p_lgl(default = FALSE, tags = c("train", "predict")),
-        window = p_uty(tags = c("train", "predict"), custom_check = check_window),
+        left = p_dbl(default = -Inf, tags = c("train", "predict")),
+        right = p_dbl(default = Inf, tags = c("train", "predict")),
         feature = p_fct(
-          levels = c("mean", "max", "min", "slope", "median"),
+          levels = c("mean", "max", "min", "slope", "median", "var"),
           tags = c("train", "predict", "required")
-        ),
-        left = p_lgl(default = FALSE, tags = c("train", "predict"))
+        )
       )
       param_set$values = list(
-        left = FALSE,
         drop = FALSE,
-        window = Inf
+        left = -Inf,
+        right = Inf
       )
 
       super$initialize(
@@ -85,26 +86,31 @@ PipeOpFFS = R6Class("PipeOpFFS",
       drop = pars$drop
       feature = pars$feature
       left = pars$left
-      window = pars$window
+      right = pars$right
+      expect_true(left <= right)
 
-      feature_names = uniqueify(sprintf("%s.%s", cols, feature), task$col_info$id)
-
-      one_window = length(window) == 1L
+      # handle name clashes of generated features with existing columns
+      feature_names = sprintf("%s_%s", cols, feature)
+      if (anyDuplicated(c(task$col_info$id, feature_names))) {
+        warningf("Unique names for features were created due to name clashes with existing columns.")
+        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
+        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
+      }
 
       fextractor = switch(feature,
         mean = fmean,
         median = fmedian,
         min = fmin,
         max = fmax,
-        slope = fslope
+        slope = fslope,
+        var = fvar
       )
 
       features = map(
         cols,
         function(col) {
-          window_col = ifelse(one_window, window, window[[col]])
           x = dt[[col]]
-          invoke(fextractor, x = x, window = window_col, left = left)
+          invoke(fextractor, x = x, left = left, right = right)
         }
       )
 
@@ -123,52 +129,34 @@ PipeOpFFS = R6Class("PipeOpFFS",
 )
 
 make_fextractor = function(f) {
-  function(x, window = Inf, left = FALSE) {
-    assert_numeric(window, len = 1L, lower = 0, null.ok = FALSE)
-    m = numeric(length(x))
+  function(x, left = -Inf, right = Inf) {
 
+    m = numeric(length(x))
     args = tf::tf_arg(x)
 
-    for (i in seq_along(x)) {
-      arg = args[[i]]
-      value = tf::tf_evaluate(x[i], arg)[[1L]]
+    map_dbl(
+      seq_along(x),
+      function(i) {
+        arg = args[[i]]
+        value = tf::tf_evaluate(x[i], arg)[[1L]]
 
-      if (is.infinite(window)) {
-        m[i] = f(arg, value)
-      } else {
-        # here it is assumed that there are no NAs (NA values are dropped when creating tfd)
-        # Here it holds that:
-        # * Position always finds an element
-        # * There are no NA values (otherwise length(args) is not necessarily the upper and 1 not
-        # necessarily the lower arg)
-        if (left) {
-          lower = 1
-          upper_max = arg[1L] + window
-          upper = Position(function(v) v <= upper_max, arg, right = left)
+        lower = Position(function(v) v >= left, arg)
+        upper = Position(function(v) v <= right, arg, right = TRUE)
+
+        if (is.na(lower) || is.na(upper)) {
+          NA_real_ # no observation in the given interval [left, right]
         } else {
-          lower_min = arg[length(arg)] - window
-          lower = Position(function(v) v >= lower_min, arg, right = left)
-          upper = length(arg)
+          f(arg = arg[lower:upper], value = value[lower:upper])
         }
-        m[i] = f(arg = arg[lower:upper], value = value[lower:upper])
       }
-    }
-    return(m)
+    )
   }
 }
 
-fmean = make_fextractor(function(arg, value) mean(value))
-fmax = make_fextractor(function(arg, value) max(value))
-fmin = make_fextractor(function(arg, value) min(value))
-fmedian = make_fextractor(function(arg, value) median(value))
+fmean = make_fextractor(function(arg, value) mean(value, na.rm = T))
+fmax = make_fextractor(function(arg, value) max(value, na.rm = T))
+fmin = make_fextractor(function(arg, value) min(value, na.rm = T))
+fmedian = make_fextractor(function(arg, value) median(value, na.rm = T))
 fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
+fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = T), NA))
 
-check_window = function(x) {
-  if (test_numeric(x, len = 1, lower = 0, null.ok = FALSE)) {
-    return(TRUE)
-  } else if (test_numeric(x, min.len = 1L, any.missing = FALSE, names = "named", lower = 0)) {
-    return(TRUE)
-  } else {
-    return("Window must be either scalar numeric or named numeric.")
-  }
-}
