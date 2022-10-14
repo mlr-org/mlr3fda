@@ -7,7 +7,7 @@
 #'
 #' @description
 #' This is the class that extracts simple features from functional columns.
-#'
+#' Note that it only operates on values that were actually observed and does not interpolate.
 #'
 #' @section Parameters:
 #' * `drop` :: `logical(1)`\cr
@@ -52,7 +52,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
     #'   Identifier of resulting object, default `"ffe"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
-    initialize = function(id = "ffe", param_vals = list()) {
+    initialize = function(id = "ffs", param_vals = list()) {
       param_set = ps(
         drop = p_lgl(default = FALSE, tags = c("train", "predict")),
         left = p_dbl(default = -Inf, tags = c("train", "predict")),
