@@ -158,10 +158,10 @@ make_fextractor = function(f) {
   }
 }
 
-fmean = make_fextractor(function(arg, value) mean(value, na.rm = T))
-fmax = make_fextractor(function(arg, value) max(value, na.rm = T))
-fmin = make_fextractor(function(arg, value) min(value, na.rm = T))
-fmedian = make_fextractor(function(arg, value) median(value, na.rm = T))
+fmean = make_fextractor(function(arg, value) mean(value, na.rm = TRUE))
+fmax = make_fextractor(function(arg, value) max(value, na.rm = TRUE))
+fmin = make_fextractor(function(arg, value) min(value, na.rm = TRUE))
+fmedian = make_fextractor(function(arg, value) median(value, na.rm = TRUE))
 fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
-fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = T), NA))
+fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA))
 
