@@ -54,9 +54,9 @@ PipeOpFFS = R6Class("PipeOpFFS",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     initialize = function(id = "ffs", param_vals = list()) {
       param_set = ps(
-        drop = p_lgl(default = FALSE, tags = c("train", "predict")),
-        left = p_dbl(default = -Inf, tags = c("train", "predict")),
-        right = p_dbl(default = Inf, tags = c("train", "predict")),
+        drop = p_lgl(tags = c("train", "predict", "required")),
+        left = p_dbl(tags = c("train", "predict", "required")),
+        right = p_dbl(tags = c("train", "predict", "required")),
         feature = p_fct(
           levels = c("mean", "max", "min", "slope", "median", "var"),
           tags = c("train", "predict", "required")
@@ -87,7 +87,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
       # TODO: to be save we should write the .transform function (and not transform_dt), because
       # we cannot ensure that we don't have name-clashes with the original data.table
       # This is also a FIXME in mlr3pipelines
-      pars = self$param_set$values
+      pars = self$param_set$get_values()
       drop = pars$drop
       feature = pars$feature
       left = pars$left
@@ -142,7 +142,11 @@ make_fextractor = function(f) {
     map_dbl(
       seq_along(x),
       function(i) {
-        arg = args[[i]]
+        if (tf::is_irreg(x)) {
+          arg = args[[i]]
+        } else {
+          arg = args
+        }
         value = tf::tf_evaluate(x[i], arg)[[1L]]
 
         lower = Position(function(v) v >= left, arg)
