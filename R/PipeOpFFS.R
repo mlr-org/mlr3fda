@@ -48,7 +48,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
-    #' @param id ()`character(1)`)\cr
+    #' @param id (`character(1)`)\cr
     #'   Identifier of resulting object, default is `"ffs"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
