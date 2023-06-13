@@ -49,7 +49,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id ()`character(1)`)\cr
-    #'   Identifier of resulting object, default `"ffe"`.
+    #'   Identifier of resulting object, default is `"ffs"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     initialize = function(id = "ffs", param_vals = list()) {

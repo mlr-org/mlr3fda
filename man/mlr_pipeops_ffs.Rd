@@ -10,6 +10,7 @@
 }
 \description{
 This is the class that extracts simple features from functional columns.
+Note that it only operates on values that were actually observed and does not interpolate.
 }
 \section{Parameters}{
 
@@ -67,6 +68,7 @@ task_fmean = pop$train(list(task))[[1L]]
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
+<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="help"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-help'><code>mlr3pipelines::PipeOp$help()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-predict'><code>mlr3pipelines::PipeOp$predict()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-print'><code>mlr3pipelines::PipeOp$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-train'><code>mlr3pipelines::PipeOp$train()</code></a></span></li>
@@ -79,14 +81,14 @@ task_fmean = pop$train(list(task))[[1L]]
 \subsection{Method \code{new()}}{
 Initializes a new instance of this Class.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PipeOpFFS$new(id = "ffe", param_vals = list())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PipeOpFFS$new(id = "ffs", param_vals = list())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{()\code{character(1)})\cr
-Identifier of resulting object, default \code{"ffe"}.}
+Identifier of resulting object, default is \code{"ffs"}.}
 
 \item{\code{param_vals}}{(named \code{list})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would}
