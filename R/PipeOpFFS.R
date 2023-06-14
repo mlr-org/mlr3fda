@@ -13,7 +13,7 @@
 #' * `drop` :: `logical(1)`\cr
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
-#'   column role `feature`.
+#'   column role `feature`. Initial is `FALSE`.
 #' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
 #'   What columns the [`PipeOpTaskPreproc`] should operate on.
 #'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
@@ -21,10 +21,10 @@
 #'   One of `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
 #'   The feature that is extracted.
 #' * `left` :: `numeric()` \cr
-#'   The left boundary of the window. Default is `-Inf`.
+#'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
 #' * `right` :: `numeric()` \cr
-#'   The right boundary of the window.
+#'   The right boundary of the window. Initial is `Inf`.
 #'
 #' @section Naming:
 #' The new names generally append a `_{feature}` to the corresponding column name.
@@ -54,15 +54,15 @@ PipeOpFFS = R6Class("PipeOpFFS",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     initialize = function(id = "ffs", param_vals = list()) {
       param_set = ps(
-        drop = p_lgl(default = FALSE, tags = c("train", "predict")),
-        left = p_dbl(default = -Inf, tags = c("train", "predict")),
-        right = p_dbl(default = Inf, tags = c("train", "predict")),
+        drop = p_lgl(tags = c("train", "predict", "required")),
+        left = p_dbl(tags = c("train", "predict", "required")),
+        right = p_dbl(tags = c("train", "predict", "required")),
         feature = p_fct(
           levels = c("mean", "max", "min", "slope", "median", "var"),
           tags = c("train", "predict", "required")
         )
       )
-      param_set$values = list(
+      param_set$set_values(
         drop = FALSE,
         left = -Inf,
         right = Inf
@@ -87,7 +87,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
       # TODO: to be save we should write the .transform function (and not transform_dt), because
       # we cannot ensure that we don't have name-clashes with the original data.table
       # This is also a FIXME in mlr3pipelines
-      pars = self$param_set$values
+      pars = self$param_set$get_values()
       drop = pars$drop
       feature = pars$feature
       left = pars$left
@@ -135,26 +135,36 @@ PipeOpFFS = R6Class("PipeOpFFS",
 
 make_fextractor = function(f) {
   function(x, left = -Inf, right = Inf) {
-
-    m = numeric(length(x))
     args = tf::tf_arg(x)
+      
+    if (tf::is_reg(x)) {
+      lower = Position(function(v) v >= left, args)
+      upper = Position(function(v) v <= right, args, right = TRUE)
 
-    map_dbl(
-      seq_along(x),
-      function(i) {
-        arg = args[[i]]
-        value = tf::tf_evaluate(x[i], arg)[[1L]]
-
-        lower = Position(function(v) v >= left, arg)
-        upper = Position(function(v) v <= right, arg, right = TRUE)
-
-        if (is.na(lower) || is.na(upper)) {
-          NA_real_ # no observation in the given interval [left, right]
-        } else {
-          f(arg = arg[lower:upper], value = value[lower:upper])
-        }
+      if (is.na(lower) || is.na(upper)) {
+        return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
       }
-    )
+
+      res = map_dbl(seq_along(x), function(i) {
+        value = tf::tf_evaluate(x[i], args)[[1L]]
+        f(arg = args[lower:upper], value = value[lower:upper])
+      })
+      return(res)
+    }
+
+    map_dbl(seq_along(x), function(i) {
+      arg = args[[i]]
+      value = tf::tf_evaluate(x[i], arg)[[1L]]
+
+      lower = Position(function(v) v >= left, arg)
+      upper = Position(function(v) v <= right, arg, right = TRUE)
+
+      if (is.na(lower) || is.na(upper)) {
+        NA_real_ # no observation in the given interval [left, right]
+      } else {
+        f(arg = arg[lower:upper], value = value[lower:upper])
+      }
+    })
   }
 }
 

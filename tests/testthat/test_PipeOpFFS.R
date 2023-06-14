@@ -1,4 +1,27 @@
 test_that("PipeOpFFS works", {
+  # tf_reg works
+  dat = data.table(
+    id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
+    arg = rep(1:3, 2),
+    value = 1:6
+  )
+  f = tf::tfd(dat, id = "id", arg = "arg", value = "value")
+  y = c(1, 2)
+  dat = data.table(f = f, y = y)
+  task = as_task_regr(dat, target = "y")
+
+  po_fmean = po("ffs", feature = "mean", drop = TRUE)
+  task_fmean = po_fmean$train(list(task))[[1L]]
+  fmean = task_fmean$data()$f_mean
+  expect_true(all.equal(fmean, c(2, 5)))
+  
+  # return NA if not in interval
+  po_fmean = po("ffs", feature = "mean", drop = TRUE, left = 100, right = 200)
+  task_fmean = po_fmean$train(list(task))[[1L]]
+  fmean = task_fmean$data()$f_mean
+  expect_true(all.equal(fmean, rep(NA_real_, 2)))
+  
+  # tf_irreg works
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
     arg = c(1, 7, 2, 3, 5),
@@ -13,11 +36,17 @@ test_that("PipeOpFFS works", {
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_true(all.equal(fmean, c(2, 4.5)))
-
+  
   po_fmean = po("ffs", feature = "mean", drop = TRUE, left = 1, right = 3)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_true(all.equal(fmean, c(2, 4)))
+  
+  # return NA if not in interval
+  po_fmean = po("ffs", feature = "mean", drop = TRUE, left = 100, right = 200)
+  task_fmean = po_fmean$train(list(task))[[1L]]
+  fmean = task_fmean$data()$f_mean
+  expect_true(all.equal(fmean, rep(NA_real_, 2)))
 
   # drop works
   po_fmean = po("ffs", feature = "mean", drop = FALSE)
@@ -33,7 +62,6 @@ test_that("PipeOpFFS works", {
   task_fmean = po_fmean$train(list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, "f")
 })
-
 
 
 test_that("PipeOpFFS works (simple test) for all features", {

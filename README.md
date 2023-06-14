@@ -52,10 +52,10 @@ mlr_reflections$task_feature_types
 
 The data types are:
 
-  - `tfd_irreg` - irregular functional data, i.e. the function of each
-    observation is observed for potentially different values.
-  - `tfd_reg` - regular functional data, i.e. the function of each
-    observation is observed for the same values.
+- `tfd_irreg` - irregular functional data, i.e. the function of each
+  observation is observed for potentially different values.
+- `tfd_reg` - regular functional data, i.e. the function of each
+  observation is observed for the same values.
 
 For tutorials on how to create functional data, see the
 [documentation](https://github.com/tidyfun/tf) of the tf package.
@@ -110,13 +110,13 @@ task_fmean$head()
     ## 4:       -0.5821539,-0.4851725,-0.3282551,-0.5389530,-0.4092186,-0.3816549,...
     ## 5:       -0.6435039,-1.1232725,-0.6649561,-0.7912230,-0.7875426,-0.7048599,...
     ## 6:       -0.5037039,-0.8896675,-0.6620511,-0.7437430,-0.7579426,-0.8136399,...
-    ##         NIR_mean UVVIS_mean
-    ## 1:  0.2340553800  0.8743160
-    ## 2:  0.3175793230 -1.2873925
-    ## 3: -0.0783450003 -0.2015131
-    ## 4: -0.0248585836 -0.5389530
-    ## 5: -0.0870794843 -0.7875426
-    ## 6: -0.0002479363 -0.8136399
+    ##      NIR_mean UVVIS_mean
+    ## 1: 0.49851677  0.9636931
+    ## 2: 0.42557851 -0.7991967
+    ## 3: 0.01329275 -0.2645535
+    ## 4: 0.02031529 -0.4601558
+    ## 5: 0.08319121 -0.7310959
+    ## 6: 0.11900065 -0.7882897
 
 This can be combined with a `Learner` into a complete `Graph`. We have
 to set `drop = TRUE`, so that the original functional features are
@@ -138,10 +138,10 @@ glrn$predict(task, row_ids = ids$test)
 
     ## <PredictionRegr> for 43 observations:
     ##     row_ids   truth response
-    ##           3 23.8400 24.59233
-    ##           9 26.6610 24.59233
-    ##          10 24.9480 28.46162
+    ##           3 23.8400 13.73490
+    ##           9 26.6610 22.63414
+    ##          10 24.9480 28.51553
     ## ---                         
-    ##          14  7.0037 17.99860
-    ##         126 11.8050 17.99860
-    ##         127  8.8315 17.99860
+    ##          14  7.0037 25.63514
+    ##         126 11.8050 13.73490
+    ##         127  8.8315 25.63514
