@@ -18,7 +18,7 @@ Note that it only operates on values that were actually observed and does not in
 \item \code{drop} :: \code{logical(1)}\cr
 Whether to drop the original \code{functional} features and only keep the extracted features.
 Note that this does not remove the features from the backend, but only from the active
-column role \code{feature}.
+column role \code{feature}. Initial is \code{FALSE}.
 \item \code{affect_columns} :: \code{function} | \code{\link{Selector}} | \code{NULL} \cr
 What columns the \code{\link{PipeOpTaskPreproc}} should operate on.
 See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
@@ -26,10 +26,10 @@ See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which
 One of \code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"},\code{"var"}.
 The feature that is extracted.
 \item \code{left} :: \code{numeric()} \cr
-The left boundary of the window. Default is \code{-Inf}.
+The left boundary of the window. Initial is \code{-Inf}.
 The window is specified such that the all values >=left and <=right are kept for the computations.
 \item \code{right} :: \code{numeric()} \cr
-The right boundary of the window.
+The right boundary of the window. Initial is \code{Inf}.
 }
 }
 
