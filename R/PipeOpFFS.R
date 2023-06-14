@@ -142,15 +142,14 @@ make_fextractor = function(f) {
       upper = Position(function(v) v <= right, args, right = TRUE)
 
       if (is.na(lower) || is.na(upper)) {
-        return(NA_real_) # no observation in the given interval [left, right]
+        return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
       }
 
-      return(
-        map_dbl(seq_along(x), function(i) {
-          value = tf::tf_evaluate(x[i], args)[[1L]]
-          f(arg = args[lower:upper], value = value[lower:upper])
-        })
-      )
+      res <- map_dbl(seq_along(x), function(i) {
+        value = tf::tf_evaluate(x[i], args)[[1L]]
+        f(arg = args[lower:upper], value = value[lower:upper])
+      })
+      return(res)
     }
 
     map_dbl(seq_along(x), function(i) {
