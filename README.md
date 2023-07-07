@@ -13,7 +13,7 @@ status](https://www.r-pkg.org/badges/version/mlr3fda)](https://CRAN.R-project.or
 
 The goal of mlr3fda is to extend `mlr3` to [functional
 data](https://en.wikipedia.org/wiki/Functional_data_analysis). We use
-the `tfd_irreg` datatype that is defined in the
+the `tfd_reg` and `tfd_irreg` datatypes that are defined in the
 [tf](https://github.com/tidyfun/tf) R package.
 
 ## Installation

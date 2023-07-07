@@ -108,13 +108,14 @@ benchmark_fda <- function(n_weeks = 52,
   task <- as_task_regr(patients_tf, target = "y", id = "patients")
   graph <- build_graph(left = window_start, right = window_end)
 
-  microbenchmark::microbenchmark(
+  bench::mark(
     dplyr = analyse_dplyr(patients_long, window_start, window_end),
     data_table = analyse_dt(patients_dt, window_start, window_end),
     mlr3fda = analyse_fda(graph, task),
-    times = times
+    iterations = times,
+    check = FALSE
   )
 }
 
-benchmark_reg <- benchmark_fda(type = "reg")
-benchmark_irreg <- benchmark_fda(type = "irreg")
+benchmark_reg <- benchmark_fda(type = "reg", times = 100L)
+benchmark_irreg <- benchmark_fda(type = "irreg", times = 100L)
