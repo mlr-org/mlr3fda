@@ -49,23 +49,24 @@ analyse_dt <- function(patients, window_start, window_end) {
   ), keyby = .(patient_id, measurement_type)]
 }
 
-build_graph <- function(left = -Inf, right = Inf) {
+build_graph <- function(left = -Inf, right = Inf, type = c("main", "dev")) {
+  type <- match.arg(type)
   po_fmean <- po("ffs",
-    feature = "mean",
+    feature = if (type == "main") "mean" else "fmean",
     id = "mean",
     drop = FALSE,
     left = left,
     right = right
   )
   po_fvar <- po("ffs",
-    feature = "var",
+    feature = if (type == "main") "var" else "fvar",
     id = "var",
     drop = FALSE,
     left = left,
     right = right
   )
   po_slope <- po("ffs",
-    feature = "slope",
+    feature = if (type == "main") "slope" else "fslope",
     id = "slope",
     drop = FALSE,
     left = left,
@@ -106,16 +107,19 @@ benchmark_fda <- function(n_weeks = 52,
     tidyfun::tf_nest(systolic_bp:heart_rate, .id = "patient_id", .arg = "week")
   patients_tf$y <- rnorm(nrow(patients_tf), 0, 1)
   task <- as_task_regr(patients_tf, target = "y", id = "patients")
-  graph <- build_graph(left = window_start, right = window_end)
+  graph <- build_graph(left = window_start, right = window_end, type = "main")
+  graph_dev <- build_graph(
+    left = window_start, right = window_end, type = "dev"
+  )
 
   bench::mark(
     dplyr = analyse_dplyr(patients_long, window_start, window_end),
     data_table = analyse_dt(patients_dt, window_start, window_end),
     mlr3fda = analyse_fda(graph, task),
+    mlr3fda_dev = analyse_fda(graph_dev, task),
     iterations = times,
     check = FALSE
   )
 }
 
-benchmark_reg <- benchmark_fda(type = "reg", times = 100L)
-benchmark_irreg <- benchmark_fda(type = "irreg", times = 100L)
+benchmark <- benchmark_fda(type = "irreg", times = 100L)

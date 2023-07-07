@@ -58,7 +58,10 @@ PipeOpFFS = R6Class("PipeOpFFS",
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
         feature = p_fct(
-          levels = c("mean", "max", "min", "slope", "median", "var"),
+          levels = c(
+            "mean", "max", "min", "slope", "median", "var",
+            "fmean", "fmax", "fmin", "fslope", "fmedian", "fvar"
+          ),
           tags = c("train", "predict", "required")
         )
       )
@@ -108,7 +111,13 @@ PipeOpFFS = R6Class("PipeOpFFS",
         min = fmin,
         max = fmax,
         slope = fslope,
-        var = fvar
+        var = fvar,
+        fmean = ffmean,
+        fmedian = ffmedian,
+        fmin = ffmin,
+        fmax = ffmax,
+        fslope = ffslope,
+        fvar = ffvar
       )
 
       features = map(
@@ -168,6 +177,41 @@ make_fextractor = function(f) {
   }
 }
 
+make_ffextractor = function(f) {
+  function(x, left = -Inf, right = Inf) {
+    args = tf::tf_arg(x)
+      
+    if (tf::is_reg(x)) {
+      lower = Position(function(v) v >= left, args)
+      upper = Position(function(v) v <= right, args, right = TRUE)
+
+      if (is.na(lower) || is.na(upper)) {
+        return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
+      }
+
+      res = map_dbl(seq_along(x), function(i) {
+        value = tf::tf_evaluations(x[i])[[1L]]
+        f(arg = args[lower:upper], value = value[lower:upper])
+      })
+      return(res)
+    }
+
+    map_dbl(seq_along(x), function(i) {
+      arg = args[[i]]
+      value = tf::tf_evaluations(x[i])
+
+      lower = Position(function(v) v >= left, arg)
+      upper = Position(function(v) v <= right, arg, right = TRUE)
+
+      if (is.na(lower) || is.na(upper)) {
+        NA_real_ # no observation in the given interval [left, right]
+      } else {
+        f(arg = arg[lower:upper], value = value[lower:upper])
+      }
+    })
+  }
+}
+
 fmean = make_fextractor(function(arg, value) mean(value, na.rm = TRUE))
 fmax = make_fextractor(function(arg, value) max(value, na.rm = TRUE))
 fmin = make_fextractor(function(arg, value) min(value, na.rm = TRUE))
@@ -175,3 +219,9 @@ fmedian = make_fextractor(function(arg, value) median(value, na.rm = TRUE))
 fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
 fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA))
 
+ffmean = make_ffextractor(function(arg, value) mean(value, na.rm = TRUE))
+ffmax = make_ffextractor(function(arg, value) max(value, na.rm = TRUE))
+ffmin = make_ffextractor(function(arg, value) min(value, na.rm = TRUE))
+ffmedian = make_ffextractor(function(arg, value) median(value, na.rm = TRUE))
+ffslope = make_ffextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
+ffvar = make_ffextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA))
