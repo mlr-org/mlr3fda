@@ -63,7 +63,7 @@ build_graph <- function(left = -Inf, right = Inf) {
     left = left,
     right = right
   )
-  po_slope <- po("ffs",
+  po_fslope <- po("ffs",
     feature = "slope",
     id = "slope",
     drop = FALSE,
@@ -72,7 +72,7 @@ build_graph <- function(left = -Inf, right = Inf) {
   )
   po_fmean %>>%
     po_fvar %>>%
-    po_slope
+    po_fslope
 }
 
 analyse_fda <- function(graph, task) {

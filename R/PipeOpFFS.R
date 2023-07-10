@@ -108,7 +108,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
         min = fmin,
         max = fmax,
         slope = fslope,
-        var = fvar,
+        var = fvar
       )
 
       features = map(
