@@ -2,13 +2,12 @@ library(data.table)
 library(mlr3fda)
 library(mlr3pipelines)
 
+set.seed(1234)
 setDTthreads(threads = 1)
 
 generate_data <- function(n_patients = 100,
                           n_weeks = 10,
-                          type = c("reg", "irreg"),
-                          seed = 1234) {
-  set.seed(seed)
+                          type = c("reg", "irreg")) {
   if (match.arg(type) == "reg") {
     week <- 1:n_weeks
   } else {
@@ -49,24 +48,23 @@ analyse_dt <- function(patients, window_start, window_end) {
   ), keyby = .(patient_id, measurement_type)]
 }
 
-build_graph <- function(left = -Inf, right = Inf, type = c("main", "dev")) {
-  type <- match.arg(type)
+build_graph <- function(left = -Inf, right = Inf) {
   po_fmean <- po("ffs",
-    feature = if (type == "main") "mean" else "fmean",
+    feature = "mean",
     id = "mean",
     drop = FALSE,
     left = left,
     right = right
   )
   po_fvar <- po("ffs",
-    feature = if (type == "main") "var" else "fvar",
+    feature = "var",
     id = "var",
     drop = FALSE,
     left = left,
     right = right
   )
   po_slope <- po("ffs",
-    feature = if (type == "main") "slope" else "fslope",
+    feature = "slope",
     id = "slope",
     drop = FALSE,
     left = left,
@@ -81,45 +79,38 @@ analyse_fda <- function(graph, task) {
   graph$train(task)
 }
 
-benchmark_fda <- function(n_weeks = 52,
-                          n_patients = 100,
-                          window_start = 2,
-                          window_end = NULL,
-                          type = c("reg", "irreg"),
-                          seed = 1234,
-                          times = 100L) {
-  type <- match.arg(type)
-  window_end <- if (is.null(window_end)) floor(n_weeks * 0.8)
+results <- bench::press(
+  type = c("reg", "irreg"),
+  n_weeks = c(10, 52, 100),
+  n_patients = c(10, 100, 1000),
+  {
+    window_start <- 2
+    window_end <- floor(n_weeks * 0.8)
 
-  patients <- generate_data(
-    n_patients = n_patients, n_weeks = n_weeks, type = type, seed = seed
-  )
-  patients_long <- patients |>
-    tidyr::pivot_longer(
-      cols = systolic_bp:heart_rate,
-      names_to = "measurement_type",
-      values_to = "measurement_value"
+    patients <- generate_data(
+      n_patients = n_patients, n_weeks = n_weeks, type = type
     )
-  patients_dt <- as.data.table(patients_long)
+    patients_long <- patients |>
+      tidyr::pivot_longer(
+        cols = systolic_bp:heart_rate,
+        names_to = "measurement_type",
+        values_to = "measurement_value"
+      )
+    patients_dt <- as.data.table(patients_long)
 
-  patients_tf <- patients |>
-    dplyr::select(-c(age, gender, recovery_rate)) |>
-    tidyfun::tf_nest(systolic_bp:heart_rate, .id = "patient_id", .arg = "week")
-  patients_tf$y <- rnorm(nrow(patients_tf), 0, 1)
-  task <- as_task_regr(patients_tf, target = "y", id = "patients")
-  graph <- build_graph(left = window_start, right = window_end, type = "main")
-  graph_dev <- build_graph(
-    left = window_start, right = window_end, type = "dev"
-  )
+    patients_tf <- patients |>
+      dplyr::select(-c(age, gender, recovery_rate)) |>
+      tidyfun::tf_nest(systolic_bp:heart_rate, .id = "patient_id", .arg = "week")
+    patients_tf$y <- rnorm(nrow(patients_tf), 0, 1)
+    task <- as_task_regr(patients_tf, target = "y", id = "patients")
+    graph <- build_graph(left = window_start, right = window_end)
 
-  bench::mark(
-    dplyr = analyse_dplyr(patients_long, window_start, window_end),
-    data_table = analyse_dt(patients_dt, window_start, window_end),
-    mlr3fda = analyse_fda(graph, task),
-    mlr3fda_dev = analyse_fda(graph_dev, task),
-    iterations = times,
-    check = FALSE
-  )
-}
-
-benchmark <- benchmark_fda(type = "irreg", times = 100L)
+    bench::mark(
+      dplyr = analyse_dplyr(patients_long, window_start, window_end),
+      data_table = analyse_dt(patients_dt, window_start, window_end),
+      mlr3fda = analyse_fda(graph, task),
+      min_iterations = 100,
+      check = FALSE
+    )
+  }
+)
