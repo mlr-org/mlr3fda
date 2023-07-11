@@ -8,24 +8,29 @@ setDTthreads(threads = 1)
 generate_data <- function(n_patients = 100,
                           n_weeks = 10,
                           type = c("reg", "irreg")) {
-  if (match.arg(type) == "reg") {
+  type <- match.arg(type)
+  if (type == "reg") {
     week <- 1:n_weeks
-  } else {
-    week <- sample(1:n_weeks, n_weeks, replace = FALSE)
   }
   lapply(paste0("patient_", seq(1, n_patients)), function(patient_id) {
+    if (type == "irreg") {
+      week <- sample(n_weeks, sample(n_weeks, 1), replace = FALSE)
+      n_weeks <- length(week)
+    }
+    gender <- sample(c("Male", "Female"), 1)
     tibble::tibble(
-      patient_id = as.factor(patient_id),
+      patient_id = patient_id,
       week = week,
       systolic_bp = rnorm(n_weeks, 120, 15),
       diastolic_bp = rnorm(n_weeks, 80, 10),
       heart_rate = rnorm(n_weeks, 70, 10),
       age = sample(20:90, n_weeks, replace = TRUE),
-      gender = as.factor(sample(c("Male", "Female"), n_weeks, replace = TRUE)),
+      gender = rep(gender, n_weeks),
       recovery_rate = systolic_bp * 0.3 + diastolic_bp * 0.4 + heart_rate * 0.2
     )
   }) |>
-    dplyr::bind_rows()
+    dplyr::bind_rows() |>
+    dplyr::arrange(patient_id, week)
 }
 
 analyse_dplyr <- function(patients, window_start, window_end) {
@@ -81,10 +86,10 @@ analyse_fda <- function(graph, task) {
 
 results <- bench::press(
   type = c("reg", "irreg"),
-  n_weeks = c(10, 52, 100),
+  n_weeks = c(10, 50, 100),
   n_patients = c(10, 100, 1000),
   {
-    window_start <- 2
+    window_start <- floor(n_weeks * 0.2)
     window_end <- floor(n_weeks * 0.8)
 
     patients <- generate_data(
