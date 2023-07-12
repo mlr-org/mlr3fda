@@ -58,7 +58,8 @@ No. patients: 10, No. weeks: 10
 library(dplyr)
 library(gt)
 
-results <- readr::read_csv("benchmark_results.csv") |>
+# benchmarking results created in inst/bench/bench.R
+results <- readr::read_csv("results.csv") |>
   mutate(
     expression = ifelse(expression == "data_table", "data.table", expression),
     type = ifelse(type == "reg", "regular", "irregular"),

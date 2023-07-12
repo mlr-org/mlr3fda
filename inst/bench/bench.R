@@ -119,3 +119,7 @@ results <- bench::press(
     )
   }
 )
+
+results |>
+  dplyr::select(expression:total_time) |>
+  readr::write_csv("results.csv")
