@@ -1,0 +1,115 @@
+---
+title: "mlr3fda Benchmarking"
+format: 
+  beamer:
+    aspectratio: 169
+---
+
+## dplyr
+
+```{r echo=TRUE, eval=FALSE}
+patients |>
+  dplyr::filter(between(week, window_start, window_end)) |>
+  dplyr::group_by(patient_id, measurement_type) |>
+  dplyr::summarise(
+    mean = mean(measurement_value),
+    var = var(measurement_value),
+    slope = coef(lm(measurement_value ~ week))[[2]],
+    .groups = "drop"
+  )
+```
+
+## data.table
+
+```{r echo=TRUE, eval=FALSE}
+patients[between(week, window_start, window_end), .(
+  mean = mean(measurement_value),
+  var = var(measurement_value),
+  slope = coef(lm(measurement_value ~ week))[[2]]
+), keyby = .(patient_id, measurement_type)]
+```
+
+## mlr3fda
+
+```{r echo=TRUE, eval=FALSE}
+po_fmean <- po("ffs",
+  feature = "mean", id = "mean", drop = FALSE,
+  left = left, right = right
+)
+po_fvar <- po("ffs",
+  feature = "var", id = "var", drop = FALSE,
+  left = left, right = right
+)
+po_fslope <- po("ffs",
+  feature = "slope", id = "slope", drop = FALSE,
+  left = left, right = right
+)
+graph <- po_fmean %>>%
+    po_fvar %>>%
+    po_fslope
+graph$train(task)
+```
+
+## Small Data Set (100 Rows)
+
+No. patients: 10, No. weeks: 10
+
+```{r}
+library(dplyr)
+library(gt)
+
+# benchmarking results created in inst/bench/bench.R
+results <- readr::read_csv("results.csv") |>
+  mutate(
+    expression = ifelse(expression == "data_table", "data.table", expression),
+    type = ifelse(type == "reg", "regular", "irregular"),
+  )
+
+results |>
+  filter(n_weeks == 10, n_patients == 10) |>
+  select(expression, type, median, total_time, mem_alloc) |>
+  gt() |>
+  cols_label(
+    expression = "Library",
+    type = "Type",
+    median = "Median",
+    total_time = "Total Time",
+    mem_alloc = "Memory Allocation"
+  )
+```
+
+## Medium Data Set (5,000 Rows)
+
+No. patients: 100, No. weeks: 50
+
+```{r}
+results |>
+  filter(n_weeks == 50, n_patients == 100) |>
+  select(expression, type, median, total_time, mem_alloc) |>
+  gt() |>
+  cols_label(
+    expression = "Library",
+    type = "Type",
+    median = "Median",
+    total_time = "Total Time",
+    mem_alloc = "Memory Allocation"
+  )
+```
+
+## Large Data Set (100,000 Rows)
+
+No. patients: 1000, No. weeks: 100
+
+```{r}
+results |>
+  filter(n_weeks == 100, n_patients == 1000) |>
+  select(expression, type, median, total_time, mem_alloc) |>
+  gt() |>
+  cols_label(
+    expression = "Library",
+    type = "Type",
+    median = "Median",
+    total_time = "Total Time",
+    mem_alloc = "Memory Allocation"
+  )
+```

@@ -146,7 +146,7 @@ make_fextractor = function(f) {
       }
 
       res = map_dbl(seq_along(x), function(i) {
-        value = tf::tf_evaluate(x[i], args)[[1L]]
+        value = tf::tf_evaluations(x[i])[[1L]]
         f(arg = args[lower:upper], value = value[lower:upper])
       })
       return(res)
@@ -154,7 +154,7 @@ make_fextractor = function(f) {
 
     map_dbl(seq_along(x), function(i) {
       arg = args[[i]]
-      value = tf::tf_evaluate(x[i], arg)[[1L]]
+      value = tf::tf_evaluations(x[i])[[1L]]
 
       lower = Position(function(v) v >= left, arg)
       upper = Position(function(v) v <= right, arg, right = TRUE)
@@ -174,4 +174,3 @@ fmin = make_fextractor(function(arg, value) min(value, na.rm = TRUE))
 fmedian = make_fextractor(function(arg, value) median(value, na.rm = TRUE))
 fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
 fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA))
-
