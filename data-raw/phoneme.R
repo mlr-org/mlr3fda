@@ -13,6 +13,4 @@ phoneme = data.table(
   X = X
 )
 
-save(file = system.file("data", "phoneme.rda", package = "mlr3fda"), phoneme)
-
-load(file = system.file("data", "phoneme.rda", package = "mlr3fda"))
+usethis::use_data(phoneme)
