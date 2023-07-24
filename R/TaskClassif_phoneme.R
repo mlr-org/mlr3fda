@@ -25,7 +25,7 @@ load_task_phoneme = function(id = "phoneme") {
     id = id,
     backend = b,
     target = "class",
-    label = "Phoneme Classification"
+    label = "Phoneme Curves"
   )
   b$hash = task$man = "mlr3::mlr_tasks_phoneme"
   task

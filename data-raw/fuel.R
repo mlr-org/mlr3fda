@@ -20,4 +20,4 @@ dat_new = data.table(
 )
 
 fuel = dat_new
-usethis::use_data(fuel)
+usethis::use_data(fuel, overwrite = TRUE)

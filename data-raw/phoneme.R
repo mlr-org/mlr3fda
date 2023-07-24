@@ -13,4 +13,4 @@ phoneme = data.table(
   X = X
 )
 
-usethis::use_data(phoneme)
+usethis::use_data(phoneme, overwrite = TRUE)
