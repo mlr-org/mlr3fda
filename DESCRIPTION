@@ -18,6 +18,7 @@ Imports:
     mlr3misc,
     paradox,
     mlr3pipelines,
+    testthat,
     tf
 Remotes:
     tidyfun/tf
