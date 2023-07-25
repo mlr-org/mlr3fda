@@ -80,9 +80,10 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="mlr3fda">mlr3fda<a class="anchor" aria-label="anchor" href="#mlr3fda"></a>
 </h1></div>
+<p>Package Website: <a href="https://mlr3fda.mlr-org.com/">dev</a></p>
+<p>Extending mlr3 to functional data.</p>
 <!-- badges: start -->
 
-<p>The goal of mlr3fda is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. We use the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes that are defined in the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> R package.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -92,8 +93,14 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mlr-org/mlr3fda"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="status">Status<a class="anchor" aria-label="anchor" href="#status"></a>
 </h2>
+<p><code>mlr3fda</code> is still in an early stage of development. Nonetheless, all exported functions are tested and should work.</p>
+</div>
+<div class="section level2">
+<h2 id="what-is-mlr3fda">What is mlr3fda?<a class="anchor" aria-label="anchor" href="#what-is-mlr3fda"></a>
+</h2>
+<p>The goal of mlr3fda is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. We use the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes that are defined in the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> R package.</p>
 <p>After loading <code>mlr3fda</code> two new feature types are available.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3.mlr-org.com" class="external-link">mlr3</a></span><span class="op">)</span></span>
@@ -109,7 +116,7 @@
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" </span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">##         pxc     f_irreg       f_reg </span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   "POSIXct" "tfd_irreg"   "tfd_reg"</span></span></code></pre></div>
-<p>The data types are:</p>
+<p>The newly available data types are:</p>
 <ul>
 <li>
 <code>tfd_irreg</code> - irregular functional data, i.e. the function of each observation is observed for potentially different values.</li>
@@ -163,7 +170,7 @@
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4: 0.02031529 -0.4601558</span></span>
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 5: 0.08319121 -0.7310959</span></span>
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 6: 0.11900065 -0.7882897</span></span></code></pre></div>
-<p>This can be combined with a <code>Learner</code> into a complete <code>Graph</code>. We have to set <code>drop = TRUE</code>, so that the original functional features are removed from the task.</p>
+<p>This can be combined with a <code>Learner</code> into a complete <code>Graph</code>. We have to set <code>drop = TRUE</code> so that the original functional features are removed from the task.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ids</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></span>
 <span></span>
@@ -185,6 +192,13 @@
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="do">##          14  7.0037 25.63514</span></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">##         126 11.8050 13.73490</span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         127  8.8315 25.63514</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="bugs-questions-feedback">Bugs, Questions, Feedback<a class="anchor" aria-label="anchor" href="#bugs-questions-feedback"></a>
+</h2>
+<p><em>mlr3fda</em> is a free and open source software project that encourages participation and feedback. If you have any issues, questions, suggestions or feedback, please do not hesitate to open an “issue” about it on the GitHub page!</p>
+<p>In case of problems / bugs, it is often helpful if you provide a “minimum working example” that showcases the behaviour (but don’t worry about this if the bug is obvious).</p>
+<p>Please understand that the resources of the project are limited: response may sometimes be delayed by a few days, and some feature suggestions may be rejected if they are deemed too tangential to the vision behind the project.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
@@ -216,6 +230,8 @@
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/mlr-org/mlr3fda/actions/workflows/rcmdcheck.yaml" class="external-link"><img src="https://github.com/mlr-org/mlr3fda/actions/workflows/rcmdcheck.yaml/badge.svg" alt="RCMD Check"></a></li>
 <li><a href="https://CRAN.R-project.org/package=mlr3fda" class="external-link"><img src="https://www.r-pkg.org/badges/version/mlr3fda" alt="CRAN status"></a></li>
+<li><a href="https://stackoverflow.com/questions/tagged/mlr3" class="external-link"><img src="https://img.shields.io/badge/stackoverflow-mlr3-orange.svg" alt="StackOverflow"></a></li>
+<li><a href="https://lmmisld-lmu-stats-slds.srv.mwn.de/mlr_invite/" class="external-link"><img src="https://img.shields.io/badge/chat-mattermost-orange.svg" alt="Mattermost"></a></li>
 </ul>
 </div>
 
