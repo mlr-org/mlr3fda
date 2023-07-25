@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/index.html</loc>
   </url>
   <url>
-    <loc>/reference/dti.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/dti.html</loc>
   </url>
   <url>
-    <loc>/reference/fuel.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/fuel.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/mlr3fda-package.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr3fda-package.html</loc>
   </url>
   <url>
-    <loc>/reference/mlr_pipeops_ffs.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_ffs.html</loc>
   </url>
   <url>
-    <loc>/reference/mlr_pipeops_flatfun.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_flatfun.html</loc>
   </url>
   <url>
-    <loc>/reference/mlr_tasks_dti.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_tasks_dti.html</loc>
   </url>
   <url>
-    <loc>/reference/mlr_tasks_fuel.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_tasks_fuel.html</loc>
   </url>
   <url>
-    <loc>/reference/mlr_tasks_phoneme.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_tasks_phoneme.html</loc>
   </url>
   <url>
-    <loc>/reference/phoneme.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/phoneme.html</loc>
   </url>
 </urlset>
