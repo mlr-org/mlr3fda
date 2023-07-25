@@ -7,13 +7,16 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
     <loc>/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dti.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fuel.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -28,9 +31,15 @@
     <loc>/reference/mlr_pipeops_flatfun.html</loc>
   </url>
   <url>
+    <loc>/reference/mlr_tasks_dti.html</loc>
+  </url>
+  <url>
     <loc>/reference/mlr_tasks_fuel.html</loc>
   </url>
   <url>
     <loc>/reference/mlr_tasks_phoneme.html</loc>
+  </url>
+  <url>
+    <loc>/reference/phoneme.html</loc>
   </url>
 </urlset>
