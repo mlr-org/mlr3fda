@@ -30,3 +30,6 @@ load_task_phoneme = function(id = "phoneme") {
   b$hash = task$man = "mlr3::mlr_tasks_phoneme"
   task
 }
+
+#' @include zzz.R
+register_task("phoneme", load_task_phoneme)

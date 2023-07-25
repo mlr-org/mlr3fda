@@ -84,9 +84,6 @@ PipeOpFFS = R6Class("PipeOpFFS",
         return(task)
       }
       dt = task$data(cols = cols)
-      # TODO: to be save we should write the .transform function (and not transform_dt), because
-      # we cannot ensure that we don't have name-clashes with the original data.table
-      # This is also a FIXME in mlr3pipelines
       pars = self$param_set$get_values()
       drop = pars$drop
       feature = pars$feature
@@ -174,3 +171,6 @@ fmin = make_fextractor(function(arg, value) min(value, na.rm = TRUE))
 fmedian = make_fextractor(function(arg, value) median(value, na.rm = TRUE))
 fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
 fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA))
+
+#' @include zzz.R
+register_po("ffs", PipeOpFFS)

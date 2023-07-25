@@ -33,3 +33,6 @@ load_task_fuel = function(id = "fuel") {
   b$hash = task$man = "mlr3::mlr_tasks_fuel"
   task
 }
+
+#' @include zzz.R
+register_task("fuel", load_task_fuel)
