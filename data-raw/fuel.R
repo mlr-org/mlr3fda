@@ -19,8 +19,5 @@ dat_new = data.table(
   NIR = NIR
 )
 
-
 fuel = dat_new
-save(file = system.file("data", "fuel.rda", package = "mlr3fda"), fuel)
-
-load(file = system.file("data", "fuel.rda", package = "mlr3fda"))
+usethis::use_data(fuel, overwrite = TRUE)

@@ -136,7 +136,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
 make_fextractor = function(f) {
   function(x, left = -Inf, right = Inf) {
     args = tf::tf_arg(x)
-      
+
     if (tf::is_reg(x)) {
       lower = Position(function(v) v >= left, args)
       upper = Position(function(v) v <= right, args, right = TRUE)

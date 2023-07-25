@@ -19,3 +19,14 @@ NULL
 #' @usage data(phoneme)
 #' @format A data frame with 250 rows and 2 variables
 NULL
+
+#' The dti dataset
+#'
+#' See [mlr_tasks_dti] for a description of the dataset.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name dti
+#' @usage data(dti)
+#' @format A data frame with 340 rows and 5 variables
+NULL

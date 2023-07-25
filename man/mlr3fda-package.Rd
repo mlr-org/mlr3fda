@@ -27,4 +27,9 @@ Lang M, Binder M, Richter J, Schratz P, Pfisterer F, Coors S, Au Q, Casalicchio 
 \author{
 \strong{Maintainer}: Sebastian Fischer \email{sebf.fischer@gmail.com} (\href{https://orcid.org/0000-0002-9609-3197}{ORCID})
 
+Authors:
+\itemize{
+  \item Maximilian Muecke \email{muecke.maximilian@gmail.com} (\href{https://orcid.org/0009-0000-9432-9795}{ORCID})
+}
+
 }

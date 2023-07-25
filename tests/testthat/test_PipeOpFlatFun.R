@@ -48,5 +48,3 @@ test_that("PipeOpFlatFun works", {
   pop$train(list(task))
 
 })
-
-

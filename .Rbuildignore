@@ -24,3 +24,4 @@
 ^revdep$
 ^tic\.R$
 ^inst/bench$
+^data-raw$

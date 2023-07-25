@@ -26,7 +26,8 @@ load_task_fuel = function(id = "fuel") {
   task = TaskRegr$new(
     id = id,
     backend = b,
-    target = "heatan"
+    target = "heatan",
+    label = "Spectral Data of Fossil Fuels",
   )
 
   b$hash = task$man = "mlr3::mlr_tasks_fuel"

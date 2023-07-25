@@ -1,9 +1,12 @@
 Package: mlr3fda
 Title: Extending mlr3 to functional data analysis
 Version: 0.0.0.9000
-Authors@R:
+Authors@R: c(
     person("Sebastian", "Fischer", , "sebf.fischer@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-9609-3197"))
+           comment = c(ORCID = "0000-0002-9609-3197")),
+    person("Maximilian", "Muecke", , "muecke.maximilian@gmail.com", role = "aut",
+           comment = c(ORCID = "0009-0000-9432-9795"))
+  )
 Description: What the package does (one paragraph).
 Depends:
     R (>= 3.1.0),
@@ -22,3 +25,4 @@ License: LGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+LazyData: true

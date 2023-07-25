@@ -14,13 +14,13 @@ test_that("PipeOpFFS works", {
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_true(all.equal(fmean, c(2, 5)))
-  
+
   # return NA if not in interval
   po_fmean = po("ffs", feature = "mean", drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_true(all.equal(fmean, rep(NA_real_, 2)))
-  
+
   # tf_irreg works
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
@@ -36,12 +36,12 @@ test_that("PipeOpFFS works", {
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_true(all.equal(fmean, c(2, 4.5)))
-  
+
   po_fmean = po("ffs", feature = "mean", drop = TRUE, left = 1, right = 3)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_true(all.equal(fmean, c(2, 4)))
-  
+
   # return NA if not in interval
   po_fmean = po("ffs", feature = "mean", drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]

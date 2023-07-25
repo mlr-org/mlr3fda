@@ -13,5 +13,3 @@ test_that("uniqueify works", {
   expected = c("age.mean_1", "height.mean_2")
   expect_set_equal(observed, expected)
 })
-
-
