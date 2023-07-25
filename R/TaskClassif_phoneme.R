@@ -30,4 +30,3 @@ load_task_phoneme = function(id = "phoneme") {
   b$hash = task$man = "mlr3::mlr_tasks_phoneme"
   task
 }
-

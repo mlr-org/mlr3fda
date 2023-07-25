@@ -28,6 +28,7 @@ register_mlr3 = function() {
   mlr_task = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
   mlr_tasks$add("fuel", load_task_fuel)
   mlr_tasks$add("phoneme", load_task_phoneme)
+  mlr_tasks$add("dti", load_task_dti)
 
   # add pipeops
   mlr_pipeops$add("flatfun", PipeOpFlatFun)

@@ -8,7 +8,10 @@
 }
 \description{
 This dataset contains two functional covariates and three scalar covariate. The goal is
-to predict the PASAT score.
+to predict the PASAT score. \code{pasat} represents the PASAT score at each vist.
+\code{subject_id} represents the subject ID. \code{cca} represents the fractional anisotropy tract profiles from the corpus
+callosum. \code{sex} indicates subject's sex. \code{rcst} represents the fractional anisotropy tract profiles from the right
+corticospinal tract. \code{case} indicates wether the subject has multiple sclerosis. Rows with NAs are removed.
 
 This is a subset of the full dataset, which is contained in the package \code{refund}.
 }
@@ -24,4 +27,8 @@ tsk("dti")
 Goldsmith, Jeff, Bobb, Jennifer, Crainiceanu, M C, Caffo, Brian, Reich, Daniel (2011).
 \dQuote{Penalized functional regression.}
 \emph{Journal of Computational and Graphical Statistics}, \bold{20}(4), 830--851.
+
+Brain dataset courtesy of Gordon Kindlmann at the Scientific Computing and Imaging Institute, University of Utah,
+and Andrew Alexander, W. M. Keck Laboratory for Functional Brain Imaging and Behavior, University of
+Wisconsin-Madison.
 }
