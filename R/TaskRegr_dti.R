@@ -41,3 +41,6 @@ load_task_dti = function(id = "dti") {
   task$col_roles$feature = setdiff(task$col_roles$feature, "subject_id")
   task
 }
+
+#' @include zzz.R
+register_task("dti", load_task_dti)

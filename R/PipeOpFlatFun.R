@@ -85,3 +85,6 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
     }
   )
 )
+
+#' @include zzz.R
+register_po("flatfun", PipeOpFlatFun)
