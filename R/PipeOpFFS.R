@@ -136,15 +136,15 @@ make_fextractor = function(f) {
 
     if (tf::is_reg(x)) {
       interval = ffind(args, left = left, right = right)
+      lower = interval[[1L]]
+      upper = interval[[2L]]
 
-      if (any(is.na(interval))) {
+      if (is.na(lower) || is.na(upper)) {
         return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
       }
 
       res = map_dbl(seq_along(x), function(i) {
         value = tf::tf_evaluations(x[i])[[1L]]
-        lower = interval[[1L]]
-        upper = interval[[2L]]
         f(arg = args[lower:upper], value = value[lower:upper])
       })
       return(res)
@@ -155,12 +155,12 @@ make_fextractor = function(f) {
       value = tf::tf_evaluations(x[i])[[1L]]
 
       interval = ffind(arg, left = left, right = right)
+      lower = interval[[1L]]
+      upper = interval[[2L]]
 
-      if (any(is.na(interval))) {
+      if (is.na(lower) || is.na(upper)) {
         NA_real_ # no observation in the given interval [left, right]
       } else {
-        lower = interval[[1L]]
-        upper = interval[[2L]]
         f(arg = arg[lower:upper], value = value[lower:upper])
       }
     })
