@@ -169,15 +169,15 @@ make_fextractor = function(f) {
 
 ffind = function(x, left = -Inf, right = Inf) {
   len = length(x)
-  if (left <= x[[1]] && right >= x[[len]]) {
+  if (left <= x[[1L]] && right >= x[[len]]) {
     return(c(1L, len))
   }
-  if (left > x[[len]] || right < x[[1]]) {
-    return(rep(NA_integer_, 2))
+  if (left > x[[len]] || right < x[[1L]]) {
+    return(rep(NA_integer_, 2L))
   }
   interval = findInterval(c(left, right), x)
-  if (interval[[1]] < left) {
-    interval[[1]] = interval[[1]] + 1
+  if (interval[[1L]] < left) {
+    interval[[1L]] = interval[[1L]] + 1L
   }
   interval
 }
