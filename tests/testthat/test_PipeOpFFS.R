@@ -95,3 +95,15 @@ test_that("PipeOpFFS works with name clashes", {
     regexp = "Unique names for"
   )
 })
+
+test_that("ffind works", {
+  expect_equal(ffind(2:5, 1, 6), c(1, 4))
+  expect_equal(ffind(2:5, 6, 10), c(NA_integer_, NA_integer_))
+  expect_equal(ffind(1:5, 2, 4), c(2, 4))
+  x = c(1.2, 2.3, 3.4, 4.5)
+  expect_equal(ffind(x, 2.5, 4), c(3, 3))
+  x = c(-5, -3, -1, 1, 3)
+  expect_equal(ffind(x, -3, 1), c(2, 4))
+  x = c(2, 3, 4, 5)
+  expect_equal(ffind(x), c(1, 4))
+})
