@@ -176,7 +176,9 @@ ffind = function(x, left = -Inf, right = Inf) {
     return(rep(NA_integer_, 2L))
   }
   it = findInterval(c(left, right), x)
-  if (x[[it[[1L]]]] < left) {
+  if (it[[1L]] == 0L) {
+    it[[1L]] = 1L
+  } else if (x[[it[[1L]]]] < left) {
     it[[1L]] = it[[1L]] + 1L
   }
   it
