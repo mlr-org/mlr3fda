@@ -98,6 +98,10 @@ test_that("PipeOpFFS works with name clashes", {
 
 test_that("ffind works", {
   expect_equal(ffind(1:5, 2, 4), c(2, 4))
+  x = 0:10 * 3
+  expect_equal(ffind(x, 9, 25), c(4, 9))
+  expect_equal(ffind(x, 9.5, 24.5), c(5, 9))
+  expect_equal(ffind(x, 9.5, 21.5), c(5, 8))
   # non-integer
   x = c(1.2, 2.3, 3.4, 4.5)
   expect_equal(ffind(x, 2.5, 4), c(3, 3))

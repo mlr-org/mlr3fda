@@ -175,11 +175,11 @@ ffind = function(x, left = -Inf, right = Inf) {
   if (left > x[[len]] || right < x[[1L]]) {
     return(rep(NA_integer_, 2L))
   }
-  interval = findInterval(c(left, right), x)
-  if (interval[[1L]] < left) {
-    interval[[1L]] = interval[[1L]] + 1L
+  it = findInterval(c(left, right), x)
+  if (x[[it[[1L]]]] < left) {
+    it[[1L]] = it[[1L]] + 1L
   }
-  interval
+  it
 }
 
 fmean = make_fextractor(function(arg, value) mean(value, na.rm = TRUE))
