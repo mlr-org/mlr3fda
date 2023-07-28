@@ -60,7 +60,7 @@ register_mlr3pipelines = function() {
   mlr3misc::register_namespace_callback(pkgname, "mlr3pipelines", register_mlr3pipelines)
 }
 
-.onUnload = function(libPaths) { #nolint
+.onUnload = function(libPaths) { # nolint
   walk(names(mlr3fda_tasks), function(nm) mlr_tasks$remove(nm))
   walk(names(mlr3fda_pipeops), function(nm) mlr_pipeops$remove(nm))
   mlr_reflections$learner_feature_types = setdiff(mlr_reflections$learner_feature_types, mlr3fda_feature_types)

@@ -135,8 +135,9 @@ make_fextractor = function(f) {
     args = tf::tf_arg(x)
 
     if (tf::is_reg(x)) {
-      lower = Position(function(v) v >= left, args)
-      upper = Position(function(v) v <= right, args, right = TRUE)
+      interval = ffind(args, left = left, right = right)
+      lower = interval[[1L]]
+      upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
         return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
@@ -153,8 +154,9 @@ make_fextractor = function(f) {
       arg = args[[i]]
       value = tf::tf_evaluations(x[i])[[1L]]
 
-      lower = Position(function(v) v >= left, arg)
-      upper = Position(function(v) v <= right, arg, right = TRUE)
+      interval = ffind(arg, left = left, right = right)
+      lower = interval[[1L]]
+      upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
         NA_real_ # no observation in the given interval [left, right]
@@ -163,6 +165,23 @@ make_fextractor = function(f) {
       }
     })
   }
+}
+
+ffind = function(x, left = -Inf, right = Inf) {
+  len = length(x)
+  if (left <= x[[1L]] && right >= x[[len]]) {
+    return(c(1L, len))
+  }
+  if (left > x[[len]] || right < x[[1L]]) {
+    return(rep(NA_integer_, 2L))
+  }
+  it = findInterval(c(left, right), x)
+  if (it[[1L]] == 0L) {
+    it[[1L]] = 1L
+  } else if (x[[it[[1L]]]] < left) {
+    it[[1L]] = it[[1L]] + 1L
+  }
+  it
 }
 
 fmean = make_fextractor(function(arg, value) mean(value, na.rm = TRUE))
