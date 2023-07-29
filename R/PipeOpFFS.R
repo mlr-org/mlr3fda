@@ -57,10 +57,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
         drop = p_lgl(tags = c("train", "predict", "required")),
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
-        feature = p_fct(
-          levels = c("mean", "max", "min", "slope", "median", "var"),
-          tags = c("train", "predict", "required")
-        )
+        features = p_uty(tags = c("train", "predict", "required"))
       )
       param_set$set_values(
         drop = FALSE,
@@ -86,27 +83,43 @@ PipeOpFFS = R6Class("PipeOpFFS",
       dt = task$data(cols = cols)
       pars = self$param_set$get_values()
       drop = pars$drop
-      feature = pars$feature
+      features = pars$features
       left = pars$left
       right = pars$right
+      # TODO: why not check at initialize?
       assert_true(left <= right)
 
       # handle name clashes of generated features with existing columns
-      feature_names = sprintf("%s_%s", cols, feature)
+      feature_names = map(cols, function(col) {
+        imap(features, function(feature, nm) {
+          if (is.character(feature)) {
+            sprintf("%s_%s", col, feature)
+          } else {
+            sprintf("%s_%s", col, nm)
+          }
+        })
+      })
+      feature_names = unlist(feature_names, use.names = FALSE)
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
         warningf("Unique names for features were created due to name clashes with existing columns.")
         feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
         feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
       }
 
-      fextractor = switch(feature,
-        mean = fmean,
-        median = fmedian,
-        min = fmin,
-        max = fmax,
-        slope = fslope,
-        var = fvar
-      )
+      features = map(features, function(feature) {
+        if (is.function(feature)) {
+          return(feature)
+        }
+        switch(feature,
+          mean = fmean,
+          median = fmedian,
+          min = fmin,
+          max = fmax,
+          slope = fslope,
+          var = fvar
+        )
+      })
+      fextractor = make_fextractor(features)
 
       features = map(
         cols,
@@ -115,7 +128,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
           invoke(fextractor, x = x, left = left, right = right)
         }
       )
-
+      features = unlist(features, recursive = FALSE)
       features = set_names(features, feature_names)
 
       features = as.data.table(features)
@@ -125,12 +138,12 @@ PipeOpFFS = R6Class("PipeOpFFS",
       }
 
       task$select(setdiff(task$feature_names, cols))$cbind(features)
-      return(task)
+      task
     }
   )
 )
 
-make_fextractor = function(f) {
+make_fextractor = function(features) {
   function(x, left = -Inf, right = Inf) {
     args = tf::tf_arg(x)
 
@@ -140,17 +153,20 @@ make_fextractor = function(f) {
       upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
+        # TODO:change to for features list
         return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
       }
 
-      res = map_dbl(seq_along(x), function(i) {
+      res = map(seq_along(x), function(i) {
         value = tf::tf_evaluations(x[i])[[1L]]
-        f(arg = args[lower:upper], value = value[lower:upper])
+        map(features, function(f) {
+          f(arg = args[lower:upper], value = value[lower:upper])
+        })
       })
-      return(res)
+      return(transpose_dbl(res))
     }
 
-    map_dbl(seq_along(x), function(i) {
+    res = map(seq_along(x), function(i) {
       arg = args[[i]]
       value = tf::tf_evaluations(x[i])[[1L]]
 
@@ -159,12 +175,20 @@ make_fextractor = function(f) {
       upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
-        NA_real_ # no observation in the given interval [left, right]
+        rep(NA_real_, length(features)) # no observation in the given interval [left, right]
       } else {
-        f(arg = arg[lower:upper], value = value[lower:upper])
+        res = map(features, function(f) {
+          f(arg = arg[lower:upper], value = value[lower:upper])
+        })
       }
     })
+    transpose_dbl(res)
   }
+}
+
+transpose_dbl = function(.l) {
+  .l = transpose_list(.l)
+  map(.l, as.numeric)
 }
 
 ffind = function(x, left = -Inf, right = Inf) {
@@ -184,12 +208,12 @@ ffind = function(x, left = -Inf, right = Inf) {
   it
 }
 
-fmean = make_fextractor(function(arg, value) mean(value, na.rm = TRUE))
-fmax = make_fextractor(function(arg, value) max(value, na.rm = TRUE))
-fmin = make_fextractor(function(arg, value) min(value, na.rm = TRUE))
-fmedian = make_fextractor(function(arg, value) median(value, na.rm = TRUE))
-fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
-fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA))
+fmean = function(arg, value) mean(value, na.rm = TRUE)
+fmin = function(arg, value) min(value, na.rm = TRUE)
+fmax = function(arg, value) max(value, na.rm = TRUE)
+fmedian = function(arg, value) median(value, na.rm = TRUE)
+fslope = function(arg, value) coefficients(lm(value ~ arg))[[2L]]
+fvar = function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA)
 
 #' @include zzz.R
 register_po("ffs", PipeOpFFS)
