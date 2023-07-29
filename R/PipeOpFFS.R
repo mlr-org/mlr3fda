@@ -128,9 +128,9 @@ PipeOpFFS = R6Class("PipeOpFFS",
           invoke(fextractor, x = x, left = left, right = right)
         }
       )
+
       features = unlist(features, recursive = FALSE)
       features = set_names(features, feature_names)
-
       features = as.data.table(features)
 
       if (!drop) {
@@ -213,6 +213,7 @@ fmin = function(arg, value) min(value, na.rm = TRUE)
 fmax = function(arg, value) max(value, na.rm = TRUE)
 fmedian = function(arg, value) median(value, na.rm = TRUE)
 fslope = function(arg, value) coefficients(lm(value ~ arg))[[2L]]
+# TODO: why check for NULL?
 fvar = function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA)
 
 #' @include zzz.R
