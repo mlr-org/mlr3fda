@@ -14,8 +14,7 @@ generate_data <- function(n_patients = 100,
   }
   lapply(paste0("patient_", seq(1, n_patients)), function(patient_id) {
     if (type == "irreg") {
-      week <- sample(n_weeks, sample(n_weeks, 1), replace = FALSE)
-      n_weeks <- length(week)
+      week <- 1:n_weeks + sample(1:10, 1)
     }
     gender <- sample(c("Male", "Female"), 1)
     tibble::tibble(
@@ -54,34 +53,18 @@ analyse_dt <- function(patients, window_start, window_end) {
 }
 
 build_graph <- function(left = -Inf, right = Inf) {
-  po_fmean <- po("ffs",
-    feature = "mean",
+  pop <- po("ffs",
+    features = list("mean", "median", "slope"),
     id = "mean",
     drop = FALSE,
     left = left,
     right = right
   )
-  po_fvar <- po("ffs",
-    feature = "var",
-    id = "var",
-    drop = FALSE,
-    left = left,
-    right = right
-  )
-  po_fslope <- po("ffs",
-    feature = "slope",
-    id = "slope",
-    drop = FALSE,
-    left = left,
-    right = right
-  )
-  po_fmean %>>%
-    po_fvar %>>%
-    po_fslope
+  pop
 }
 
 analyse_fda <- function(graph, task) {
-  graph$train(task)
+  graph$train(list(task))
 }
 
 results <- bench::press(
