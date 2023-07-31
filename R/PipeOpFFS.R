@@ -153,8 +153,10 @@ make_fextractor = function(features) {
       upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
-        # TODO:change to for features list
-        return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
+        res = map(features, function(f) {
+          rep(NA_real_, length(x)) # no observation in the given interval [left, right]
+        })
+        return(res)
       }
 
       res = map(seq_along(x), function(i) {
