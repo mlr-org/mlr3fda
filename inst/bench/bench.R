@@ -54,8 +54,8 @@ analyse_dt <- function(patients, window_start, window_end) {
 
 build_graph <- function(left = -Inf, right = Inf) {
   pop <- po("ffs",
-    features = list("mean", "median", "slope"),
-    id = "mean",
+    features = list("mean", "var", "slope"),
+    id = "features",
     drop = FALSE,
     left = left,
     right = right

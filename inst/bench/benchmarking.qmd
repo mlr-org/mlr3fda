@@ -1,6 +1,6 @@
 ---
 title: "mlr3fda Benchmarking"
-format: 
+format:
   beamer:
     aspectratio: 169
 ---
@@ -32,22 +32,14 @@ patients[between(week, window_start, window_end), .(
 ## mlr3fda
 
 ```{r echo=TRUE, eval=FALSE}
-po_fmean <- po("ffs",
-  feature = "mean", id = "mean", drop = FALSE,
-  left = left, right = right
+pop <- po("ffs",
+  features = list("mean", "var", "slope"),
+  id = "features",
+  drop = FALSE,
+  left = left,
+  right = right
 )
-po_fvar <- po("ffs",
-  feature = "var", id = "var", drop = FALSE,
-  left = left, right = right
-)
-po_fslope <- po("ffs",
-  feature = "slope", id = "slope", drop = FALSE,
-  left = left, right = right
-)
-graph <- po_fmean %>>%
-    po_fvar %>>%
-    po_fslope
-graph$train(task)
+pop$train(list(task))
 ```
 
 ## Small Data Set (100 Rows)
