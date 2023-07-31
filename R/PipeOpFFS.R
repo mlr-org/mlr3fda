@@ -179,7 +179,7 @@ make_fextractor = function(features) {
       if (is.na(lower) || is.na(upper)) {
         rep(NA_real_, length(features)) # no observation in the given interval [left, right]
       } else {
-        res = map(features, function(f) {
+        map(features, function(f) {
           f(arg = arg[lower:upper], value = value[lower:upper])
         })
       }
