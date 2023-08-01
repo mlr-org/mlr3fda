@@ -88,6 +88,14 @@ PipeOpFFS = R6Class("PipeOpFFS",
       right = pars$right
       # TODO: why not check at initialize?
       assert_true(left <= right)
+      assert_list(features, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
+      walk(features, function(feature) {
+        if (is.function(feature)) {
+          assert_function(feature, args = c("arg", "value"))
+        } else {
+          assert_choice(feature, choices = c("mean", "median", "max", "max", "slope", "var"))
+        }
+      })
 
       # handle name clashes of generated features with existing columns
       feature_names = map(cols, function(col) {

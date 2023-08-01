@@ -10,19 +10,31 @@ test_that("PipeOpFFS works", {
   dat = data.table(f = f, y = y)
   task = as_task_regr(dat, target = "y")
 
-  custom = function(arg, value) {
-    sum(value, na.rm = TRUE)
-  }
-  po_fmean = po("ffs", features = list("mean", custom = custom), drop = TRUE)
+  po_fmean = po("ffs", features = list("mean"), drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_true(all.equal(fmean, c(2, 5)))
+  expect_equal(fmean, c(2, 5))
+
+  # multiple functions work
+  pop = po("ffs", features = list("mean", "median", "var"), drop = TRUE)
+  task_pop = pop$train(list(task))[[1L]]
+  expect = data.table(y = 1:2, f_mean = c(2, 5), f_median = c(2, 5), f_var = c(1, 1))
+  expect_equal(task_pop$data(), expect)
+
+  # custom function works
+  custom = function(arg, value) {
+    mean(value, na.rm = TRUE)
+  }
+  pop = po("ffs", features = list("mean", custom = custom), drop = TRUE)
+  task_pop = pop$train(list(task))[[1L]]
+  expect = data.table(y = 1:2, f_mean = c(2, 5), f_custom = c(2, 5))
+  expect_equal(task_pop$data(), expect)
 
   # return NA if not in interval
   po_fmean = po("ffs", features = list("mean"), drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_true(all.equal(fmean, rep(NA_real_, 2)))
+  expect_equal(fmean, rep(NA_real_, 2))
 
   # tf_irreg works
   dat = data.table(
@@ -38,18 +50,18 @@ test_that("PipeOpFFS works", {
   po_fmean = po("ffs", features = list("mean", "median", custom = custom), drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_true(all.equal(fmean, c(2, 4.5)))
+  expect_equal(fmean, c(2, 4.5))
 
   po_fmean = po("ffs", features = list("mean"), drop = TRUE, left = 1, right = 3)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_true(all.equal(fmean, c(2, 4)))
+  expect_equal(fmean, c(2, 4))
 
   # return NA if not in interval
   po_fmean = po("ffs", features = list("mean"), drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_true(all.equal(fmean, rep(NA_real_, 2)))
+  expect_equal(fmean, rep(NA_real_, 2))
 
   # drop works
   po_fmean = po("ffs", features = list("mean"), drop = FALSE)
