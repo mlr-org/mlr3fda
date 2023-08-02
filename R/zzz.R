@@ -59,7 +59,6 @@ register_mlr3pipelines = function() {
   })
 }
 
-
 .onLoad = function(libname, pkgname) {
   mlr3misc::register_namespace_callback(pkgname, "mlr3", register_mlr3)
   mlr3misc::register_namespace_callback(pkgname, "mlr3pipelines", register_mlr3pipelines)
