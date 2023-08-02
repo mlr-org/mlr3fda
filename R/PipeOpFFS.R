@@ -223,8 +223,7 @@ fmin = function(arg, value) min(value, na.rm = TRUE)
 fmax = function(arg, value) max(value, na.rm = TRUE)
 fmedian = function(arg, value) median(value, na.rm = TRUE)
 fslope = function(arg, value) coefficients(lm(value ~ arg))[[2L]]
-# TODO: why check for NULL?
-fvar = function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA)
+fvar = function(arg, value) var(value, na.rm = TRUE)
 
 #' @include zzz.R
 register_po("ffs", PipeOpFFS)
