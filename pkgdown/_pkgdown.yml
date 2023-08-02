@@ -25,6 +25,9 @@ navbar:
     mattermost:
       icon: fa fa-comments
       href: https://lmmisld-lmu-stats-slds.srv.mwn.de/mlr_invite/
+    github:
+      icon: fa fa-github
+      href: https://github.com/mlr-org/mlr3fda
     book:
       text: mlr3book
       icon: fa fa-link
@@ -32,3 +35,6 @@ navbar:
     stackoverflow:
       icon: fab fa-stack-overflow
       href: https://stackoverflow.com/questions/tagged/mlr3
+    rss:
+      icon: fa-rss
+      href: https://mlr-org.com/
