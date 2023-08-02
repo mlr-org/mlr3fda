@@ -58,15 +58,15 @@ mlr_reflections$task_feature_types
 
     ##         lgl         int         dbl         chr         fct         ord 
     ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc     f_irreg       f_reg 
-    ##   "POSIXct" "tfd_irreg"   "tfd_reg"
+    ##         pxc       f_reg     f_irreg 
+    ##   "POSIXct"   "tfd_reg" "tfd_irreg"
 
 The newly available data types are:
 
-  - `tfd_irreg` - irregular functional data, i.e. the function of each
-    observation is observed for potentially different values.
-  - `tfd_reg` - regular functional data, i.e. the function of each
-    observation is observed for the same values.
+- `tfd_irreg` - irregular functional data, i.e. the function of each
+  observation is observed for potentially different values.
+- `tfd_reg` - regular functional data, i.e. the function of each
+  observation is observed for the same values.
 
 For tutorials on how to create functional data, see the
 [documentation](https://github.com/tidyfun/tf) of the tf package.
@@ -79,7 +79,7 @@ task = tsk("fuel")
 task
 ```
 
-    ## <TaskRegr:fuel> (129 x 4)
+    ## <TaskRegr:fuel> (129 x 4): Spectral Data of Fossil Fuels
     ## * Target: heatan
     ## * Properties: -
     ## * Features (3):
@@ -94,7 +94,7 @@ functional responses.
 ``` r
 library(mlr3pipelines)
 
-po_fmean = po("ffs", feature = "mean")
+po_fmean = po("ffs", features = list("mean"))
 
 task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
@@ -137,7 +137,7 @@ removed from the task.
 ids = partition(task)
 
 # drop = TRUE means we remove the functional columns as features
-graph = po("ffs", feature = "mean", drop = TRUE) %>>%
+graph = po("ffs", features = list("mean"), drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
@@ -162,11 +162,11 @@ glrn$predict(task, row_ids = ids$test)
 *mlr3fda* is a free and open source software project that encourages
 participation and feedback. If you have any issues, questions,
 suggestions or feedback, please do not hesitate to open an “issue” about
-it on the GitHub page\!
+it on the GitHub page!
 
 In case of problems / bugs, it is often helpful if you provide a
-“minimum working example” that showcases the behaviour (but don’t
-worry about this if the bug is obvious).
+“minimum working example” that showcases the behaviour (but don’t worry
+about this if the bug is obvious).
 
 Please understand that the resources of the project are limited:
 response may sometimes be delayed by a few days, and some feature
