@@ -86,6 +86,26 @@ test_that("PipeOpFFS works (simple test) for all features", {
   expect_error(pop$train(list(task)), regexp = NA)
 })
 
+test_that("PipeOpFFS input validation works", {
+  # features not a list
+  task = tsk("fuel")
+  pop = po("ffs", features = "mean")
+  # wrong features
+  task = tsk("fuel")
+  pop = po("ffs", features = list("mean", "fmean"))
+  expect_error(pop$train(list(task)))
+  # duplicate features
+  task = tsk("fuel")
+  pop = po("ffs", features = list("mean", "mean"))
+  expect_error(pop$train(list(task)))
+  # value other than function or string
+  pop = po("ffs", features = list("mean", 2L))
+  expect_error(pop$train(list(task)))
+  # wrong params for feature function
+  pop = po("ffs", features = list(custom = function(arg) mean(arg, na.rm = TRUE)))
+  expect_error(pop$train(list(task)))
+})
+
 test_that("PipeOpFFS works with name clashes", {
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),

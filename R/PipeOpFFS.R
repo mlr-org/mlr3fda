@@ -17,9 +17,12 @@
 #' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
 #'   What columns the [`PipeOpTaskPreproc`] should operate on.
 #'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
-#' * `feature` :: `character()` \cr
-#'   One of `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
-#'   The feature that is extracted.
+#' * `features` :: `list()` \cr
+#'   A list of features to extract. Each element can be either a function or a string.
+#'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
+#'   For string elements, the following predefined features are available:
+#'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
+#'   The features that are extracted.
 #' * `left` :: `numeric()` \cr
 #'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
@@ -86,7 +89,6 @@ PipeOpFFS = R6Class("PipeOpFFS",
       features = pars$features
       left = pars$left
       right = pars$right
-      # TODO: why not check at initialize?
       assert_true(left <= right)
       assert_list(features, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
       walk(features, function(feature) {
@@ -173,7 +175,9 @@ make_fextractor = function(features) {
           f(arg = args[lower:upper], value = value[lower:upper])
         })
       })
-      return(transpose_dbl(res))
+      res = transpose_list(res)
+      res = map(res, as.numeric)
+      return(res)
     }
 
     res = map(seq_along(x), function(i) {
@@ -192,13 +196,9 @@ make_fextractor = function(features) {
         })
       }
     })
-    transpose_dbl(res)
+    res = transpose_list(res)
+    map(res, as.numeric)
   }
-}
-
-transpose_dbl = function(.l) {
-  .l = transpose_list(.l)
-  map(.l, as.numeric)
 }
 
 ffind = function(x, left = -Inf, right = Inf) {
