@@ -30,6 +30,11 @@ register_task = function(name, constructor) {
   mlr3fda_tasks[[name]] = constructor
 }
 
+named_union = function(x, y) {
+  z = union(x, y)
+  set_names(z, union(names(x), names(y)))
+}
+
 mlr3fda_feature_types = c(f_reg = "tfd_reg", f_irreg = "tfd_irreg")
 mlr3fda_tasks = new.env()
 mlr3fda_pipeops = new.env()
@@ -37,7 +42,7 @@ mlr3fda_pipeops = new.env()
 register_mlr3 = function() {
   # add data types
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
-  mlr_reflections$task_feature_types = union(mlr_reflections$task_feature_types, mlr3fda_feature_types)
+  mlr_reflections$task_feature_types = named_union(mlr_reflections$task_feature_types, mlr3fda_feature_types)
 
   # add tasks
   mlr_tasks = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
@@ -53,7 +58,6 @@ register_mlr3pipelines = function() {
     mlr_pipeops$add(name, value$constructor, value$metainf)
   })
 }
-
 
 .onLoad = function(libname, pkgname) {
   mlr3misc::register_namespace_callback(pkgname, "mlr3", register_mlr3)
