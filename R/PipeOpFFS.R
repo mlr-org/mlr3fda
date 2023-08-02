@@ -189,7 +189,7 @@ fmax = make_fextractor(function(arg, value) max(value, na.rm = TRUE))
 fmin = make_fextractor(function(arg, value) min(value, na.rm = TRUE))
 fmedian = make_fextractor(function(arg, value) median(value, na.rm = TRUE))
 fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
-fvar = make_fextractor(function(arg, value) ifelse(!is.null(value), var(value, na.rm = TRUE), NA))
+fvar = make_fextractor(function(arg, value) var(value, na.rm = TRUE))
 
 #' @include zzz.R
 register_po("ffs", PipeOpFFS)
