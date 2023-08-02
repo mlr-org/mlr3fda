@@ -83,7 +83,7 @@ test_that("PipeOpFFS works (simple test) for all features", {
   pop = po("ffs")
   features = list("mean", "min", "max", "slope", "median")
   pop$param_set$values$features = features
-  expect_error(pop$train(list(task)), regexp = NA)
+  expect_no_error(pop$train(list(task)))
 })
 
 test_that("PipeOpFFS input validation works", {

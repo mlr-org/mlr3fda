@@ -95,21 +95,16 @@ PipeOpFFS = R6Class("PipeOpFFS",
         if (is.function(feature)) {
           assert_function(feature, args = c("arg", "value"))
         } else {
-          assert_choice(feature, choices = c("mean", "median", "max", "max", "slope", "var"))
+          assert_choice(feature, choices = c("mean", "median", "min", "max", "slope", "var"))
         }
       })
 
       # handle name clashes of generated features with existing columns
-      feature_names = map(cols, function(col) {
-        imap(features, function(feature, nm) {
-          if (is.character(feature)) {
-            sprintf("%s_%s", col, feature)
-          } else {
-            sprintf("%s_%s", col, nm)
-          }
-        })
+      feature_names = imap(features, function(value, nm) {
+        if (is.function(value)) nm else value
       })
-      feature_names = unlist(feature_names, use.names = FALSE)
+      feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
+
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
         warningf("Unique names for features were created due to name clashes with existing columns.")
         feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
@@ -176,7 +171,7 @@ make_fextractor = function(features) {
         })
       })
       res = transpose_list(res)
-      res = map(res, as.numeric)
+      res = map(res, unlist)
       return(res)
     }
 
@@ -197,7 +192,7 @@ make_fextractor = function(features) {
       }
     })
     res = transpose_list(res)
-    map(res, as.numeric)
+    map(res, unlist)
   }
 }
 
