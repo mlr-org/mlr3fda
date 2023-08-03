@@ -5,35 +5,28 @@ format:
     aspectratio: 169
 ---
 
-## dplyr
+## dplyr (one feature)
 
 ```{r echo=TRUE, eval=FALSE}
 patients |>
   dplyr::filter(between(week, window_start, window_end)) |>
   dplyr::group_by(patient_id, measurement_type) |>
-  dplyr::summarise(
-    mean = mean(measurement_value),
-    var = var(measurement_value),
-    slope = coef(lm(measurement_value ~ week))[[2]],
-    .groups = "drop"
-  )
+  dplyr::summarise(mean = mean(measurement_value), .groups = "drop")
 ```
 
-## data.table
+## data.table (one feature)
 
 ```{r echo=TRUE, eval=FALSE}
 patients[between(week, window_start, window_end), .(
-  mean = mean(measurement_value),
-  var = var(measurement_value),
-  slope = coef(lm(measurement_value ~ week))[[2]]
+  mean = mean(measurement_value)
 ), keyby = .(patient_id, measurement_type)]
 ```
 
-## mlr3fda
+## mlr3fda (one feature)
 
 ```{r echo=TRUE, eval=FALSE}
 pop <- po("ffs",
-  features = list("mean", "var", "slope"),
+  features = "mean",
   id = "features",
   drop = FALSE,
   left = left,
@@ -51,7 +44,105 @@ library(dplyr)
 library(gt)
 
 # benchmarking results created in inst/bench/bench.R
-results <- readr::read_csv("results.csv") |>
+results <- readr::read_csv("results_one.csv") |>
+  mutate(
+    expression = ifelse(expression == "data_table", "data.table", expression),
+    type = ifelse(type == "reg", "regular", "irregular"),
+  )
+
+results |>
+  filter(n_weeks == 10, n_patients == 10) |>
+  select(expression, type, median, total_time, mem_alloc) |>
+  gt() |>
+  cols_label(
+    expression = "Library",
+    type = "Type",
+    median = "Median",
+    total_time = "Total Time",
+    mem_alloc = "Memory Allocation"
+  )
+```
+
+## Medium Data Set (5,000 Rows)
+
+No. patients: 100, No. weeks: 50
+
+```{r}
+results |>
+  filter(n_weeks == 50, n_patients == 100) |>
+  select(expression, type, median, total_time, mem_alloc) |>
+  gt() |>
+  cols_label(
+    expression = "Library",
+    type = "Type",
+    median = "Median",
+    total_time = "Total Time",
+    mem_alloc = "Memory Allocation"
+  )
+```
+
+## Large Data Set (100,000 Rows)
+
+No. patients: 1000, No. weeks: 100
+
+```{r}
+results |>
+  filter(n_weeks == 100, n_patients == 1000) |>
+  select(expression, type, median, total_time, mem_alloc) |>
+  gt() |>
+  cols_label(
+    expression = "Library",
+    type = "Type",
+    median = "Median",
+    total_time = "Total Time",
+    mem_alloc = "Memory Allocation"
+  )
+```
+
+## dplyr (three features)
+
+```{r echo=TRUE, eval=FALSE}
+patients |>
+  dplyr::filter(between(week, window_start, window_end)) |>
+  dplyr::group_by(patient_id, measurement_type) |>
+  dplyr::summarise(
+    mean = mean(measurement_value),
+    var = var(measurement_value),
+    slope = coef(lm(measurement_value ~ week))[[2]],
+    .groups = "drop"
+  )
+```
+
+## data.table (three features)
+
+```{r echo=TRUE, eval=FALSE}
+patients[between(week, window_start, window_end), .(
+  mean = mean(measurement_value),
+  var = var(measurement_value),
+  slope = coef(lm(measurement_value ~ week))[[2]]
+), keyby = .(patient_id, measurement_type)]
+```
+
+## mlr3fda (three features)
+
+```{r echo=TRUE, eval=FALSE}
+pop <- po("ffs",
+  features = c("mean", "var", "slope"),
+  id = "features",
+  drop = FALSE,
+  left = left,
+  right = right
+)
+pop$train(list(task))
+```
+
+## Small Data Set (100 Rows)
+
+No. patients: 10, No. weeks: 10
+
+```{r}
+# benchmarking results created in inst/bench/bench.R
+results <- readr::read_csv("results_three.csv") |>
   mutate(
     expression = ifelse(expression == "data_table", "data.table", expression),
     type = ifelse(type == "reg", "regular", "irregular"),
