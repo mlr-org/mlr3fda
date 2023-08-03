@@ -100,7 +100,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
       })
 
       # handle name clashes of generated features with existing columns
-      feature_names = imap(features, function(value, nm) {
+      feature_names = imap_chr(features, function(value, nm) {
         if (is.function(value)) nm else value
       })
       feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))

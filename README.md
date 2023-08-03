@@ -46,9 +46,9 @@ library(mlr3)
 mlr_reflections$task_feature_types
 ```
 
-    ##         lgl         int         dbl         chr         fct         ord 
-    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc 
+    ##         lgl         int         dbl         chr         fct         ord
+    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"
+    ##         pxc
     ##   "POSIXct"
 
 ``` r
@@ -56,9 +56,9 @@ library(mlr3fda)
 mlr_reflections$task_feature_types
 ```
 
-    ##         lgl         int         dbl         chr         fct         ord 
-    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc       f_reg     f_irreg 
+    ##         lgl         int         dbl         chr         fct         ord
+    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"
+    ##         pxc       f_reg     f_irreg
     ##   "POSIXct"   "tfd_reg" "tfd_irreg"
 
 The newly available data types are:
@@ -152,7 +152,7 @@ glrn$predict(task, row_ids = ids$test)
     ##           3 23.8400 13.73490
     ##           9 26.6610 22.63414
     ##          10 24.9480 28.51553
-    ## ---                         
+    ## ---
     ##          14  7.0037 25.63514
     ##         126 11.8050 13.73490
     ##         127  8.8315 25.63514
