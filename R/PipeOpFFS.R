@@ -22,7 +22,6 @@
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
-#'   The features that are extracted.
 #' * `left` :: `numeric()` \cr
 #'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
