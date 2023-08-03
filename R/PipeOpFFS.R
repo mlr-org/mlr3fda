@@ -45,7 +45,7 @@
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' pop = po("ffs", feature = "mean")
+#' pop = po("ffs", features = list("mean"))
 #' task_fmean = pop$train(list(task))[[1L]]
 PipeOpFFS = R6Class("PipeOpFFS",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
@@ -212,13 +212,12 @@ ffind = function(x, left = -Inf, right = Inf) {
   }
   it
 }
-
 fmean = function(arg, value) mean(value, na.rm = TRUE)
 fmin = function(arg, value) min(value, na.rm = TRUE)
 fmax = function(arg, value) max(value, na.rm = TRUE)
-fmedian = function(arg, value) median(value, na.rm = TRUE)
-fslope = function(arg, value) coefficients(lm(value ~ arg))[[2L]]
-fvar = function(arg, value) var(value, na.rm = TRUE)
+fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
+fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
+fvar = function(arg, value) stats::var(value, na.rm = TRUE)
 
 #' @include zzz.R
 register_po("ffs", PipeOpFFS)

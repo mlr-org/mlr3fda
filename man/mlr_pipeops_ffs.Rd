@@ -55,7 +55,7 @@ Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{P
 \examples{
 library(mlr3pipelines)
 task = tsk("fuel")
-pop = po("ffs", feature = "mean")
+pop = po("ffs", features= list("mean"))
 task_fmean = pop$train(list(task))[[1L]]
 }
 \section{Super classes}{
