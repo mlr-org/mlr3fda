@@ -62,7 +62,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
         right = p_dbl(tags = c("train", "predict", "required")),
         features = p_uty(tags = c("train", "predict", "required"), custom_check = function(x) {
           if (!(is.character(x) || is.list(x))) {
-            return("Features must be a character or list.")
+            return("Features must be a character or list")
           }
           if (is.character(x)) {
             return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
@@ -72,19 +72,23 @@ PipeOpFFS = R6Class("PipeOpFFS",
             return(res)
           }
           nms = names2(x)
+          res = check_names(nms[!is.na(nms)], "unique")
+          if (!isTRUE(res)) {
+            return(res)
+          }
           for (i in seq_along(x)) {
             if (is.function(x[[i]])) {
-              val = check_function(x[[i]], args = c("arg", "value"))
-              if (!isTRUE(val)) {
-                return(val)
+              res = check_function(x[[i]], args = c("arg", "value"))
+              if (!isTRUE(res)) {
+                return(res)
               }
               if (is.na(nms[[i]])) {
-                return("Feature function must have a name.")
+                return("Feature function must have a name")
               }
             } else {
-              val = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
-              if (!isTRUE(val)) {
-                return(val)
+              res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
+              if (!isTRUE(res)) {
+                return(res)
               }
             }
           }
