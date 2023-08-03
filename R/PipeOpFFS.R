@@ -45,7 +45,7 @@
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' pop = po("ffs", features = list("mean"))
+#' pop = po("ffs", features = "mean")
 #' task_fmean = pop$train(list(task))[[1L]]
 PipeOpFFS = R6Class("PipeOpFFS",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
@@ -60,7 +60,36 @@ PipeOpFFS = R6Class("PipeOpFFS",
         drop = p_lgl(tags = c("train", "predict", "required")),
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
-        features = p_uty(tags = c("train", "predict", "required"))
+        features = p_uty(tags = c("train", "predict", "required"), custom_check = function(x) {
+          if (!(is.character(x) || is.list(x))) {
+            return("Features must be a character or list.")
+          }
+          if (is.character(x)) {
+            return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
+          }
+          res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
+          if (!isTRUE(res)) {
+            return(res)
+          }
+          nms = names2(x)
+          for (i in seq_along(x)) {
+            if (is.function(x[[i]])) {
+              val = check_function(x[[i]], args = c("arg", "value"))
+              if (!isTRUE(val)) {
+                return(val)
+              }
+              if (is.na(nms[[i]])) {
+                return("Feature function must have a name.")
+              }
+            } else {
+              val = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
+              if (!isTRUE(val)) {
+                return(val)
+              }
+            }
+          }
+          TRUE
+        })
       )
       param_set$set_values(
         drop = FALSE,
@@ -90,14 +119,6 @@ PipeOpFFS = R6Class("PipeOpFFS",
       left = pars$left
       right = pars$right
       assert_true(left <= right)
-      assert_list(features, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
-      walk(features, function(feature) {
-        if (is.function(feature)) {
-          assert_function(feature, args = c("arg", "value"))
-        } else {
-          assert_choice(feature, choices = c("mean", "median", "min", "max", "slope", "var"))
-        }
-      })
 
       # handle name clashes of generated features with existing columns
       feature_names = imap_chr(features, function(value, nm) {

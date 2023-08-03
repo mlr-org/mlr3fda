@@ -10,7 +10,7 @@ test_that("PipeOpFFS works", {
   dat = data.table(f = f, y = y)
   task = as_task_regr(dat, target = "y")
 
-  po_fmean = po("ffs", features = list("mean"), drop = TRUE)
+  po_fmean = po("ffs", features = "mean", drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 5))
@@ -87,23 +87,22 @@ test_that("PipeOpFFS works (simple test) for all features", {
 })
 
 test_that("PipeOpFFS input validation works", {
-  # features not a list
   task = tsk("fuel")
-  pop = po("ffs", features = "mean")
+  # features not a list or character
+  expect_error(po("ffs", features = 2L))
   # wrong features
-  task = tsk("fuel")
-  pop = po("ffs", features = list("mean", "fmean"))
-  expect_error(pop$train(list(task)))
+  expect_error(po("ffs", features = list("mean", "fmean")))
+  expect_error(po("ffs", features = c("mean", "fmean")))
   # duplicate features
-  task = tsk("fuel")
-  pop = po("ffs", features = list("mean", "mean"))
-  expect_error(pop$train(list(task)))
+  expect_error(po("ffs", features = list("mean", "mean")))
   # value other than function or string
-  pop = po("ffs", features = list("mean", 2L))
-  expect_error(pop$train(list(task)))
+  expect_error(po("ffs", features = list("mean", 2L)))
   # wrong params for feature function
-  pop = po("ffs", features = list(custom = function(arg) mean(arg, na.rm = TRUE)))
-  expect_error(pop$train(list(task)))
+  expect_error(po("ffs", features = list(custom = function(arg) mean(arg, na.rm = TRUE))))
+  expect_error(po("ffs", features = list(custom = function(value) mean(value, na.rm = TRUE))))
+  expect_error(po("ffs", features = list(custom = function(x, y) sum(x, y))))
+  # missing name for custom function
+  expect_error(po("ffs", features = list(function(arg, value) mean(value, na.rm = TRUE))))
 })
 
 test_that("PipeOpFFS works with name clashes", {

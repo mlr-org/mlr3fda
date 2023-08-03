@@ -94,7 +94,7 @@ functional responses.
 ``` r
 library(mlr3pipelines)
 
-po_fmean = po("ffs", features = list("mean"))
+po_fmean = po("ffs", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
@@ -137,7 +137,7 @@ removed from the task.
 ids = partition(task)
 
 # drop = TRUE means we remove the functional columns as features
-graph = po("ffs", features = list("mean"), drop = TRUE) %>>%
+graph = po("ffs", features = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
