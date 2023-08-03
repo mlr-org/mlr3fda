@@ -194,9 +194,7 @@ make_fextractor = function(features) {
           f(arg = args[lower:upper], value = value[lower:upper])
         })
       })
-      res = transpose_list(res)
-      res = map(res, unlist)
-      return(res)
+      return(transform_list(res))
     }
 
     res = map(seq_along(x), function(i) {
@@ -215,9 +213,13 @@ make_fextractor = function(features) {
         })
       }
     })
-    res = transpose_list(res)
-    map(res, unlist)
+    transform_list(res)
   }
+}
+
+transform_list = function(x) {
+  x = transpose_list(x)
+  map(x, unlist)
 }
 
 ffind = function(x, left = -Inf, right = Inf) {
