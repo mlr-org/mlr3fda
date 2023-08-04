@@ -16,6 +16,11 @@ test_that("PipeOpFFS works", {
   expect_equal(fmean, c(2, 5))
 
   # multiple functions work
+  pop = po("ffs", features = c("mean", "median", "var"), drop = TRUE)
+  task_pop = pop$train(list(task))[[1L]]
+  expect = data.table(y = 1:2, f_mean = c(2, 5), f_median = c(2, 5), f_var = c(1, 1))
+  expect_equal(task_pop$data(), expect)
+
   pop = po("ffs", features = list("mean", "median", "var"), drop = TRUE)
   task_pop = pop$train(list(task))[[1L]]
   expect = data.table(y = 1:2, f_mean = c(2, 5), f_median = c(2, 5), f_var = c(1, 1))
@@ -31,7 +36,7 @@ test_that("PipeOpFFS works", {
   expect_equal(task_pop$data(), expect)
 
   # return NA if not in interval
-  po_fmean = po("ffs", features = list("mean"), drop = TRUE, left = 100, right = 200)
+  po_fmean = po("ffs", features = "mean", drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, rep(NA_real_, 2))
@@ -52,7 +57,7 @@ test_that("PipeOpFFS works", {
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 4.5))
 
-  po_fmean = po("ffs", features = list("mean"), drop = TRUE, left = 1, right = 3)
+  po_fmean = po("ffs", features = "mean", drop = TRUE, left = 1, right = 3)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 4))
