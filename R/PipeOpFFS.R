@@ -238,6 +238,7 @@ ffind = function(x, left = -Inf, right = Inf) {
   }
   it
 }
+
 fmean = function(arg, value) mean(value, na.rm = TRUE)
 fmin = function(arg, value) min(value, na.rm = TRUE)
 fmax = function(arg, value) max(value, na.rm = TRUE)

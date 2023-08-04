@@ -41,6 +41,13 @@ test_that("PipeOpFFS works", {
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, rep(NA_real_, 2))
 
+  pop = po("ffs", features = c("mean", "median", "min"), drop = TRUE, left = 100, right = 200)
+  task_pop = pop$train(list(task))[[1L]]
+  expected = data.table(
+    y = 1:2, f_mean = rep(NA_real_, 2), f_median = rep(NA_real_, 2), f_min = rep(NA_real_, 2)
+  )
+  expect_equal(task_pop$data(), expected)
+
   # tf_irreg works
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
