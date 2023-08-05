@@ -9,6 +9,7 @@ Authors@R: c(
   )
 Description: Provides extensions for functional data analysis for mlr3.
 URL: https://mlr3fda.mlr-org.com, https://github.com/mlr-org/mlr3fda
+BugReports: https://github.com/mlr-org/mlr3fda/issues
 License: LGPL-3
 Depends:
     R (>= 3.1.0),
