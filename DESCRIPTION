@@ -7,7 +7,9 @@ Authors@R: c(
     person("Maximilian", "Muecke", , "muecke.maximilian@gmail.com", role = "aut",
            comment = c(ORCID = "0009-0000-9432-9795"))
   )
-Description: What the package does (one paragraph).
+Description: Provides extensions for functional data analysis for mlr3.
+URL: https://mlr3fda.mlr-org.com, https://github.com/mlr-org/mlr3fda
+License: LGPL-3
 Depends:
     R (>= 3.1.0),
     mlr3 (>= 0.14.0)
@@ -20,14 +22,14 @@ Imports:
     mlr3pipelines,
     tf
 Suggests:
-    testthat
+    testthat (>= 3.0.0)
 Remotes:
     tidyfun/tf
-License: LGPL-3
+Config/testthat/edition: 3
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
 LazyData: true
+Roxygen: list(markdown = TRUE, r6 = TRUE)
+RoxygenNote: 7.2.3
 Collate:
     'zzz.R'
     'PipeOpFFS.R'

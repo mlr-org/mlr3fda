@@ -81,7 +81,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
               if (!isTRUE(res)) {
                 return(res)
               }
-              if (is.na(nms[[i]])) {
+              if (is.na(nms[i])) {
                 return("Feature function must have a name")
               }
             } else {
