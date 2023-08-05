@@ -25,7 +25,7 @@ patients[between(week, window_start, window_end), .(
 ## mlr3fda (one feature)
 
 ```{r echo=TRUE, eval=FALSE}
-pop <- po("ffs",
+pop = po("ffs",
   features = "mean",
   id = "features",
   drop = FALSE,
@@ -44,7 +44,7 @@ library(dplyr)
 library(gt)
 
 # benchmarking results created in inst/bench/bench.R
-results <- readr::read_csv("results_one.csv") |>
+results = readr::read_csv("results_one.csv") |>
   mutate(
     expression = ifelse(expression == "data_table", "data.table", expression),
     type = ifelse(type == "reg", "regular", "irregular"),
@@ -126,7 +126,7 @@ patients[between(week, window_start, window_end), .(
 ## mlr3fda (three features)
 
 ```{r echo=TRUE, eval=FALSE}
-pop <- po("ffs",
+pop = po("ffs",
   features = c("mean", "var", "slope"),
   id = "features",
   drop = FALSE,
@@ -142,7 +142,7 @@ No. patients: 10, No. weeks: 10
 
 ```{r}
 # benchmarking results created in inst/bench/bench.R
-results <- readr::read_csv("results_three.csv") |>
+results = readr::read_csv("results_three.csv") |>
   mutate(
     expression = ifelse(expression == "data_table", "data.table", expression),
     type = ifelse(type == "reg", "regular", "irregular"),
