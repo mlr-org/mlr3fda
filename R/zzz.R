@@ -69,3 +69,5 @@ register_mlr3pipelines = function() {
   walk(names(mlr3fda_pipeops), function(nm) mlr_pipeops$remove(nm))
   mlr_reflections$learner_feature_types = setdiff(mlr_reflections$learner_feature_types, mlr3fda_feature_types)
 }
+
+leanify_package()
