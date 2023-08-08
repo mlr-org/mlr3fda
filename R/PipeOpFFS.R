@@ -87,8 +87,9 @@ PipeOpFFS = R6Class("PipeOpFFS",
                 if (!isTRUE(res)) {
                   return(res)
                 }
-                if (is.na(nms[i])) {
-                  return("Feature function must have a name")
+                res = check_names(nms[i])
+                if (!isTRUE(res)) {
+                  return(res)
                 }
               } else {
                 res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
