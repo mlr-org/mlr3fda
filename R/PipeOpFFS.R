@@ -60,38 +60,38 @@ PipeOpFFS = R6Class("PipeOpFFS",
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
         features = p_uty(tags = c("train", "predict", "required"), custom_check = function(x) {
-          if (!(is.character(x) || is.list(x))) {
-            return("Features must be a character or list")
-          }
-          if (is.character(x)) {
+          if (test_character(x)) {
             return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
           }
-          res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
-          if (!isTRUE(res)) {
-            return(res)
-          }
-          nms = names2(x)
-          res = check_names(nms[!is.na(nms)], "unique")
-          if (!isTRUE(res)) {
-            return(res)
-          }
-          for (i in seq_along(x)) {
-            if (is.function(x[[i]])) {
-              res = check_function(x[[i]], args = c("arg", "value"))
-              if (!isTRUE(res)) {
-                return(res)
-              }
-              if (is.na(nms[i])) {
-                return("Feature function must have a name")
-              }
-            } else {
-              res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
-              if (!isTRUE(res)) {
-                return(res)
+          if (test_list(x)) {
+            res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
+            if (!isTRUE(res)) {
+              return(res)
+            }
+            nms = names2(x)
+            res = check_names(nms[!is.na(nms)], "unique")
+            if (!isTRUE(res)) {
+              return(res)
+            }
+            for (i in seq_along(x)) {
+              if (is.function(x[[i]])) {
+                res = check_function(x[[i]], args = c("arg", "value"))
+                if (!isTRUE(res)) {
+                  return(res)
+                }
+                if (is.na(nms[i])) {
+                  return("Feature function must have a name")
+                }
+              } else {
+                res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
+                if (!isTRUE(res)) {
+                  return(res)
+                }
               }
             }
+            return(TRUE)
           }
-          TRUE
+          "Features must be a character or list"
         })
       )
       param_set$set_values(

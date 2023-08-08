@@ -22,7 +22,7 @@ column role \code{feature}. Initial is \code{FALSE}.
 \item \code{affect_columns} :: \code{function} | \code{\link{Selector}} | \code{NULL} \cr
 What columns the \code{\link{PipeOpTaskPreproc}} should operate on.
 See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
-\item \code{features} :: \code{list()} \cr
+\item \code{features} :: \code{list()} | \code{character()} | \verb{function()} \cr
 A list of features to extract. Each element can be either a function or a string.
 If the element if is function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.
 For string elements, the following predefined features are available:
