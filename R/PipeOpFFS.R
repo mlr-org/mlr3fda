@@ -17,9 +17,11 @@
 #' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
 #'   What columns the [`PipeOpTaskPreproc`] should operate on.
 #'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
-#' * `feature` :: `character()` \cr
-#'   One of `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
-#'   The feature that is extracted.
+#' * `features` :: `list()` | `character()` \cr
+#'   A list of features to extract. Each element can be either a function or a string.
+#'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
+#'   For string elements, the following predefined features are available:
+#'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
 #' * `left` :: `numeric()` \cr
 #'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
@@ -42,8 +44,16 @@
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' pop = po("ffs", feature = "mean")
-#' task_fmean = pop$train(list(task))[[1L]]
+#' po_fmean = po("ffs", features = "mean")
+#' task_fmean = po_fmean$train(list(task))[[1L]]
+#'
+#' # add more than one feature
+#' pop = po("ffs", features = c("mean", "median", "var"))
+#' task_features = pop$train(list(task))[[1L]]
+#'
+#' # add a custom feature
+#' po_custom = po("ffs", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
+#' task_custom = po_custom$train(list(task))[[1L]]
 PipeOpFFS = R6Class("PipeOpFFS",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
@@ -57,10 +67,41 @@ PipeOpFFS = R6Class("PipeOpFFS",
         drop = p_lgl(tags = c("train", "predict", "required")),
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
-        feature = p_fct(
-          levels = c("mean", "max", "min", "slope", "median", "var"),
-          tags = c("train", "predict", "required")
-        )
+        features = p_uty(tags = c("train", "predict", "required"), custom_check = function(x) {
+          if (test_character(x)) {
+            return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
+          }
+          if (test_list(x)) {
+            res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
+            if (!isTRUE(res)) {
+              return(res)
+            }
+            nms = names2(x)
+            res = check_names(nms[!is.na(nms)], "unique")
+            if (!isTRUE(res)) {
+              return(res)
+            }
+            for (i in seq_along(x)) {
+              if (is.function(x[[i]])) {
+                res = check_function(x[[i]], args = c("arg", "value"))
+                if (!isTRUE(res)) {
+                  return(res)
+                }
+                res = check_names(nms[i])
+                if (!isTRUE(res)) {
+                  return(res)
+                }
+              } else {
+                res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
+                if (!isTRUE(res)) {
+                  return(res)
+                }
+              }
+            }
+            return(TRUE)
+          }
+          "Features must be a character or list"
+        })
       )
       param_set$set_values(
         drop = FALSE,
@@ -86,27 +127,37 @@ PipeOpFFS = R6Class("PipeOpFFS",
       dt = task$data(cols = cols)
       pars = self$param_set$get_values()
       drop = pars$drop
-      feature = pars$feature
+      features = pars$features
       left = pars$left
       right = pars$right
       assert_true(left <= right)
 
       # handle name clashes of generated features with existing columns
-      feature_names = sprintf("%s_%s", cols, feature)
+      feature_names = imap_chr(features, function(value, nm) {
+        if (is.function(value)) nm else value
+      })
+      feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
+
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
         warningf("Unique names for features were created due to name clashes with existing columns.")
         feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
         feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
       }
 
-      fextractor = switch(feature,
-        mean = fmean,
-        median = fmedian,
-        min = fmin,
-        max = fmax,
-        slope = fslope,
-        var = fvar
-      )
+      features = map(features, function(feature) {
+        if (is.function(feature)) {
+          return(feature)
+        }
+        switch(feature,
+          mean = fmean,
+          median = fmedian,
+          min = fmin,
+          max = fmax,
+          slope = fslope,
+          var = fvar
+        )
+      })
+      fextractor = make_fextractor(features)
 
       features = map(
         cols,
@@ -116,8 +167,8 @@ PipeOpFFS = R6Class("PipeOpFFS",
         }
       )
 
+      features = unlist(features, recursive = FALSE)
       features = set_names(features, feature_names)
-
       features = as.data.table(features)
 
       if (!drop) {
@@ -125,12 +176,12 @@ PipeOpFFS = R6Class("PipeOpFFS",
       }
 
       task$select(setdiff(task$feature_names, cols))$cbind(features)
-      return(task)
+      task
     }
   )
 )
 
-make_fextractor = function(f) {
+make_fextractor = function(features) {
   function(x, left = -Inf, right = Inf) {
     args = tf::tf_arg(x)
 
@@ -140,31 +191,46 @@ make_fextractor = function(f) {
       upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
-        return(rep(NA_real_, length(x))) # no observation in the given interval [left, right]
+        res = map(features, function(f) {
+          rep(NA_real_, length(x)) # no observation in the given interval [left, right]
+        })
+        return(res)
       }
 
-      res = map_dbl(seq_along(x), function(i) {
-        value = tf::tf_evaluations(x[i])[[1L]]
-        f(arg = args[lower:upper], value = value[lower:upper])
+      values = tf::tf_evaluations(x)
+      res = map(seq_along(x), function(i) {
+        value = values[[i]]
+        map(features, function(f) {
+          f(arg = args[lower:upper], value = value[lower:upper])
+        })
       })
-      return(res)
+      return(transform_list(res))
     }
 
-    map_dbl(seq_along(x), function(i) {
+    values = tf::tf_evaluations(x)
+    res = map(seq_along(x), function(i) {
       arg = args[[i]]
-      value = tf::tf_evaluations(x[i])[[1L]]
+      value = values[[i]]
 
       interval = ffind(arg, left = left, right = right)
       lower = interval[[1L]]
       upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
-        NA_real_ # no observation in the given interval [left, right]
+        rep(NA_real_, length(features)) # no observation in the given interval [left, right]
       } else {
-        f(arg = arg[lower:upper], value = value[lower:upper])
+        map(features, function(f) {
+          f(arg = arg[lower:upper], value = value[lower:upper])
+        })
       }
     })
+    transform_list(res)
   }
+}
+
+transform_list = function(x) {
+  x = transpose_list(x)
+  map(x, unlist)
 }
 
 ffind = function(x, left = -Inf, right = Inf) {
@@ -184,12 +250,12 @@ ffind = function(x, left = -Inf, right = Inf) {
   it
 }
 
-fmean = make_fextractor(function(arg, value) mean(value, na.rm = TRUE))
-fmax = make_fextractor(function(arg, value) max(value, na.rm = TRUE))
-fmin = make_fextractor(function(arg, value) min(value, na.rm = TRUE))
-fmedian = make_fextractor(function(arg, value) median(value, na.rm = TRUE))
-fslope = make_fextractor(function(arg, value) coefficients(lm(value ~ arg))[[2L]])
-fvar = make_fextractor(function(arg, value) var(value, na.rm = TRUE))
+fmean = function(arg, value) mean(value, na.rm = TRUE)
+fmin = function(arg, value) min(value, na.rm = TRUE)
+fmax = function(arg, value) max(value, na.rm = TRUE)
+fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
+fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
+fvar = function(arg, value) stats::var(value, na.rm = TRUE)
 
 #' @include zzz.R
 register_po("ffs", PipeOpFFS)

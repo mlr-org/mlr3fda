@@ -73,7 +73,7 @@ However, it is possible to extract simple functional features using the `PipeOpF
 ```{r ffs, fig.width = 5, fig.height = 3}
 library(mlr3pipelines)
 
-po_fmean = po("ffs", feature = "mean")
+po_fmean = po("ffs", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
@@ -86,7 +86,7 @@ We have to set `drop = TRUE` so that the original functional features are remove
 ids = partition(task)
 
 # drop = TRUE means we remove the functional columns as features
-graph = po("ffs", feature = "mean", drop = TRUE) %>>%
+graph = po("ffs", features = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)

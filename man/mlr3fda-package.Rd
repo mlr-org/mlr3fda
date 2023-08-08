@@ -6,7 +6,7 @@
 \alias{mlr3fda-package}
 \title{mlr3fda: Extending mlr3 to functional data analysis}
 \description{
-What the package does (one paragraph).
+Provides extensions for functional data analysis for mlr3.
 }
 \section{Data types}{
 
@@ -24,6 +24,15 @@ Lang M, Binder M, Richter J, Schratz P, Pfisterer F, Coors S, Au Q, Casalicchio 
 \doi{10.21105/joss.01903}, \url{https://joss.theoj.org/papers/10.21105/joss.01903}.
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://mlr3fda.mlr-org.com}
+  \item \url{https://github.com/mlr-org/mlr3fda}
+  \item Report bugs at \url{https://github.com/mlr-org/mlr3fda/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Sebastian Fischer \email{sebf.fischer@gmail.com} (\href{https://orcid.org/0000-0002-9609-3197}{ORCID})
 

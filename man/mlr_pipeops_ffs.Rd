@@ -22,9 +22,11 @@ column role \code{feature}. Initial is \code{FALSE}.
 \item \code{affect_columns} :: \code{function} | \code{\link{Selector}} | \code{NULL} \cr
 What columns the \code{\link{PipeOpTaskPreproc}} should operate on.
 See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
-\item \code{feature} :: \code{character()} \cr
-One of \code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"},\code{"var"}.
-The feature that is extracted.
+\item \code{features} :: \code{list()} | \code{character()} \cr
+A list of features to extract. Each element can be either a function or a string.
+If the element if is function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.
+For string elements, the following predefined features are available:
+\code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"},\code{"var"}.
 \item \code{left} :: \code{numeric()} \cr
 The left boundary of the window. Initial is \code{-Inf}.
 The window is specified such that the all values >=left and <=right are kept for the computations.
@@ -52,8 +54,16 @@ Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{P
 \examples{
 library(mlr3pipelines)
 task = tsk("fuel")
-pop = po("ffs", feature = "mean")
-task_fmean = pop$train(list(task))[[1L]]
+po_fmean = po("ffs", features = "mean")
+task_fmean = po_fmean$train(list(task))[[1L]]
+
+# add more than one feature
+pop = po("ffs", features = c("mean", "median", "var"))
+task_features = pop$train(list(task))[[1L]]
+
+# add a custom feature
+po_custom = po("ffs", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
+task_custom = po_custom$train(list(task))[[1L]]
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFFS}
