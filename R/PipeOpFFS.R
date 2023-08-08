@@ -198,10 +198,11 @@ make_fextractor = function(features) {
       }
 
       values = tf::tf_evaluations(x)
+      arg = args[lower:upper]
       res = map(seq_along(x), function(i) {
         value = values[[i]]
         map(features, function(f) {
-          f(arg = args[lower:upper], value = value[lower:upper])
+          f(arg = arg, value = value[lower:upper])
         })
       })
       return(transform_list(res))
