@@ -17,7 +17,7 @@
 #' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
 #'   What columns the [`PipeOpTaskPreproc`] should operate on.
 #'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
-#' * `features` :: `list()` \cr
+#' * `features` :: `list()` | `character()` | `function()` \cr
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
