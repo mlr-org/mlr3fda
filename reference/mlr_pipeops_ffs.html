@@ -69,7 +69,7 @@ Note that it only operates on values that were actually observed and does not in
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>(F)unctional (F)eature (S)imple</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/mlr-org/mlr3fda/blob/HEAD/R/PipeOpFFS.R" class="external-link"><code>R/PipeOpFFS.R</code></a></small>
       <div class="d-none name"><code>mlr_pipeops_ffs.Rd</code></div>
     </div>
 
@@ -95,9 +95,11 @@ column role <code>feature</code>. Initial is <code>FALSE</code>.</p></li>
 <li><p><code>affect_columns</code> :: <code>function</code> | <code><a href="https://mlr3pipelines.mlr-org.com/reference/Selector.html" class="external-link">Selector</a></code> | <code>NULL</code> <br>
 What columns the <code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html" class="external-link">PipeOpTaskPreproc</a></code> should operate on.
 See <code><a href="https://mlr3pipelines.mlr-org.com/reference/Selector.html" class="external-link">Selector</a></code> for example functions. Defaults to <code>NULL</code>, which selects all features.</p></li>
-<li><p><code>feature</code> :: <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> <br>
-One of <code>"mean"</code>, <code>"max"</code>,<code>"min"</code>,<code>"slope"</code>,<code>"median"</code>,<code>"var"</code>.
-The feature that is extracted.</p></li>
+<li><p><code>features</code> :: <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> | <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character()</a></code> <br>
+A list of features to extract. Each element can be either a function or a string.
+If the element if is function it requires the following arguments: <code>arg</code> and <code>value</code> and returns a <code>numeric</code>.
+For string elements, the following predefined features are available:
+<code>"mean"</code>, <code>"max"</code>,<code>"min"</code>,<code>"slope"</code>,<code>"median"</code>,<code>"var"</code>.</p></li>
 <li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> <br>
 The left boundary of the window. Initial is <code>-Inf</code>.
 The window is specified such that the all values &gt;=left and &lt;=right are kept for the computations.</p></li>
@@ -184,8 +186,16 @@ List of hyperparameter settings, overwriting the hyperparameter settings that wo
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com" class="external-link">mlr3pipelines</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">tsk</a></span><span class="op">(</span><span class="st">"fuel"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pop</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"ffs"</span>, feature <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">task_fmean</span> <span class="op">=</span> <span class="va">pop</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">po_fmean</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"ffs"</span>, features <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">task_fmean</span> <span class="op">=</span> <span class="va">po_fmean</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add more than one feature</span></span></span>
+<span class="r-in"><span><span class="va">pop</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"ffs"</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"median"</span>, <span class="st">"var"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">task_features</span> <span class="op">=</span> <span class="va">pop</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add a custom feature</span></span></span>
+<span class="r-in"><span><span class="va">po_custom</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"ffs"</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">arg</span>, <span class="va">value</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">task_custom</span> <span class="op">=</span> <span class="va">po_custom</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
