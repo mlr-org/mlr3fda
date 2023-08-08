@@ -44,8 +44,16 @@
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' pop = po("ffs", features = "mean")
-#' task_fmean = pop$train(list(task))[[1L]]
+#' po_fmean = po("ffs", features = "mean")
+#' task_fmean = po_fmean$train(list(task))[[1L]]
+#'
+#' # add more than one feature
+#' pop = po("ffs", features = c("mean", "median", "var"))
+#' task_features = pop$train(list(task))[[1L]]
+#'
+#' # add a custom feature
+#' po_custom = po("ffs", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
+#' task_custom = po_custom$train(list(task))[[1L]]
 PipeOpFFS = R6Class("PipeOpFFS",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
@@ -188,8 +196,9 @@ make_fextractor = function(features) {
         return(res)
       }
 
+      values = tf::tf_evaluations(x)
       res = map(seq_along(x), function(i) {
-        value = tf::tf_evaluations(x[i])[[1L]]
+        value = values[[i]]
         map(features, function(f) {
           f(arg = args[lower:upper], value = value[lower:upper])
         })
@@ -197,9 +206,10 @@ make_fextractor = function(features) {
       return(transform_list(res))
     }
 
+    values = tf::tf_evaluations(x)
     res = map(seq_along(x), function(i) {
       arg = args[[i]]
-      value = tf::tf_evaluations(x[i])[[1L]]
+      value = values[[i]]
 
       interval = ffind(arg, left = left, right = right)
       lower = interval[[1L]]
