@@ -48,7 +48,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
         param_set = ps(),
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = c("tfd_reg")
+        feature_types = "tfd_reg"
       )
     }
   ),

@@ -1,14 +1,14 @@
 test_that("PipeOpFFS works", {
   # tf_reg works
-  dat = data.table(
+  dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
     arg = rep(1:3, 2),
     value = 1:6
   )
-  f = tf::tfd(dat, id = "id", arg = "arg", value = "value")
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   y = c(1, 2)
-  dat = data.table(f = f, y = y)
-  task = as_task_regr(dat, target = "y")
+  dt = data.table(f = f, y = y)
+  task = as_task_regr(dt, target = "y")
 
   po_fmean = po("ffs", features = "mean", drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
@@ -49,15 +49,15 @@ test_that("PipeOpFFS works", {
   expect_equal(task_pop$data(), expected)
 
   # tf_irreg works
-  dat = data.table(
+  dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
     arg = c(1, 7, 2, 3, 5),
     value = c(1, 2, 3, 4, 5)
   )
-  f = tf::tfd(dat, id = "id", arg = "arg", value = "value")
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   y = c(1, 2)
-  dat = data.table(f = f, y = y)
-  task = as_task_regr(dat, target = "y")
+  dt = data.table(f = f, y = y)
+  task = as_task_regr(dt, target = "y")
 
   po_fmean = po("ffs", features = list("mean", "median", custom = custom), drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
@@ -118,16 +118,16 @@ test_that("PipeOpFFS input validation works", {
 })
 
 test_that("PipeOpFFS works with name clashes", {
-  dat = data.table(
+  dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
     arg = c(1, 7, 2, 3, 5),
     value = c(1, 2, 3, 4, 5)
   )
-  f = tf::tfd(dat, id = "id", arg = "arg", value = "value")
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   y = c(1, 2)
-  dat = data.table(f = f, y = y)
-  dat$f_mean = c(-1, -1)
-  task = as_task_regr(dat, target = "y")
+  dt = data.table(f = f, y = y)
+  dt$f_mean = c(-1, -1)
+  task = as_task_regr(dt, target = "y")
 
   pop = po("ffs", features = list("mean"))
   expect_warning(
