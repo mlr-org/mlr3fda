@@ -126,7 +126,7 @@
 <span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##         lgl         int         dbl         chr         fct         ord </span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">##         pxc       f_reg     f_irreg </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">##         pxc         tfr         tfi </span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   "POSIXct"   "tfd_reg" "tfd_irreg"</span></span></code></pre></div>
 <p>The newly available data types are:</p>
 <ul>
@@ -144,7 +144,7 @@
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## * Target: heatan</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## * Properties: -</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## * Features (3):</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   - f_reg (2): NIR, UVVIS</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   - tfr (2): NIR, UVVIS</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   - dbl (1): h20</span></span></code></pre></div>
 <p>Currently there are no <code>Learner</code>s that directly operate on functional data. However, it is possible to extract simple functional features using the <code>PipeOpFFS</code>, which in the example below calculates the average functional responses.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">

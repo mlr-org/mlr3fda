@@ -99,7 +99,8 @@ See <code><a href="https://mlr3pipelines.mlr-org.com/reference/Selector.html" cl
 A list of features to extract. Each element can be either a function or a string.
 If the element if is function it requires the following arguments: <code>arg</code> and <code>value</code> and returns a <code>numeric</code>.
 For string elements, the following predefined features are available:
-<code>"mean"</code>, <code>"max"</code>,<code>"min"</code>,<code>"slope"</code>,<code>"median"</code>,<code>"var"</code>.</p></li>
+<code>"mean"</code>, <code>"max"</code>,<code>"min"</code>,<code>"slope"</code>,<code>"median"</code>,<code>"var"</code>.
+Initial is <code>c("mean", "max", "min", "slope", "median", "var")</code></p></li>
 <li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> <br>
 The left boundary of the window. Initial is <code>-Inf</code>.
 The window is specified such that the all values &gt;=left and &lt;=right are kept for the computations.</p></li>
