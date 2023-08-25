@@ -22,6 +22,7 @@
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
+#'   Initial is `c("mean", "max", "min", "slope", "median", "var")`
 #' * `left` :: `numeric()` \cr
 #'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
@@ -106,7 +107,8 @@ PipeOpFFS = R6Class("PipeOpFFS",
       param_set$set_values(
         drop = FALSE,
         left = -Inf,
-        right = Inf
+        right = Inf,
+        features = c("mean", "max", "min", "slope", "median", "var")
       )
 
       super$initialize(

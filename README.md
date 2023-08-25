@@ -58,7 +58,7 @@ mlr_reflections$task_feature_types
 
     ##         lgl         int         dbl         chr         fct         ord 
     ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc       f_reg     f_irreg 
+    ##         pxc         tfr         tfi 
     ##   "POSIXct"   "tfd_reg" "tfd_irreg"
 
 The newly available data types are:
@@ -83,7 +83,7 @@ task
     ## * Target: heatan
     ## * Properties: -
     ## * Features (3):
-    ##   - f_reg (2): NIR, UVVIS
+    ##   - tfr (2): NIR, UVVIS
     ##   - dbl (1): h20
 
 Currently there are no `Learner`s that directly operate on functional

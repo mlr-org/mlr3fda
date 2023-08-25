@@ -35,7 +35,7 @@ named_union = function(x, y) {
   set_names(z, union(names(x), names(y)))
 }
 
-mlr3fda_feature_types = c(f_reg = "tfd_reg", f_irreg = "tfd_irreg")
+mlr3fda_feature_types = c(tfr = "tfd_reg", tfi = "tfd_irreg")
 mlr3fda_tasks = new.env()
 mlr3fda_pipeops = new.env()
 
