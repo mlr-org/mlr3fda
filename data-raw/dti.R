@@ -6,8 +6,7 @@ dti = data.table(
   pasat = refund::DTI$pasat,
   cca = tfd(refund::DTI$cca, arg = seq(0, 1, l = 93)),
   rcst = tfd(refund::DTI$rcst, arg = seq(0, 1, l = 55)),
-  sex = refund::DTI$sex,
-  case = factor(ifelse(refund::DTI$case, "MS", "control"))
+  sex = refund::DTI$sex
 )
 dti = na.omit(dti)
 

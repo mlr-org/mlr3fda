@@ -11,7 +11,7 @@ This dataset contains two functional covariates and three scalar covariate. The 
 to predict the PASAT score. \code{pasat} represents the PASAT score at each vist.
 \code{subject_id} represents the subject ID. \code{cca} represents the fractional anisotropy tract profiles from the corpus
 callosum. \code{sex} indicates subject's sex. \code{rcst} represents the fractional anisotropy tract profiles from the right
-corticospinal tract. \code{case} indicates wether the subject has multiple sclerosis. Rows with NAs are removed.
+corticospinal tract. `Rows with NAs are removed.
 
 This is a subset of the full dataset, which is contained in the package \code{refund}.
 }
