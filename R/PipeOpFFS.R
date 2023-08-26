@@ -134,18 +134,9 @@ PipeOpFFS = R6Class("PipeOpFFS",
       right = pars$right
       assert_true(left <= right)
 
-      # handle name clashes of generated features with existing columns
-      feature_names = imap_chr(features, function(value, nm) {
+      nms = imap_chr(features, function(value, nm) {
         if (is.function(value)) nm else value
       })
-      feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
-
-      if (anyDuplicated(c(task$col_info$id, feature_names))) {
-        warningf("Unique names for features were created due to name clashes with existing columns.")
-        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
-        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
-      }
-
       features = map(features, function(feature) {
         if (is.function(feature)) {
           return(feature)
@@ -159,19 +150,18 @@ PipeOpFFS = R6Class("PipeOpFFS",
           var = fvar
         )
       })
-      fextractor = make_fextractor(features)
+      names(features) = nms
 
-      features = map(
-        cols,
-        function(col) {
-          x = dt[[col]]
-          invoke(fextractor, x = x, left = left, right = right)
-        }
-      )
+      features = dt[, lapply(.SD, function(x) fextract(x, features, left = left, right = right)), .SDcols = cols]
+      features = unnest(features, cols, prefix = "{col}_")
+      feature_names = colnames(features)
 
-      features = unlist(features, recursive = FALSE)
-      features = set_names(features, feature_names)
-      features = as.data.table(features)
+      if (anyDuplicated(c(task$col_info$id, feature_names))) {
+        warningf("Unique names for features were created due to name clashes with existing columns.")
+        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
+        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
+        colnames(features) = feature_names
+      }
 
       if (!drop) {
         features = cbind(dt, features)
@@ -183,57 +173,49 @@ PipeOpFFS = R6Class("PipeOpFFS",
   )
 )
 
-make_fextractor = function(features) {
-  function(x, left = -Inf, right = Inf) {
-    args = tf::tf_arg(x)
+fextract = function(x, extractors, left = -Inf, right = Inf) {
+  args = tf::tf_arg(x)
+  values = tf::tf_evaluations(x)
 
-    if (tf::is_reg(x)) {
-      interval = ffind(args, left = left, right = right)
-      lower = interval[[1L]]
-      upper = interval[[2L]]
+  if (tf::is_reg(x)) {
+    interval = ffind(args, left = left, right = right)
+    lower = interval[[1L]]
+    upper = interval[[2L]]
 
-      if (is.na(lower) || is.na(upper)) {
-        res = map(features, function(f) {
-          rep(NA_real_, length(x)) # no observation in the given interval [left, right]
-        })
-        return(res)
-      }
-
-      values = tf::tf_evaluations(x)
-      arg = args[lower:upper]
+    if (is.na(lower) || is.na(upper)) {
       res = map(seq_along(x), function(i) {
-        value = values[[i]]
-        map(features, function(f) {
-          f(arg = arg, value = value[lower:upper])
-        })
+        map(extractors, function(extractor) NA_real_) # no observation in the given interval [left, right]
       })
-      return(transform_list(res))
+      return(res)
     }
 
-    values = tf::tf_evaluations(x)
+    arg = args[lower:upper]
     res = map(seq_along(x), function(i) {
-      arg = args[[i]]
       value = values[[i]]
-
-      interval = ffind(arg, left = left, right = right)
-      lower = interval[[1L]]
-      upper = interval[[2L]]
-
-      if (is.na(lower) || is.na(upper)) {
-        rep(NA_real_, length(features)) # no observation in the given interval [left, right]
-      } else {
-        map(features, function(f) {
-          f(arg = arg[lower:upper], value = value[lower:upper])
-        })
-      }
+      map(extractors, function(extractor) {
+        extractor(arg = arg, value = value[lower:upper])
+      })
     })
-    transform_list(res)
+    return(res)
   }
-}
 
-transform_list = function(x) {
-  x = transpose_list(x)
-  map(x, unlist)
+  res = map(seq_along(x), function(i) {
+    arg = args[[i]]
+    value = values[[i]]
+
+    interval = ffind(arg, left = left, right = right)
+    lower = interval[[1L]]
+    upper = interval[[2L]]
+
+    if (is.na(lower) || is.na(upper)) {
+      map(extractors, function(extractor) NA_real_) # no observation in the given interval [left, right]
+    } else {
+      map(extractors, function(extractor) {
+        extractor(arg = arg[lower:upper], value = value[lower:upper])
+      })
+    }
+  })
+  res
 }
 
 ffind = function(x, left = -Inf, right = Inf) {
