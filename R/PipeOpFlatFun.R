@@ -13,6 +13,10 @@
 #'   of features to keep. The flattening is only applied to those columns.\cr
 #'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
 #'   selector_all()`, which selects all of the `functional` features.
+#' * `interpolate` :: `logical(1)` \cr
+#'   Should functions be evaluated (i.e., inter-/extrapolated) for arg for which no original data is available?
+#'   If `TRUE`, the functional data is interpolated to a regular grid before flattening.
+#'   Default is `FALSE`.
 #'
 #' @section Naming:
 #' The new names generally append a `_1`, ...,  to the corresponding column name.
@@ -38,17 +42,15 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "flatfun", param_vals = list()) {
-      param_set = ps()
-
-      input = data.table(name = "input", train = "Task", predict = "Task")
-      output = data.table(name = "output", train = "Task", predict = "Task")
+      param_set = ps(interpolate = p_lgl(tags = c("train", "predict", "required")))
+      param_set$set_values(interpolate = FALSE)
 
       super$initialize(
         id = id,
-        param_set = ps(),
+        param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = c("tfd_reg")
+        feature_types = c("tfd_reg", "tfd_irreg")
       )
     }
   ),
@@ -58,12 +60,15 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
       if (!length(cols)) {
         return(task)
       }
+      pars = self$param_set$get_values()
+      interpolate = pars$interpolate
+
       dt = task$data(cols = cols)
 
       flattened = imap(
         dt,
         function(x, nm) {
-          flat = as.matrix(x)
+          flat = suppressWarnings(as.matrix(x, interpolate = interpolate))
           d = as.data.table(flat)
           d = set_names(d, sprintf("%s_%s", nm, seq(ncol(flat))))
           d
