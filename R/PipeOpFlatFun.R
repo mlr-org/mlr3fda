@@ -69,8 +69,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
         function(x, nm) {
           flat = suppressWarnings(as.matrix(x, interpolate = interpolate))
           d = as.data.table(flat)
-          d = set_names(d, sprintf("%s_%s", nm, seq(ncol(flat))))
-          d
+          setnames(d, sprintf("%s_%s", nm, seq_len(ncol(flat))))
         }
       )
       names(flattened) = NULL # this does not set the data.table names to NULL but the list names
