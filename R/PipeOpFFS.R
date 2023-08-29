@@ -134,19 +134,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
       right = pars$right
       assert_true(left <= right)
 
-      # handle name clashes of generated features with existing columns
-      feature_names = imap_chr(features, function(value, nm) {
-        if (is.function(value)) nm else value
-      })
-      feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
-
-      if (anyDuplicated(c(task$col_info$id, feature_names))) {
-        warningf("Unique names for features were created due to name clashes with existing columns.")
-        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
-        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
-      }
-
-      features = map(features, function(feature) {
+      fextractors = map(features, function(feature) {
         if (is.function(feature)) {
           return(feature)
         }
@@ -159,19 +147,19 @@ PipeOpFFS = R6Class("PipeOpFFS",
           var = fvar
         )
       })
-      fextractor = make_fextractor(features)
+      names(fextractors) = features
+      dt = tidyfun::tf_unnest(dt, cols = cols)
+      setnames(dt, c("arg", "value"))
+      # dt = tidyr::pivot_longer(dt, f_arg, f_value, names_to = "arg", values_to = "value")
+      dt = setDT(dt, key = "arg")
+      dt = dt[between(arg, left, right), lapply(fextractors, function(f) f(arg, value))]
+      setnames(dt, paste0("f_", names(dt)))
 
-      features = map(
-        cols,
-        function(col) {
-          x = dt[[col]]
-          invoke(fextractor, x = x, left = left, right = right)
-        }
-      )
-
-      features = unlist(features, recursive = FALSE)
-      features = set_names(features, feature_names)
-      features = as.data.table(features)
+      if (anyDuplicated(c(task$col_info$id, feature_names))) {
+        warningf("Unique names for features were created due to name clashes with existing columns.")
+        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
+        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
+      }
 
       if (!drop) {
         features = cbind(dt, features)
