@@ -15,7 +15,6 @@
 #'   selector_all()`, which selects all of the `functional` features.
 #' * `interpolate` :: `logical(1)` \cr
 #'   Should functions be evaluated (i.e., inter-/extrapolated) for arg for which no original data is available?
-#'   If `TRUE`, the functional data is interpolated to a regular grid before flattening.
 #'   Default is `FALSE`.
 #'
 #' @section Naming:

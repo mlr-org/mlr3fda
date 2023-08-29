@@ -20,7 +20,6 @@ See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Defaul
 selector_all()\verb{, which selects all of the }functional` features.
 \item \code{interpolate} :: \code{logical(1)} \cr
 Should functions be evaluated (i.e., inter-/extrapolated) for arg for which no original data is available?
-If \code{TRUE}, the functional data is interpolated to a regular grid before flattening.
 Default is \code{FALSE}.
 }
 }
