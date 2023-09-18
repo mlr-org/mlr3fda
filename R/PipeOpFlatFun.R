@@ -65,7 +65,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
         function(x, nm) {
           flat = as.matrix(x)
           d = as.data.table(flat)
-          d = set_names(d, sprintf("%s_%s", nm, seq(ncol(flat))))
+          d = set_names(d, sprintf("%s_%s", nm, seq_len(ncol(flat))))
           d
         }
       )
