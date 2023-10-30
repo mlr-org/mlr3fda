@@ -13,9 +13,10 @@
 #'   of features to keep. The flattening is only applied to those columns.\cr
 #'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
 #'   selector_all()`, which selects all of the `functional` features.
-#' * `interpolate` :: `logical(1)` \cr
-#'   Should functions be evaluated (i.e., inter-/extrapolated) for arg for which no original data is available?
-#'   Default is `FALSE`.
+#' * `grid` :: `character(1)` | numeric() \cr
+#'   The grid to use for interpolation. If `grid` is a character, it must be either `"union"` or `"intersect"`.
+#'   If `grid` is numeric, it must be a sequence of values to use for the grid.
+#'   Default is `"union"`.
 #'
 #' @section Naming:
 #' The new names generally append a `_1`, ...,  to the corresponding column name.
@@ -35,14 +36,24 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
-    #' @param id ()`character(1)`)\cr
-    #'   Identifier of resulting object, default `"ffe"`.
+    #' @param id (`character(1)`)\cr
+    #'   Identifier of resulting object, default `"flatfun"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "flatfun", param_vals = list()) {
-      param_set = ps(interpolate = p_lgl(tags = c("train", "predict", "required")))
-      param_set$set_values(interpolate = FALSE)
+      param_set = ps(
+        grid = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
+          if (test_string(x)) {
+            return(check_choice(x, choices = c("union", "intersect")))
+          }
+          if (test_numeric(x)) {
+            return(TRUE)
+          }
+          "Must be either a character or numeric vector."
+        }))
+      )
+      param_set$set_values(grid = "union")
 
       super$initialize(
         id = id,
@@ -60,14 +71,26 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
         return(task)
       }
       pars = self$param_set$get_values()
-      interpolate = pars$interpolate
+      grid = pars$grid
 
       dt = task$data(cols = cols)
 
       flattened = imap(
         dt,
         function(x, nm) {
-          flat = suppressWarnings(as.matrix(x, interpolate = interpolate))
+          if (!is.character(grid)) {
+            flat = as.matrix(x, arg = grid, interpolate = TRUE)
+          } else if (grid == "union") {
+            flat = as.matrix(x, interpolate = TRUE)
+          } else {
+            args = tf::tf_arg(x)
+            lower = max(map_dbl(args, 1))
+            upper = min(map_dbl(args, function(arg) arg[[length(arg)]]))
+            args = sort(unique(unlist(args)))
+            grid = args[which(lower == args):which(upper == args)]
+            browser()
+            flat = as.matrix(x, arg = grid, interpolate = TRUE)
+          }
           d = as.data.table(flat)
           setnames(d, sprintf("%s_%s", nm, seq_len(ncol(flat))))
         }

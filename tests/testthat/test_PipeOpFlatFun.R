@@ -57,7 +57,7 @@ test_that("PipeOpFlatFun works without interpolation", {
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)
 
-  # iirreg works with interpolation
+  # irreg works with interpolation
   dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
     arg = c(1, 7, 2, 3, 5),
@@ -66,7 +66,8 @@ test_that("PipeOpFlatFun works without interpolation", {
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = c(1, 2), f = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("flatfun", interpolate = TRUE)
+  # pop = po("flatfun", grid = 3:4)
+  pop = po("flatfun", grid = "intersect")
   task_flat = pop$train(list(task))[[1L]]
   expected = data.table(
     y = 1:2, f_1 = c(1, NA), f_2 = c(3, NA), f_3 = c(2.8, 4), f_4 = c(2.4, 5), f_5 = c(2, NA)
@@ -93,7 +94,7 @@ test_that("PipeOpFlatFun works with interpolation", {
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)
 
-  # iirreg works with interpolation
+  # irreg works with interpolation
   dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
     arg = c(1, 7, 2, 3, 5),

@@ -68,7 +68,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
         drop = p_lgl(tags = c("train", "predict", "required")),
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
-        features = p_uty(tags = c("train", "predict", "required"), custom_check = function(x) {
+        features = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
           if (test_character(x)) {
             return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
           }
@@ -102,7 +102,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
             return(TRUE)
           }
           "Features must be a character or list"
-        })
+        }))
       )
       param_set$set_values(
         drop = FALSE,
