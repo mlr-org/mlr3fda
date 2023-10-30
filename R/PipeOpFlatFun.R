@@ -47,7 +47,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
           if (test_string(x)) {
             return(check_choice(x, choices = c("union", "intersect")))
           }
-          if (test_numeric(x)) {
+          if (test_numeric(x, any.missing = FALSE)) {
             return(TRUE)
           }
           "Must be either a character or numeric vector."
@@ -88,7 +88,6 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
             upper = min(map_dbl(args, function(arg) arg[[length(arg)]]))
             args = sort(unique(unlist(args)))
             grid = args[which(lower == args):which(upper == args)]
-            browser()
             flat = as.matrix(x, arg = grid, interpolate = TRUE)
           }
           d = as.data.table(flat)

@@ -39,44 +39,21 @@ test_that("PipeOpFlatFun works with name clashes", {
   )
 })
 
-test_that("PipeOpFlatFun works without interpolation", {
-  # reg works without interpolation
-  dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
-    value = c(1, NA, 5, 5, 7, 3, 5, 10, NA, 12)
-  )
-  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
-  dt = data.table(y = 1:2, f = f)
-  task = as_task_regr(dt, target = "y")
-  pop = po("flatfun", interpolate = FALSE)
-  task_flat = pop$train(list(task))[[1L]]
-  expected = data.table(
-    y = 1:2, f_1 = c(1, 3), f_2 = c(NA, 5), f_3 = c(5, 10), f_4 = c(5, NA), f_5 = c(7, 12)
-  )
-  expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
-  expect_equal(task_flat$data(), expected)
-
-  # irreg works with interpolation
-  dt = data.table(
-    id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
-    arg = c(1, 7, 2, 3, 5),
-    value = 1:5
-  )
-  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
-  dt = data.table(y = c(1, 2), f = f)
-  task = as_task_regr(dt, target = "y")
-  # pop = po("flatfun", grid = 3:4)
-  pop = po("flatfun", grid = "intersect")
-  task_flat = pop$train(list(task))[[1L]]
-  expected = data.table(
-    y = 1:2, f_1 = c(1, NA), f_2 = c(3, NA), f_3 = c(2.8, 4), f_4 = c(2.4, 5), f_5 = c(2, NA)
-  )
-  expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
-  expect_equal(task_flat$data(), expected)
+test_that("PipeOpFlatFun input validation works", {
+  # grid is missing NULL
+  expect_error(po("flatfun", grid = NULL))
+  # grid has NAs
+  expect_error(po("flatfun", grid = NA))
+  expect_error(po("flatfun", grid = c(1, NA)))
+  # grid is not union or intersect
+  expect_error(po("flatfun", grid = "test"))
+  # grid is not a string
+  expect_error(po("flatfun", grid = c("union", "intersect")))
+  # grid is not a list or string
+  expect_error(po("flatfun", grid = list(1)))
 })
 
-test_that("PipeOpFlatFun works with interpolation", {
+test_that("PipeOpFlatFun works with union", {
   # reg works with interpolation
   dt = data.table(
     id = rep(1:2, each = 5),
@@ -86,11 +63,17 @@ test_that("PipeOpFlatFun works with interpolation", {
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("flatfun", interpolate = TRUE)
+  pop = po("flatfun", grid = "union")
   task_flat = pop$train(list(task))[[1L]]
   expected = data.table(
     y = 1:2, f_1 = c(1, 3), f_2 = c(3, 5), f_3 = c(5, 10), f_4 = c(5, 11), f_5 = c(7, 12)
   )
+  expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
+  expect_equal(task_flat$data(), expected)
+
+  # default grid
+  pop = po("flatfun")
+  task_flat = pop$train(list(task))[[1L]]
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)
 
@@ -103,7 +86,7 @@ test_that("PipeOpFlatFun works with interpolation", {
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = c(1, 2), f = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("flatfun", interpolate = TRUE)
+  pop = po("flatfun")
   task_flat = pop$train(list(task))[[1L]]
   expected = data.table(
     y = 1:2, f_1 = c(1, NA), f_2 = c(3, NA), f_3 = c(2.8, 4), f_4 = c(2.4, 5), f_5 = c(2, NA)

@@ -99,7 +99,6 @@ test_that("PipeOpFFS works (simple test) for all features", {
 })
 
 test_that("PipeOpFFS input validation works", {
-  task = tsk("fuel")
   # features not a list or character
   expect_error(po("ffs", features = 2L))
   # wrong features
