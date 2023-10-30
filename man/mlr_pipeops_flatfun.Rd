@@ -18,9 +18,10 @@ parameters:
 of features to keep. The flattening is only applied to those columns.\cr
 See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Default is
 selector_all()\verb{, which selects all of the }functional` features.
-\item \code{interpolate} :: \code{logical(1)} \cr
-Should functions be evaluated (i.e., inter-/extrapolated) for arg for which no original data is available?
-Default is \code{FALSE}.
+\item \code{grid} :: \code{character(1)} | numeric() \cr
+The grid to use for interpolation. If \code{grid} is a character, it must be either \code{"union"} or \code{"intersect"}.
+If \code{grid} is numeric, it must be a sequence of values to use for the grid.
+Default is \code{"union"}.
 }
 }
 
@@ -72,8 +73,8 @@ Initializes a new instance of this Class.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{()\code{character(1)})\cr
-Identifier of resulting object, default \code{"ffe"}.}
+\item{\code{id}}{(\code{character(1)})\cr
+Identifier of resulting object, default \code{"flatfun"}.}
 
 \item{\code{param_vals}}{(named \code{list})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would
