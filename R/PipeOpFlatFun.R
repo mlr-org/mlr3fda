@@ -45,7 +45,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
       param_set = ps(
         grid = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
           if (test_string(x)) {
-            return(check_choice(x, choices = c("union", "intersect")))
+            return(check_choice(x, choices = c("union", "intersect", "minmax")))
           }
           if (test_numeric(x, any.missing = FALSE)) {
             return(TRUE)
@@ -80,8 +80,12 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
         function(x, nm) {
           if (!is.character(grid)) {
             flat = as.matrix(x, arg = grid, interpolate = TRUE)
-          } else if (grid == "union" || tf::is_reg(x)) {
+          } else if (tf::is_reg(x) || grid == "union") {
             flat = as.matrix(x, interpolate = TRUE)
+          } else if (grid == "intersect") {
+            args = tf::tf_arg(x)
+            grid = Reduce(intersect, args)
+            flat = as.matrix(x, arg = grid, interpolate = TRUE)
           } else {
             args = tf::tf_arg(x)
             lower = max(map_dbl(args, 1L))
