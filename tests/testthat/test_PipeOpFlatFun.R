@@ -54,7 +54,33 @@ test_that("PipeOpFlatFun input validation works", {
 })
 
 test_that("PipeOpFlatFun works with union", {
-  # reg works with interpolation
+  # tfr works
+  dt = data.table(
+    id = rep(1:2, each = 5),
+    arg = rep(1:5, 2),
+    value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  dt = data.table(y = 1:2, f = f)
+  task = as_task_regr(dt, target = "y")
+  pop = po("flatfun", grid = "union")
+  task_flat = pop$train(list(task))[[1L]]
+  expected = data.table(
+    y = 1:2, f_1 = c(1, 3), f_2 = c(2, 5), f_3 = c(5, 10), f_4 = c(5, 2), f_5 = c(7, 12)
+  )
+  expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
+  expect_equal(task_flat$data(), expected)
+
+  # works with default
+  pop = po("flatfun")
+  task_flat = pop$train(list(task))[[1L]]
+  expected = data.table(
+    y = 1:2, f_1 = c(1, 3), f_2 = c(2, 5), f_3 = c(5, 10), f_4 = c(5, 2), f_5 = c(7, 12)
+  )
+  expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
+  expect_equal(task_flat$data(), expected)
+
+  # tfi works with same min and max
   dt = data.table(
     id = rep(1:2, each = 5),
     arg = rep(1:5, 2),
@@ -71,26 +97,70 @@ test_that("PipeOpFlatFun works with union", {
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)
 
-  # default grid
-  pop = po("flatfun")
+  # tfi works with different min and max
+  dt = data.table(
+    id = c(rep(1, 3), rep(2, 6)),
+    arg = c(3:5, 1:6),
+    value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  dt = data.table(y = 1:2, f = f)
+  task = as_task_regr(dt, target = "y")
+  pop = po("flatfun", grid = "union")
   task_flat = pop$train(list(task))[[1L]]
+  expected = data.table(
+    y = 1:2, f_1 = c(NA, 1), f_2 = c(NA, 3), f_3 = c(2, 4), f_4 = c(5, 5), f_5 = c(6, 6), f_6 = c(NA, 7))
+  expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5", "f_6"), task_flat$feature_names)
+  expect_equal(task_flat$data(), expected)
+})
+
+test_that("PipeOpFlatFun works with intersect", {
+  # tfr works
+  dt = data.table(
+    id = rep(1:2, each = 5),
+    arg = rep(1:5, 2),
+    value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  dt = data.table(y = 1:2, f = f)
+  task = as_task_regr(dt, target = "y")
+  pop = po("flatfun", grid = "intersect")
+  task_flat = pop$train(list(task))[[1L]]
+  expected = data.table(
+    y = 1:2, f_1 = c(1, 3), f_2 = c(2, 5), f_3 = c(5, 10), f_4 = c(5, 2), f_5 = c(7, 12)
+  )
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)
 
-  # irreg works with interpolation
+  # tfi works with same min and max
   dt = data.table(
-    id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
-    arg = c(1, 7, 2, 3, 5),
-    value = 1:5
+    id = rep(1:2, each = 5),
+    arg = rep(1:5, 2),
+    value = c(1, NA, 5, 5, 7, 3, 5, 10, NA, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
-  dt = data.table(y = c(1, 2), f = f)
+  dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("flatfun")
+  pop = po("flatfun", grid = "intersect")
   task_flat = pop$train(list(task))[[1L]]
   expected = data.table(
-    y = 1:2, f_1 = c(1, NA), f_2 = c(3, NA), f_3 = c(2.8, 4), f_4 = c(2.4, 5), f_5 = c(2, NA)
+    y = 1:2, f_1 = c(1, 3), f_2 = c(3, 5), f_3 = c(5, 10), f_4 = c(5, 11), f_5 = c(7, 12)
   )
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
+  expect_equal(task_flat$data(), expected)
+
+  # tfi works with different min and max
+  dt = data.table(
+    id = c(rep(1, 3), rep(2, 6)),
+    arg = c(3:5, 1:6),
+    value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  dt = data.table(y = 1:2, f = f)
+  task = as_task_regr(dt, target = "y")
+  pop = po("flatfun", grid = "intersect")
+  task_flat = pop$train(list(task))[[1L]]
+  expected = data.table(y = 1:2, f_1 = c(2, 4), f_2 = c(5, 5), f_3 = c(6, 6))
+  expect_set_equal(c("f_1", "f_2", "f_3"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)
 })

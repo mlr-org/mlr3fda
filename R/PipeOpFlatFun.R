@@ -16,7 +16,7 @@
 #' * `grid` :: `character(1)` | numeric() \cr
 #'   The grid to use for interpolation. If `grid` is a character, it must be either `"union"` or `"intersect"`.
 #'   If `grid` is numeric, it must be a sequence of values to use for the grid.
-#'   Default is `"union"`.
+#'   Initial is `"union"`.
 #'
 #' @section Naming:
 #' The new names generally append a `_1`, ...,  to the corresponding column name.
@@ -50,7 +50,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
           if (test_numeric(x, any.missing = FALSE)) {
             return(TRUE)
           }
-          "Must be either a character or numeric vector."
+          "Must be either a string or numeric vector."
         }))
       )
       param_set$set_values(grid = "union")
@@ -80,11 +80,11 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
         function(x, nm) {
           if (!is.character(grid)) {
             flat = as.matrix(x, arg = grid, interpolate = TRUE)
-          } else if (grid == "union") {
+          } else if (grid == "union" || tf::is_reg(x)) {
             flat = as.matrix(x, interpolate = TRUE)
           } else {
             args = tf::tf_arg(x)
-            lower = max(map_dbl(args, 1))
+            lower = max(map_dbl(args, 1L))
             upper = min(map_dbl(args, function(arg) arg[[length(arg)]]))
             args = sort(unique(unlist(args)))
             grid = args[which(lower == args):which(upper == args)]

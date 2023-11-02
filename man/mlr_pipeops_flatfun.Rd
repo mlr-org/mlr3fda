@@ -21,7 +21,7 @@ selector_all()\verb{, which selects all of the }functional` features.
 \item \code{grid} :: \code{character(1)} | numeric() \cr
 The grid to use for interpolation. If \code{grid} is a character, it must be either \code{"union"} or \code{"intersect"}.
 If \code{grid} is numeric, it must be a sequence of values to use for the grid.
-Default is \code{"union"}.
+Initial is \code{"union"}.
 }
 }
 
