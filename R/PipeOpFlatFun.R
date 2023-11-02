@@ -14,8 +14,19 @@
 #'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
 #'   selector_all()`, which selects all of the `functional` features.
 #' * `grid` :: `character(1)` | numeric() \cr
-#'   The grid to use for interpolation. If `grid` is a character, it must be either `"union"` or `"intersect"`.
-#'   If `grid` is numeric, it must be a sequence of values to use for the grid.
+#'   The grid to use for interpolation. If `grid` is a character, it must be either `"union"`, `"intersect"` or
+#'   `"minmax"`. If `grid` is numeric, it must be a sequence of values to use for the grid.
+#'   Depending on the type of functional data (regular or irregular), the `grid` parameter behaves differently:
+#'    `"union"`: This option creates a grid based on the union of all argument points from the provided functional
+#'   features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
+#'   be the combined unique set of these points. This option is generally used when the argument points vary across
+#'   observations and a  common grid is needed for comparison or further analysis.
+#'   * `"intersect"`: The grid is created based on the intersection of all argument points of a feature.
+#'   * `"minmax"`: This option constructs a grid that spans from the maximum of the minimum argument points to the
+#'   minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
+#'   encapsulates the range within which all features have defined argument points.
+#'   If `grid` is a numeric vector, then it is used directly as the grid of points without any modification,
+#'   assuming that these are the desired points for evaluation of the functional features.
 #'   Initial is `"union"`.
 #'
 #' @section Naming:
