@@ -27,7 +27,7 @@
 #'   encapsulates the range within which all features have defined argument points.
 #'   If `grid` is a numeric vector, then it is used directly as the grid of points without any modification,
 #'   assuming that these are the desired points for evaluation of the functional features.
-#'   Initial is `"union"`.
+#'   Initial value is `"union"`.
 #'
 #' @section Naming:
 #' The new names generally append a `_1`, ...,  to the corresponding column name.
