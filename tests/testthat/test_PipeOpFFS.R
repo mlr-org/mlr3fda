@@ -165,4 +165,9 @@ test_that("ffind works", {
   # large vector
   x = 1:1e6
   expect_equal(ffind(x, 1e5, 1e6), c(1e5, 1e6))
+  # lower and upper same value
+  expect_equal(ffind(1:3, 1, 1), c(1, 1))
+  # not in interval
+  expect_equal(ffind(1:3, 1.1, 1.2), c(NA_integer_, NA_integer_))
+  expect_equal(ffind(1:3, 1.3, 1.8), c(NA_integer_, NA_integer_))
 })
