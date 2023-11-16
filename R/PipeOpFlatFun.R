@@ -43,7 +43,7 @@
 #' task = tsk("fuel")
 #' pop = po("flatfun")
 #' task_flat = pop$train(list(task))
-PipeOpFlatFun = R6Class("PipeOpFlatFun",
+PipeOpFlatFun = R6Class("PipeOpFlatFun", # "PipeOpInterpolate" + interpolate
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
@@ -86,6 +86,7 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun",
 
       dt = task$data(cols = cols)
 
+      # TODO: predefined min and max i.e. left and right + length of grid
       flattened = imap(
         dt,
         function(x, nm) {
