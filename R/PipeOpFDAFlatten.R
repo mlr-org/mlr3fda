@@ -1,5 +1,5 @@
 #' @title Flattens Functional Columns
-#' @name mlr_pipeops_flatfun
+#' @name mlr_pipeops_fda.flatten
 #'
 #' @description
 #' Convert regular functional features (e.g. all individuals are observed at the same time-points)
@@ -13,21 +13,6 @@
 #'   of features to keep. The flattening is only applied to those columns.\cr
 #'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
 #'   selector_all()`, which selects all of the `functional` features.
-#' * `grid` :: `character(1)` | numeric() \cr
-#'   The grid to use for interpolation. If `grid` is a character, it must be either `"union"`, `"intersect"` or
-#'   `"minmax"`. If `grid` is numeric, it must be a sequence of values to use for the grid.
-#'   Depending on the type of functional data (regular or irregular), the `grid` parameter behaves differently:
-#'    `"union"`: This option creates a grid based on the union of all argument points from the provided functional
-#'   features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
-#'   be the combined unique set of these points. This option is generally used when the argument points vary across
-#'   observations and a  common grid is needed for comparison or further analysis.
-#'   * `"intersect"`: The grid is created based on the intersection of all argument points of a feature.
-#'   * `"minmax"`: This option constructs a grid that spans from the maximum of the minimum argument points to the
-#'   minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
-#'   encapsulates the range within which all features have defined argument points.
-#'   If `grid` is a numeric vector, then it is used directly as the grid of points without any modification,
-#'   assuming that these are the desired points for evaluation of the functional features.
-#'   Initial value is `"union"`.
 #'
 #' @section Naming:
 #' The new names generally append a `_1`, ...,  to the corresponding column name.
@@ -41,30 +26,19 @@
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' pop = po("flatfun")
+#' pop = po("fda.flatten")
 #' task_flat = pop$train(list(task))
-PipeOpFlatFun = R6Class("PipeOpFlatFun", # "PipeOpInterpolate" + interpolate
+PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default `"flatfun"`.
+    #'   Identifier of resulting object, default `"fda.flatten"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
-    initialize = function(id = "flatfun", param_vals = list()) {
-      param_set = ps(
-        grid = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
-          if (test_string(x)) {
-            return(check_choice(x, choices = c("union", "intersect", "minmax")))
-          }
-          if (test_numeric(x, any.missing = FALSE)) {
-            return(TRUE)
-          }
-          "Must be either a string or numeric vector."
-        }))
-      )
-      param_set$set_values(grid = "union")
+    initialize = function(id = "fda.flatten", param_vals = list()) {
+      param_set = ps()
 
       super$initialize(
         id = id,
@@ -86,26 +60,10 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun", # "PipeOpInterpolate" + interpolate
 
       dt = task$data(cols = cols)
 
-      # TODO: predefined min and max i.e. left and right + length of grid
       flattened = imap(
         dt,
         function(x, nm) {
-          if (!is.character(grid)) {
-            flat = as.matrix(x, arg = grid, interpolate = TRUE)
-          } else if (tf::is_reg(x) || grid == "union") {
-            flat = as.matrix(x, interpolate = TRUE)
-          } else if (grid == "intersect") {
-            args = tf::tf_arg(x)
-            grid = Reduce(intersect, args)
-            flat = as.matrix(x, arg = grid, interpolate = TRUE)
-          } else {
-            args = tf::tf_arg(x)
-            lower = max(map_dbl(args, 1L))
-            upper = min(map_dbl(args, function(arg) arg[[length(arg)]]))
-            args = sort(unique(unlist(args)))
-            grid = args[which(lower == args):which(upper == args)]
-            flat = as.matrix(x, arg = grid, interpolate = TRUE)
-          }
+          flat = as.matrix(x)
           d = as.data.table(flat)
           setnames(d, sprintf("%s_%s", nm, seq_len(ncol(flat))))
         }
@@ -128,4 +86,4 @@ PipeOpFlatFun = R6Class("PipeOpFlatFun", # "PipeOpInterpolate" + interpolate
 )
 
 #' @include zzz.R
-register_po("flatfun", PipeOpFlatFun)
+register_po("fda.flatten", PipeOpFDAFlatten)

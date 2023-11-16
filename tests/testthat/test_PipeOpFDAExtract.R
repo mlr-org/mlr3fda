@@ -1,4 +1,4 @@
-test_that("PipeOpFFS works", {
+test_that("PipeOpfda.extract works", {
   # tf_reg works
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
@@ -10,18 +10,18 @@ test_that("PipeOpFFS works", {
   dat = data.table(f = f, y = y)
   task = as_task_regr(dat, target = "y")
 
-  po_fmean = po("ffs", features = "mean", drop = TRUE)
+  po_fmean = po("fda.extract", features = "mean", drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 5))
 
   # multiple functions work
-  pop = po("ffs", features = c("mean", "median", "var"), drop = TRUE)
+  pop = po("fda.extract", features = c("mean", "median", "var"), drop = TRUE)
   task_pop = pop$train(list(task))[[1L]]
   expect = data.table(y = 1:2, f_mean = c(2, 5), f_median = c(2, 5), f_var = c(1, 1))
   expect_equal(task_pop$data(), expect)
 
-  pop = po("ffs", features = list("mean", "median", "var"), drop = TRUE)
+  pop = po("fda.extract", features = list("mean", "median", "var"), drop = TRUE)
   task_pop = pop$train(list(task))[[1L]]
   expect = data.table(y = 1:2, f_mean = c(2, 5), f_median = c(2, 5), f_var = c(1, 1))
   expect_equal(task_pop$data(), expect)
@@ -30,18 +30,18 @@ test_that("PipeOpFFS works", {
   custom = function(arg, value) {
     mean(value, na.rm = TRUE)
   }
-  pop = po("ffs", features = list("mean", custom = custom), drop = TRUE)
+  pop = po("fda.extract", features = list("mean", custom = custom), drop = TRUE)
   task_pop = pop$train(list(task))[[1L]]
   expect = data.table(y = 1:2, f_mean = c(2, 5), f_custom = c(2, 5))
   expect_equal(task_pop$data(), expect)
 
   # return NA if not in interval
-  po_fmean = po("ffs", features = "mean", drop = TRUE, left = 100, right = 200)
+  po_fmean = po("fda.extract", features = "mean", drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, rep(NA_real_, 2))
 
-  pop = po("ffs", features = c("mean", "median", "min"), drop = TRUE, left = 100, right = 200)
+  pop = po("fda.extract", features = c("mean", "median", "min"), drop = TRUE, left = 100, right = 200)
   task_pop = pop$train(list(task))[[1L]]
   expected = data.table(
     y = 1:2, f_mean = rep(NA_real_, 2), f_median = rep(NA_real_, 2), f_min = rep(NA_real_, 2)
@@ -59,64 +59,64 @@ test_that("PipeOpFFS works", {
   dat = data.table(f = f, y = y)
   task = as_task_regr(dat, target = "y")
 
-  po_fmean = po("ffs", features = list("mean", "median", custom = custom), drop = TRUE)
+  po_fmean = po("fda.extract", features = list("mean", "median", custom = custom), drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 4.5))
 
-  po_fmean = po("ffs", features = "mean", drop = TRUE, left = 1, right = 3)
+  po_fmean = po("fda.extract", features = "mean", drop = TRUE, left = 1, right = 3)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 4))
 
   # return NA if not in interval
-  po_fmean = po("ffs", features = list("mean"), drop = TRUE, left = 100, right = 200)
+  po_fmean = po("fda.extract", features = list("mean"), drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, rep(NA_real_, 2))
 
   # drop works
-  po_fmean = po("ffs", features = list("mean"), drop = FALSE)
+  po_fmean = po("fda.extract", features = list("mean"), drop = FALSE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, c("f", "f_mean"))
 
-  po_fmean = po("ffs", features = list("mean"), drop = TRUE)
+  po_fmean = po("fda.extract", features = list("mean"), drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, "f_mean")
 
   # affect_columns works
-  po_fmean = po("ffs", features = list("mean"), drop = TRUE, affect_columns = selector_name("abc"))
+  po_fmean = po("fda.extract", features = list("mean"), drop = TRUE, affect_columns = selector_name("abc"))
   task_fmean = po_fmean$train(list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, "f")
 })
 
-test_that("PipeOpFFS works (simple test) for all features", {
+test_that("PipeOpfda.extract works (simple test) for all features", {
   task = tsk("fuel")
-  pop = po("ffs")
+  pop = po("fda.extract")
   features = list("mean", "min", "max", "slope", "median")
   pop$param_set$values$features = features
   expect_no_error(pop$train(list(task)))
 })
 
-test_that("PipeOpFFS input validation works", {
+test_that("PipeOpfda.extract input validation works", {
   # features not a list or character
-  expect_error(po("ffs", features = 2L))
+  expect_error(po("fda.extract", features = 2L))
   # wrong features
-  expect_error(po("ffs", features = list("mean", "fmean")))
-  expect_error(po("ffs", features = c("mean", "fmean")))
+  expect_error(po("fda.extract", features = list("mean", "fmean")))
+  expect_error(po("fda.extract", features = c("mean", "fmean")))
   # duplicate features
-  expect_error(po("ffs", features = list("mean", "mean")))
+  expect_error(po("fda.extract", features = list("mean", "mean")))
   # value other than function or string
-  expect_error(po("ffs", features = list("mean", 2L)))
+  expect_error(po("fda.extract", features = list("mean", 2L)))
   # wrong params for feature function
-  expect_error(po("ffs", features = list(custom = function(arg) mean(arg, na.rm = TRUE))))
-  expect_error(po("ffs", features = list(custom = function(value) mean(value, na.rm = TRUE))))
-  expect_error(po("ffs", features = list(custom = function(x, y) sum(x, y))))
+  expect_error(po("fda.extract", features = list(custom = function(arg) mean(arg, na.rm = TRUE))))
+  expect_error(po("fda.extract", features = list(custom = function(value) mean(value, na.rm = TRUE))))
+  expect_error(po("fda.extract", features = list(custom = function(x, y) sum(x, y))))
   # missing name for custom function
-  expect_error(po("ffs", features = list(function(arg, value) mean(value, na.rm = TRUE))))
+  expect_error(po("fda.extract", features = list(function(arg, value) mean(value, na.rm = TRUE))))
 })
 
-test_that("PipeOpFFS works with name clashes", {
+test_that("PipeOpfda.extract works with name clashes", {
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
     arg = c(1, 7, 2, 3, 5),
@@ -128,7 +128,7 @@ test_that("PipeOpFFS works with name clashes", {
   dat$f_mean = c(-1, -1)
   task = as_task_regr(dat, target = "y")
 
-  pop = po("ffs", features = list("mean"))
+  pop = po("fda.extract", features = list("mean"))
   expect_warning(
     pop$train(list(task))[[1L]],
     regexp = "Unique names for"

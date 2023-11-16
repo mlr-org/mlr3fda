@@ -88,13 +88,13 @@ task
 
 Currently there are no `Learner`s that directly operate on functional
 data. However, it is possible to extract simple functional features
-using the `PipeOpFFS`, which in the example below calculates the average
-functional responses.
+using the `PipeOpFDAExtract`, which in the example below calculates the
+average functional responses.
 
 ``` r
 library(mlr3pipelines)
 
-po_fmean = po("ffs", features = "mean")
+po_fmean = po("fda.extract", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
@@ -123,7 +123,7 @@ removed from the task.
 ids = partition(task)
 
 # drop = TRUE means we remove the functional columns as features
-graph = po("ffs", features = "mean", drop = TRUE) %>>%
+graph = po("fda.extract", features = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
