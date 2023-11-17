@@ -142,6 +142,8 @@ test_that("ffind works", {
   expect_equal(ffind(x, 9, 25), c(4, 9))
   expect_equal(ffind(x, 9.5, 24.5), c(5, 9))
   expect_equal(ffind(x, 9.5, 21.5), c(5, 8))
+  expect_equal(ffind(-5:5, -3, 3), c(3, 9))
+  expect_equal(ffind(1:10, 1, 10), c(1, 10))
   # non-integer
   x = c(1.2, 2.3, 3.4, 4.5)
   expect_equal(ffind(x, 2.5, 4), c(3, 3))
@@ -155,6 +157,7 @@ test_that("ffind works", {
   # not in interval
   expect_equal(ffind(2:5, 6, 10), c(NA_integer_, NA_integer_))
   expect_equal(ffind(2:5, 1, 1), c(NA_integer_, NA_integer_))
+  expect_equal(ffind(1:10, 20, 30), c(NA_integer_, NA_integer_))
   # single element
   expect_equal(ffind(5, 5, 5), c(1, 1))
   expect_equal(ffind(5, 4, 6), c(1, 1))
@@ -170,4 +173,11 @@ test_that("ffind works", {
   # not in interval
   expect_equal(ffind(1:3, 1.1, 1.2), c(NA_integer_, NA_integer_))
   expect_equal(ffind(1:3, 1.3, 1.8), c(NA_integer_, NA_integer_))
+  # left not in interval
+  expect_equal(ffind(1:3, 1.2, 2), c(2, 2))
+  # right not in interval
+  expect_equal(ffind(1:3, 1, 1.2), c(1, 1))
+  # one boundary outside
+  expect_equal(ffind(1:10, 0, 5), c(1, 5))
+  expect_equal(ffind(1:10, 5, 15), c(5, 10))
 })
