@@ -1,122 +1,80 @@
-#' @title Interpolate Functional Data
-#'
-#' @usage NULL
+#' @title Flattens Functional Columns
 #' @name mlr_pipeops_fda.interpol
-#' @format [`R6Class`] object inheriting from
-#' [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]
 #'
 #' @description
-#' This is the class that extracts simple features from functional columns.
-#' Note that it only operates on values that were actually observed and does not interpolate.
+#' Convert regular functional features (e.g. all individuals are observed at the same time-points)
+#' to new columns, one for each input value to the function.
 #'
 #' @section Parameters:
-#' * `drop` :: `logical(1)`\cr
-#'   Whether to drop the original `functional` features and only keep the extracted features.
-#'   Note that this does not remove the features from the backend, but only from the active
-#'   column role `feature`. Initial is `FALSE`.
-#' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
-#'   What columns the [`PipeOpTaskPreproc`] should operate on.
-#'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
-#' * `features` :: `list()` | `character()` \cr
-#'   A list of features to extract. Each element can be either a function or a string.
-#'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
-#'   For string elements, the following predefined features are available:
-#'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
-#'   Initial is `c("mean", "max", "min", "slope", "median", "var")`
-#' * `left` :: `numeric()` \cr
-#'   The left boundary of the window. Initial is `-Inf`.
-#'   The window is specified such that the all values >=left and <=right are kept for the computations.
-#' * `right` :: `numeric()` \cr
-#'   The right boundary of the window. Initial is `Inf`.
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
+#' parameters:
+#' * `affect_columns` :: `function` | [`Selector`][mlr3pipelines::Selector] \cr
+#'   [`Selector`][mlr3pipelines::Selector] function, takes a `Task` as argument and returns a `character`
+#'   of features to keep. The flattening is only applied to those columns.\cr
+#'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
+#'   selector_all()`, which selects all of the `functional` features.
+#' * `grid` :: `character(1)` | numeric() \cr
+#'   The grid to use for interpolation. If `grid` is a character, it must be either `"union"`, `"intersect"` or
+#'   `"minmax"`. If `grid` is numeric, it must be a sequence of values to use for the grid.
+#'   Depending on the type of functional data (regular or irregular), the `grid` parameter behaves differently:
+#'    `"union"`: This option creates a grid based on the union of all argument points from the provided functional
+#'   features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
+#'   be the combined unique set of these points. This option is generally used when the argument points vary across
+#'   observations and a  common grid is needed for comparison or further analysis.
+#'   * `"intersect"`: The grid is created based on the intersection of all argument points of a feature.
+#'   * `"minmax"`: This option constructs a grid that spans from the maximum of the minimum argument points to the
+#'   minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
+#'   encapsulates the range within which all features have defined argument points.
+#'   If `grid` is a numeric vector, then it is used directly as the grid of points without any modification,
+#'   assuming that these are the desired points for evaluation of the functional features.
+#'   Initial value is `"union"`.
 #'
 #' @section Naming:
-#' The new names generally append a `_{feature}` to the corresponding column name.
+#' The new names generally append a `_1`, ...,  to the corresponding column name.
 #' However this can lead to name clashes with existing columns.
 #' This is solved as follows:
 #' If a column was called `"x"` and the feature is `"mean"`, the corresponding new column will
 #' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()` and
 #' a warning is given.
 #'
-#' @section Methods:
-#' Only methods inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]/
-#' [`PipeOp`][mlr3pipelines::PipeOp]
-#'
 #' @export
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' po_fmean = po("fda.interpol", features = "mean")
-#' task_fmean = po_fmean$train(list(task))[[1L]]
-#'
-#' # add more than one feature
-#' pop = po("fda.interpol", features = c("mean", "median", "var"))
-#' task_features = pop$train(list(task))[[1L]]
-#'
-#' # add a custom feature
-#' po_custom = po("fda.interpol", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
-#' task_custom = po_custom$train(list(task))[[1L]]
+#' pop = po("fda.interpol")
+#' task_interpol = pop$train(list(task))
 PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"fda.interpol"`.
+    #'   Identifier of resulting object, default `"fda.interpol"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
+    #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.interpol", param_vals = list()) {
       param_set = ps(
-        drop = p_lgl(tags = c("train", "predict", "required")),
-        left = p_dbl(tags = c("train", "predict", "required")),
-        right = p_dbl(tags = c("train", "predict", "required")),
-        features = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
-          if (test_character(x)) {
-            return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
+        grid = p_uty(tags = c("train", "predict"), custom_check = crate(function(x) {
+          if (test_string(x)) {
+            return(check_choice(x, choices = c("union", "intersect", "minmax")))
           }
-          if (test_list(x)) {
-            res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
-            if (!isTRUE(res)) {
-              return(res)
-            }
-            nms = names2(x)
-            res = check_names(nms[!is.na(nms)], "unique")
-            if (!isTRUE(res)) {
-              return(res)
-            }
-            for (i in seq_along(x)) {
-              if (is.function(x[[i]])) {
-                res = check_function(x[[i]], args = c("arg", "value"))
-                if (!isTRUE(res)) {
-                  return(res)
-                }
-                res = check_names(nms[i])
-                if (!isTRUE(res)) {
-                  return(res)
-                }
-              } else {
-                res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
-                if (!isTRUE(res)) {
-                  return(res)
-                }
-              }
-            }
+          if (test_numeric(x, any.missing = FALSE)) {
             return(TRUE)
           }
-          "Features must be a character or list"
-        }))
+          "Must be either a string or numeric vector."
+        })),
+        resolution = p_int(tags = c("train", "predict")),
+        left = p_dbl(tags = c("train", "predict")),
+        right = p_dbl(tags = c("train", "predict"))
       )
-      param_set$set_values(
-        drop = FALSE,
-        left = -Inf,
-        right = Inf,
-        features = c("mean", "max", "min", "slope", "median", "var")
-      )
+      param_set$set_values(grid = "union")
 
       super$initialize(
         id = id,
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = c("tfd_irreg", "tfd_reg")
+        feature_types = c("tfd_reg", "tfd_irreg")
       )
     }
   ),
@@ -128,137 +86,48 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
       }
       dt = task$data(cols = cols)
       pars = self$param_set$get_values()
-      drop = pars$drop
-      features = pars$features
+      grid = pars$grid
+      resolution = pars$resolution
       left = pars$left
       right = pars$right
-      assert_true(left <= right)
 
-      # handle name clashes of generated features with existing columns
-      feature_names = imap_chr(features, function(value, nm) {
-        if (is.function(value)) nm else value
-      })
-      feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
-
-      if (anyDuplicated(c(task$col_info$id, feature_names))) {
-        warningf("Unique names for features were created due to name clashes with existing columns.")
-        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
-        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
-      }
-
-      features = map(features, function(feature) {
-        if (is.function(feature)) {
-          return(feature)
-        }
-        switch(feature,
-          mean = fmean,
-          median = fmedian,
-          min = fmin,
-          max = fmax,
-          slope = fslope,
-          var = fvar
-        )
-      })
-      fextractor = make_fextractor(features)
-
-      features = map(
-        cols,
-        function(col) {
-          x = dt[[col]]
-          invoke(fextractor, x = x, left = left, right = right)
-        }
-      )
-
-      features = unlist(features, recursive = FALSE)
-      features = set_names(features, feature_names)
-      features = as.data.table(features)
-
-      if (!drop) {
-        features = cbind(dt, features)
-      }
-
-      task$select(setdiff(task$feature_names, cols))$cbind(features)
-      task
+      dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, left, right))]
+      task$select(setdiff(task$feature_names, cols))$cbind(dt)
     }
   )
 )
 
-make_fextractor = function(features) {
-  function(x, left = -Inf, right = Inf) {
-    args = tf::tf_arg(x)
-
-    if (tf::is_reg(x)) {
-      interval = ffind(args, left = left, right = right)
-      lower = interval[[1L]]
-      upper = interval[[2L]]
-
-      if (is.na(lower) || is.na(upper)) {
-        res = map(features, function(f) {
-          rep(NA_real_, length(x)) # no observation in the given interval [left, right]
-        })
-        return(res)
-      }
-
-      values = tf::tf_evaluations(x)
-      arg = args[lower:upper]
-      res = map(seq_along(x), function(i) {
-        value = values[[i]]
-        map(features, function(f) {
-          f(arg = arg, value = value[lower:upper])
-        })
-      })
-      return(transform_list(res))
+interpolate_col = function(x, grid, left, right) {
+  if (is.numeric(grid)) {
+    if (length(grid) > 1L && is.null(left) && is.null(right)) {
+      return(tf::tf_interpolate(x, arg = grid))
     }
-
-    values = tf::tf_evaluations(x)
-    res = map(seq_along(x), function(i) {
-      arg = args[[i]]
-      value = values[[i]]
-
-      interval = ffind(arg, left = left, right = right)
-      lower = interval[[1L]]
-      upper = interval[[2L]]
-
-      if (is.na(lower) || is.na(upper)) {
-        rep(NA_real_, length(features)) # no observation in the given interval [left, right]
-      } else {
-        map(features, function(f) {
-          f(arg = arg[lower:upper], value = value[lower:upper])
-        })
-      }
-    })
-    transform_list(res)
+    return(tf::tf_interpolate(x, arg = seq(left, right, length.out = grid)))
   }
+
+  if (tf::is_reg(x)) {
+    return(x)
+  }
+  args = tf::tf_arg(x)
+  switch(grid,
+    "union" = {
+      args = sort(unique(unlist(args)))
+      x = tf::tf_interpolate(x, arg = args)
+    },
+    "intersect" = {
+      grid = Reduce(intersect, args)
+      x = tf::tf_interpolate(x, arg = grid)
+    },
+    "minmax" = {
+      lower = max(map_dbl(args, 1L))
+      upper = min(map_dbl(args, function(arg) arg[[length(arg)]]))
+      args = sort(unique(unlist(args)))
+      args = args[which(lower == args):which(upper == args)]
+      x = tf::tf_interpolate(x, arg = args)
+    }
+  )
+  x
 }
-
-transform_list = function(x) {
-  x = transpose_list(x)
-  map(x, unlist)
-}
-
-ffind = function(x, left = -Inf, right = Inf) {
-  len = length(x)
-  if (left <= x[[1L]] && right >= x[[len]]) {
-    return(c(1L, len))
-  }
-  if (left > x[[len]] || right < x[[1L]]) {
-    return(rep(NA_integer_, 2L))
-  }
-  it = findInterval(c(left, right), x)
-  if (it[[1L]] == 0L) {
-    it[[1L]] = 1L
-  } else if (x[[it[[1L]]]] < left) {
-    it[[1L]] = it[[1L]] + 1L
-  }
-  it
-}
-
-fmean = function(arg, value) mean(value, na.rm = TRUE)
-fmin = function(arg, value) min(value, na.rm = TRUE)
-fmax = function(arg, value) max(value, na.rm = TRUE)
-fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
-fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
-fvar = function(arg, value) stats::var(value, na.rm = TRUE)
 
 #' @include zzz.R
 register_po("fda.interpol", PipeOpFDAInterpol)
