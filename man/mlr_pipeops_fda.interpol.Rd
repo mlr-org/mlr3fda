@@ -3,68 +3,52 @@
 \name{mlr_pipeops_fda.interpol}
 \alias{mlr_pipeops_fda.interpol}
 \alias{PipeOpFDAInterpol}
-\title{Interpolate Functional Data}
-\format{
-\code{\link{R6Class}} object inheriting from
-\code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}}
-}
+\title{Interpolate Functional Columns}
 \description{
-This is the class that extracts simple features from functional columns.
-Note that it only operates on values that were actually observed and does not interpolate.
+Interpolate functional features (e.g. all individuals are observed at different time-points) to a common grid.
+This is useful if you want to compare functional features across observations.
+The interpolation is done using the \code{tf} package. See \code{\link[tf:tf_interpolate]{tf_interpolate()}} for details.
 }
 \section{Parameters}{
 
+The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
+parameters:
 \itemize{
-\item \code{drop} :: \code{logical(1)}\cr
-Whether to drop the original \code{functional} features and only keep the extracted features.
-Note that this does not remove the features from the backend, but only from the active
-column role \code{feature}. Initial is \code{FALSE}.
-\item \code{affect_columns} :: \code{function} | \code{\link{Selector}} | \code{NULL} \cr
-What columns the \code{\link{PipeOpTaskPreproc}} should operate on.
-See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
-\item \code{features} :: \code{list()} | \code{character()} \cr
-A list of features to extract. Each element can be either a function or a string.
-If the element if is function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.
-For string elements, the following predefined features are available:
-\code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"},\code{"var"}.
-Initial is \code{c("mean", "max", "min", "slope", "median", "var")}
+\item \code{affect_columns} :: \code{function} | \code{\link[mlr3pipelines:Selector]{Selector}} \cr
+\code{\link[mlr3pipelines:Selector]{Selector}} function, takes a \code{Task} as argument and returns a \code{character}
+of features to keep. The flattening is only applied to those columns.\cr
+See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Default is
+selector_all()\verb{, which selects all of the }functional` features.
+\item \code{grid} :: \code{character(1)} | numeric() \cr
+The grid to use for interpolation.
+If \code{grid} is numeric, it must be a sequence of values to use for the grid or a single value that
+specifies the number of points to use for the grid, requires \code{left} and \code{right} to be specified.
+If \code{grid} is a character, it must be either \code{"union"}, \code{"intersect"} or \code{"minmax"}.
+For regular functional data this has no effect.
+\itemize{
+\item \code{"union"}: This option creates a grid based on the union of all argument points from the provided functional
+features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
+be the combined unique set of these points. This option is generally used when the argument points vary across
+observations and a  common grid is needed for comparison or further analysis.
+\item \code{"intersect"}: The grid is created based on the intersection of all argument points of a feature.
+\item \code{"minmax"}: This option constructs a grid that spans from the maximum of the minimum argument points to the
+minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
+encapsulates the range within which all features have defined argument points.
+Initial value is \code{"union"}.
+}
 \item \code{left} :: \code{numeric()} \cr
-The left boundary of the window. Initial is \code{-Inf}.
+The left boundary of the window.
 The window is specified such that the all values >=left and <=right are kept for the computations.
 \item \code{right} :: \code{numeric()} \cr
-The right boundary of the window. Initial is \code{Inf}.
+The right boundary of the window.
 }
-}
-
-\section{Naming}{
-
-The new names generally append a \verb{_\{feature\}} to the corresponding column name.
-However this can lead to name clashes with existing columns.
-This is solved as follows:
-If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
-be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
-a warning is given.
-}
-
-\section{Methods}{
-
-Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}}/
-\code{\link[mlr3pipelines:PipeOp]{PipeOp}}
 }
 
 \examples{
 library(mlr3pipelines)
 task = tsk("fuel")
-po_fmean = po("fda.interpol", features = "mean")
-task_fmean = po_fmean$train(list(task))[[1L]]
-
-# add more than one feature
-pop = po("fda.interpol", features = c("mean", "median", "var"))
-task_features = pop$train(list(task))[[1L]]
-
-# add a custom feature
-po_custom = po("fda.interpol", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
-task_custom = po_custom$train(list(task))[[1L]]
+pop = po("fda.interpol")
+task_interpol = pop$train(list(task))
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDAInterpol}
@@ -99,10 +83,11 @@ Initializes a new instance of this Class.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{(\code{character(1)})\cr
-Identifier of resulting object, default is \code{"fda.interpol"}.}
+Identifier of resulting object, default \code{"fda.interpol"}.}
 
 \item{\code{param_vals}}{(named \code{list})\cr
-List of hyperparameter settings, overwriting the hyperparameter settings that would}
+List of hyperparameter settings, overwriting the hyperparameter settings that would
+otherwise be set during construction. Default \code{list()}.}
 }
 \if{html}{\out{</div>}}
 }

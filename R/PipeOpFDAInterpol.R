@@ -1,9 +1,10 @@
-#' @title Flattens Functional Columns
+#' @title Interpolate Functional Columns
 #' @name mlr_pipeops_fda.interpol
 #'
 #' @description
-#' Convert regular functional features (e.g. all individuals are observed at the same time-points)
-#' to new columns, one for each input value to the function.
+#' Interpolate functional features (e.g. all individuals are observed at different time-points) to a common grid.
+#' This is useful if you want to compare functional features across observations.
+#' The interpolation is done using the `tf` package. See [`tf_interpolate()`][tf::tf_interpolate] for details.
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
@@ -14,28 +15,25 @@
 #'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
 #'   selector_all()`, which selects all of the `functional` features.
 #' * `grid` :: `character(1)` | numeric() \cr
-#'   The grid to use for interpolation. If `grid` is a character, it must be either `"union"`, `"intersect"` or
-#'   `"minmax"`. If `grid` is numeric, it must be a sequence of values to use for the grid.
-#'   Depending on the type of functional data (regular or irregular), the `grid` parameter behaves differently:
-#'    `"union"`: This option creates a grid based on the union of all argument points from the provided functional
-#'   features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
-#'   be the combined unique set of these points. This option is generally used when the argument points vary across
-#'   observations and a  common grid is needed for comparison or further analysis.
+#'   The grid to use for interpolation.
+#'   If `grid` is numeric, it must be a sequence of values to use for the grid or a single value that
+#'   specifies the number of points to use for the grid, requires `left` and `right` to be specified.
+#'   If `grid` is a character, it must be either `"union"`, `"intersect"` or `"minmax"`.
+#'   For regular functional data this has no effect.
+#'   * `"union"`: This option creates a grid based on the union of all argument points from the provided functional
+#'     features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
+#'     be the combined unique set of these points. This option is generally used when the argument points vary across
+#'     observations and a  common grid is needed for comparison or further analysis.
 #'   * `"intersect"`: The grid is created based on the intersection of all argument points of a feature.
 #'   * `"minmax"`: This option constructs a grid that spans from the maximum of the minimum argument points to the
-#'   minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
-#'   encapsulates the range within which all features have defined argument points.
-#'   If `grid` is a numeric vector, then it is used directly as the grid of points without any modification,
-#'   assuming that these are the desired points for evaluation of the functional features.
+#'     minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
+#'     encapsulates the range within which all features have defined argument points.
 #'   Initial value is `"union"`.
-#'
-#' @section Naming:
-#' The new names generally append a `_1`, ...,  to the corresponding column name.
-#' However this can lead to name clashes with existing columns.
-#' This is solved as follows:
-#' If a column was called `"x"` and the feature is `"mean"`, the corresponding new column will
-#' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()` and
-#' a warning is given.
+#' * `left` :: `numeric()` \cr
+#'   The left boundary of the window.
+#'   The window is specified such that the all values >=left and <=right are kept for the computations.
+#' * `right` :: `numeric()` \cr
+#'   The right boundary of the window.
 #'
 #' @export
 #' @examples
@@ -63,7 +61,6 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
           }
           "Must be either a string or numeric vector."
         })),
-        resolution = p_int(tags = c("train", "predict")),
         left = p_dbl(tags = c("train", "predict")),
         right = p_dbl(tags = c("train", "predict"))
       )
@@ -79,20 +76,17 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
     }
   ),
   private = list(
-    .transform = function(task) {
-      cols = self$state$dt_columns
-      if (!length(cols)) {
-        return(task)
-      }
-      dt = task$data(cols = cols)
+    .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
       grid = pars$grid
-      resolution = pars$resolution
       left = pars$left
       right = pars$right
+      if (!is.null(left) && !is.null(right)) {
+        assert_count(grid)
+        assert_true(left <= right)
+      }
 
-      dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, left, right))]
-      task$select(setdiff(task$feature_names, cols))$cbind(dt)
+      dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, left, right))][]
     }
   )
 )
