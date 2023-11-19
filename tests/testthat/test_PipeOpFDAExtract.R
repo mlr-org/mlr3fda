@@ -1,4 +1,4 @@
-test_that("PipeOpfda.extract works", {
+test_that("PipeOpFDAExtract works", {
   # tf_reg works
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
@@ -90,7 +90,7 @@ test_that("PipeOpfda.extract works", {
   expect_set_equal(task_fmean$feature_names, "f")
 })
 
-test_that("PipeOpfda.extract works (simple test) for all features", {
+test_that("PipeOpFDAExtract works (simple test) for all features", {
   task = tsk("fuel")
   pop = po("fda.extract")
   features = list("mean", "min", "max", "slope", "median")
@@ -98,7 +98,7 @@ test_that("PipeOpfda.extract works (simple test) for all features", {
   expect_no_error(pop$train(list(task)))
 })
 
-test_that("PipeOpfda.extract input validation works", {
+test_that("PipeOpFDAExtract input validation works", {
   # features not a list or character
   expect_error(po("fda.extract", features = 2L))
   # wrong features
@@ -116,7 +116,7 @@ test_that("PipeOpfda.extract input validation works", {
   expect_error(po("fda.extract", features = list(function(arg, value) mean(value, na.rm = TRUE))))
 })
 
-test_that("PipeOpfda.extract works with name clashes", {
+test_that("PipeOpFDAExtract works with name clashes", {
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
     arg = c(1, 7, 2, 3, 5),

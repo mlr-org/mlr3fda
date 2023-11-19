@@ -56,7 +56,7 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
           if (test_string(x)) {
             return(check_choice(x, choices = c("union", "intersect", "minmax")))
           }
-          if (test_numeric(x, any.missing = FALSE)) {
+          if (test_numeric(x, any.missing = FALSE, min.len = 1)) {
             return(TRUE)
           }
           "Must be either a string or numeric vector."
@@ -94,6 +94,10 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
 interpolate_col = function(x, grid, left, right) {
   if (is.numeric(grid)) {
     if (length(grid) > 1L && is.null(left) && is.null(right)) {
+      args = unlist(tf::tf_arg(x))
+      if (max(grid) > max(args) || min(grid) < min(args)) {
+        stopf("The grid must be within the range of the argument points.")
+      }
       return(tf::tf_interpolate(x, arg = grid))
     }
     return(tf::tf_interpolate(x, arg = seq(left, right, length.out = grid)))

@@ -62,7 +62,11 @@ PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
       flattened = imap(
         dt,
         function(x, nm) {
-          flat = as.matrix(x)
+          if (tf::is_irreg(x)) {
+            flat = suppressWarnings(as.matrix(x))
+          } else {
+            flat = as.matrix(x)
+          }
           d = as.data.table(flat)
           setnames(d, sprintf("%s_%s", nm, seq_len(ncol(flat))))
         }

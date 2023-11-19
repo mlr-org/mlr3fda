@@ -63,7 +63,9 @@ pop = po("fda.extract", features = c("mean", "median", "var"))
 task_features = pop$train(list(task))[[1L]]
 
 # add a custom feature
-po_custom = po("fda.extract", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
+po_custom = po("fda.extract",
+  features = list(mean = function(arg, value) mean(value, na.rm = TRUE))
+)
 task_custom = po_custom$train(list(task))[[1L]]
 }
 \section{Super classes}{
