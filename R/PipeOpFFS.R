@@ -245,7 +245,10 @@ ffind = function(x, left = -Inf, right = Inf) {
     return(rep(NA_integer_, 2L))
   }
   it = findInterval(c(left, right), x)
-  if (it[[1L]] == it[[2L]] && left > it[[1L]] && right > it[[2L]]) {
+  # in case there are no values in the interval, it contains the index of the smallest value below
+  # and both values in it are identical,
+  # e.g. searching the interval (1.1, 1.2) in c(1, 2) returns c(1, 1) which we here convert to an NA interval
+  if (it[[1L]] == it[[2L]] && left > x[[it[[1L]]]]) {
     return(rep(NA_integer_, 2L))
   }
   if (it[[1L]] == 0L) {

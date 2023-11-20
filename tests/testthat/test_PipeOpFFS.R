@@ -180,4 +180,11 @@ test_that("ffind works", {
   # one boundary outside
   expect_equal(ffind(1:10, 0, 5), c(1, 5))
   expect_equal(ffind(1:10, 5, 15), c(5, 10))
+
+  expect_equal(ffind(
+    c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10),
+    left = -200, right = 0
+    ),
+    rep(NA_integer_, 2)
+  )
 })
