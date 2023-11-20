@@ -85,7 +85,6 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
         assert_count(grid)
         assert_true(left <= right)
       }
-
       dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, left, right))][]
     }
   )

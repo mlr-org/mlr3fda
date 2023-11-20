@@ -252,3 +252,65 @@ test_that("PipeOpFDAInterpol works with custom grid", {
   expected = data.table(y = 1:2, f = f)
   expect_equal(task_interpol$data(), expected)
 })
+
+test_that("PipeOpFDAInterpol works with grid length + left and right", {
+  # tfr works with integer output grid
+  dt = data.table(
+    id = rep(1:2, each = 5),
+    arg = rep(1:5, 2),
+    value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  dt = data.table(y = 1:2, f = f)
+  task = as_task_regr(dt, target = "y")
+  pop = po("fda.interpol", grid = 3, left = 2, right = 4)
+  task_interpol = pop$train(list(task))[[1L]]
+  dt = data.table(
+    id = rep(1:2, each = 3),
+    arg = rep(2:4, 2),
+    value = c(2, 5, 5, 5, 10, 2)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  expected = data.table(y = 1:2, f = f)
+  expect_equal(task_interpol$data(), expected)
+
+  # tfr works with numeric output grid
+  dt = data.table(
+    id = rep(1:2, each = 5),
+    arg = rep(1:5, 2),
+    value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  dt = data.table(y = 1:2, f = f)
+  task = as_task_regr(dt, target = "y")
+  pop = po("fda.interpol", grid = 3, left = 2, right = 5)
+  task_interpol = pop$train(list(task))[[1L]]
+  dt = data.table(
+    id = rep(1:2, each = 3),
+    arg = rep(c(2, 3.5, 5), 2),
+    value = c(2, 5, 7, 5, 6, 12)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  expected = data.table(y = 1:2, f = f)
+  expect_equal(task_interpol$data(), expected)
+
+  # tfi works
+  dt = data.table(
+    id = c(rep(1, 3), rep(2, 6)),
+    arg = c(3:5, 1:6),
+    value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  dt = data.table(y = 1:2, f = f)
+  task = as_task_regr(dt, target = "y")
+  pop = po("fda.interpol", grid = 3, left = 3, right = 5)
+  task_interpol = pop$train(list(task))[[1L]]
+  dt = data.table(
+    id = rep(1:2, each = 3),
+    arg = rep(3:5, 2),
+    value = c(2, 5, 6, 4, 5, 6)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  expected = data.table(y = 1:2, f = f)
+  expect_equal(task_interpol$data(), expected)
+})
