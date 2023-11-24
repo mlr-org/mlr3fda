@@ -7,7 +7,7 @@
 \description{
 Interpolate functional features (e.g. all individuals are observed at different time-points) to a common grid.
 This is useful if you want to compare functional features across observations.
-The interpolation is done using the \code{tf} package. See \code{\link[tf:tf_interpolate]{tf_interpolate()}} for details.
+The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{tf_interpolate()}} for details.
 }
 \section{Parameters}{
 
@@ -36,6 +36,7 @@ minimum of the maximum argument points across the provided functional features. 
 encapsulates the range within which all features have defined argument points.
 Initial value is \code{"union"}.
 }
+\item \code{evaluator} :: \code{character(1)} \cr
 \item \code{left} :: \code{numeric()} \cr
 The left boundary of the window.
 The window is specified such that the all values >=left and <=right are kept for the computations.

@@ -6,6 +6,7 @@
 #' @import R6
 #' @import data.table
 #' @import mlr3pipelines
+#' @importFrom tf tf_approx_linear tf_approx_spline tf_approx_fill_extend tf_approx_locf tf_approx_nocb
 #'
 #' @section Data types:
 #' To extend mlr3 to functional data, two data types from the {tf} package are added:

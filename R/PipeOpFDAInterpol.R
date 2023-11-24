@@ -4,7 +4,7 @@
 #' @description
 #' Interpolate functional features (e.g. all individuals are observed at different time-points) to a common grid.
 #' This is useful if you want to compare functional features across observations.
-#' The interpolation is done using the `tf` package. See [`tf_interpolate()`][tf::tf_interpolate] for details.
+#' The interpolation is done using the `tf` package. See [`tf_interpolate()`][tf::tfd] for details.
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
@@ -29,6 +29,7 @@
 #'     minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
 #'     encapsulates the range within which all features have defined argument points.
 #'   Initial value is `"union"`.
+#' * `evaluator` :: `character(1)` \cr
 #' * `left` :: `numeric()` \cr
 #'   The left boundary of the window.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
@@ -52,7 +53,7 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.interpol", param_vals = list()) {
       param_set = ps(
-        grid = p_uty(tags = c("train", "predict"), custom_check = crate(function(x) {
+        grid = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
           if (test_string(x)) {
             return(check_choice(x, choices = c("union", "intersect", "minmax")))
           }
@@ -61,6 +62,9 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
           }
           "Must be either a string or numeric vector."
         })),
+        evaluator = p_fct(
+          c("linear", "spline", "fill_extend", "locf", "nocb"), default = "linear", tags = c("train", "predict")
+        ),
         left = p_dbl(tags = c("train", "predict")),
         right = p_dbl(tags = c("train", "predict"))
       )
@@ -79,27 +83,31 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
       grid = pars$grid
+      evaluator = pars$evaluator
       left = pars$left
       right = pars$right
       if (!is.null(left) && !is.null(right)) {
         assert_count(grid)
         assert_true(left <= right)
       }
-      dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, left, right))][]
+      evaluator = evaluator %??% "linear"
+      evaluator = sprintf("tf_approx_%s", evaluator)
+      evaluator = match.fun(evaluator)
+      dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, evaluator, left, right))][]
     }
   )
 )
 
-interpolate_col = function(x, grid, left, right) {
+interpolate_col = function(x, grid, evaluator, left, right) {
   if (is.numeric(grid)) {
     if (length(grid) > 1L && is.null(left) && is.null(right)) {
       args = unlist(tf::tf_arg(x))
       if (max(grid) > max(args) || min(grid) < min(args)) {
         stopf("The grid must be within the range of the argument points.")
       }
-      return(tf::tf_interpolate(x, arg = grid))
+      return(tf::tfd(x, arg = grid, evaluator = evaluator))
     }
-    return(tf::tf_interpolate(x, arg = seq(left, right, length.out = grid)))
+    return(tf::tfd(x, arg = seq(left, right, length.out = grid), evaluator = evaluator))
   }
 
   if (tf::is_reg(x)) {
@@ -109,18 +117,18 @@ interpolate_col = function(x, grid, left, right) {
   switch(grid,
     "union" = {
       args = sort(unique(unlist(args)))
-      x = tf::tf_interpolate(x, arg = args)
+      x = tf::tfd(x, arg = args, evaluator = evaluator)
     },
     "intersect" = {
       grid = Reduce(intersect, args)
-      x = tf::tf_interpolate(x, arg = grid)
+      x = tf::tfd(x, arg = grid, evaluator = evaluator)
     },
     "minmax" = {
       lower = max(map_dbl(args, 1L))
       upper = min(map_dbl(args, function(arg) arg[[length(arg)]]))
       args = sort(unique(unlist(args)))
       args = args[which(lower == args):which(upper == args)]
-      x = tf::tf_interpolate(x, arg = args)
+      x = tf::tfd(x, arg = args, evaluator = evaluator)
     }
   )
   x
