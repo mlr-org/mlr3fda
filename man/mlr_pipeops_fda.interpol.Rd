@@ -7,7 +7,7 @@
 \description{
 Interpolate functional features (e.g. all individuals are observed at different time-points) to a common grid.
 This is useful if you want to compare functional features across observations.
-The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{tf_interpolate()}} for details.
+The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{tfd()}} for details.
 }
 \section{Parameters}{
 
@@ -23,8 +23,7 @@ selector_all()\verb{, which selects all of the }functional` features.
 The grid to use for interpolation.
 If \code{grid} is numeric, it must be a sequence of values to use for the grid or a single value that
 specifies the number of points to use for the grid, requires \code{left} and \code{right} to be specified.
-If \code{grid} is a character, it must be either \code{"union"}, \code{"intersect"} or \code{"minmax"}.
-For regular functional data this has no effect.
+If \code{grid} is a character, it must be one of:
 \itemize{
 \item \code{"union"}: This option creates a grid based on the union of all argument points from the provided functional
 features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
@@ -34,9 +33,18 @@ observations and a  common grid is needed for comparison or further analysis.
 \item \code{"minmax"}: This option constructs a grid that spans from the maximum of the minimum argument points to the
 minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
 encapsulates the range within which all features have defined argument points.
+For regular functional data this has no effect.
 Initial value is \code{"union"}.
 }
-\item \code{evaluator} :: \code{character(1)} \cr
+\item \code{method} :: \code{character(1)} \cr
+Defaults to \code{"linear"}. One of:
+\itemize{
+\item \code{"linear"}: applies linear interpolation without extrapolation (see \code{tf::tf_approx_linear()}).
+\item \code{"spline"}: applies cubic spline interpolation (see \code{tf::tf_approx_spline()}).
+\item \code{"fill_extend"}: applies linear interpolation with constant extrapolation (see \code{tf::tf_approx_fill_extend()}).
+\item \code{"locf"}: applies "last observation carried forward" interpolation (see \code{tf::tf_approx_locf()}).
+\item \code{"nocb"}: applies "next observation carried backward" interpolation (see \code{tf::tf_approx_nocb()}).
+}
 \item \code{left} :: \code{numeric()} \cr
 The left boundary of the window.
 The window is specified such that the all values >=left and <=right are kept for the computations.
