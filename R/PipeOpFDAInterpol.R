@@ -92,7 +92,6 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
       }
       evaluator = evaluator %??% "linear"
       evaluator = sprintf("tf_approx_%s", evaluator)
-      evaluator = match.fun(evaluator)
       dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, evaluator, left, right))][]
     }
   )
@@ -101,37 +100,35 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
 interpolate_col = function(x, grid, evaluator, left, right) {
   if (is.numeric(grid)) {
     if (length(grid) > 1L && is.null(left) && is.null(right)) {
-      args = unlist(tf::tf_arg(x))
-      if (max(grid) > max(args) || min(grid) < min(args)) {
+      arg = unlist(tf::tf_arg(x))
+      if (max(grid) > max(arg) || min(grid) < min(arg)) {
         stopf("The grid must be within the range of the argument points.")
       }
-      return(tf::tfd(x, arg = grid, evaluator = evaluator))
+      arg = grid
+    } else {
+      arg = seq(left, right, length.out = grid)
     }
-    return(tf::tfd(x, arg = seq(left, right, length.out = grid), evaluator = evaluator))
-  }
-
-  if (tf::is_reg(x)) {
+  } else if (tf::is_reg(x)) {
     return(x)
+  } else {
+    arg = tf::tf_arg(x)
+    switch(grid,
+      "union" = {
+        arg = sort(unique(unlist(arg)))
+      },
+      "intersect" = {
+        arg = Reduce(intersect, arg)
+      },
+      "minmax" = {
+        lower = max(map_dbl(arg, 1L))
+        upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
+        arg = sort(unique(unlist(arg)))
+        arg = arg[which(lower == arg):which(upper == arg)]
+      }
+    )
   }
-  args = tf::tf_arg(x)
-  switch(grid,
-    "union" = {
-      args = sort(unique(unlist(args)))
-      x = tf::tfd(x, arg = args, evaluator = evaluator)
-    },
-    "intersect" = {
-      grid = Reduce(intersect, args)
-      x = tf::tfd(x, arg = grid, evaluator = evaluator)
-    },
-    "minmax" = {
-      lower = max(map_dbl(args, 1L))
-      upper = min(map_dbl(args, function(arg) arg[[length(arg)]]))
-      args = sort(unique(unlist(args)))
-      args = args[which(lower == args):which(upper == args)]
-      x = tf::tfd(x, arg = args, evaluator = evaluator)
-    }
-  )
-  x
+  args = list(data = x, arg = arg, evaluator = evaluator)
+  invoke(tf::tfd, .args = args)
 }
 
 #' @include zzz.R
