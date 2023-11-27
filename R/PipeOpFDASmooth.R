@@ -42,20 +42,8 @@ PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.smooth", param_vals = list()) {
-      check_method = crate(function(x) {
-        msg = check_choice(x, c("lowess", "rollmean", "rollmedian", "savgol"))
-        if (!isTRUE(msg)) return(msg)
-
-        switch(x,
-          savgol = require_namespaces("pracma", quietly = TRUE),
-          rollmedian = require_namespaces("zoo", quietly = TRUE),
-          rollmean = require_namespaces("zoo", quietly = TRUE),
-          TRUE
-        )
-      })
-
       param_set = ps(
-        method = p_uty(default = "lowess", tags = c("train", "predict"), custom_check = check_method),
+        method = p_fct(default = "lowess", c("lowess", "rollmean", "rollmdiean", "savgol"), tags = c("train", "predict")), # nolint
         args = p_uty(tags = c("train", "predict", "required"),
           custom_check = crate(function(x) check_list(x, names = "unique"))),
         verbose = p_lgl(tags = c("train", "predict", "required"))

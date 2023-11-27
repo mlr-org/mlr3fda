@@ -10,7 +10,7 @@ Provides extensions for functional data analysis for mlr3.
 }
 \section{Data types}{
 
-To extend mlr3 to functional data, two data types from the {tf} package are added:
+To extend mlr3 to functional data, two data types from the tf package are added:
 \itemize{
 \item \code{tfd_irreg} - Irregular functional data, i.e. the functions are observed for
 potentiall different inputs for each observation.
