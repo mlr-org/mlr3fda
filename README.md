@@ -47,7 +47,7 @@ library(mlr3fda)
 mlr_reflections$task_feature_types[c("tfr", "tfi")]
 ```
 
-    ##         tfr         tfi
+    ##         tfr         tfi 
     ##   "tfd_reg" "tfd_irreg"
 
 These datatypes can be used to represent regular and irregular
@@ -57,10 +57,9 @@ first extract scalar features from the functional columns.
 
 # Quickstart
 
-Here we will start with the predefined `"dti"` (Diffusion Tensor
-Imaging), see `tsk("dti")$help()` for more details. Besides scalar
-columns, this task also contains two functional columns `cca` and
-`rcst`.
+Here we will start with the predefined `dti` (Diffusion Tensor Imaging)
+task, see `tsk("dti")$help()` for more details. Besides scalar columns,
+this task also contains two functional columns `cca` and `rcst`.
 
 ``` r
 task = tsk("dti")
@@ -76,7 +75,8 @@ task
     ## * Groups: subject_id
 
 To train a model on this task we first need to extract scalar features
-from the functions. We showcast this below by extracting the mean value.
+from the functions. We ullustrate this below by extracting the mean
+value.
 
 ``` r
 library(mlr3pipelines)
@@ -96,8 +96,7 @@ task_fmean$head()
     ## 6:    40 female 0.4873356 0.4969408
 
 This can be combined with a `Lerner` into a `GraphLearner` that first
-extracts features and then trains a model. This is also the default
-behavior but we here do it explicitly for clarity’s sake.
+extracts features and then trains a model.
 
 ``` r
 # split data into train and test set
@@ -121,7 +120,7 @@ glrn$predict(task, row_ids = ids$test)
     ##          11    48 49.99174
     ##          12    40 49.99174
     ##          13    43 52.42105
-    ## ---
+    ## ---                       
     ##         324    57 52.42105
     ##         325    57 41.30769
     ##         326    60 49.99174
