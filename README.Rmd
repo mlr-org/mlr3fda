@@ -75,6 +75,7 @@ task_fmean$head()
 
 This can be combined with a `Learner` into a complete `Graph`.
 We have to set `drop = TRUE` so that the original functional features are removed from the task.
+Note that this is also the default behaviour but we here do it explicitly for clarity's sake.
 
 ```{r graph}
 ids = partition(task)

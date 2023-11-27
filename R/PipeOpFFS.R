@@ -13,7 +13,7 @@
 #' * `drop` :: `logical(1)`\cr
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
-#'   column role `feature`. Initial is `FALSE`.
+#'   column role `feature`. Initial value is `TRUE`.
 #' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
 #'   What columns the [`PipeOpTaskPreproc`] should operate on.
 #'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
@@ -105,7 +105,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
         })
       )
       param_set$set_values(
-        drop = FALSE,
+        drop = TRUE,
         left = -Inf,
         right = Inf,
         features = c("mean", "max", "min", "slope", "median", "var")
