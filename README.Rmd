@@ -6,6 +6,7 @@ output: github_document
 lgr::get_logger("mlr3")$set_threshold("warn")
 set.seed(1)
 options(datatable.print.class = FALSE, datatable.print.keys = FALSE)
+library(mlr3fda) # suppress startup messages later
 ```
 
 

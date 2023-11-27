@@ -44,11 +44,6 @@ available after loading `mlr3fda`:
 
 ``` r
 library(mlr3fda)
-```
-
-    ## Loading required package: mlr3
-
-``` r
 mlr_reflections$task_feature_types[c("tfr", "tfi")]
 ```
 
