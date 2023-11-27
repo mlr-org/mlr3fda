@@ -112,11 +112,11 @@
 <div class="section level2">
 <h2 id="what-is-mlr3fda">What is mlr3fda?<a class="anchor" aria-label="anchor" href="#what-is-mlr3fda"></a>
 </h2>
-<p>The goal of <code>mlr3fda</code> is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. This is achieved by adding support for functional feature types and providing preprocessing <code>PipeOp</code>s that operates on functional columns. For representing functiona data, the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes from the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> package are used and are available after loading <code>mlr3fda</code>:</p>
+<p>The goal of <code>mlr3fda</code> is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. This is achieved by adding support for functional feature types and providing preprocessing <code>PipeOp</code>s that operates on functional columns. For representing functional data, the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes from the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> package are used and are available after loading <code>mlr3fda</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3fda.mlr-org.com">mlr3fda</a></span><span class="op">)</span></span>
 <span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tfr"</span>, <span class="st">"tfi"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##         tfr         tfi </span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##         tfr         tfi</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   "tfd_reg" "tfd_irreg"</span></span></code></pre></div>
 <p>These datatypes can be used to represent regular and irregular functional data respectively. Currently, <code>Learner</code>s that directly operate on functional data are not available, so it is necessary to first extract scalar features from the functional columns.</p>
 </div>
@@ -171,7 +171,7 @@
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          11    48 49.99174</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">##          12    40 49.99174</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">##          13    43 52.42105</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ---                       </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">##         324    57 52.42105</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">##         325    57 41.30769</span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         326    60 49.99174</span></span></code></pre></div>
