@@ -99,7 +99,7 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>This package is not yet on CRAN, you can install the development version of <code>mlr3fda</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>This package is not yet on CRAN but you can install the development version of <code>mlr3fda</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mlr-org/mlr3fda"</span><span class="op">)</span></span></code></pre></div>
@@ -112,41 +112,32 @@
 <div class="section level2">
 <h2 id="what-is-mlr3fda">What is mlr3fda?<a class="anchor" aria-label="anchor" href="#what-is-mlr3fda"></a>
 </h2>
-<p>The goal of mlr3fda is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. We use the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes that are defined in the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> R package.</p>
-<p>After loading <code>mlr3fda</code> two new feature types are available.</p>
+<p>The goal of <code>mlr3fda</code> is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. This is achieved by adding support for functional feature types and providing preprocessing <code>PipeOp</code>s that operates on functional columns. For representing functiona data, the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes from the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> package are used and are available after loading <code>mlr3fda</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3.mlr-org.com" class="external-link">mlr3</a></span><span class="op">)</span></span>
-<span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##         lgl         int         dbl         chr         fct         ord</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">##         pxc</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   "POSIXct"</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3fda.mlr-org.com">mlr3fda</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading required package: mlr3</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3fda.mlr-org.com">mlr3fda</a></span><span class="op">)</span></span>
-<span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##         lgl         int         dbl         chr         fct         ord</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">##         pxc         tfr         tfi</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   "POSIXct"   "tfd_reg" "tfd_irreg"</span></span></code></pre></div>
-<p>The newly available data types are:</p>
-<ul>
-<li>
-<code>tfd_irreg</code> - irregular functional data, i.e. the function of each observation is observed for potentially different values.</li>
-<li>
-<code>tfd_reg</code> - regular functional data, i.e. the function of each observation is observed for the same values.</li>
-</ul>
-<p>For tutorials on how to create functional data, see the <a href="https://github.com/tidyfun/tf" class="external-link">documentation</a> of the tf package.</p>
-<p>Here we will start with the predefined fuel task, that has two regular functional columns as features.</p>
+<code class="sourceCode R"><span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tfr"</span>, <span class="st">"tfi"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##         tfr         tfi </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   "tfd_reg" "tfd_irreg"</span></span></code></pre></div>
+<p>These datatypes can be used to represent regular and irregular functional data respectively. Currently, <code>Learner</code>s that directly operate on functional data are not available, so it is necessary to first extract scalar features from the functional columns.</p>
+</div>
+</div>
+<div class="section level1">
+<h1 id="quickstart">Quickstart<a class="anchor" aria-label="anchor" href="#quickstart"></a>
+</h1>
+<p>Here we will start with the predefined <code>"dti"</code> (Diffusion Tensor Imaging), see <code>tsk("dti")$help()</code> for more details. Besides scalar columns, this task also contains two functional columns <code>cca</code> and <code>rcst</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">tsk</a></span><span class="op">(</span><span class="st">"fuel"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">tsk</a></span><span class="op">(</span><span class="st">"dti"</span><span class="op">)</span></span>
 <span><span class="va">task</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;TaskRegr:fuel&gt; (129 x 4): Spectral Data of Fossil Fuels</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## * Target: heatan</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## * Properties: -</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;TaskRegr:dti&gt; (340 x 4): Diffusion Tensor Imaging (DTI)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## * Target: pasat</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## * Properties: groups</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## * Features (3):</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   - tfr (2): NIR, UVVIS</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   - dbl (1): h20</span></span></code></pre></div>
-<p>Currently there are no <code>Learner</code>s that directly operate on functional data. However, it is possible to extract simple functional features using the <code>PipeOpFFS</code>, which in the example below calculates the average functional responses.</p>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   - tfi (2): cca, rcst</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   - fct (1): sex</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## * Groups: subject_id</span></span></code></pre></div>
+<p>To train a model on this task we first need to extract scalar features from the functions. We showcast this below by extracting the mean value.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com" class="external-link">mlr3pipelines</a></span><span class="op">)</span></span>
 <span></span>
@@ -154,57 +145,38 @@
 <span></span>
 <span><span class="va">task_fmean</span> <span class="op">=</span> <span class="va">po_fmean</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">task_fmean</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##    heatan    h20</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1: 26.781 2.3000</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2: 27.472 3.0000</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3: 23.840 2.0002</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4: 18.168 1.8500</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5: 17.517 2.3898</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6: 20.249 2.4288</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                                                        NIR</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1:                         0.2340554,0.2904143,0.2985390,0.2857719,0.4317163,0.4128493,...</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2:                         0.2438254,0.3175793,0.1569265,0.3040594,0.2788988,0.2041318,...</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3:             -0.05197412, 0.04500882,-0.07834500, 0.12620942,-0.09833023, 0.02935566,...</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4:       -0.081765370,-0.082304927, 0.058605750,-0.024858584,-0.006321834,-0.060674486,...</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5:             -0.22812462,-0.11606918,-0.04202395,-0.11545658,-0.08707948,-0.07724899,...</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6: -0.0552376200, 0.0895360730,-0.0584367503,-0.1728105836,-0.0343947343,-0.0002479363,...</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                                          UVVIS</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 1:             0.8743160,0.7481823,0.7738064,0.7471426,0.5223545,0.8142814,...</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 2:       -0.8551739,-1.2873925,-0.8328261,-0.9758280,-0.7976276,-0.9203199,...</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 3: -0.08469889,-0.29369554,-0.20151308,-0.26229300,-0.27280263,-0.31936488,...</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 4:       -0.5821539,-0.4851725,-0.3282551,-0.5389530,-0.4092186,-0.3816549,...</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 5:       -0.6435039,-1.1232725,-0.6649561,-0.7912230,-0.7875426,-0.7048599,...</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 6:       -0.5037039,-0.8896675,-0.6620511,-0.7437430,-0.7579426,-0.8136399,...</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="do">##      NIR_mean UVVIS_mean</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 1: 0.49851677  0.9636931</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2: 0.42557851 -0.7991967</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3: 0.01329275 -0.2645535</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4: 0.02031529 -0.4601558</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 5: 0.08319121 -0.7310959</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 6: 0.11900065 -0.7882897</span></span></code></pre></div>
-<p>This can be combined with a <code>Learner</code> into a complete <code>Graph</code>. We have to set <code>drop = TRUE</code> so that the original functional features are removed from the task. Note that this is also the default behaviour but we here do it explicitly for clarity’s sake.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##    pasat    sex  cca_mean rcst_mean</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1:    31 female 0.4493332 0.4968519</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2:    31 female 0.4441292 0.4810724</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3:    29 female 0.4257795 0.5102722</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4:    34 female 0.4418538 0.5453188</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5:    37 female 0.4700994 0.5471177</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6:    40 female 0.4873356 0.4969408</span></span></code></pre></div>
+<p>This can be combined with a <code>Lerner</code> into a <code>GraphLearner</code> that first extracts features and then trains a model. This is also the default behavior but we here do it explicitly for clarity’s sake.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ids</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># split data into train and test set</span></span>
+<span><span class="va">ids</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="va">task</span>, stratify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># drop = TRUE means we remove the functional columns as features</span></span>
+<span><span class="co"># define a Graph and convert it to a GraphLearner</span></span>
 <span><span class="va">graph</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"ffs"</span>, features <span class="op">=</span> <span class="st">"mean"</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com/reference/grapes-greater-than-greater-than-grapes.html" class="external-link">%&gt;&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"learner"</span>, learner <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">lrn</a></span><span class="op">(</span><span class="st">"regr.rpart"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">glrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html" class="external-link">as_learner</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># train the graph learner on the train set</span></span>
 <span><span class="va">glrn</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">ids</span><span class="op">$</span><span class="va">train</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># make predictions on the test set</span></span>
 <span><span class="va">glrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">ids</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;PredictionRegr&gt; for 43 observations:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">##     row_ids   truth response</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">##           3 23.8400 13.73490</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">##           9 26.6610 22.63414</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="do">##          10 24.9480 28.51553</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="do">##          14  7.0037 25.63514</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">##         126 11.8050 13.73490</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         127  8.8315 25.63514</span></span></code></pre></div>
-</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;PredictionRegr&gt; for 111 observations:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="do">##     row_ids truth response</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          11    48 49.99174</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">##          12    40 49.99174</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="do">##          13    43 52.42105</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ---                       </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="do">##         324    57 52.42105</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">##         325    57 41.30769</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         326    60 49.99174</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="bugs-questions-feedback">Bugs, Questions, Feedback<a class="anchor" aria-label="anchor" href="#bugs-questions-feedback"></a>
 </h2>
@@ -213,6 +185,7 @@
 <p>Please understand that the resources of the project are limited: response may sometimes be delayed by a few days, and some feature suggestions may be rejected if they are deemed too tangential to the vision behind the project.</p>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
