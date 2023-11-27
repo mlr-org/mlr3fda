@@ -98,7 +98,7 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
       }
       method = method %??% "linear"
       evaluator = sprintf("tf_approx_%s", method)
-      dt[, (names(dt)) := lapply(.SD, function(x) interpolate_col(x, grid, evaluator, left, right))][]
+      map_dtc(dt, function(x) interpolate_col(x, grid, evaluator, left, right))
     }
   )
 )
@@ -133,8 +133,7 @@ interpolate_col = function(x, grid, evaluator, left, right) {
       }
     )
   }
-  args = list(data = x, arg = arg, evaluator = evaluator)
-  invoke(tf::tfd, .args = args)
+  invoke(tf::tfd, .args = list(data = x, arg = arg, evaluator = evaluator))
 }
 
 #' @include zzz.R
