@@ -3,6 +3,8 @@
 #'
 #' @description
 #' Smoothes functional data using [`tf::tf_smooth()`].
+#' This preprocessing operator is similar to [`PipeOpFDAInterpol`], however it does not interpolate to unobserved
+#' x-values, but rather smooths the observed values.
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following

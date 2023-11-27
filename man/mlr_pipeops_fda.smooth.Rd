@@ -6,6 +6,8 @@
 \title{Smoothing Functional Data}
 \description{
 Smoothes functional data using \code{\link[tf:tf_smooth]{tf::tf_smooth()}}.
+This preprocessing operator is similar to \code{\link{PipeOpFDAInterpol}}, however it does not interpolate to unobserved
+x-values, but rather smooths the observed values.
 }
 \section{Parameters}{
 
