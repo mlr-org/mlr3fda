@@ -46,9 +46,9 @@ library(mlr3)
 mlr_reflections$task_feature_types
 ```
 
-    ##         lgl         int         dbl         chr         fct         ord 
-    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc 
+    ##         lgl         int         dbl         chr         fct         ord
+    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"
+    ##         pxc
     ##   "POSIXct"
 
 ``` r
@@ -56,17 +56,17 @@ library(mlr3fda)
 mlr_reflections$task_feature_types
 ```
 
-    ##         lgl         int         dbl         chr         fct         ord 
-    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc         tfr         tfi 
+    ##         lgl         int         dbl         chr         fct         ord
+    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"
+    ##         pxc         tfr         tfi
     ##   "POSIXct"   "tfd_reg" "tfd_irreg"
 
 The newly available data types are:
 
-- `tfd_irreg` - irregular functional data, i.e. the function of each
-  observation is observed for potentially different values.
-- `tfd_reg` - regular functional data, i.e. the function of each
-  observation is observed for the same values.
+  - `tfd_irreg` - irregular functional data, i.e. the function of each
+    observation is observed for potentially different values.
+  - `tfd_reg` - regular functional data, i.e. the function of each
+    observation is observed for the same values.
 
 For tutorials on how to create functional data, see the
 [documentation](https://github.com/tidyfun/tf) of the tf package.
@@ -131,7 +131,8 @@ task_fmean$head()
 
 This can be combined with a `Learner` into a complete `Graph`. We have
 to set `drop = TRUE` so that the original functional features are
-removed from the task.
+removed from the task. Note that this is also the default behaviour but
+we here do it explicitly for clarity’s sake.
 
 ``` r
 ids = partition(task)
@@ -152,7 +153,7 @@ glrn$predict(task, row_ids = ids$test)
     ##           3 23.8400 13.73490
     ##           9 26.6610 22.63414
     ##          10 24.9480 28.51553
-    ## ---                         
+    ## ---
     ##          14  7.0037 25.63514
     ##         126 11.8050 13.73490
     ##         127  8.8315 25.63514
@@ -162,11 +163,11 @@ glrn$predict(task, row_ids = ids$test)
 *mlr3fda* is a free and open source software project that encourages
 participation and feedback. If you have any issues, questions,
 suggestions or feedback, please do not hesitate to open an “issue” about
-it on the GitHub page!
+it on the GitHub page\!
 
 In case of problems / bugs, it is often helpful if you provide a
-“minimum working example” that showcases the behaviour (but don’t worry
-about this if the bug is obvious).
+“minimum working example” that showcases the behaviour (but don’t
+worry about this if the bug is obvious).
 
 Please understand that the resources of the project are limited:
 response may sometimes be delayed by a few days, and some feature
