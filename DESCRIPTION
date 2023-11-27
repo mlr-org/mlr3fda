@@ -23,7 +23,9 @@ Imports:
     mlr3pipelines,
     tf
 Suggests:
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    pracma,
+    zoo
 Remotes:
     tidyfun/tf
 Config/testthat/edition: 3
@@ -33,6 +35,7 @@ Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.2.3.9000
 Collate:
     'zzz.R'
+    'PipeOpFDASmooth.R'
     'PipeOpFFS.R'
     'PipeOpFlatFun.R'
     'TaskClassif_phoneme.R'
