@@ -5,6 +5,8 @@ test_that("PipeOpFDAInterpol input validation works", {
   expect_error(po("fda.interpol", grid = logical(1L)))
   expect_error(po("fda.interpol", grid = factor(1L)))
   expect_error(po("fda.interpol", grid = numeric(0L)))
+  expect_error(po("fda.interpol", grid = 1:3, method = c("linear", "spline")))
+  expect_error(po("fda.interpol", grid = 1:3, method = "cube"))
   # grid larger than one when left and right are not set
   task = tsk("fuel")
   pop = po("fda.interpol", grid = 1:3, left = 1, right = 2)
@@ -313,4 +315,30 @@ test_that("PipeOpFDAInterpol works with grid length + left and right", {
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   expected = data.table(y = 1:2, f = f)
   expect_equal(task_interpol$data(), expected)
+})
+
+test_that("PipeOpFDAInterpol method arg works", {
+  dt_in = data.table(
+    id = rep(1:2, each = 5),
+    arg = rep(1:5, 2),
+    value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
+  )
+  dt_out = data.table(
+    id = rep(1:2, each = 3),
+    arg = rep(3:5, 2),
+    value = c(5, 5, 7, 10, 2, 12)
+  )
+  methods = c("linear", "spline", "fill_extend", "locf", "nocb")
+  walk(methods, function(method) {
+    f = tf::tfd(dt_in, id = "id", arg = "arg", value = "value")
+    dt = data.table(y = 1:2, f = f)
+    task = as_task_regr(dt, target = "y")
+    pop = po("fda.interpol", grid = 3:5, method = method)
+    task_interpol = pop$train(list(task))[[1L]]
+
+    evaluator = paste0("tf_approx_", method)
+    f = do.call(tf::tfd, list(data = dt_out, id = "id", arg = "arg", value = "value", evaluator = evaluator))
+    expected = data.table(y = 1:2, f = f)
+    expect_equal(task_interpol$data(), expected)
+  })
 })
