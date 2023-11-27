@@ -30,7 +30,7 @@ load_task_fuel = function(id = "fuel") {
     label = "Spectral Data of Fossil Fuels",
   )
 
-  b$hash = task$man = "mlr3::mlr_tasks_fuel"
+  b$hash = task$man = "mlr3fda::mlr_tasks_fuel"
   task
 }
 
