@@ -133,7 +133,7 @@ interpolate_col = function(x, grid, evaluator, left, right) {
       }
     )
   }
-  invoke(tf::tfd, .args = list(data = x, arg = arg, evaluator = evaluator))
+  invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
 }
 
 #' @include zzz.R
