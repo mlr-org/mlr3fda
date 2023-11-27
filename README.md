@@ -46,9 +46,9 @@ library(mlr3)
 mlr_reflections$task_feature_types
 ```
 
-    ##         lgl         int         dbl         chr         fct         ord 
-    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc 
+    ##         lgl         int         dbl         chr         fct         ord
+    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"
+    ##         pxc
     ##   "POSIXct"
 
 ``` r
@@ -56,9 +56,9 @@ library(mlr3fda)
 mlr_reflections$task_feature_types
 ```
 
-    ##         lgl         int         dbl         chr         fct         ord 
-    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered" 
-    ##         pxc         tfr         tfi 
+    ##         lgl         int         dbl         chr         fct         ord
+    ##   "logical"   "integer"   "numeric" "character"    "factor"   "ordered"
+    ##         pxc         tfr         tfi
     ##   "POSIXct"   "tfd_reg" "tfd_irreg"
 
 The newly available data types are:
@@ -131,7 +131,7 @@ task_fmean$head()
 
 This can be combined with a `Learner` into a complete `Graph`. We have
 to set `drop = TRUE` so that the original functional features are
-removed from the task. Note that this is also the defautl behaviour but
+removed from the task. Note that this is also the default behaviour but
 we here do it explicitly for clarity’s sake.
 
 ``` r
@@ -153,7 +153,7 @@ glrn$predict(task, row_ids = ids$test)
     ##           3 23.8400 13.73490
     ##           9 26.6610 22.63414
     ##          10 24.9480 28.51553
-    ## ---                         
+    ## ---
     ##          14  7.0037 25.63514
     ##         126 11.8050 13.73490
     ##         127  8.8315 25.63514
