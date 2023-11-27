@@ -14,7 +14,7 @@
 #'   selector_all()`, which selects all of the `functional` features.
 #' * `method` :: `character(1)`\cr
 #'   One of "lowess", "rollmean", "rollmedian", "savgol".
-#'   The default is "lowess". All all other methods ignore non-equidistance arg values.
+#'   The default is "lowess". All all other methods ignore non-equidistant arg values.
 #' * `args` :: named `list()`\cr
 #'   List of named arguments that is passed to `tf_smooth()`. See the help page of `tf_smooth()` for
 #'   default values.

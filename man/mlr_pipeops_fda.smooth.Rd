@@ -19,7 +19,7 @@ See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Defaul
 selector_all()\verb{, which selects all of the }functional` features.
 \item \code{method} :: \code{character(1)}\cr
 One of "lowess", "rollmean", "rollmedian", "savgol".
-The default is "lowess". All all other methods ignore non-equidistance arg values.
+The default is "lowess". All all other methods ignore non-equidistant arg values.
 \item \code{args} :: named \code{list()}\cr
 List of named arguments that is passed to \code{tf_smooth()}. See the help page of \code{tf_smooth()} for
 default values.
