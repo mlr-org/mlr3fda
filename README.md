@@ -38,7 +38,7 @@ The goal of `mlr3fda` is to extend `mlr3` to [functional
 data](https://en.wikipedia.org/wiki/Functional_data_analysis). This is
 achieved by adding support for functional feature types and providing
 preprocessing `PipeOp`s that operates on functional columns. For
-representing functiona data, the `tfd_reg` and `tfd_irreg` datatypes
+representing functional data, the `tfd_reg` and `tfd_irreg` datatypes
 from the [tf](https://github.com/tidyfun/tf) package are used and are
 available after loading `mlr3fda`:
 
@@ -47,7 +47,7 @@ library(mlr3fda)
 mlr_reflections$task_feature_types[c("tfr", "tfi")]
 ```
 
-    ##         tfr         tfi 
+    ##         tfr         tfi
     ##   "tfd_reg" "tfd_irreg"
 
 These datatypes can be used to represent regular and irregular
@@ -121,7 +121,7 @@ glrn$predict(task, row_ids = ids$test)
     ##          11    48 49.99174
     ##          12    40 49.99174
     ##          13    43 52.42105
-    ## ---                       
+    ## ---
     ##         324    57 52.42105
     ##         325    57 41.30769
     ##         326    60 49.99174
