@@ -62,8 +62,8 @@ task = tsk("dti")
 task
 ```
 
-To train a model on this task we first need to extract scalar from the functional columns.
-In the example below, we extract the mean of the functional columns.
+To train a model on this task we first need to extract scalar features from the functions.
+We showcast this below by extracting the mean value.
 
 ```{r ffs, fig.width = 5, fig.height = 3}
 library(mlr3pipelines)
@@ -74,8 +74,8 @@ task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
 ```
 
-This can be combined with a `Learner` into a `GraphLearner` that first extracts features and then trains a model.
-This is also the default behaviour but we here do it explicitly for clarity's sake.
+This can be combined with a `Lerner` into a `GraphLearner` that first extracts features and then trains a model.
+This is also the default behavior but we here do it explicitly for clarity's sake.
 
 ```{r graph}
 # split data into train and test set

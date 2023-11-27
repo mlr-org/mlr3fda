@@ -80,9 +80,8 @@ task
     ##   - fct (1): sex
     ## * Groups: subject_id
 
-To train a model on this task we first need to extract scalar from the
-functional columns. In the example below, we extract the mean of the
-functional columns.
+To train a model on this task we first need to extract scalar features
+from the functions. We showcast this below by extracting the mean value.
 
 ``` r
 library(mlr3pipelines)
@@ -101,9 +100,9 @@ task_fmean$head()
     ## 5:    37 female 0.4700994 0.5471177
     ## 6:    40 female 0.4873356 0.4969408
 
-This can be combined with a `Learner` into a `GraphLearner` that first
+This can be combined with a `Lerner` into a `GraphLearner` that first
 extracts features and then trains a model. This is also the default
-behaviour but we here do it explicitly for clarity’s sake.
+behavior but we here do it explicitly for clarity’s sake.
 
 ``` r
 # split data into train and test set
