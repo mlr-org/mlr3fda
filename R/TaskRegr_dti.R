@@ -8,7 +8,7 @@
 #' to predict the PASAT score. `pasat` represents the PASAT score at each vist.
 #' `subject_id` represents the subject ID. `cca` represents the fractional anisotropy tract profiles from the corpus
 #' callosum. `sex` indicates subject's sex. `rcst` represents the fractional anisotropy tract profiles from the right
-#' corticospinal tract. `Rows with NAs are removed.
+#' corticospinal tract. Rows containing NAs are removed.
 #'
 #'
 #' This is a subset of the full dataset, which is contained in the package `refund`.
@@ -36,7 +36,7 @@ load_task_dti = function(id = "dti") {
     target = "pasat",
     label = "Diffusion Tensor Imaging (DTI)",
   )
-  b$hash = task$man = "mlr3::mlr_tasks_dti"
+  b$hash = task$man = "mlr3fda::mlr_tasks_dti"
   task$col_roles$group = "subject_id"
   task$col_roles$feature = setdiff(task$col_roles$feature, "subject_id")
   task
