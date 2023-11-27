@@ -62,35 +62,37 @@ task = tsk("dti")
 task
 ```
 
-To train a model on this task we create a `Graph` that first extracts features from the functional columns and then trains a regression tree.
+To train a model on this task we first need to extract scalar from the functional columns.
+In the example below, we extract the mean of the functional columns.
 
 ```{r ffs, fig.width = 5, fig.height = 3}
 library(mlr3pipelines)
 
-po_fmean = po("ffs", features = c("mean", "var"))
+po_fmean = po("ffs", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
 ```
 
-This can be combined with a `Learner` into a complete `Graph`.
-We have to set `drop = TRUE` so that the original functional features are removed from the task.
-Note that this is also the default behaviour but we here do it explicitly for clarity's sake.
+This can be combined with a `Learner` into a `GraphLearner` that first extracts features and then trains a model.
+This is also the default behaviour but we here do it explicitly for clarity's sake.
 
 ```{r graph}
-ids = partition(task)
+# split data into train and test set
+ids = partition(task, stratify = FALSE)
 
-# drop = TRUE means we remove the functional columns as features
+# define a Graph and convert it to a GraphLearner
 graph = po("ffs", features = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
 
+# train the graph learner on the train set
 glrn$train(task, row_ids = ids$train)
 
+# make predictions on the test set
 glrn$predict(task, row_ids = ids$test)
 ```
-
 
 ## Bugs, Questions, Feedback
 
