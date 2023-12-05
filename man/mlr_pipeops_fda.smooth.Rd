@@ -20,8 +20,15 @@ of features to keep. The flattening is only applied to those columns.\cr
 See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Default is
 selector_all()\verb{, which selects all of the }functional` features.
 \item \code{method} :: \code{character(1)}\cr
-One of "lowess", "rollmean", "rollmedian", "savgol".
-The default is "lowess". All all other methods ignore non-equidistant arg values.
+One of:
+\itemize{
+\item "lowess": locally weighted scatterplot smoothing (default)
+\item "rollmean": rolling mean
+\item "rollmedian": rolling meadian
+\item "savgol":  Savitzky-Golay filtering
+}
+
+All methods but "lowess" ignore non-equidistant arg values.
 \item \code{args} :: named \code{list()}\cr
 List of named arguments that is passed to \code{tf_smooth()}. See the help page of \code{tf_smooth()} for
 default values.

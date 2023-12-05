@@ -15,8 +15,13 @@
 #'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
 #'   selector_all()`, which selects all of the `functional` features.
 #' * `method` :: `character(1)`\cr
-#'   One of "lowess", "rollmean", "rollmedian", "savgol".
-#'   The default is "lowess". All all other methods ignore non-equidistant arg values.
+#'   One of:
+#'   * "lowess": locally weighted scatterplot smoothing (default)
+#'   * "rollmean": rolling mean
+#'   * "rollmedian": rolling meadian
+#'   * "savgol":  Savitzky-Golay filtering
+#'
+#'   All methods but "lowess" ignore non-equidistant arg values.
 #' * `args` :: named `list()`\cr
 #'   List of named arguments that is passed to `tf_smooth()`. See the help page of `tf_smooth()` for
 #'   default values.
