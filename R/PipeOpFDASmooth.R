@@ -9,11 +9,6 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
-#' * `affect_columns` :: `function` | [`Selector`][mlr3pipelines::Selector] \cr
-#'   [`Selector`][mlr3pipelines::Selector] function, takes a `Task` as argument and returns a `character`
-#'   of features to keep. The flattening is only applied to those columns.\cr
-#'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
-#'   selector_all()`, which selects all of the `functional` features.
 #' * `method` :: `character(1)`\cr
 #'   One of:
 #'   * "lowess": locally weighted scatterplot smoothing (default)
