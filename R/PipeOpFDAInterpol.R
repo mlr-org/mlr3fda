@@ -130,7 +130,7 @@ interpolate_col = function(x, grid, evaluator, left, right) {
         lower = max(map_dbl(arg, 1L))
         upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
         arg = sort(unique(unlist(arg)))
-        arg = arg[which(lower == arg):which(upper == arg)]
+        arg = arg[seq(which(lower == arg), which(upper == arg))]
       }
     )
   }
