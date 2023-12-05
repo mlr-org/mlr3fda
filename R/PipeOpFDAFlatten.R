@@ -6,13 +6,7 @@
 #' to new columns, one for each input value to the function.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
-#' parameters:
-#' * `affect_columns` :: `function` | [`Selector`][mlr3pipelines::Selector] \cr
-#'   [`Selector`][mlr3pipelines::Selector] function, takes a `Task` as argument and returns a `character`
-#'   of features to keep. The flattening is only applied to those columns.\cr
-#'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
-#'   selector_all()`, which selects all of the `functional` features.
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`].
 #'
 #' @section Naming:
 #' The new names generally append a `_1`, ...,  to the corresponding column name.

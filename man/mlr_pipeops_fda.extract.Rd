@@ -14,14 +14,13 @@ Note that it only operates on values that were actually observed and does not in
 }
 \section{Parameters}{
 
+The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
+parameters:
 \itemize{
 \item \code{drop} :: \code{logical(1)}\cr
 Whether to drop the original \code{functional} features and only keep the extracted features.
 Note that this does not remove the features from the backend, but only from the active
 column role \code{feature}. Initial value is \code{TRUE}.
-\item \code{affect_columns} :: \code{function} | \code{\link{Selector}} | \code{NULL} \cr
-What columns the \code{\link{PipeOpTaskPreproc}} should operate on.
-See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
 \item \code{features} :: \code{list()} | \code{character()} \cr
 A list of features to extract. Each element can be either a function or a string.
 If the element if is function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.

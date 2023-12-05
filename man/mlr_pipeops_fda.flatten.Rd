@@ -10,15 +10,7 @@ to new columns, one for each input value to the function.
 }
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
-parameters:
-\itemize{
-\item \code{affect_columns} :: \code{function} | \code{\link[mlr3pipelines:Selector]{Selector}} \cr
-\code{\link[mlr3pipelines:Selector]{Selector}} function, takes a \code{Task} as argument and returns a \code{character}
-of features to keep. The flattening is only applied to those columns.\cr
-See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Default is
-selector_all()\verb{, which selects all of the }functional` features.
-}
+The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}.
 }
 
 \section{Naming}{

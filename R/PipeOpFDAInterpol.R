@@ -9,11 +9,6 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
-#' * `affect_columns` :: `function` | [`Selector`][mlr3pipelines::Selector] \cr
-#'   [`Selector`][mlr3pipelines::Selector] function, takes a `Task` as argument and returns a `character`
-#'   of features to keep. The flattening is only applied to those columns.\cr
-#'   See [`Selector`][mlr3pipelines::Selector] for example functions. Default is
-#'   selector_all()`, which selects all of the `functional` features.
 #' * `grid` :: `character(1)` | numeric() \cr
 #'   The grid to use for interpolation.
 #'   If `grid` is numeric, it must be a sequence of values to use for the grid or a single value that

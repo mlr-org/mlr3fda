@@ -14,11 +14,6 @@ The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{t
 The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
 parameters:
 \itemize{
-\item \code{affect_columns} :: \code{function} | \code{\link[mlr3pipelines:Selector]{Selector}} \cr
-\code{\link[mlr3pipelines:Selector]{Selector}} function, takes a \code{Task} as argument and returns a \code{character}
-of features to keep. The flattening is only applied to those columns.\cr
-See \code{\link[mlr3pipelines:Selector]{Selector}} for example functions. Default is
-selector_all()\verb{, which selects all of the }functional` features.
 \item \code{grid} :: \code{character(1)} | numeric() \cr
 The grid to use for interpolation.
 If \code{grid} is numeric, it must be a sequence of values to use for the grid or a single value that
@@ -57,7 +52,8 @@ The right boundary of the window.
 library(mlr3pipelines)
 task = tsk("fuel")
 pop = po("fda.interpol")
-task_interpol = pop$train(list(task))
+task_interpol = pop$train(list(task))[[1]]
+task_interpol$data()
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDAInterpol}
