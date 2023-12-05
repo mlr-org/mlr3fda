@@ -56,8 +56,6 @@ PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
         return(task)
       }
       dt = task$data(cols = cols)
-      pars = self$param_set$get_values()
-      grid = pars$grid
 
       flattened = imap(
         dt,
