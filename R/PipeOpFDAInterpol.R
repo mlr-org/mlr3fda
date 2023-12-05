@@ -88,22 +88,34 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
       method = pars$method
       left = pars$left
       right = pars$right
-      if (!is.null(left) && !is.null(right)) {
+      has_left = !is.null(left)
+      has_right = !is.null(right)
+      if (xor(has_left, has_right)) {
+        stopf("Either both or none of 'left' and 'right' must be specified.")
+      }
+      if (has_left && has_right) {
         assert_count(grid)
         assert_true(left <= right)
       }
       method = method %??% "linear"
       evaluator = sprintf("tf_approx_%s", method)
-      map_dtc(dt, function(x) interpolate_col(x, grid, evaluator, left, right))
+      if (is.numeric(grid) && length(grid) > 1L && !has_left && !has_right) {
+        max_grid = max(grid)
+        min_grid = min(grid)
+        dt = map_dtc(dt, function(x) interpolate_col(x, grid, evaluator, min_grid, max_grid))
+      } else {
+        dt = map_dtc(dt, function(x) interpolate_col(x, grid, evaluator, left, right))
+      }
+      dt
     }
   )
 )
 
-interpolate_col = function(x, grid, evaluator, left, right) {
+interpolate_col = function(x, grid, evaluator, left = NULL, right = NULL, min_grid = NULL, max_grid = NULL) {
   if (is.numeric(grid)) {
     if (length(grid) > 1L && is.null(left) && is.null(right)) {
       arg = unlist(tf::tf_arg(x))
-      if (max(grid) > max(arg) || min(grid) < min(arg)) {
+      if (max_grid > max(arg) || min_grid < min(arg)) {
         stopf("The grid must be within the range of the argument points.")
       }
       arg = grid
