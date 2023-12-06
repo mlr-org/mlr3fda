@@ -99,50 +99,52 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
       }
       method = method %??% "linear"
       evaluator = sprintf("tf_approx_%s", method)
-      if (is.numeric(grid) && length(grid) > 1L && !has_left && !has_right) {
-        max_grid = max(grid)
-        min_grid = min(grid)
-        dt = map_dtc(dt, function(x) interpolate_col(x, grid, evaluator, min_grid, max_grid))
-      } else {
-        dt = map_dtc(dt, function(x) interpolate_col(x, grid, evaluator, left, right))
+
+      if (is.numeric(grid)) {
+        if (length(grid) > 1L && !has_left && !has_right) {
+          max_grid = max(grid)
+          min_grid = min(grid)
+          dt = map_dtc(dt, function(x) {
+            arg = unlist(tf::tf_arg(x))
+            if (max_grid > max(arg) || min_grid < min(arg)) {
+              stopf("The grid must be within the range of the argument points.")
+            }
+            invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator))
+          })
+          return(dt)
+        }
+        dt = map_dtc(dt, function(x) {
+          arg = seq(left, right, length.out = grid)
+          invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
+        })
+        return(dt)
       }
+
+      dt = map_dtc(dt, function(x) {
+        if (tf::is_reg(x)) {
+          return(x)
+        }
+        arg = tf::tf_arg(x)
+        switch(grid,
+          "union" = {
+            arg = sort(unique(unlist(arg)))
+          },
+          "intersect" = {
+            arg = Reduce(intersect, arg)
+          },
+          "minmax" = {
+            lower = max(map_dbl(arg, 1L))
+            upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
+            arg = sort(unique(unlist(arg)))
+            arg = arg[seq(which(lower == arg), which(upper == arg))]
+          }
+        )
+        invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
+      })
       dt
     }
   )
 )
-
-interpolate_col = function(x, grid, evaluator, left = NULL, right = NULL, min_grid = NULL, max_grid = NULL) {
-  if (is.numeric(grid)) {
-    if (length(grid) > 1L && is.null(left) && is.null(right)) {
-      arg = unlist(tf::tf_arg(x))
-      if (max_grid > max(arg) || min_grid < min(arg)) {
-        stopf("The grid must be within the range of the argument points.")
-      }
-      arg = grid
-    } else {
-      arg = seq(left, right, length.out = grid)
-    }
-  } else if (tf::is_reg(x)) {
-    return(x)
-  } else {
-    arg = tf::tf_arg(x)
-    switch(grid,
-      "union" = {
-        arg = sort(unique(unlist(arg)))
-      },
-      "intersect" = {
-        arg = Reduce(intersect, arg)
-      },
-      "minmax" = {
-        lower = max(map_dbl(arg, 1L))
-        upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
-        arg = sort(unique(unlist(arg)))
-        arg = arg[seq(which(lower == arg), which(upper == arg))]
-      }
-    )
-  }
-  invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
-}
 
 #' @include zzz.R
 register_po("fda.interpol", PipeOpFDAInterpol)
