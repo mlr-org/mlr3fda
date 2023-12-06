@@ -113,10 +113,8 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
           })
           return(dt)
         }
-        dt = map_dtc(dt, function(x) {
-          arg = seq(left, right, length.out = grid)
-          invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
-        })
+        arg = seq(left, right, length.out = grid)
+        dt = map_dtc(dt, function(x) invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
         return(dt)
       }
 
