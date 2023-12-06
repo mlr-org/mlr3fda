@@ -18,11 +18,13 @@
 #'     features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
 #'     be the combined unique set of these points. This option is generally used when the argument points vary across
 #'     observations and a  common grid is needed for comparison or further analysis.
-#'   * `"intersect"`: The grid is created based on the intersection of all argument points of a feature.
-#'   * `"minmax"`: This option constructs a grid that spans from the maximum of the minimum argument points to the
-#'     minimum of the maximum argument points across the provided functional features. It creates a bounded grid that
-#'     encapsulates the range within which all features have defined argument points.
-#'   For regular functional data this has no effect.
+#'   * `"intersect"`: Creates a grid using the intersection of all argument points of a feature.
+#'     This grid includes only those points that are common across all functional features,
+#'     facilitating direct comparison on a shared set of points.
+#'   * `"minmax"`: Generates a grid within the range of the maximum of the minimum argument points to the minimum of the
+#'     maximum argument points across features.
+#'     This bounded grid encapsulates the argument point range common to all features.
+#'   Note: For regular functional data this has no effect as all argument points are the same.
 #'   Initial value is `"union"`.
 #' * `method` :: `character(1)` \cr
 #'   Defaults to `"linear"`. One of:
