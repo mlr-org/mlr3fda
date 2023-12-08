@@ -3,6 +3,8 @@ test_that("tf does not support NAs", {
   # This test will inform us whether this feature is implemented,
   # in which case we then have to adress this case in the PipeOps
   # https://github.com/tidyfun/tf/issues/33
+  # Currently, NA functions are dropped
   d = data.frame(time = 1, value = NA_real_, id = "1")
-  expect_error(tfd(d, arg = "time", value = "value", id = "id"))
+  x = invisible(tfd(d, arg = "time", value = "value", id = "id"))
+  expect_true(length(x) == 0)
 })
