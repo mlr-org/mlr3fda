@@ -126,13 +126,13 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
         }
         arg = tf::tf_arg(x)
         switch(grid,
-          "union" = {
+          union = {
             arg = sort(unique(unlist(arg)))
           },
-          "intersect" = {
+          intersect = {
             arg = Reduce(intersect, arg)
           },
-          "minmax" = {
+          minmax = {
             lower = max(map_dbl(arg, 1L))
             upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
             arg = sort(unique(unlist(arg)))
