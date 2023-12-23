@@ -29,8 +29,8 @@ Extending mlr3 to functional data.
 This package is not yet on CRAN but you can install the development version of `mlr3fda` from [GitHub](https://github.com/) with:
 
 ```{r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("mlr-org/mlr3fda")
+# install.packages("pak")
+pak::pak("mlr-org/mlr3fda")
 ```
 
 
