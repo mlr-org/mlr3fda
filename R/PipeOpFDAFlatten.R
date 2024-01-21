@@ -69,7 +69,7 @@ PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
       feature_names = names(dt_flat)
 
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
-        warningf("Unique names for features were created due to name clashes with existing columns.")
+        warning("Unique names for features were created due to name clashes with existing columns.")
         feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
         feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
       }

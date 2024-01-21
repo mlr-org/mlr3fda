@@ -93,7 +93,7 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
       has_left = !is.null(left)
       has_right = !is.null(right)
       if (xor(has_left, has_right)) {
-        stopf("Either both or none of 'left' and 'right' must be specified.")
+        stop("Either both or none of 'left' and 'right' must be specified.")
       }
       if (has_left && has_right) {
         assert_count(grid)
@@ -109,7 +109,7 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
           dt = map_dtc(dt, function(x) {
             arg = unlist(tf::tf_arg(x))
             if (max_grid > max(arg) || min_grid < min(arg)) {
-              stopf("The grid must be within the range of the argument points.")
+              stop("The grid must be within the range of the argument points.")
             }
             invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator))
           })
