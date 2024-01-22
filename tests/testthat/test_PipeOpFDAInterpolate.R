@@ -15,6 +15,7 @@ test_that("PipeOpFDAInterpol input validation works", {
 })
 
 test_that("PipeOpFDAInterpol extrapolation works", {
+  # extrapolate with fill_extend method
   dt = data.table(
     id = rep(1:2, each = 5L),
     arg = rep(1:5, 2L),
@@ -27,6 +28,9 @@ test_that("PipeOpFDAInterpol extrapolation works", {
   setnafill(dt, fill = 2L)
   expected = data.table(y = 1:2, f = tf::tfd(dt, id = "id", arg = "arg", value = "value"))
   expect_equal(actual, expected, ignore_attr = TRUE)
+  # throw warning if extrapolation is not possible
+  pop = po("fda.interpol", grid = 1:5)
+  expect_warning(pop$train(list(task)))
 })
 
 test_that("PipeOpFDAInterpol works with minmax", {
