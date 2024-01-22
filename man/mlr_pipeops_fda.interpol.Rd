@@ -36,11 +36,11 @@ Initial value is \code{"union"}.
 \item \code{method} :: \code{character(1)} \cr
 Defaults to \code{"linear"}. One of:
 \itemize{
-\item \code{"linear"}: applies linear interpolation without extrapolation (see \code{tf::tf_approx_linear()}).
-\item \code{"spline"}: applies cubic spline interpolation (see \code{tf::tf_approx_spline()}).
-\item \code{"fill_extend"}: applies linear interpolation with constant extrapolation (see \code{tf::tf_approx_fill_extend()}).
-\item \code{"locf"}: applies "last observation carried forward" interpolation (see \code{tf::tf_approx_locf()}).
-\item \code{"nocb"}: applies "next observation carried backward" interpolation (see \code{tf::tf_approx_nocb()}).
+\item \code{"linear"}: applies linear interpolation without extrapolation (see \code{\link[tf:tf_approx]{tf::tf_approx_linear()}}).
+\item \code{"spline"}: applies cubic spline interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_spline()}}).
+\item \code{"fill_extend"}: applies linear interpolation with constant extrapolation (see \code{\link[tf:tf_approx]{tf::tf_approx_fill_extend()}}).
+\item \code{"locf"}: applies "last observation carried forward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_locf()}}).
+\item \code{"nocb"}: applies "next observation carried backward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_nocb()}}).
 }
 \item \code{left} :: \code{numeric()} \cr
 The left boundary of the window.

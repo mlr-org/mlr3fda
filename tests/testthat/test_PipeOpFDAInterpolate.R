@@ -7,20 +7,33 @@ test_that("PipeOpFDAInterpol input validation works", {
   expect_error(po("fda.interpol", grid = numeric(0L)))
   expect_error(po("fda.interpol", grid = 1:3, method = c("linear", "spline")))
   expect_error(po("fda.interpol", grid = 1:3, method = "cube"))
-  # grid larger than one when left and right are not set
   task = tsk("fuel")
-  pop = po("fda.interpol", grid = 1:3, left = 1, right = 2)
+  pop = po("fda.interpol", grid = 1:3, left = 1L, right = 2L)
   expect_error(pop$train(list(task)))
-  # left larger than right
-  pop = po("fda.interpol", grid = 1, left = 2, right = 1)
+  pop = po("fda.interpol", grid = 10L, left = 2L, right = 1L)
   expect_error(pop$train(list(task)))
+})
+
+test_that("PipeOpFDAInterpol extrapolation works", {
+  dt = data.table(
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
+    value = c(NA, 2, 5, 5, 7, 3, 5, 10, 2, NA)
+  )
+  dt_in = data.table(y = 1:2, f = tf::tfd(dt, id = "id", arg = "arg", value = "value"))
+  task = as_task_regr(dt_in, target = "y")
+  pop = po("fda.interpol", grid = 1:5, method = "fill_extend")
+  actual = pop$train(list(task))[[1L]]$data()
+  setnafill(dt, fill = 2L)
+  expected = data.table(y = 1:2, f = tf::tfd(dt, id = "id", arg = "arg", value = "value"))
+  expect_equal(actual, expected, ignore_attr = TRUE)
 })
 
 test_that("PipeOpFDAInterpol works with minmax", {
   # tfr doesnt't have an effect
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")

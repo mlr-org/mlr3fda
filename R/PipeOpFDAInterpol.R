@@ -28,11 +28,11 @@
 #'   Initial value is `"union"`.
 #' * `method` :: `character(1)` \cr
 #'   Defaults to `"linear"`. One of:
-#'   * `"linear"`: applies linear interpolation without extrapolation (see `tf::tf_approx_linear()`).
-#'   * `"spline"`: applies cubic spline interpolation (see `tf::tf_approx_spline()`).
-#'   * `"fill_extend"`: applies linear interpolation with constant extrapolation (see `tf::tf_approx_fill_extend()`).
-#'   * `"locf"`: applies "last observation carried forward" interpolation (see `tf::tf_approx_locf()`).
-#'   * `"nocb"`: applies "next observation carried backward" interpolation (see `tf::tf_approx_nocb()`).
+#'   * `"linear"`: applies linear interpolation without extrapolation (see [tf::tf_approx_linear()]).
+#'   * `"spline"`: applies cubic spline interpolation (see [tf::tf_approx_spline()]).
+#'   * `"fill_extend"`: applies linear interpolation with constant extrapolation (see [tf::tf_approx_fill_extend()]).
+#'   * `"locf"`: applies "last observation carried forward" interpolation (see [tf::tf_approx_locf()]).
+#'   * `"nocb"`: applies "next observation carried backward" interpolation (see [tf::tf_approx_nocb()]).
 #' * `left` :: `numeric()` \cr
 #'   The left boundary of the window.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
@@ -107,9 +107,9 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
           max_grid = max(grid)
           min_grid = min(grid)
           dt = map_dtc(dt, function(x) {
-            arg = unlist(tf::tf_arg(x))
-            if (max_grid > max(arg) || min_grid < min(arg)) {
-              stop("The grid must be within the range of the argument points.")
+            domain = tf::tf_domain(x)
+            if (min_grid < domain[[1L]] || max_grid > domain[[2L]]) {
+              stop("The grid must be within the range of the domain.")
             }
             invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator))
           })
