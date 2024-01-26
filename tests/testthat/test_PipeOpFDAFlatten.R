@@ -42,8 +42,8 @@ test_that("PipeOpFDAFlatten works with name clashes", {
 test_that("PipeOpFDAFlatten works with tfr and tfi", {
   # tfr works
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -59,7 +59,7 @@ test_that("PipeOpFDAFlatten works with tfr and tfi", {
 
   # tfi works
   dt = data.table(
-    id = c(rep(1, 3), rep(2, 6)),
+    id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
     value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
   )

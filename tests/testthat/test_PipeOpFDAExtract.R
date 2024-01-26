@@ -2,11 +2,11 @@ test_that("PipeOpFDAExtract works", {
   # tf_reg works
   dat = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
-    arg = rep(1:3, 2),
+    arg = rep(1:3, 2L),
     value = 1:6
   )
   f = tf::tfd(dat, id = "id", arg = "arg", value = "value")
-  y = c(1, 2)
+  y = 1:2
   dat = data.table(f = f, y = y)
   task = as_task_regr(dat, target = "y")
 
@@ -39,12 +39,12 @@ test_that("PipeOpFDAExtract works", {
   po_fmean = po("fda.extract", features = "mean", drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_equal(fmean, rep(NA_real_, 2))
+  expect_equal(fmean, rep(NA_real_, 2L))
 
   pop = po("fda.extract", features = c("mean", "median", "min"), drop = TRUE, left = 100, right = 200)
   task_pop = pop$train(list(task))[[1L]]
   expected = data.table(
-    y = 1:2, f_mean = rep(NA_real_, 2), f_median = rep(NA_real_, 2), f_min = rep(NA_real_, 2)
+    y = 1:2, f_mean = rep(NA_real_, 2L), f_median = rep(NA_real_, 2L), f_min = rep(NA_real_, 2L)
   )
   expect_equal(task_pop$data(), expected)
 
@@ -73,7 +73,7 @@ test_that("PipeOpFDAExtract works", {
   po_fmean = po("fda.extract", features = list("mean"), drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_equal(fmean, rep(NA_real_, 2))
+  expect_equal(fmean, rep(NA_real_, 2L))
 
   # drop works
   po_fmean = po("fda.extract", features = list("mean"), drop = FALSE)
@@ -180,10 +180,11 @@ test_that("ffind works", {
   expect_equal(ffind(1:10, 0, 5), c(1, 5))
   expect_equal(ffind(1:10, 5, 15), c(5, 10))
 
-  expect_equal(ffind(
-    c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10),
-    left = -200, right = 0
+  expect_equal(
+    ffind(
+      c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10),
+      left = -200, right = 0
     ),
-    rep(NA_integer_, 2)
+    rep(NA_integer_, 2L)
   )
 })

@@ -8,9 +8,9 @@ test_that("PipeOpFDAInterpol input validation works", {
   expect_error(po("fda.interpol", grid = 1:3, method = c("linear", "spline")))
   expect_error(po("fda.interpol", grid = 1:3, method = "cube"))
   task = tsk("fuel")
-  pop = po("fda.interpol", grid = 1:3, left = 1L, right = 2L)
+  pop = po("fda.interpol", grid = 1:3, left = 1, right = 2)
   expect_error(pop$train(list(task)))
-  pop = po("fda.interpol", grid = 10L, left = 2L, right = 1L)
+  pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
   expect_error(pop$train(list(task)))
 })
 
@@ -49,8 +49,8 @@ test_that("PipeOpFDAInterpol works with minmax", {
 
   # tfi works with same min and max
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, NA, 5, 5, 7, 3, 5, 10, NA, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -59,8 +59,8 @@ test_that("PipeOpFDAInterpol works with minmax", {
   pop = po("fda.interpol", grid = "minmax")
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 3, 5, 5, 7, 3, 5, 10, 11, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -69,7 +69,7 @@ test_that("PipeOpFDAInterpol works with minmax", {
 
   # tfi works with different min and max
   dt = data.table(
-    id = c(rep(1, 3), rep(2, 6)),
+    id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
     value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
   )
@@ -79,8 +79,8 @@ test_that("PipeOpFDAInterpol works with minmax", {
   pop = po("fda.interpol", grid = "minmax")
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(3:5, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(3:5, 2L),
     value = c(2, 5, 6, 4, 5, 6)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -91,8 +91,8 @@ test_that("PipeOpFDAInterpol works with minmax", {
 test_that("PipeOpFDAInterpol works with intersect", {
   # tfr works
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -104,8 +104,8 @@ test_that("PipeOpFDAInterpol works with intersect", {
 
   # tfi works with same min and max
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, NA, 5, 5, 7, 3, 5, 10, NA, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -114,8 +114,8 @@ test_that("PipeOpFDAInterpol works with intersect", {
   pop = po("fda.interpol", grid = "intersect")
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(c(1, 3, 5), 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(c(1, 3, 5), 2L),
     value = c(1, 5, 7, 3, 10, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -124,7 +124,7 @@ test_that("PipeOpFDAInterpol works with intersect", {
 
   # tfi works with different min and max
   dt = data.table(
-    id = c(rep(1, 3), rep(2, 6)),
+    id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
     value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
   )
@@ -134,8 +134,8 @@ test_that("PipeOpFDAInterpol works with intersect", {
   pop = po("fda.interpol", grid = "intersect")
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(3:5, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(3:5, 2L),
     value = c(2, 5, 6, 4, 5, 6)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -146,8 +146,8 @@ test_that("PipeOpFDAInterpol works with intersect", {
 test_that("PipeOpFDAInterpol works with union", {
   # tfr works
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -164,8 +164,8 @@ test_that("PipeOpFDAInterpol works with union", {
 
   # tfi works with same min and max
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, NA, 5, 5, 7, 3, 5, 10, NA, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -174,8 +174,8 @@ test_that("PipeOpFDAInterpol works with union", {
   pop = po("fda.interpol", grid = "union")
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 3, 5, 5, 7, 3, 5, 10, 11, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -184,7 +184,7 @@ test_that("PipeOpFDAInterpol works with union", {
 
   # tfi works with different min and max
   dt = data.table(
-    id = c(rep(1, 3), rep(2, 6)),
+    id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
     value = c(2, NA, 5, 1, 3, 4, 5, 6, 7)
   )
@@ -195,7 +195,7 @@ test_that("PipeOpFDAInterpol works with union", {
   expect_warning(pop$train(list(task)))
   task_interpol = suppressWarnings(pop$train(list(task))[[1L]])
   dt = data.table(
-    id = c(rep(1, 3), rep(2, 6)),
+    id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
     value = c(2, 3.5, 5, 1, 3, 4, 5, 6, 7)
   )
@@ -207,8 +207,8 @@ test_that("PipeOpFDAInterpol works with union", {
 test_that("PipeOpFDAInterpol works with custom grid", {
   # tfr works
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -217,8 +217,8 @@ test_that("PipeOpFDAInterpol works with custom grid", {
   pop = po("fda.interpol", grid = 3:5)
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(3:5, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(3:5, 2L),
     value = c(5, 5, 7, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -233,8 +233,8 @@ test_that("PipeOpFDAInterpol works with custom grid", {
 
   # tfi works with same min and max
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, NA, 5, 5, 7, 3, 5, 10, NA, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -243,8 +243,8 @@ test_that("PipeOpFDAInterpol works with custom grid", {
   pop = po("fda.interpol", grid = 3:5)
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(3:5, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(3:5, 2L),
     value = c(5, 5, 7, 10, 11, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -253,7 +253,7 @@ test_that("PipeOpFDAInterpol works with custom grid", {
 
   # tfi works with different min and max
   dt = data.table(
-    id = c(rep(1, 3), rep(2, 6)),
+    id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
     value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
   )
@@ -263,8 +263,8 @@ test_that("PipeOpFDAInterpol works with custom grid", {
   pop = po("fda.interpol", grid = 3:5)
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(3:5, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(3:5, 2L),
     value = c(2, 5, 6, 4, 5, 6)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -275,18 +275,18 @@ test_that("PipeOpFDAInterpol works with custom grid", {
 test_that("PipeOpFDAInterpol works with grid length + left and right", {
   # tfr works with integer output grid
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("fda.interpol", grid = 3, left = 2, right = 4)
+  pop = po("fda.interpol", grid = 3L, left = 2, right = 4)
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(2:4, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(2:4, 2L),
     value = c(2, 5, 5, 5, 10, 2)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -295,18 +295,18 @@ test_that("PipeOpFDAInterpol works with grid length + left and right", {
 
   # tfr works with numeric output grid
   dt = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("fda.interpol", grid = 3, left = 2, right = 5)
+  pop = po("fda.interpol", grid = 3L, left = 2, right = 5)
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(c(2, 3.5, 5), 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(c(2, 3.5, 5), 2L),
     value = c(2, 5, 7, 5, 6, 12)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -315,18 +315,18 @@ test_that("PipeOpFDAInterpol works with grid length + left and right", {
 
   # tfi works
   dt = data.table(
-    id = c(rep(1, 3), rep(2, 6)),
+    id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
     value = c(2, 5, 6, 1, 3, 4, 5, 6, 7)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("fda.interpol", grid = 3, left = 3, right = 5)
+  pop = po("fda.interpol", grid = 3L, left = 3, right = 5)
   task_interpol = pop$train(list(task))[[1L]]
   dt = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(3:5, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(3:5, 2L),
     value = c(2, 5, 6, 4, 5, 6)
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -336,13 +336,13 @@ test_that("PipeOpFDAInterpol works with grid length + left and right", {
 
 test_that("PipeOpFDAInterpol method arg works", {
   dt_in = data.table(
-    id = rep(1:2, each = 5),
-    arg = rep(1:5, 2),
+    id = rep(1:2, each = 5L),
+    arg = rep(1:5, 2L),
     value = c(1, 2, 5, 5, 7, 3, 5, 10, 2, 12)
   )
   dt_out = data.table(
-    id = rep(1:2, each = 3),
-    arg = rep(3:5, 2),
+    id = rep(1:2, each = 3L),
+    arg = rep(3:5, 2L),
     value = c(5, 5, 7, 10, 2, 12)
   )
   methods = c("linear", "spline", "fill_extend", "locf", "nocb")
