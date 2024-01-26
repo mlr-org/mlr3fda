@@ -61,7 +61,7 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
           if (test_string(x)) {
             return(check_choice(x, choices = c("union", "intersect", "minmax")))
           }
-          if (test_numeric(x, any.missing = FALSE, min.len = 1)) {
+          if (test_numeric(x, any.missing = FALSE, min.len = 1L)) {
             return(TRUE)
           }
           "Must be either a string or numeric vector."
