@@ -23,8 +23,8 @@ This package is not yet on CRAN but you can install the development
 version of `mlr3fda` from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("mlr-org/mlr3fda")
+# install.packages("pak")
+pak::pak("mlr-org/mlr3fda")
 ```
 
 ## Status
@@ -130,11 +130,11 @@ glrn$predict(task, row_ids = ids$test)
 *mlr3fda* is a free and open source software project that encourages
 participation and feedback. If you have any issues, questions,
 suggestions or feedback, please do not hesitate to open an “issue” about
-it on the GitHub page\!
+it on the GitHub page!
 
 In case of problems / bugs, it is often helpful if you provide a
-“minimum working example” that showcases the behaviour (but don’t
-worry about this if the bug is obvious).
+“minimum working example” that showcases the behaviour (but don’t worry
+about this if the bug is obvious).
 
 Please understand that the resources of the project are limited:
 response may sometimes be delayed by a few days, and some feature
