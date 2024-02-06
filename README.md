@@ -103,7 +103,7 @@ extracts features and then trains a model.
 ids = partition(task, stratify = FALSE)
 
 # define a Graph and convert it to a GraphLearner
-graph = po("ffs", features = "mean", drop = TRUE) %>>%
+graph = po("fda.extract", features = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
@@ -124,6 +124,15 @@ glrn$predict(task, row_ids = ids$test)
     ##         324    57 52.42105
     ##         325    57 41.30769
     ##         326    60 49.99174
+
+## Implemented PipeOps
+
+| key          | label                                            | packages                            | tags                 |
+|:-------------|:-------------------------------------------------|:------------------------------------|:---------------------|
+| fda.extract  | Extracts Simple Features from Functional Columns | mlr3pipelines, mlr3fda , tf         | fda , data transform |
+| fda.flatten  | Flattens Functional Columns                      | mlr3pipelines, mlr3fda , tf         | fda , data transform |
+| fda.interpol | Interpolate Functional Columns                   | mlr3pipelines, mlr3fda , tf         | fda , data transform |
+| fda.smooth   | Smoothing Functional Data                        | mlr3pipelines, mlr3fda , tf , stats | fda , data transform |
 
 ## Bugs, Questions, Feedback
 

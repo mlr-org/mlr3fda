@@ -82,7 +82,7 @@ This can be combined with a `Lerner` into a `GraphLearner` that first extracts f
 ids = partition(task, stratify = FALSE)
 
 # define a Graph and convert it to a GraphLearner
-graph = po("ffs", features = "mean", drop = TRUE) %>>%
+graph = po("fda.extract", features = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
@@ -93,6 +93,16 @@ glrn$train(task, row_ids = ids$train)
 # make predictions on the test set
 glrn$predict(task, row_ids = ids$test)
 ```
+
+## Implemented PipeOps
+
+```{r, echo = FALSE}
+content = as.data.table(mlr3pipelines::mlr_pipeops, objects = TRUE)[, .(key, label, packages, tags)]
+content = content[mlr3misc::map_lgl(tags, function(t) "fda" %in% t), ]
+
+knitr::kable(content, format = "markdown")
+```
+
 
 ## Bugs, Questions, Feedback
 
