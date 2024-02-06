@@ -1,7 +1,7 @@
-#' (F)unctional (F)eature (S)imple
+#' @title Extracts Simple Features from Functional Columns
 #'
 #' @usage NULL
-#' @name mlr_pipeops_ffs
+#' @name mlr_pipeops_fda.extract
 #' @format [`R6Class`] object inheriting from
 #' [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]
 #'
@@ -10,13 +10,12 @@
 #' Note that it only operates on values that were actually observed and does not interpolate.
 #'
 #' @section Parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
+#' parameters:
 #' * `drop` :: `logical(1)`\cr
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
 #'   column role `feature`. Initial value is `TRUE`.
-#' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
-#'   What columns the [`PipeOpTaskPreproc`] should operate on.
-#'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
 #' * `features` :: `list()` | `character()` \cr
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
@@ -45,30 +44,32 @@
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' po_fmean = po("ffs", features = "mean")
+#' po_fmean = po("fda.extract", features = "mean")
 #' task_fmean = po_fmean$train(list(task))[[1L]]
 #'
 #' # add more than one feature
-#' pop = po("ffs", features = c("mean", "median", "var"))
+#' pop = po("fda.extract", features = c("mean", "median", "var"))
 #' task_features = pop$train(list(task))[[1L]]
 #'
 #' # add a custom feature
-#' po_custom = po("ffs", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
+#' po_custom = po("fda.extract",
+#'   features = list(mean = function(arg, value) mean(value, na.rm = TRUE))
+#' )
 #' task_custom = po_custom$train(list(task))[[1L]]
-PipeOpFFS = R6Class("PipeOpFFS",
+PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"ffs"`.
+    #'   Identifier of resulting object, default is `"fda.extract"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
-    initialize = function(id = "ffs", param_vals = list()) {
+    initialize = function(id = "fda.extract", param_vals = list()) {
       param_set = ps(
         drop = p_lgl(tags = c("train", "predict", "required")),
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
-        features = p_uty(tags = c("train", "predict", "required"), custom_check = function(x) {
+        features = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
           if (test_character(x)) {
             return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
           }
@@ -102,7 +103,7 @@ PipeOpFFS = R6Class("PipeOpFFS",
             return(TRUE)
           }
           "Features must be a character or list"
-        })
+        }))
       )
       param_set$set_values(
         drop = TRUE,
@@ -267,4 +268,4 @@ fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
 fvar = function(arg, value) stats::var(value, na.rm = TRUE)
 
 #' @include zzz.R
-register_po("ffs", PipeOpFFS)
+register_po("fda.extract", PipeOpFDAExtract)

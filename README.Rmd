@@ -66,10 +66,10 @@ task
 To train a model on this task we first need to extract scalar features from the functions.
 We ullustrate this below by extracting the mean value.
 
-```{r ffs, fig.width = 5, fig.height = 3}
+```{r fda.extract, fig.width = 5, fig.height = 3}
 library(mlr3pipelines)
 
-po_fmean = po("ffs", features = "mean")
+po_fmean = po("fda.extract", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()

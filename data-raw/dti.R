@@ -4,8 +4,8 @@ library(tf)
 dti = data.table(
   subject_id = as.factor(refund::DTI$ID),
   pasat = refund::DTI$pasat,
-  cca = tfd(refund::DTI$cca, arg = seq(0, 1, l = 93)),
-  rcst = tfd(refund::DTI$rcst, arg = seq(0, 1, l = 55)),
+  cca = tfd(refund::DTI$cca, arg = seq(0L, 1L, length.out = 93L)),
+  rcst = tfd(refund::DTI$rcst, arg = seq(0L, 1L, length.out = 55L)),
   sex = refund::DTI$sex
 )
 dti = na.omit(dti)
