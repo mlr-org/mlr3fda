@@ -28,7 +28,16 @@
 NULL
 
 load_task_dti = function(id = "dti") {
-  b = as_data_backend(load_dataset("dti", package = "mlr3fda"))
+  dti = load_dataset("dti", package = "mlr3fda")
+  dti = data.table(
+    subject_id = as.factor(dti$ID),
+    pasat = dti$pasat,
+    cca = tf::tfd(dti$cca, arg = seq(0L, 1L, length.out = 93L)),
+    rcst = tf::tfd(dti$rcst, arg = seq(0L, 1L, length.out = 55L)),
+    sex = dti$sex
+  )
+  dti = na.omit(dti)
+  b = as_data_backend(dti)
 
   task = TaskRegr$new(
     id = id,
