@@ -4,10 +4,6 @@
 \alias{mlr_pipeops_fda.extract}
 \alias{PipeOpFDAExtract}
 \title{Extracts Simple Features from Functional Columns}
-\format{
-\code{\link{R6Class}} object inheriting from
-\code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}}
-}
 \description{
 This is the class that extracts simple features from functional columns.
 Note that it only operates on values that were actually observed and does not interpolate.
@@ -43,12 +39,6 @@ This is solved as follows:
 If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
 be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
 a warning is given.
-}
-
-\section{Methods}{
-
-Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}}/
-\code{\link[mlr3pipelines:PipeOp]{PipeOp}}
 }
 
 \examples{

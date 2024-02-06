@@ -1,14 +1,11 @@
 #' @title Extracts Simple Features from Functional Columns
 #'
-#' @usage NULL
 #' @name mlr_pipeops_fda.extract
-#' @format [`R6Class`] object inheriting from
-#' [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]
 #'
 #' @description
 #' This is the class that extracts simple features from functional columns.
 #' Note that it only operates on values that were actually observed and does not interpolate.
-#'
+#!]'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
@@ -35,10 +32,6 @@
 #' If a column was called `"x"` and the feature is `"mean"`, the corresponding new column will
 #' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()` and
 #' a warning is given.
-#'
-#' @section Methods:
-#' Only methods inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]/
-#' [`PipeOp`][mlr3pipelines::PipeOp]
 #'
 #' @export
 #' @examples
