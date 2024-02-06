@@ -116,8 +116,9 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
         id = id,
         param_set = param_set,
         param_vals = param_vals,
-        packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = c("tfd_irreg", "tfd_reg")
+        packages = c("mlr3fda", "mlr3pipelines", "tf"),
+        feature_types = c("tfd_irreg", "tfd_reg"),
+        tags = "fda"
       )
     }
   ),

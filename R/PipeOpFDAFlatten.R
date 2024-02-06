@@ -38,8 +38,9 @@ PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
         id = id,
         param_set = param_set,
         param_vals = param_vals,
-        packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = c("tfd_reg", "tfd_irreg")
+        packages = c("mlr3fda", "mlr3pipelines", "tf"),
+        feature_types = c("tfd_reg", "tfd_irreg"),
+        tags = "fda"
       )
     }
   ),
