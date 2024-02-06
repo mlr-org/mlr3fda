@@ -39,10 +39,12 @@ named_union = function(x, y) {
 mlr3fda_feature_types = c(tfr = "tfd_reg", tfi = "tfd_irreg")
 mlr3fda_tasks = new.env()
 mlr3fda_pipeops = new.env()
+mlr3fda_pipeop_tags = "fda"
 
 register_mlr3 = function() {
   # add data types
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
+  mlr_reflections$task_feature_types = named_union(mlr_reflections$task_feature_types, mlr3fda_feature_types)
   mlr_reflections$task_feature_types = named_union(mlr_reflections$task_feature_types, mlr3fda_feature_types)
 
   # add tasks
@@ -54,10 +56,12 @@ register_mlr3 = function() {
 }
 
 register_mlr3pipelines = function() {
+  mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_pipeops = utils::getFromNamespace("mlr_pipeops", ns = "mlr3pipelines")
   iwalk(as.list(mlr3fda_pipeops), function(value, name) {
     mlr_pipeops$add(name, value$constructor, value$metainf)
   })
+  mlr_reflections$pipeops$valid_tags = unique(c(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags))
 }
 
 .onLoad = function(libname, pkgname) {
@@ -69,6 +73,7 @@ register_mlr3pipelines = function() {
   walk(names(mlr3fda_tasks), function(nm) mlr_tasks$remove(nm))
   walk(names(mlr3fda_pipeops), function(nm) mlr_pipeops$remove(nm))
   mlr_reflections$learner_feature_types = setdiff(mlr_reflections$learner_feature_types, mlr3fda_feature_types)
+  mlr_reflections$pipeops$valid_tags = setdiff(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags)
 }
 
 leanify_package()
