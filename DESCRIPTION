@@ -36,12 +36,10 @@ Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.1
 Collate:
     'zzz.R'
-    'PipeOpFDASmooth.R'
-    'PipeOpFFS.R'
-    'PipeOpFlatFun.R'
     'PipeOpFDAExtract.R'
     'PipeOpFDAFlatten.R'
     'PipeOpFDAInterpol.R'
+    'PipeOpFDASmooth.R'
     'TaskClassif_phoneme.R'
     'TaskRegr_dti.R'
     'TaskRegr_fuel.R'
