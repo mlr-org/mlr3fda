@@ -3,6 +3,7 @@
 export(PipeOpFDAExtract)
 export(PipeOpFDAFlatten)
 export(PipeOpFDAInterpol)
+export(PipeOpFDASmooth)
 import(R6)
 import(checkmate)
 import(data.table)

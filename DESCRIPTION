@@ -23,7 +23,10 @@ Imports:
     R6,
     tf
 Suggests:
-    testthat (>= 3.0.0)
+    rpart,
+    testthat (>= 3.0.0),
+    pracma,
+    zoo
 Remotes:
     tidyfun/tf
 Config/testthat/edition: 3
@@ -36,6 +39,7 @@ Collate:
     'PipeOpFDAExtract.R'
     'PipeOpFDAFlatten.R'
     'PipeOpFDAInterpol.R'
+    'PipeOpFDASmooth.R'
     'TaskClassif_phoneme.R'
     'TaskRegr_dti.R'
     'TaskRegr_fuel.R'
