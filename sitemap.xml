@@ -25,10 +25,13 @@
     <loc>https://mlr3fda.mlr-org.com/reference/mlr3fda-package.html</loc>
   </url>
   <url>
-    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_ffs.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract.html</loc>
   </url>
   <url>
-    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_flatfun.html</loc>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol.html</loc>
   </url>
   <url>
     <loc>https://mlr3fda.mlr-org.com/reference/mlr_tasks_dti.html</loc>
