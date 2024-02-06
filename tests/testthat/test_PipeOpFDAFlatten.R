@@ -33,10 +33,8 @@ test_that("PipeOpFDAFlatten works with name clashes", {
   dt$NIR_1 = 1
   task = as_task_regr(dt, target = "heatan")
   pop = po("fda.flatten")
-  expect_warning(
-    pop$train(list(task)),
-    regexp = "Unique names for"
-  )
+  taskout = pop$train(pop$train(list(task)))[[1L]]
+  expect_true("NIR_1_1" %in% taskout$feature_names)
 })
 
 test_that("PipeOpFDAFlatten works with tfr and tfi", {

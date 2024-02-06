@@ -17,6 +17,7 @@ Depends:
 Imports:
     checkmate,
     data.table,
+    lgr,
     mlr3misc (>= 0.14.0),
     mlr3pipelines,
     paradox,

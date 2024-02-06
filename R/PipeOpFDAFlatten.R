@@ -70,9 +70,9 @@ PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
       feature_names = names(dt_flat)
 
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
-        warningf("Unique names for features were created due to name clashes with existing columns.")
-        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
-        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
+        unique_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
+        feature_names = tail(unique_names, length(feature_names))
+        lg$debug(sprintf("Duplicate names found in pipeop %s", self$id), feature_names = feature_names)
       }
       colnames(dt_flat) = feature_names
 
