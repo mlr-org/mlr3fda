@@ -127,12 +127,9 @@ test_that("PipeOpFDAExtract works with name clashes", {
   dat = data.table(f = f, y = y)
   dat$f_mean = c(-1, -1)
   task = as_task_regr(dat, target = "y")
-
-  pop = po("fda.extract", features = list("mean"))
-  expect_warning(
-    pop$train(list(task))[[1L]],
-    regexp = "Unique names for"
-  )
+  pop = po("fda.extract", features = list("mean"), drop = FALSE)
+  taskout = pop$train(pop$train(list(task)))[[1L]]
+  expect_permutation(taskout$feature_names, c("f", "f_mean", "f_mean_1", "f_mean_2"))
 })
 
 test_that("ffind works", {

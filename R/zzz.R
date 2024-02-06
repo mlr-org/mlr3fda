@@ -64,6 +64,10 @@ register_mlr3pipelines = function() {
 }
 
 .onLoad = function(libname, pkgname) {
+  assign("lg", lgr::get_logger("mlr3"), envir = parent.env(environment()))
+  if (Sys.getenv("IN_PKGDOWN") == "true") {
+    lg$set_threshold("warn")
+  }
   mlr3misc::register_namespace_callback(pkgname, "mlr3", register_mlr3)
   mlr3misc::register_namespace_callback(pkgname, "mlr3pipelines", register_mlr3pipelines)
 }
