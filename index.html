@@ -156,7 +156,7 @@
 <span><span class="va">ids</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="va">task</span>, stratify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># define a Graph and convert it to a GraphLearner</span></span>
-<span><span class="va">graph</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"ffs"</span>, features <span class="op">=</span> <span class="st">"mean"</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com/reference/grapes-greater-than-greater-than-grapes.html" class="external-link">%&gt;&gt;%</a></span></span>
+<span><span class="va">graph</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.extract"</span>, features <span class="op">=</span> <span class="st">"mean"</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com/reference/grapes-greater-than-greater-than-grapes.html" class="external-link">%&gt;&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"learner"</span>, learner <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">lrn</a></span><span class="op">(</span><span class="st">"regr.rpart"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">glrn</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/as_learner.html" class="external-link">as_learner</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
@@ -175,6 +175,50 @@
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">##         324    57 52.42105</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">##         325    57 41.30769</span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         326    60 49.99174</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="implemented-pipeops">Implemented PipeOps<a class="anchor" aria-label="anchor" href="#implemented-pipeops"></a>
+</h2>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="11%">
+<col width="40%">
+<col width="30%">
+<col width="17%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">key</th>
+<th align="left">label</th>
+<th align="left">packages</th>
+<th align="left">tags</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">fda.extract</td>
+<td align="left">Extracts Simple Features from Functional Columns</td>
+<td align="left">mlr3pipelines, mlr3fda , tf</td>
+<td align="left">fda , data transform</td>
+</tr>
+<tr class="even">
+<td align="left">fda.flatten</td>
+<td align="left">Flattens Functional Columns</td>
+<td align="left">mlr3pipelines, mlr3fda , tf</td>
+<td align="left">fda , data transform</td>
+</tr>
+<tr class="odd">
+<td align="left">fda.interpol</td>
+<td align="left">Interpolate Functional Columns</td>
+<td align="left">mlr3pipelines, mlr3fda , tf</td>
+<td align="left">fda , data transform</td>
+</tr>
+<tr class="even">
+<td align="left">fda.smooth</td>
+<td align="left">Smoothing Functional Data</td>
+<td align="left">mlr3pipelines, mlr3fda , tf , stats</td>
+<td align="left">fda , data transform</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section level2">
 <h2 id="bugs-questions-feedback">Bugs, Questions, Feedback<a class="anchor" aria-label="anchor" href="#bugs-questions-feedback"></a>
 </h2>
