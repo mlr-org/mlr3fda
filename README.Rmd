@@ -64,7 +64,7 @@ task
 ```
 
 To train a model on this task we first need to extract scalar features from the functions.
-We ullustrate this below by extracting the mean value.
+We illustrate this below by extracting the mean value.
 
 ```{r fda.extract, fig.width = 5, fig.height = 3}
 library(mlr3pipelines)

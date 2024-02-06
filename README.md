@@ -47,7 +47,7 @@ library(mlr3fda)
 mlr_reflections$task_feature_types[c("tfr", "tfi")]
 ```
 
-    ##         tfr         tfi 
+    ##         tfr         tfi
     ##   "tfd_reg" "tfd_irreg"
 
 These datatypes can be used to represent regular and irregular
@@ -75,7 +75,7 @@ task
     ## * Groups: subject_id
 
 To train a model on this task we first need to extract scalar features
-from the functions. We ullustrate this below by extracting the mean
+from the functions. We illustrate this below by extracting the mean
 value.
 
 ``` r
@@ -120,7 +120,7 @@ glrn$predict(task, row_ids = ids$test)
     ##          11    48 49.99174
     ##          12    40 49.99174
     ##          13    43 52.42105
-    ## ---                       
+    ## ---
     ##         324    57 52.42105
     ##         325    57 41.30769
     ##         326    60 49.99174
