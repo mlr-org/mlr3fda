@@ -5,8 +5,7 @@ task = mlr::phoneme.task
 dat = task$env$data
 
 m = as.matrix(dat[, -151L])
-X = as.tfd(tfd(m))
-
+X = tfd(m)
 
 phoneme = data.table(
   class = dat$classlearn,
