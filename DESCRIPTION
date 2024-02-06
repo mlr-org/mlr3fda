@@ -17,7 +17,7 @@ Depends:
 Imports:
     checkmate,
     data.table,
-    mlr3misc,
+    mlr3misc (>= 0.14.0),
     mlr3pipelines,
     paradox,
     R6,
@@ -45,3 +45,4 @@ Collate:
     'TaskRegr_fuel.R'
     'bibentries.R'
     'datasets.R'
+    'hash_input.R'
