@@ -1,4 +1,4 @@
 task = mlr::fuelsubset.task
-fuel = task$env$data
+dat = task$env$data
 
-usethis::use_data(fuel, overwrite = TRUE)
+usethis::use_data(dat, overwrite = TRUE)

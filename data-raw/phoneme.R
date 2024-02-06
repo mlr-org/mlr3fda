@@ -1,4 +1,4 @@
 task = mlr::phoneme.task
-phoneme = task$env$data
+dat = task$env$data
 
-usethis::use_data(phoneme, overwrite = TRUE)
+usethis::use_data(dat, overwrite = TRUE)
