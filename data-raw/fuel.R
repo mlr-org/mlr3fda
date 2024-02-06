@@ -4,9 +4,9 @@ library(tf)
 task = mlr::fuelsubset.task
 dat = task$env$data
 
-ids_nir = rep(1:129, each = 231)
+ids_nir = rep(1:129, each = 231L)
 
-args_nir = rep(1:231, times = 129)
+args_nir = rep(1:231, times = 129L)
 
 
 UVVIS = as.tfd(tfd(dat[["UVVIS"]]))

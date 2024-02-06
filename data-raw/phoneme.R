@@ -4,7 +4,7 @@ library(tf)
 task = mlr::phoneme.task
 dat = task$env$data
 
-m = as.matrix(dat[, -151])
+m = as.matrix(dat[, -151L])
 X = as.tfd(tfd(m))
 
 
