@@ -3,7 +3,7 @@
 \name{mlr_pipeops_fda.smooth}
 \alias{mlr_pipeops_fda.smooth}
 \alias{PipeOpFDASmooth}
-\title{Smoothing Functional Data}
+\title{Smoothing Functional Columns}
 \description{
 Smoothes functional data using \code{\link[tf:tf_smooth]{tf::tf_smooth()}}.
 This preprocessing operator is similar to \code{\link{PipeOpFDAInterpol}}, however it does not interpolate to unobserved

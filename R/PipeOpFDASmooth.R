@@ -1,4 +1,4 @@
-#' @title Smoothing Functional Data
+#' @title Smoothing Functional Columns
 #' @name mlr_pipeops_fda.smooth
 #'
 #' @description

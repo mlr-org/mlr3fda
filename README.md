@@ -132,7 +132,7 @@ glrn$predict(task, row_ids = ids$test)
 | fda.extract  | Extracts Simple Features from Functional Columns | mlr3pipelines, mlr3fda , tf         | fda , data transform |
 | fda.flatten  | Flattens Functional Columns                      | mlr3pipelines, mlr3fda , tf         | fda , data transform |
 | fda.interpol | Interpolate Functional Columns                   | mlr3pipelines, mlr3fda , tf         | fda , data transform |
-| fda.smooth   | Smoothing Functional Data                        | mlr3pipelines, mlr3fda , tf , stats | fda , data transform |
+| fda.smooth   | Smoothing Functional Columns                     | mlr3pipelines, mlr3fda , tf , stats | fda , data transform |
 
 ## Bugs, Questions, Feedback
 
