@@ -47,7 +47,7 @@ library(mlr3fda)
 mlr_reflections$task_feature_types[c("tfr", "tfi")]
 ```
 
-    ##         tfr         tfi
+    ##         tfr         tfi 
     ##   "tfd_reg" "tfd_irreg"
 
 These datatypes can be used to represent regular and irregular
@@ -120,7 +120,7 @@ glrn$predict(task, row_ids = ids$test)
     ##          11    48 49.99174
     ##          12    40 49.99174
     ##          13    43 52.42105
-    ## ---
+    ## ---                       
     ##         324    57 52.42105
     ##         325    57 41.30769
     ##         326    60 49.99174
@@ -149,3 +149,8 @@ Please understand that the resources of the project are limited:
 response may sometimes be delayed by a few days, and some feature
 suggestions may be rejected if they are deemed too tangential to the
 vision behind the project.
+
+## Acknowledgements
+
+The development of this R-package was supported by Roche Diagonstics
+R&D.
