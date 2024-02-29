@@ -1,14 +1,4 @@
-library(data.table)
-library(tf)
-
-dti = data.table(
-  subject_id = as.factor(refund::DTI$ID),
-  pasat = refund::DTI$pasat,
-  cca = tfd(refund::DTI$cca, arg = seq(0, 1, l = 93)),
-  rcst = tfd(refund::DTI$rcst, arg = seq(0, 1, l = 55)),
-  sex = refund::DTI$sex,
-  case = factor(ifelse(refund::DTI$case, "MS", "control"))
-)
-dti = na.omit(dti)
+dti = refund::DTI
+dti = dti[, c("ID", "pasat", "cca", "rcst", "sex")]
 
 usethis::use_data(dti, overwrite = TRUE)

@@ -6,6 +6,7 @@ output: github_document
 lgr::get_logger("mlr3")$set_threshold("warn")
 set.seed(1)
 options(datatable.print.class = FALSE, datatable.print.keys = FALSE)
+library(mlr3fda) # suppress startup messages later
 ```
 
 
@@ -25,11 +26,11 @@ Extending mlr3 to functional data.
 
 ## Installation
 
-This package is not yet on CRAN, you can install the development version of `mlr3fda` from [GitHub](https://github.com/) with:
+This package is not yet on CRAN but you can install the development version of `mlr3fda` from [GitHub](https://github.com/) with:
 
 ```{r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("mlr-org/mlr3fda")
+# install.packages("pak")
+pak::pak("mlr-org/mlr3fda")
 ```
 
 
@@ -40,60 +41,66 @@ Nonetheless, all exported functions are tested and should work.
 
 ## What is mlr3fda?
 
-The goal of mlr3fda is to extend `mlr3` to [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
-We use the `tfd_reg` and `tfd_irreg` datatypes that are defined in the [tf](https://github.com/tidyfun/tf) R package.
-
-After loading `mlr3fda` two new feature types are available.
+The goal of `mlr3fda` is to extend `mlr3` to [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
+This is achieved by adding support for functional feature types and providing preprocessing `PipeOp`s that operates on functional columns.
+For representing functional data, the `tfd_reg` and `tfd_irreg` datatypes from the [tf](https://github.com/tidyfun/tf) package are used and are available after loading `mlr3fda`:
 
 ```{r task_feature_types}
-library(mlr3)
-mlr_reflections$task_feature_types
-
 library(mlr3fda)
-mlr_reflections$task_feature_types
+mlr_reflections$task_feature_types[c("tfr", "tfi")]
 ```
 
-The newly available data types are:
+These datatypes can be used to represent regular and irregular functional data respectively.
+Currently, `Learner`s that directly operate on functional data are not available, so it is necessary to first extract scalar features from the functional columns.
 
-  * `tfd_irreg` - irregular functional data, i.e. the function of each observation is observed for potentially different values.
-  * `tfd_reg` - regular functional data, i.e. the function of each observation is observed for the same values.
+# Quickstart
 
-For tutorials on how to create functional data, see the [documentation](https://github.com/tidyfun/tf) of the tf package.
-
-Here we will start with the predefined fuel task, that has two regular functional columns as features.
+Here we will start with the predefined `dti` (Diffusion Tensor Imaging) task, see `tsk("dti")$help()` for more details.
+Besides scalar columns, this task also contains two functional columns `cca` and `rcst`.
 
 ```{r data, dpi = 300}
-task = tsk("fuel")
+task = tsk("dti")
 task
 ```
 
-Currently there are no `Learner`s that directly operate on functional data.
-However, it is possible to extract simple functional features using the `PipeOpFFS`, which in the example below calculates the average functional responses.
+To train a model on this task we first need to extract scalar features from the functions.
+We illustrate this below by extracting the mean value.
 
-```{r ffs, fig.width = 5, fig.height = 3}
+```{r fda.extract, fig.width = 5, fig.height = 3}
 library(mlr3pipelines)
 
-po_fmean = po("ffs", features = "mean")
+po_fmean = po("fda.extract", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
 ```
 
-This can be combined with a `Learner` into a complete `Graph`.
-We have to set `drop = TRUE` so that the original functional features are removed from the task.
+This can be combined with a `Lerner` into a `GraphLearner` that first extracts features and then trains a model.
 
 ```{r graph}
-ids = partition(task)
+# split data into train and test set
+ids = partition(task, stratify = FALSE)
 
-# drop = TRUE means we remove the functional columns as features
-graph = po("ffs", features = "mean", drop = TRUE) %>>%
+# define a Graph and convert it to a GraphLearner
+graph = po("fda.extract", features = "mean", drop = TRUE) %>>%
   po("learner", learner = lrn("regr.rpart"))
 
 glrn = as_learner(graph)
 
+# train the graph learner on the train set
 glrn$train(task, row_ids = ids$train)
 
+# make predictions on the test set
 glrn$predict(task, row_ids = ids$test)
+```
+
+## Implemented PipeOps
+
+```{r, echo = FALSE}
+content = as.data.table(mlr3pipelines::mlr_pipeops, objects = TRUE)[, .(key, label, packages, tags)]
+content = content[mlr3misc::map_lgl(tags, function(t) "fda" %in% t), ]
+
+knitr::kable(content, format = "markdown")
 ```
 
 
@@ -112,3 +119,8 @@ Please understand that the resources of the project are limited:
 response may sometimes be delayed by a few days, and some feature
 suggestions may be rejected if they are deemed too tangential to the
 vision behind the project.
+
+## Acknowledgements
+
+The development of this R-package was supported by Roche Diagonstics R&D.
+

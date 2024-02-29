@@ -19,7 +19,12 @@
 NULL
 
 load_task_phoneme = function(id = "phoneme") {
-  b = as_data_backend(load_dataset("phoneme", package = "mlr3fda"))
+  phoneme = load_dataset("phoneme", package = "mlr3fda")
+  phoneme = data.table(
+    class = phoneme$classlearn,
+    X = tf::tfd(as.matrix(phoneme[, -151L]))
+  )
+  b = as_data_backend(phoneme)
 
   task = TaskClassif$new(
     id = id,
@@ -27,7 +32,7 @@ load_task_phoneme = function(id = "phoneme") {
     target = "class",
     label = "Phoneme Curves"
   )
-  b$hash = task$man = "mlr3::mlr_tasks_phoneme"
+  b$hash = task$man = "mlr3fda::mlr_tasks_phoneme"
   task
 }
 

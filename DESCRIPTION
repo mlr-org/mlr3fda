@@ -8,36 +8,42 @@ Authors@R: c(
            comment = c(ORCID = "0009-0000-9432-9795"))
   )
 Description: Provides extensions for functional data analysis for mlr3.
+License: LGPL-3
 URL: https://mlr3fda.mlr-org.com, https://github.com/mlr-org/mlr3fda
 BugReports: https://github.com/mlr-org/mlr3fda/issues
-License: LGPL-3
 Depends:
-    R (>= 3.1.0),
-    mlr3 (>= 0.14.0)
+    mlr3 (>= 0.14.0),
+    R (>= 3.1.0)
 Imports:
-    R6,
     checkmate,
     data.table,
-    mlr3misc,
-    paradox,
+    lgr,
+    mlr3misc (>= 0.14.0),
     mlr3pipelines,
+    paradox,
+    R6,
     tf
 Suggests:
-    testthat (>= 3.0.0)
+    rpart,
+    testthat (>= 3.0.0),
+    pracma,
+    zoo
 Remotes:
     tidyfun/tf
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE, r6 = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Collate:
     'zzz.R'
-    'PipeOpFFS.R'
-    'PipeOpFPCA.R'
-    'PipeOpFlatFun.R'
+    'PipeOpFDAExtract.R'
+    'PipeOpFDAFlatten.R'
+    'PipeOpFDAInterpol.R'
+    'PipeOpFDASmooth.R'
     'TaskClassif_phoneme.R'
     'TaskRegr_dti.R'
     'TaskRegr_fuel.R'
     'bibentries.R'
     'datasets.R'
+    'hash_input.R'

@@ -21,7 +21,14 @@
 NULL
 
 load_task_fuel = function(id = "fuel") {
-  b = as_data_backend(load_dataset("fuel", package = "mlr3fda"))
+  fuel = load_dataset("fuel", package = "mlr3fda")
+  fuel = data.table(
+    heatan = fuel$heatan,
+    h20 = fuel$h20,
+    UVVIS = tf::tfd(fuel$UVVIS),
+    NIR = tf::tfd(fuel$NIR)
+  )
+  b = as_data_backend(fuel)
 
   task = TaskRegr$new(
     id = id,
@@ -30,7 +37,7 @@ load_task_fuel = function(id = "fuel") {
     label = "Spectral Data of Fossil Fuels",
   )
 
-  b$hash = task$man = "mlr3::mlr_tasks_fuel"
+  b$hash = task$man = "mlr3fda::mlr_tasks_fuel"
   task
 }
 

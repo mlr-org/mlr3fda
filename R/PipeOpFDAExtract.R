@@ -1,27 +1,24 @@
-#' (F)unctional (F)eature (S)imple
+#' @title Extracts Simple Features from Functional Columns
 #'
-#' @usage NULL
-#' @name mlr_pipeops_ffs
-#' @format [`R6Class`] object inheriting from
-#' [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]
+#' @name mlr_pipeops_fda.extract
 #'
 #' @description
 #' This is the class that extracts simple features from functional columns.
 #' Note that it only operates on values that were actually observed and does not interpolate.
-#'
+#!]'
 #' @section Parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
+#' parameters:
 #' * `drop` :: `logical(1)`\cr
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
-#'   column role `feature`. Initial is `FALSE`.
-#' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
-#'   What columns the [`PipeOpTaskPreproc`] should operate on.
-#'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
+#'   column role `feature`. Initial value is `TRUE`.
 #' * `features` :: `list()` | `character()` \cr
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
+#'   Initial is `c("mean", "max", "min", "slope", "median", "var")`
 #' * `left` :: `numeric()` \cr
 #'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
@@ -36,39 +33,36 @@
 #' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()` and
 #' a warning is given.
 #'
-#' @section Methods:
-#' Only methods inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]/
-#' [`PipeOp`][mlr3pipelines::PipeOp]
-#'
 #' @export
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' po_fmean = po("ffs", features = "mean")
+#' po_fmean = po("fda.extract", features = "mean")
 #' task_fmean = po_fmean$train(list(task))[[1L]]
 #'
 #' # add more than one feature
-#' pop = po("ffs", features = c("mean", "median", "var"))
+#' pop = po("fda.extract", features = c("mean", "median", "var"))
 #' task_features = pop$train(list(task))[[1L]]
 #'
 #' # add a custom feature
-#' po_custom = po("ffs", features = list(mean = function(arg, value) mean(value, na.rm = TRUE)))
+#' po_custom = po("fda.extract",
+#'   features = list(mean = function(arg, value) mean(value, na.rm = TRUE))
+#' )
 #' task_custom = po_custom$train(list(task))[[1L]]
-PipeOpFFS = R6Class("PipeOpFFS",
+PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"ffs"`.
+    #'   Identifier of resulting object, default is `"fda.extract"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
-    #'   otherwise be set during construction. Default `list()`.
-    initialize = function(id = "ffs", param_vals = list()) {
+    initialize = function(id = "fda.extract", param_vals = list()) {
       param_set = ps(
         drop = p_lgl(tags = c("train", "predict", "required")),
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
-        features = p_uty(tags = c("train", "predict", "required"), custom_check = function(x) {
+        features = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
           if (test_character(x)) {
             return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
           }
@@ -102,20 +96,22 @@ PipeOpFFS = R6Class("PipeOpFFS",
             return(TRUE)
           }
           "Features must be a character or list"
-        })
+        }))
       )
       param_set$set_values(
-        drop = FALSE,
+        drop = TRUE,
         left = -Inf,
-        right = Inf
+        right = Inf,
+        features = c("mean", "max", "min", "slope", "median", "var")
       )
 
       super$initialize(
         id = id,
         param_set = param_set,
         param_vals = param_vals,
-        packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = c("tfd_irreg", "tfd_reg")
+        packages = c("mlr3fda", "mlr3pipelines", "tf"),
+        feature_types = c("tfd_irreg", "tfd_reg"),
+        tags = "fda"
       )
     }
   ),
@@ -140,9 +136,9 @@ PipeOpFFS = R6Class("PipeOpFFS",
       feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
 
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
-        warningf("Unique names for features were created due to name clashes with existing columns.")
-        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
-        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
+        unique_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
+        feature_names = tail(unique_names, length(feature_names))
+        lg$debug(sprintf("Duplicate names found in pipeop %s", self$id), feature_names = feature_names)
       }
 
       features = map(features, function(feature) {
@@ -244,6 +240,12 @@ ffind = function(x, left = -Inf, right = Inf) {
     return(rep(NA_integer_, 2L))
   }
   it = findInterval(c(left, right), x)
+  # in case there are no values in the interval, it contains the index of the smallest value below
+  # and both values in it are identical,
+  # e.g. searching the interval (1.1, 1.2) in c(1, 2) returns c(1, 1) which we here convert to an NA interval
+  if (it[[1L]] == it[[2L]] && left > x[[it[[1L]]]]) {
+    return(rep(NA_integer_, 2L))
+  }
   if (it[[1L]] == 0L) {
     it[[1L]] = 1L
   } else if (x[[it[[1L]]]] < left) {
@@ -260,4 +262,4 @@ fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
 fvar = function(arg, value) stats::var(value, na.rm = TRUE)
 
 #' @include zzz.R
-register_po("ffs", PipeOpFFS)
+register_po("fda.extract", PipeOpFDAExtract)
