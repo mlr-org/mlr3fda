@@ -3,10 +3,17 @@ output: github_document
 ---
 
 ```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
 lgr::get_logger("mlr3")$set_threshold("warn")
 set.seed(1)
 options(datatable.print.class = FALSE, datatable.print.keys = FALSE)
-library(mlr3fda) # suppress startup messages later
+library(mlr3fda)
 ```
 
 
@@ -100,7 +107,7 @@ glrn$predict(task, row_ids = ids$test)
 content = as.data.table(mlr3pipelines::mlr_pipeops, objects = TRUE)[, .(key, label, packages, tags)]
 content = content[mlr3misc::map_lgl(tags, function(t) "fda" %in% t), ]
 
-knitr::kable(content, format = "markdown")
+knitr::kable(content, format = "markdown", col.names = tools::toTitleCase(names(content)))
 ```
 
 
