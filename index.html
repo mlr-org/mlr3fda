@@ -9,9 +9,9 @@
 <title>Extending mlr3 to functional data analysis • mlr3fda</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Roboto-0.4.8/font.css" rel="stylesheet">
-<link href="deps/JetBrains_Mono-0.4.8/font.css" rel="stylesheet">
-<link href="deps/Roboto_Slab-0.4.8/font.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Roboto-0.4.9/font.css" rel="stylesheet">
+<link href="deps/JetBrains_Mono-0.4.9/font.css" rel="stylesheet">
+<link href="deps/Roboto_Slab-0.4.9/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extending mlr3 to functional data analysis">
@@ -115,9 +115,9 @@
 <p>The goal of <code>mlr3fda</code> is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. This is achieved by adding support for functional feature types and providing preprocessing <code>PipeOp</code>s that operates on functional columns. For representing functional data, the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes from the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> package are used and are available after loading <code>mlr3fda</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3fda.mlr-org.com">mlr3fda</a></span><span class="op">)</span></span>
-<span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tfr"</span>, <span class="st">"tfi"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##         tfr         tfi </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   "tfd_reg" "tfd_irreg"</span></span></code></pre></div>
+<span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tfr"</span>, <span class="st">"tfi"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;         tfr         tfi </span></span>
+<span><span class="co">#&gt;   "tfd_reg" "tfd_irreg"</span></span></code></pre></div>
 <p>These datatypes can be used to represent regular and irregular functional data respectively. Currently, <code>Learner</code>s that directly operate on functional data are not available, so it is necessary to first extract scalar features from the functional columns.</p>
 </div>
 </div>
@@ -125,33 +125,33 @@
 <h1 id="quickstart">Quickstart<a class="anchor" aria-label="anchor" href="#quickstart"></a>
 </h1>
 <p>Here we will start with the predefined <code>dti</code> (Diffusion Tensor Imaging) task, see <code>tsk("dti")$help()</code> for more details. Besides scalar columns, this task also contains two functional columns <code>cca</code> and <code>rcst</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">tsk</a></span><span class="op">(</span><span class="st">"dti"</span><span class="op">)</span></span>
-<span><span class="va">task</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;TaskRegr:dti&gt; (340 x 4): Diffusion Tensor Imaging (DTI)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## * Target: pasat</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## * Properties: groups</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## * Features (3):</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   - tfi (2): cca, rcst</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   - fct (1): sex</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## * Groups: subject_id</span></span></code></pre></div>
+<span><span class="va">task</span></span>
+<span><span class="co">#&gt; &lt;TaskRegr:dti&gt; (340 x 4): Diffusion Tensor Imaging (DTI)</span></span>
+<span><span class="co">#&gt; * Target: pasat</span></span>
+<span><span class="co">#&gt; * Properties: groups</span></span>
+<span><span class="co">#&gt; * Features (3):</span></span>
+<span><span class="co">#&gt;   - tfi (2): cca, rcst</span></span>
+<span><span class="co">#&gt;   - fct (1): sex</span></span>
+<span><span class="co">#&gt; * Groups: subject_id</span></span></code></pre></div>
 <p>To train a model on this task we first need to extract scalar features from the functions. We illustrate this below by extracting the mean value.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com" class="external-link">mlr3pipelines</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">po_fmean</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.extract"</span>, features <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">task_fmean</span> <span class="op">=</span> <span class="va">po_fmean</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">task_fmean</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">##    pasat    sex  cca_mean rcst_mean</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1:    31 female 0.4493332 0.4968519</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2:    31 female 0.4441292 0.4810724</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3:    29 female 0.4257795 0.5102722</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4:    34 female 0.4418538 0.5453188</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5:    37 female 0.4700994 0.5471177</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6:    40 female 0.4873356 0.4969408</span></span></code></pre></div>
+<span><span class="va">task_fmean</span><span class="op">$</span><span class="fu">head</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    pasat    sex  cca_mean rcst_mean</span></span>
+<span><span class="co">#&gt; 1:    31 female 0.4493332 0.4968519</span></span>
+<span><span class="co">#&gt; 2:    31 female 0.4441292 0.4810724</span></span>
+<span><span class="co">#&gt; 3:    29 female 0.4257795 0.5102722</span></span>
+<span><span class="co">#&gt; 4:    34 female 0.4418538 0.5453188</span></span>
+<span><span class="co">#&gt; 5:    37 female 0.4700994 0.5471177</span></span>
+<span><span class="co">#&gt; 6:    40 female 0.4873356 0.4969408</span></span></code></pre></div>
 <p>This can be combined with a <code>Lerner</code> into a <code>GraphLearner</code> that first extracts features and then trains a model.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># split data into train and test set</span></span>
 <span><span class="va">ids</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="va">task</span>, stratify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
@@ -165,16 +165,16 @@
 <span><span class="va">glrn</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">ids</span><span class="op">$</span><span class="va">train</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># make predictions on the test set</span></span>
-<span><span class="va">glrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">ids</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;PredictionRegr&gt; for 111 observations:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">##     row_ids truth response</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          11    48 49.99174</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">##          12    40 49.99174</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">##          13    43 52.42105</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ---                       </span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="do">##         324    57 52.42105</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="do">##         325    57 41.30769</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         326    60 49.99174</span></span></code></pre></div>
+<span><span class="va">glrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">ids</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;PredictionRegr&gt; for 111 observations:</span></span>
+<span><span class="co">#&gt;     row_ids truth response</span></span>
+<span><span class="co">#&gt;          11    48 49.99174</span></span>
+<span><span class="co">#&gt;          12    40 49.99174</span></span>
+<span><span class="co">#&gt;          13    43 52.42105</span></span>
+<span><span class="co">#&gt; ---                       </span></span>
+<span><span class="co">#&gt;         324    57 52.42105</span></span>
+<span><span class="co">#&gt;         325    57 41.30769</span></span>
+<span><span class="co">#&gt;         326    60 49.99174</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="implemented-pipeops">Implemented PipeOps<a class="anchor" aria-label="anchor" href="#implemented-pipeops"></a>
 </h2>
@@ -186,10 +186,10 @@
 <col width="17%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">key</th>
-<th align="left">label</th>
-<th align="left">packages</th>
-<th align="left">tags</th>
+<th align="left">Key</th>
+<th align="left">Label</th>
+<th align="left">Packages</th>
+<th align="left">Tags</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
