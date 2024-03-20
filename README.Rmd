@@ -14,6 +14,7 @@ lgr::get_logger("mlr3")$set_threshold("warn")
 set.seed(1)
 options(datatable.print.class = FALSE, datatable.print.keys = FALSE)
 library(mlr3fda)
+library(mlr3misc)
 ```
 
 
@@ -104,9 +105,18 @@ glrn$predict(task, row_ids = ids$test)
 ## Implemented PipeOps
 
 ```{r, echo = FALSE}
-content = as.data.table(mlr3pipelines::mlr_pipeops, objects = TRUE)[, .(key, label, packages, tags)]
-content = content[mlr3misc::map_lgl(tags, function(t) "fda" %in% t), ]
-
+content = as.data.table(mlr3pipelines::mlr_pipeops, objects = TRUE)
+content = content[map_lgl(tags, function(t) "fda" %in% t), .(key, label, packages, tags)]
+content[, packages := map(packages, function(x) setdiff(x, c("mlr3pipelines", "mlr3fda")))]
+content[, `:=`(
+  key = sprintf("[%1$s](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_%1$s)", key),
+  packages = map_chr(packages, function(pkg) {
+    toString(ifelse(
+      pkg %in% c("stats", "graphics", "datasets"), pkg, sprintf("[%1$s](https://cran.r-project.org/package=%1$s)", pkg)
+    ))
+  }),
+  tags = map_chr(tags, toString)
+)]
 knitr::kable(content, format = "markdown", col.names = tools::toTitleCase(names(content)))
 ```
 
