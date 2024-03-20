@@ -123,12 +123,12 @@ glrn$predict(task, row_ids = ids$test)
 
 ## Implemented PipeOps
 
-| Key          | Label                                            | Packages                            | Tags                 |
-|:-------------|:-------------------------------------------------|:------------------------------------|:---------------------|
-| fda.extract  | Extracts Simple Features from Functional Columns | mlr3pipelines, mlr3fda , tf         | fda , data transform |
-| fda.flatten  | Flattens Functional Columns                      | mlr3pipelines, mlr3fda , tf         | fda , data transform |
-| fda.interpol | Interpolate Functional Columns                   | mlr3pipelines, mlr3fda , tf         | fda , data transform |
-| fda.smooth   | Smoothing Functional Columns                     | mlr3pipelines, mlr3fda , tf , stats | fda , data transform |
+| Key                                                                            | Label                                            | Packages                                           | Tags                |
+|:-------------------------------------------------------------------------------|:-------------------------------------------------|:---------------------------------------------------|:--------------------|
+| [fda.extract](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract)   | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
+| [fda.flatten](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten)   | Flattens Functional Columns                      | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
+| [fda.interpol](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns                   | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
+| [fda.smooth](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.smooth)     | Smoothing Functional Columns                     | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
 
 ## Bugs, Questions, Feedback
 
