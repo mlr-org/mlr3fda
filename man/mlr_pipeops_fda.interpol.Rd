@@ -52,6 +52,7 @@ The right boundary of the window.
 
 \examples{
 library(mlr3pipelines)
+
 task = tsk("fuel")
 pop = po("fda.interpol")
 task_interpol = pop$train(list(task))[[1]]

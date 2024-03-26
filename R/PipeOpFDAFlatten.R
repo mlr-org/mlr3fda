@@ -19,6 +19,7 @@
 #' @export
 #' @examples
 #' library(mlr3pipelines)
+#'
 #' task = tsk("fuel")
 #' pop = po("fda.flatten")
 #' task_flat = pop$train(list(task))

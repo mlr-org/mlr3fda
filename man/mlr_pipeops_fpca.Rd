@@ -14,16 +14,25 @@ Note that it only operates on values that were actually observed and does not in
 }
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link{PipeOpTaskPreproc}}.
+The parameters are the parameters inherited from \code{\link{PipeOpTaskPreproc}}, as well as the following parameters:
+\itemize{
+\item \code{pve} :: \code{numeric(1)} \cr
+The percentage of variance explained that should be retained.
+\item \code{n_components} :: \code{integer(1)} \cr
+The number of principal components to extract.
+}
 }
 
 \section{Naming}{
 
-The new names generally append a \verb{_fpca_\{number\}} to the corresponding column name.
-However this can lead to name clashes with existing columns. This is solved as follows:
+The new names generally append a \verb{_pc_\{number\}} to the corresponding column name.
 If a column was called \code{"x"} and the there are three principcal components, the corresponding
 new columns will be called \verb{"x_pc_1", "x_pc_2", "x_pc_3"}.
-In case of duplicates, unique names are obtained using \code{make.unique()} and a warning is given.
+}
+
+\section{Internals}{
+
+Uses the \code{\link[tf:tfb_fpc]{tfb_fpc()}} function.
 }
 
 \section{Methods}{
@@ -34,6 +43,7 @@ Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpT
 
 \examples{
 library(mlr3pipelines)
+
 task = tsk("fuel")
 po_fpca = po("fda.fpca")
 task_fpca = po_fpca$train(list(task))[[1L]]

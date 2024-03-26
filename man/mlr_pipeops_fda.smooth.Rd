@@ -35,6 +35,7 @@ Is initialized to \code{FALSE}.
 
 \examples{
 library(mlr3pipelines)
+
 task = tsk("fuel")
 po_smooth = po("fda.smooth", method = "rollmean", args = list(k = 5))
 task_smooth = po_smooth$train(list(task))[[1L]]

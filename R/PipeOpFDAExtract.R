@@ -36,6 +36,7 @@
 #' @export
 #' @examples
 #' library(mlr3pipelines)
+#'
 #' task = tsk("fuel")
 #' po_fmean = po("fda.extract", features = "mean")
 #' task_fmean = po_fmean$train(list(task))[[1L]]
