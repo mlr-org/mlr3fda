@@ -127,6 +127,7 @@ glrn$predict(task, row_ids = ids$test)
 |:-------------------------------------------------------------------------------|:-------------------------------------------------|:---------------------------------------------------|:--------------------|
 | [fda.extract](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract)   | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
 | [fda.flatten](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten)   | Flattens Functional Columns                      | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
+| [fda.fpca](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca)         | (F)unctional (P)rincipal (C)ommponent (A)nalysis |                                                    | fda, data transform |
 | [fda.interpol](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns                   | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
 | [fda.smooth](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.smooth)     | Smoothing Functional Columns                     | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
 
