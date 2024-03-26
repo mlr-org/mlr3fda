@@ -7,7 +7,7 @@
 #'
 #' @description
 #' This is the class that extracts principal components from functional columns.
-#' Note that it only operates on values that were actually observed and does not interpolate.
+#' See [`tfb_fpc()`][tf::tfb_fpc] for details.
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`], as well as the following parameters:

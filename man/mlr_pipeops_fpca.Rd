@@ -10,7 +10,7 @@
 }
 \description{
 This is the class that extracts principal components from functional columns.
-Note that it only operates on values that were actually observed and does not interpolate.
+See \code{\link[tf:tfb_fpc]{tfb_fpc()}} for details.
 }
 \section{Parameters}{
 
