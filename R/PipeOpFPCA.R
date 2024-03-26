@@ -36,7 +36,7 @@
 #' po_fpca = po("fpca")
 #' task_fpca = po_fpca$train(list(task))[[1L]]
 PipeOpFPCA = R6Class("PipeOpFPCA",
-  inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
+  inherit = mlr3pipelines::PipeOpTaskPreproc,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
@@ -46,15 +46,10 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fpca", param_vals = list()) {
       param_set = ps(
-        drop = p_lgl(tags = c("train", "predict", "required")),
-        pve = p_dbl(default = 0.995, lower = 0, upper = 1, tags = c("train", "predict")),
-        n_components = p_int(1L, special_vals = list(Inf), tags = c("train", "predict", "required"))
+        pve = p_dbl(default = 0.995, lower = 0, upper = 1, tags = "train"),
+        n_components = p_int(1L, special_vals = list(Inf), tags = c("train", "required"))
       )
-
-      param_set$set_values(
-        drop = FALSE,
-        n_components = Inf
-      )
+      param_set$set_values(n_components = Inf)
 
       super$initialize(
         id = id,
@@ -66,42 +61,32 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
     }
   ),
   private = list(
-    .transform = function(task) {
-      cols = self$state$dt_columns
-      if (!length(cols)) {
-        return(task)
-      }
-      dt = task$data(cols = cols)
+    .train_dt = function(dt, levels, target) {
       pars = self$param_set$get_values()
-      drop = pars$drop
-      n_components = pars$n_components
-      args = pars["pve"]
 
-      features = map(cols, function(col) {
-        feature = invoke(tf::tfb_fpc, data = dt[[col]], .args = args)
-        feature = map(feature, function(x) x[2:min(n_components + 1L, length(x))])
-        feature = transform_list(feature)
-        nms = sprintf("%s_pc_%d", col, seq_along(feature))
-        feature = set_names(feature, nms)
+      dt = map_dtc(dt, function(x, nm) invoke(tf::tfb_fpc, data = x, .args = pars$pve))
+      self$state = list(fpc = dt)
+
+      dt = imap_dtc(dt, function(col, nm) {
+        map(col, function(x) {
+          pcr = as.list(x[2:min(pars$n_components + 1L, length(x))])
+          set_names(pcr, sprintf("%s_pc_%d", nm, seq_along(pcr)))
+        })
       })
-      features = unlist(features, recursive = FALSE)
+      unnest(dt, colnames(dt))
+    },
 
-      feature_names = names(features)
-      if (anyDuplicated(c(task$col_info$id, feature_names))) {
-        warningf("Unique names for features were created due to name clashes with existing columns.")
-        feature_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
-        feature_names = feature_names[(length(task$col_info$id) + 1L):length(feature_names)]
-        features = set_names(features, feature_names)
-      }
+    .predict_dt = function(dt, levels) {
+      pars = self$param_set$get_values()
 
-      features = as.data.table(features)
-
-      if (!drop) {
-        features = cbind(dt, features)
-      }
-
-      task$select(setdiff(task$feature_names, cols))$cbind(features)
-      task
+      dt = imap_dtc(dt, function(col, nm) {
+        fpc = tf::tf_rebase(col, self$state$fpc[[nm]], arg = tf::tf_arg(col))
+        map(fpc, function(x) {
+          pcr = as.list(x[2:min(pars$n_components + 1L, length(x))])
+          set_names(pcr, sprintf("%s_pc_%d", nm, seq_along(pcr)))
+        })
+      })
+      unnest(dt, colnames(dt))
     }
   )
 )
