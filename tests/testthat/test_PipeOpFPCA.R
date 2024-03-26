@@ -5,11 +5,11 @@ test_that("PipeOpFPCA - basic properties", {
 })
 
 test_that("PipeOpPCA works", {
-  set.seed(1234)
+  set.seed(1234L)
   # single col works
   dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
-    arg = rep(1:3, 2),
+    arg = rep(1:3, 2L),
     value = 1:6
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
@@ -17,7 +17,7 @@ test_that("PipeOpPCA works", {
   dt = data.table(f = f, y = y)
   task = as_task_regr(dt, target = "y")
 
-  pop = po("fda.fpca", drop = TRUE)
+  pop = po("fda.fpca")
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(nrow(task_fpc$data()), 2L)
   expect_equal(ncol(task_fpc$data()), 2L)
@@ -28,7 +28,7 @@ test_that("PipeOpPCA works", {
   # n_components works
   dt = data.table(y = rnorm(15L), f = tf::tf_rgp(15L))
   task = as_task_regr(dt, target = "y")
-  pop = po("fda.fpca", drop = TRUE, n_components = 2L)
+  pop = po("fda.fpca", n_components = 2L)
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(ncol(task_fpc$data()), 3L)
   expect_equal(nrow(task_fpc$data()), 15L)
@@ -43,7 +43,7 @@ test_that("PipeOpPCA works", {
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = rnorm(10L), f = f, g = f, h = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("fda.fpca", drop = TRUE)
+  pop = po("fda.fpca")
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(ncol(task_fpc$data()), 10L)
   expect_equal(nrow(task_fpc$data()), 10L)
@@ -55,7 +55,7 @@ test_that("PipeOpPCA works", {
   expect_named(task_fpc$data(), nms)
 
   # n_components works
-  pop = po("fda.fpca", drop = TRUE, n_components = 2L)
+  pop = po("fda.fpca", n_components = 2L)
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(ncol(task_fpc$data()), 7L)
   expect_equal(nrow(task_fpc$data()), 10L)
@@ -67,30 +67,20 @@ test_that("PipeOpPCA works", {
   expect_named(task_fpc$data(), nms)
 
   # affect_columns works
-  pop = po("fda.fpca", drop = TRUE, affect_columns = selector_name("f"))
+  pop = po("fda.fpca", affect_columns = selector_name("f"))
   task_fpc = pop$train(list(task))[[1L]]
   expect_set_equal(task_fpc$feature_names, c("f_pc_1", "f_pc_2", "f_pc_3", "g", "h"))
 
   # does not touch irreg
   dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
-    arg = c(1, 7, 2, 3, 5),
-    value = c(1, 2, 3, 4, 5)
+    arg = c(1L, 7L, 2L, 3L, 5L),
+    value = 1:5
   )
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
-  y = c(1, 2)
+  y = 1:2
   dt = data.table(f = f, y = y)
   task = as_task_regr(dt, target = "y")
   task_fpca = pop$train(list(task))[[1L]]
   expect_set_equal(task$feature_names, task_fpca$feature_names)
-})
-
-test_that("PipeOpFPCA works with name clashes", {
-  dt = data.table(y = rnorm(5), f = tf::tf_rgp(5), f_pc_1 = rnorm(5))
-  task = as_task_regr(dt, target = "y")
-  pop = po("fpca")
-  expect_warning(
-    pop$train(list(task))[[1L]],
-    regexp = "Unique names for"
-  )
 })

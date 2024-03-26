@@ -36,7 +36,7 @@ load_task_dti = function(id = "dti") {
     rcst = tf::tfd(dti$rcst, arg = seq(0L, 1L, length.out = 55L)),
     sex = dti$sex
   )
-  dti = na.omit(dti)
+  dti = stats::na.omit(dti)
   b = as_data_backend(dti)
 
   task = TaskRegr$new(
