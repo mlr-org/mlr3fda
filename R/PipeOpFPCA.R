@@ -1,7 +1,6 @@
-#' (F)unctional (P)rincipal (C)ommponent (A)nalysis
+#' @title Functional Principal Component Analysis
+#' @name mlr_pipeops_fda.fpca
 #'
-#' @usage NULL
-#' @name mlr_pipeops_fpca
 #' @format [`R6Class`] object inheriting from
 #' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc]
 #'
