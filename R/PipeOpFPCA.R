@@ -70,8 +70,8 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
 
       dt = imap_dtc(dt, function(col, nm) {
         map(col, function(x) {
-          pcr = as.list(x[2:min(pars$n_components + 1L, length(x))])
-          set_names(pcr, sprintf("%s_pc_%d", nm, seq_along(pcr)))
+          pc = as.list(x[2:min(pars$n_components + 1L, length(x))])
+          set_names(pc, sprintf("%s_pc_%d", nm, seq_along(pc)))
         })
       })
       unnest(dt, colnames(dt))
@@ -83,8 +83,8 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
       dt = imap_dtc(dt, function(col, nm) {
         fpc = tf::tf_rebase(col, self$state$fpc[[nm]], arg = tf::tf_arg(col))
         map(fpc, function(x) {
-          pcr = as.list(x[2:min(pars$n_components + 1L, length(x))])
-          set_names(pcr, sprintf("%s_pc_%d", nm, seq_along(pcr)))
+          pc = as.list(x[2:min(pars$n_components + 1L, length(x))])
+          set_names(pc, sprintf("%s_pc_%d", nm, seq_along(pc)))
         })
       })
       unnest(dt, colnames(dt))
