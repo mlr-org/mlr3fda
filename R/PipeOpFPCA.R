@@ -3,20 +3,14 @@
 #' @usage NULL
 #' @name mlr_pipeops_fpca
 #' @format [`R6Class`] object inheriting from
-#' [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc]
 #'
 #' @description
 #' This is the class that extracts principal components from functional columns.
 #' Note that it only operates on values that were actually observed and does not interpolate.
 #'
 #' @section Parameters:
-#' * `drop` :: `logical(1)`\cr
-#'   Whether to drop the original `functional` features and only keep the extracted features.
-#'   Note that this does not remove the features from the backend, but only from the active
-#'   column role `feature`. Initial is `FALSE`.
-#' * `affect_columns` :: `function` | [`Selector`] | `NULL` \cr
-#'   What columns the [`PipeOpTaskPreproc`] should operate on.
-#'   See [`Selector`] for example functions. Defaults to `NULL`, which selects all features.
+#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`].
 #'
 #' @section Naming:
 #' The new names generally append a `_fpca_{number}` to the corresponding column name.
@@ -26,25 +20,25 @@
 #' In case of duplicates, unique names are obtained using `make.unique()` and a warning is given.
 #'
 #' @section Methods:
-#' Only methods inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple]/
+#' Only methods inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc]/
 #' [`PipeOp`][mlr3pipelines::PipeOp]
 #'
 #' @export
 #' @examples
 #' library(mlr3pipelines)
 #' task = tsk("fuel")
-#' po_fpca = po("fpca")
+#' po_fpca = po("fda.fpca")
 #' task_fpca = po_fpca$train(list(task))[[1L]]
 PipeOpFPCA = R6Class("PipeOpFPCA",
   inherit = mlr3pipelines::PipeOpTaskPreproc,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"fpca"`.
+    #'   Identifier of resulting object, default is `"fda.fpca"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
-    initialize = function(id = "fpca", param_vals = list()) {
+    initialize = function(id = "fda.fpca", param_vals = list()) {
       param_set = ps(
         pve = p_dbl(default = 0.995, lower = 0, upper = 1, tags = "train"),
         n_components = p_int(1L, special_vals = list(Inf), tags = c("train", "required"))
@@ -56,7 +50,8 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines"),
-        feature_types = "tfd_reg"
+        feature_types = "tfd_reg",
+        tags = "fda"
       )
     }
   ),
@@ -92,4 +87,4 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
 )
 
 #' @include zzz.R
-register_po("fpca", PipeOpFPCA)
+register_po("fda.fpca", PipeOpFPCA)

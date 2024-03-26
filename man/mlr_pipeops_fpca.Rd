@@ -6,7 +6,7 @@
 \title{(F)unctional (P)rincipal (C)ommponent (A)nalysis}
 \format{
 \code{\link{R6Class}} object inheriting from
-\code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}}
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}
 }
 \description{
 This is the class that extracts principal components from functional columns.
@@ -14,15 +14,7 @@ Note that it only operates on values that were actually observed and does not in
 }
 \section{Parameters}{
 
-\itemize{
-\item \code{drop} :: \code{logical(1)}\cr
-Whether to drop the original \code{functional} features and only keep the extracted features.
-Note that this does not remove the features from the backend, but only from the active
-column role \code{feature}. Initial is \code{FALSE}.
-\item \code{affect_columns} :: \code{function} | \code{\link{Selector}} | \code{NULL} \cr
-What columns the \code{\link{PipeOpTaskPreproc}} should operate on.
-See \code{\link{Selector}} for example functions. Defaults to \code{NULL}, which selects all features.
-}
+The parameters are the parameters inherited from \code{\link{PipeOpTaskPreproc}}.
 }
 
 \section{Naming}{
@@ -36,14 +28,14 @@ In case of duplicates, unique names are obtained using \code{make.unique()} and 
 
 \section{Methods}{
 
-Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}}/
+Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}/
 \code{\link[mlr3pipelines:PipeOp]{PipeOp}}
 }
 
 \examples{
 library(mlr3pipelines)
 task = tsk("fuel")
-po_fpca = po("fpca")
+po_fpca = po("fda.fpca")
 task_fpca = po_fpca$train(list(task))[[1L]]
 }
 \section{Super classes}{
@@ -72,14 +64,14 @@ task_fpca = po_fpca$train(list(task))[[1L]]
 \subsection{Method \code{new()}}{
 Initializes a new instance of this Class.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PipeOpFPCA$new(id = "fpca", param_vals = list())}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PipeOpFPCA$new(id = "fda.fpca", param_vals = list())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{(\code{character(1)})\cr
-Identifier of resulting object, default is \code{"fpca"}.}
+Identifier of resulting object, default is \code{"fda.fpca"}.}
 
 \item{\code{param_vals}}{(named \code{list})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would

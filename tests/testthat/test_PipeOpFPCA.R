@@ -1,3 +1,9 @@
+test_that("PipeOpFPCA - basic properties", {
+  pop = po("fda.fpca")
+  expect_pipeop(pop)
+  expect_equal(pop$id, "fda.fpca")
+})
+
 test_that("PipeOpPCA works", {
   set.seed(1234)
   # single col works
@@ -11,7 +17,7 @@ test_that("PipeOpPCA works", {
   dt = data.table(f = f, y = y)
   task = as_task_regr(dt, target = "y")
 
-  pop = po("fpca", drop = TRUE)
+  pop = po("fda.fpca", drop = TRUE)
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(nrow(task_fpc$data()), 2L)
   expect_equal(ncol(task_fpc$data()), 2L)
@@ -22,7 +28,7 @@ test_that("PipeOpPCA works", {
   # n_components works
   dt = data.table(y = rnorm(15L), f = tf::tf_rgp(15L))
   task = as_task_regr(dt, target = "y")
-  pop = po("fpca", drop = TRUE, n_components = 2L)
+  pop = po("fda.fpca", drop = TRUE, n_components = 2L)
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(ncol(task_fpc$data()), 3L)
   expect_equal(nrow(task_fpc$data()), 15L)
@@ -37,7 +43,7 @@ test_that("PipeOpPCA works", {
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   dt = data.table(y = rnorm(10L), f = f, g = f, h = f)
   task = as_task_regr(dt, target = "y")
-  pop = po("fpca", drop = TRUE)
+  pop = po("fda.fpca", drop = TRUE)
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(ncol(task_fpc$data()), 10L)
   expect_equal(nrow(task_fpc$data()), 10L)
@@ -49,7 +55,7 @@ test_that("PipeOpPCA works", {
   expect_named(task_fpc$data(), nms)
 
   # n_components works
-  pop = po("fpca", drop = TRUE, n_components = 2L)
+  pop = po("fda.fpca", drop = TRUE, n_components = 2L)
   task_fpc = pop$train(list(task))[[1L]]
   expect_equal(ncol(task_fpc$data()), 7L)
   expect_equal(nrow(task_fpc$data()), 10L)
@@ -61,7 +67,7 @@ test_that("PipeOpPCA works", {
   expect_named(task_fpc$data(), nms)
 
   # affect_columns works
-  pop = po("fpca", drop = TRUE, affect_columns = selector_name("f"))
+  pop = po("fda.fpca", drop = TRUE, affect_columns = selector_name("f"))
   task_fpc = pop$train(list(task))[[1L]]
   expect_set_equal(task_fpc$feature_names, c("f_pc_1", "f_pc_2", "f_pc_3", "g", "h"))
 

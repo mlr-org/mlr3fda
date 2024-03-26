@@ -1,3 +1,9 @@
+test_that("PipeOpFDAExtract - basic properties", {
+  pop = po("fda.extract")
+  expect_pipeop(pop)
+  expect_equal(pop$id, "fda.extract")
+})
+
 test_that("PipeOpFDAExtract works", {
   # tf_reg works
   dt = data.table(

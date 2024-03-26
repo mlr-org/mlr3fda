@@ -1,3 +1,9 @@
+test_that("PipeOpFDAInterpol - basic properties", {
+  pop = po("fda.interpol")
+  expect_pipeop(pop)
+  expect_equal(pop$id, "fda.interpol")
+})
+
 test_that("PipeOpFDAInterpol input validation works", {
   expect_error(po("fda.interpol", grid = c("union", "intersect")))
   expect_error(po("fda.interpol", grid = "unionh"))
