@@ -4,10 +4,6 @@
 \alias{mlr_pipeops_fda.fpca}
 \alias{PipeOpFPCA}
 \title{Functional Principal Component Analysis}
-\format{
-\code{\link{R6Class}} object inheriting from
-\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}
-}
 \description{
 This is the class that extracts principal components from functional columns.
 See \code{\link[tf:tfb_fpc]{tfb_fpc()}} for details.

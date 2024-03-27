@@ -1,9 +1,6 @@
 #' @title Functional Principal Component Analysis
 #' @name mlr_pipeops_fda.fpca
 #'
-#' @format [`R6Class`] object inheriting from
-#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc]
-#'
 #' @description
 #' This is the class that extracts principal components from functional columns.
 #' See [`tfb_fpc()`][tf::tfb_fpc] for details.
