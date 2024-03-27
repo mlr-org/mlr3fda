@@ -17,9 +17,9 @@ See \code{\link[tf:tfb_fpc]{tfb_fpc()}} for details.
 The parameters are the parameters inherited from \code{\link{PipeOpTaskPreproc}}, as well as the following parameters:
 \itemize{
 \item \code{pve} :: \code{numeric(1)} \cr
-The percentage of variance explained that should be retained.
+The percentage of variance explained that should be retained. Default is \code{0.995}.
 \item \code{n_components} :: \code{integer(1)} \cr
-The number of principal components to extract.
+The number of principal components to extract. This parameter is initialized to \code{Inf}.
 }
 }
 
@@ -28,17 +28,6 @@ The number of principal components to extract.
 The new names generally append a \verb{_pc_\{number\}} to the corresponding column name.
 If a column was called \code{"x"} and the there are three principcal components, the corresponding
 new columns will be called \verb{"x_pc_1", "x_pc_2", "x_pc_3"}.
-}
-
-\section{Internals}{
-
-Uses the \code{\link[tf:tfb_fpc]{tfb_fpc()}} function.
-}
-
-\section{Methods}{
-
-Only methods inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}/
-\code{\link[mlr3pipelines:PipeOp]{PipeOp}}
 }
 
 \examples{

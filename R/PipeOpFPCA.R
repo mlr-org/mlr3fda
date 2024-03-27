@@ -11,21 +11,14 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`], as well as the following parameters:
 #' * `pve` :: `numeric(1)` \cr
-#'   The percentage of variance explained that should be retained.
+#'   The percentage of variance explained that should be retained. Default is `0.995`.
 #' * `n_components` :: `integer(1)` \cr
-#'   The number of principal components to extract.
+#'   The number of principal components to extract. This parameter is initialized to `Inf`.
 #'
 #' @section Naming:
 #' The new names generally append a `_pc_{number}` to the corresponding column name.
 #' If a column was called `"x"` and the there are three principcal components, the corresponding
 #' new columns will be called `"x_pc_1", "x_pc_2", "x_pc_3"`.
-#'
-#' @section Internals:
-#' Uses the [`tfb_fpc()`][tf::tfb_fpc] function.
-#'
-#' @section Methods:
-#' Only methods inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc]/
-#' [`PipeOp`][mlr3pipelines::PipeOp]
 #'
 #' @export
 #' @examples
