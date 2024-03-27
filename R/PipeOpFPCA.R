@@ -55,9 +55,9 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
   ),
   private = list(
     .train_dt = function(dt, levels, target) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "train")
 
-      dt = map_dtc(dt, function(x, nm) invoke(tf::tfb_fpc, data = x, .args = pars$pve))
+      dt = map_dtc(dt, function(x, nm) invoke(tf::tfb_fpc, data = x, .args = remove_named(pars, "n_components")))
       self$state = list(fpc = dt)
 
       dt = imap_dtc(dt, function(col, nm) {
