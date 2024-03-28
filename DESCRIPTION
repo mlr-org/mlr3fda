@@ -7,7 +7,7 @@ Authors@R: c(
     person("Maximilian", "Muecke", , "muecke.maximilian@gmail.com", role = "aut",
            comment = c(ORCID = "0009-0000-9432-9795")),
     person("Bernd", "Bischl", , "bernd_bischl@gmx.net", role = "ctb",
-           comment = c(ORCID = "0000-0001-6002-6980")),
+           comment = c(ORCID = "0000-0001-6002-6980"))
   )
 Description: Provides extensions for functional data analysis for 'mlr3'.
 License: LGPL-3
