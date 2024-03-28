@@ -13,6 +13,9 @@
     <loc>https://mlr3fda.mlr-org.com/index.html</loc>
   </url>
   <url>
+    <loc>https://mlr3fda.mlr-org.com/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://mlr3fda.mlr-org.com/reference/dti.html</loc>
   </url>
   <url>
@@ -29,6 +32,9 @@
   </url>
   <url>
     <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten.html</loc>
+  </url>
+  <url>
+    <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca.html</loc>
   </url>
   <url>
     <loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol.html</loc>
