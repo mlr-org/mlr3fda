@@ -169,61 +169,35 @@ otherwise be set during construction. Default <code><a href="https://rdrr.io/r/b
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3pipelines.mlr-org.com" class="external-link">mlr3pipelines</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">tsk</a></span><span class="op">(</span><span class="st">"fuel"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">po_fpca</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.fpca"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">po_fpca</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.fpca"</span>, n_components <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">task_fpca</span> <span class="op">=</span> <span class="va">po_fpca</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">task_fpca</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       heatan    h20   NIR_pc_1   NIR_pc_2     NIR_pc_3    NIR_pc_4     NIR_pc_5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;  &lt;num&gt;      &lt;num&gt;      &lt;num&gt;        &lt;num&gt;       &lt;num&gt;        &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 26.7810 2.3000  7.5675043  1.1371827 -0.377501250  0.16853612 -0.029030508</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 27.4720 3.0000  6.2793462  1.9345782  0.160548831 -0.35065670  0.015482789</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 23.8400 2.0002  0.2348390 -0.1721228 -0.024101132  0.15997968  0.045308286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 18.1680 1.8500  0.2913332  0.2052379  0.040952119  0.15965107  0.029898778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 17.5170 2.3898  1.1406877  1.2563331  0.001074654  0.12809933 -0.039431996</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125: 23.8340 2.1100  1.6980728  0.9841985  0.041623661 -0.14288286 -0.082504388</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126: 11.8050 1.6200 -4.0420811  2.2340299 -0.029562942 -0.01048952 -0.047637002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  8.8315 1.4200 -5.5013835  2.8333813 -0.034304440  0.03984252  0.051731948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128: 11.3450 1.4800  2.1809306  1.4395300 -0.397523197  0.29440867  0.012819451</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129: 28.9940 2.5000  1.9734804 -0.1998806  0.034337704  0.11483695 -0.001412936</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         NIR_pc_6    NIR_pc_7     NIR_pc_8     NIR_pc_9     NIR_pc_10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;       &lt;num&gt;        &lt;num&gt;        &lt;num&gt;         &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  0.11964884 -0.02371204  0.064853723 -0.032466571  0.0003220124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: -0.10869019 -0.02977520  0.098168169 -0.017825951  0.0002441083</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: -0.07400536  0.12616902 -0.089869215 -0.069829308  0.0820087547</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  0.02411904 -0.02024500 -0.067108627  0.024661853 -0.0995778040</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  0.07650499  0.05157198  0.004549452  0.037533960 -0.0996693572</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:  0.14521618  0.02316881 -0.068481835 -0.018916698  0.0893100582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126:  0.07409570  0.10385424 -0.016055000 -0.005120218  0.0974953020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  0.01926094  0.02669150 -0.012923322  0.032825366  0.0658967096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128: -0.15315480  0.02920207 -0.016328011  0.086875000 -0.0713724345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129:  0.03250070 -0.02034279  0.023101264 -0.030534975 -0.0929131209</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        NIR_pc_11   NIR_pc_12 UVVIS_pc_1 UVVIS_pc_2  UVVIS_pc_3   UVVIS_pc_4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;       &lt;num&gt;      &lt;num&gt;      &lt;num&gt;       &lt;num&gt;        &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: -0.02201115 0.067196098  11.000976 -2.7804661  0.13667224 -0.191798904</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: -0.07106458 0.002637298  -9.298016 -1.7955553 -0.46762503  0.181338904</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: -0.08321127 0.053887189  -3.078812 -0.6114645 -0.27479445  0.173445457</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: -0.06731441 0.036818955  -5.349049 -0.7030112  0.08631440 -0.005833515</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: -0.05202564 0.044425613  -8.497281 -1.2413718 -0.19140105  0.043939413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:  0.06250799 0.003601906  -6.427319 -0.2898928 -0.02865269 -0.251835720</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126: -0.01341996 0.022872932 -10.843930 -0.0918478  0.56113685 -0.129099208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  0.03135576 0.014526887 -12.227632 -0.1838102  1.11134683 -0.125342067</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128: -0.10198223 0.006579266   5.871679 -1.0021267  1.01323166 -0.342677979</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129:  0.01924963 0.084696172  -6.893096 -1.4463943 -0.81054907  0.170609346</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       UVVIS_pc_5  UVVIS_pc_6  UVVIS_pc_7   UVVIS_pc_8   UVVIS_pc_9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;       &lt;num&gt;       &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  0.01339415 -0.17060354  0.14502609 -0.009286216  0.245063270</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  0.22329434  0.16250028  0.44619782 -0.030912508 -0.040441107</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  0.12794752  0.29887335 -0.10762972  0.062493259 -0.022634739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: -0.04760492  0.11931794  0.08033969  0.341026700  0.170446895</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  0.08665124  0.23765305  0.26968894 -0.025014888 -0.067171672</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:  0.03453854 -0.08879360  0.03374328 -0.210941614  0.046612103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126: -0.45285286  0.02325341 -0.06353742 -0.073746601 -0.009240108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127: -0.29801185  0.07783722 -0.15248477 -0.125219521 -0.075445528</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128:  0.04155443 -0.21600686  0.11709777  0.013021580  0.065624346</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129:  0.15158288  0.36430875  0.56271873 -0.309737731 -0.033035367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       heatan    h20   NIR_pc_1   NIR_pc_2     NIR_pc_3 UVVIS_pc_1 UVVIS_pc_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;  &lt;num&gt;      &lt;num&gt;      &lt;num&gt;        &lt;num&gt;      &lt;num&gt;      &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 26.7810 2.3000  7.5675043  1.1371827 -0.377501250  11.000976 -2.7804661</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 27.4720 3.0000  6.2793462  1.9345782  0.160548831  -9.298016 -1.7955553</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 23.8400 2.0002  0.2348390 -0.1721228 -0.024101132  -3.078812 -0.6114645</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 18.1680 1.8500  0.2913332  0.2052379  0.040952119  -5.349049 -0.7030112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 17.5170 2.3898  1.1406877  1.2563331  0.001074654  -8.497281 -1.2413718</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125: 23.8340 2.1100  1.6980728  0.9841985  0.041623661  -6.427319 -0.2898928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126: 11.8050 1.6200 -4.0420811  2.2340299 -0.029562942 -10.843930 -0.0918478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  8.8315 1.4200 -5.5013835  2.8333813 -0.034304440 -12.227632 -0.1838102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128: 11.3450 1.4800  2.1809306  1.4395300 -0.397523197   5.871679 -1.0021267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129: 28.9940 2.5000  1.9734804 -0.1998806  0.034337704  -6.893096 -1.4463943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       UVVIS_pc_3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  0.13667224</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: -0.46762503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: -0.27479445</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  0.08631440</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: -0.19140105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125: -0.02865269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126:  0.56113685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  1.11134683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128:  1.01323166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129: -0.81054907</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
