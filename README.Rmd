@@ -40,12 +40,6 @@ This package is not yet on CRAN but you can install the development version of `
 pak::pak("mlr-org/mlr3fda")
 ```
 
-
-## Status
-
-`mlr3fda` is still in an early stage of development.
-Nonetheless, all exported functions are tested and should work.
-
 ## What is mlr3fda?
 
 The goal of `mlr3fda` is to extend `mlr3` to [functional data](https://en.wikipedia.org/wiki/Functional_data_analysis).
