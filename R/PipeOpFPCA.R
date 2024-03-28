@@ -27,7 +27,7 @@
 #' library(mlr3pipelines)
 #'
 #' task = tsk("fuel")
-#' po_fpca = po("fda.fpca")
+#' po_fpca = po("fda.fpca", n_components = 3L)
 #' task_fpca = po_fpca$train(list(task))[[1L]]
 #' task_fpca$data()
 PipeOpFPCA = R6Class("PipeOpFPCA",

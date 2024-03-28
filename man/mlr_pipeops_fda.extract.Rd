@@ -57,6 +57,7 @@ po_custom = po("fda.extract",
   features = list(mean = function(arg, value) mean(value, na.rm = TRUE))
 )
 task_custom = po_custom$train(list(task))[[1L]]
+task_custom
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDAExtract}

@@ -34,7 +34,7 @@ new columns will be called \verb{"x_pc_1", "x_pc_2", "x_pc_3"}.
 library(mlr3pipelines)
 
 task = tsk("fuel")
-po_fpca = po("fda.fpca")
+po_fpca = po("fda.fpca", n_components = 3L)
 task_fpca = po_fpca$train(list(task))[[1L]]
 task_fpca$data()
 }
