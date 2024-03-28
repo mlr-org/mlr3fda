@@ -38,3 +38,14 @@ navbar:
     rss:
       icon: fa-rss
       href: https://mlr-org.com/
+
+reference:
+- title: PipeOps
+  contents:
+    - starts_with("mlr_pipeops")
+- title: Example Tasks
+  contents:
+    - starts_with("mlr_tasks")
+- title: Package
+  contents:
+    - mlr3fda-package
