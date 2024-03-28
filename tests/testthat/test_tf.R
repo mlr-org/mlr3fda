@@ -5,7 +5,7 @@ test_that("tf does not support NAs", {
   # https://github.com/tidyfun/tf/issues/33
   # Currently, NA functions are dropped
   d = data.frame(time = 1, value = NA_real_, id = "1")
-  x = invisible(tfd(d, arg = "time", value = "value", id = "id"))
+  x = invisible(tf::tfd(d, arg = "time", value = "value", id = "id"))
   expect_true(length(x) == 0)
 })
 

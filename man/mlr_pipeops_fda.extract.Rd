@@ -43,6 +43,7 @@ a warning is given.
 
 \examples{
 library(mlr3pipelines)
+
 task = tsk("fuel")
 po_fmean = po("fda.extract", features = "mean")
 task_fmean = po_fmean$train(list(task))[[1L]]
@@ -93,7 +94,8 @@ Initializes a new instance of this Class.
 Identifier of resulting object, default is \code{"fda.extract"}.}
 
 \item{\code{param_vals}}{(named \code{list})\cr
-List of hyperparameter settings, overwriting the hyperparameter settings that would}
+List of hyperparameter settings, overwriting the hyperparameter settings that would
+otherwise be set during construction. Default \code{list()}.}
 }
 \if{html}{\out{</div>}}
 }

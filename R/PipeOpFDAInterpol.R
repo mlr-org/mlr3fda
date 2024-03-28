@@ -42,9 +42,10 @@
 #' @export
 #' @examples
 #' library(mlr3pipelines)
+#'
 #' task = tsk("fuel")
 #' pop = po("fda.interpol")
-#' task_interpol = pop$train(list(task))[[1]]
+#' task_interpol = pop$train(list(task))[[1L]]
 #' task_interpol$data()
 PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,

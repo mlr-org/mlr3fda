@@ -36,6 +36,7 @@
 #' @export
 #' @examples
 #' library(mlr3pipelines)
+#'
 #' task = tsk("fuel")
 #' po_fmean = po("fda.extract", features = "mean")
 #' task_fmean = po_fmean$train(list(task))[[1L]]
@@ -57,6 +58,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
     #'   Identifier of resulting object, default is `"fda.extract"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
+    #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.extract", param_vals = list()) {
       param_set = ps(
         drop = p_lgl(tags = c("train", "predict", "required")),
@@ -156,14 +158,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
       })
       fextractor = make_fextractor(features)
 
-      features = map(
-        cols,
-        function(col) {
-          x = dt[[col]]
-          invoke(fextractor, x = x, left = left, right = right)
-        }
-      )
-
+      features = map(cols, function(col) invoke(fextractor, x = dt[[col]], left = left, right = right))
       features = unlist(features, recursive = FALSE)
       features = set_names(features, feature_names)
       features = as.data.table(features)
@@ -188,9 +183,7 @@ make_fextractor = function(features) {
       upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
-        res = map(features, function(f) {
-          rep(NA_real_, length(x)) # no observation in the given interval [left, right]
-        })
+        res = map(features, function(f) rep(NA_real_, length(x))) # no observation in the given interval [left, right]
         return(res)
       }
 
@@ -198,9 +191,7 @@ make_fextractor = function(features) {
       arg = args[lower:upper]
       res = map(seq_along(x), function(i) {
         value = values[[i]]
-        map(features, function(f) {
-          f(arg = arg, value = value[lower:upper])
-        })
+        map(features, function(f) f(arg = arg, value = value[lower:upper]))
       })
       return(transform_list(res))
     }
@@ -217,9 +208,7 @@ make_fextractor = function(features) {
       if (is.na(lower) || is.na(upper)) {
         rep(NA_real_, length(features)) # no observation in the given interval [left, right]
       } else {
-        map(features, function(f) {
-          f(arg = arg[lower:upper], value = value[lower:upper])
-        })
+        map(features, function(f) f(arg = arg[lower:upper], value = value[lower:upper]))
       }
     })
     transform_list(res)

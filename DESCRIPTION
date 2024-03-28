@@ -39,6 +39,7 @@ Collate:
     'PipeOpFDAFlatten.R'
     'PipeOpFDAInterpol.R'
     'PipeOpFDASmooth.R'
+    'PipeOpFPCA.R'
     'TaskClassif_phoneme.R'
     'TaskRegr_dti.R'
     'TaskRegr_fuel.R'

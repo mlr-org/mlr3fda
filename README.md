@@ -7,8 +7,6 @@ Extending mlr3 to functional data.
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![RCMD
 Check](https://github.com/mlr-org/mlr3fda/actions/workflows/rcmdcheck.yaml/badge.svg)](https://github.com/mlr-org/mlr3fda/actions/workflows/rcmdcheck.yaml)
 [![CRAN
@@ -127,6 +125,7 @@ glrn$predict(task, row_ids = ids$test)
 |:-------------------------------------------------------------------------------|:-------------------------------------------------|:---------------------------------------------------|:--------------------|
 | [fda.extract](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract)   | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
 | [fda.flatten](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten)   | Flattens Functional Columns                      | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
+| [fda.fpca](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca)         | Functional Principal Component Analysis          | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
 | [fda.interpol](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns                   | [tf](https://cran.r-project.org/package=tf)        | fda, data transform |
 | [fda.smooth](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.smooth)     | Smoothing Functional Columns                     | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
 
