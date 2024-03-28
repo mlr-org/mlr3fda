@@ -14,3 +14,4 @@ data(phoneme)
 See \link{mlr_tasks_phoneme} for a description of the dataset.
 }
 \keyword{datasets}
+\keyword{internal}

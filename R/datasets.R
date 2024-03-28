@@ -7,6 +7,7 @@
 #' @name fuel
 #' @usage data(fuel)
 #' @format A data frame with 129 rows and 4 variables
+#' @keywords internal
 NULL
 
 #' The phoneme dataset
@@ -18,6 +19,7 @@ NULL
 #' @name phoneme
 #' @usage data(phoneme)
 #' @format A data frame with 250 rows and 2 variables
+#' @keywords internal
 NULL
 
 #' The dti dataset
@@ -29,4 +31,5 @@ NULL
 #' @name dti
 #' @usage data(dti)
 #' @format A data frame with 340 rows and 5 variables
+#' @keywords internal
 NULL

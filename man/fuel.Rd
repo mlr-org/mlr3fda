@@ -14,3 +14,4 @@ data(fuel)
 See \link{mlr_tasks_fuel} for a description of the dataset.
 }
 \keyword{datasets}
+\keyword{internal}
