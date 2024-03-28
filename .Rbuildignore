@@ -26,3 +26,4 @@
 ^pkgdown$
 ^revdep$
 ^tic\.R$
+^cran-comments\.md$
