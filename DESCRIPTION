@@ -6,6 +6,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-9609-3197")),
     person("Maximilian", "Muecke", , "muecke.maximilian@gmail.com", role = "aut",
            comment = c(ORCID = "0009-0000-9432-9795")),
+    person("Fabian", "Scheipl", email = "fabian.scheipl@googlemail.com", role = "ctb",
+           comment = c(ORCID = "0000-0001-8172-3603")),
     person("Bernd", "Bischl", , "bernd_bischl@gmx.net", role = "ctb",
            comment = c(ORCID = "0000-0001-6002-6980"))
   )
