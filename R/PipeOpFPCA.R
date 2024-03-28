@@ -2,8 +2,13 @@
 #' @name mlr_pipeops_fda.fpca
 #'
 #' @description
-#' This is the class that extracts principal components from functional columns.
-#' See [`tfb_fpc()`][tf::tfb_fpc] for details.
+#' This `PipeOp` applies a functional principal component analysis (FPCA) to functional columns and then
+#' extracts the principal components as features. This is done using a (truncated) weighted SVD.
+#'
+#' To apply this `PipeOp` to irregualr data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
+#'
+#' For more details, see [`tfb_fpc()`][tf::tfb_fpc], which is called internally.
+#'
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`], as well as the following parameters:
@@ -24,6 +29,7 @@
 #' task = tsk("fuel")
 #' po_fpca = po("fda.fpca")
 #' task_fpca = po_fpca$train(list(task))[[1L]]
+#' task_fpca$data()
 PipeOpFPCA = R6Class("PipeOpFPCA",
   inherit = mlr3pipelines::PipeOpTaskPreproc,
   public = list(

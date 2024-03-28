@@ -5,8 +5,12 @@
 \alias{PipeOpFPCA}
 \title{Functional Principal Component Analysis}
 \description{
-This is the class that extracts principal components from functional columns.
-See \code{\link[tf:tfb_fpc]{tfb_fpc()}} for details.
+This \code{PipeOp} applies a functional principal component analysis (FPCA) to functional columns and then
+extracts the principal components as features. This is done using a (truncated) weighted SVD.
+
+To apply this \code{PipeOp} to irregualr data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
+
+For more details, see \code{\link[tf:tfb_fpc]{tfb_fpc()}}, which is called internally.
 }
 \section{Parameters}{
 
@@ -32,6 +36,7 @@ library(mlr3pipelines)
 task = tsk("fuel")
 po_fpca = po("fda.fpca")
 task_fpca = po_fpca$train(list(task))[[1L]]
+task_fpca$data()
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{PipeOpFPCA}
