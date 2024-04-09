@@ -4,9 +4,9 @@
 \name{mlr3fda-package}
 \alias{mlr3fda}
 \alias{mlr3fda-package}
-\title{mlr3fda: Extending 'mlr3' to functional data analysis}
+\title{mlr3fda: Extending 'mlr3' to Functional Data Analysis}
 \description{
-Provides extensions for functional data analysis for 'mlr3'.
+Extends the 'mlr3' ecosystem to functional analysis by adding support for irregular and regular functional data as defined in the 'tf' package. The package provides 'PipeOps' for preprocessing functional columns and for extracting scalar features, thereby allowing standard machine learning algorithms to be applied afterwards. Available operations include simple functional features such as the mean or maximum, smoothing, interpolation, flattening, and functional 'PCA'.
 }
 \section{Data types}{
 
@@ -39,6 +39,12 @@ Useful links:
 Authors:
 \itemize{
   \item Maximilian Muecke \email{muecke.maximilian@gmail.com} (\href{https://orcid.org/0009-0000-9432-9795}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Fabian Scheipl \email{fabian.scheipl@googlemail.com} (\href{https://orcid.org/0000-0001-8172-3603}{ORCID}) [contributor]
+  \item Bernd Bischl \email{bernd_bischl@gmx.net} (\href{https://orcid.org/0000-0001-6002-6980}{ORCID}) [contributor]
 }
 
 }

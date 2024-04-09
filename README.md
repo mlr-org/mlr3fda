@@ -17,11 +17,13 @@ status](https://www.r-pkg.org/badges/version/mlr3fda)](https://CRAN.R-project.or
 
 ## Installation
 
-This package is not yet on CRAN but you can install the development
-version of `mlr3fda` from [GitHub](https://github.com/) with:
+You can either install the latest release from CRAN, or the development
+version from [GitHub](https://github.com/):
 
 ``` r
-# install.packages("pak")
+# install from CRAN
+install.packages("mlr3fda")
+# install from GitHub
 pak::pak("mlr-org/mlr3fda")
 ```
 
