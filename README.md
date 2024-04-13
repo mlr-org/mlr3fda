@@ -1,7 +1,8 @@
 
 # mlr3fda
 
-Package Website: [dev](https://mlr3fda.mlr-org.com/)
+Package website: [release](https://mlr3fda.mlr-org.com/) \|
+[dev](https://mlr3fda.mlr-org.com/dev/)
 
 Extending mlr3 to functional data.
 
@@ -17,13 +18,16 @@ status](https://www.r-pkg.org/badges/version/mlr3fda)](https://CRAN.R-project.or
 
 ## Installation
 
-You can either install the latest release from CRAN, or the development
-version from [GitHub](https://github.com/):
+Install the last release from [CRAN](https://CRAN.R-project.org):
 
 ``` r
-# install from CRAN
 install.packages("mlr3fda")
-# install from GitHub
+```
+
+Install the development version from [GitHub](https://github.com/):
+
+``` r
+# install.packages("pak")
 pak::pak("mlr-org/mlr3fda")
 ```
 
