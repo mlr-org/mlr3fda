@@ -10,21 +10,18 @@
 #' callosum. `sex` indicates subject's sex. `rcst` represents the fractional anisotropy tract profiles from the right
 #' corticospinal tract. Rows containing NAs are removed.
 #'
-#'
 #' This is a subset of the full dataset, which is contained in the package `refund`.
 #'
-#' @section Construction:
+#' @templateVar id dti
+#' @template task
 #'
-#' ```
-#' mlr_tasks$get("dti")
-#' tsk("dti")
-#' ```
 #' @references `r format_bib("goldsmith2011penalized")`
 #'
 #' Brain dataset courtesy of Gordon Kindlmann at the Scientific Computing and Imaging Institute, University of Utah,
 #' and Andrew Alexander, W. M. Keck Laboratory for Functional Brain Imaging and Behavior, University of
 #' Wisconsin-Madison.
 #'
+#' @template seealso_task
 NULL
 
 load_task_dti = function(id = "dti") {

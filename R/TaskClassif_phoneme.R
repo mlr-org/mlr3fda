@@ -9,13 +9,12 @@
 #' log-periodogram.\cr
 #' This is a subset of the full dataset, which is contained in the package `fda.usc`.
 #'
-#' @section Construction:
-#' ```
-#' mlr_tasks$get("phoneme")
-#' tsk("phoneme")
-#' ```
+#' @templateVar id phoneme
+#' @template task
+#'
 #' @references `r format_bib("ferraty2003curves")`
 #'
+#' @template seealso_task
 NULL
 
 load_task_phoneme = function(id = "phoneme") {
