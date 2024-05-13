@@ -29,7 +29,7 @@ Imports:
     data.table,
     lgr,
     mlr3misc (>= 0.14.0),
-    mlr3pipelines,
+    mlr3pipelines (>= 0.5.2),
     paradox,
     R6,
     tf

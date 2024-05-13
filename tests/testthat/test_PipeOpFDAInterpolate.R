@@ -33,7 +33,7 @@ test_that("PipeOpFDAInterpol extrapolation works", {
   actual = pop$train(list(task))[[1L]]$data()
   setnafill(dt, fill = 2L)
   expected = data.table(y = 1:2, f = tf::tfd(dt, id = "id", arg = "arg", value = "value"))
-  expect_equal(actual, expected, ignore_attr = TRUE)
+  testthat::expect_equal(actual, expected, ignore_attr = TRUE)
   # throw warning if extrapolation is not possible
   pop = po("fda.interpol", grid = 1:5)
   expect_warning(pop$train(list(task)))
