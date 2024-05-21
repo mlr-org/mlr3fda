@@ -10,14 +10,12 @@
 #'
 #' This is a subset of the full dataset, which is contained in the package `FDboost`.
 #'
-#' @section Construction:
+#' @templateVar id fuel
+#' @template task
 #'
-#' ```
-#' mlr_tasks$get("fuel")
-#' tsk("fuel")
-#' ```
 #' @references `r format_bib("brockhaus2015functional") `
 #'
+#' @template seealso_task
 NULL
 
 load_task_fuel = function(id = "fuel") {
