@@ -32,6 +32,7 @@ jobs:
         config:
           - {os: ubuntu-latest,   r: 'devel'}
           - {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'release', dev: 'true'}
 
     steps:
       - uses: actions/checkout@v4
@@ -51,5 +52,10 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         with:
           limit-access-to-actor: true
+      - name: Install github paradox
+        if: matrix.config.dev
+        shell: Rscript  {0}
+        run: |
+          remotes::install_github("mlr-org/paradox")
 
       - uses: r-lib/actions/check-r-package@v2
