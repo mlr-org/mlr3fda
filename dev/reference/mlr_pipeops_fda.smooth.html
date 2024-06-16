@@ -91,10 +91,10 @@ x-values, but rather smooths the observed values.</p>
 
 <p>The parameters are the parameters inherited from <code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html" class="external-link">PipeOpTaskPreprocSimple</a></code>, as well as the following
 parameters:</p><ul><li><p><code>method</code> :: <code>character(1)</code><br>
-One of:</p><ul><li><p>"lowess": locally weighted scatterplot smoothing (default)</p></li>
-<li><p>"rollmean": rolling mean</p></li>
-<li><p>"rollmedian": rolling meadian</p></li>
-<li><p>"savgol":  Savitzky-Golay filtering</p></li>
+One of:</p><ul><li><p><code>"lowess"</code>: locally weighted scatterplot smoothing (default)</p></li>
+<li><p><code>"rollmean"</code>: rolling mean</p></li>
+<li><p><code>"rollmedian"</code>: rolling meadian</p></li>
+<li><p><code>"savgol"</code>:  Savitzky-Golay filtering</p></li>
 </ul><p>All methods but "lowess" ignore non-equidistant arg values.</p></li>
 <li><p><code>args</code> :: named <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code><br>
 List of named arguments that is passed to <code>tf_smooth()</code>. See the help page of <code>tf_smooth()</code> for
