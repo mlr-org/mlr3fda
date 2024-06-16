@@ -1,4 +1,4 @@
-#' @title Smoothing Functional Columns
+#' @title Cross-Correlation of Functional Data
 #' @name mlr_pipeops_fda.cor
 #'
 #' @description
@@ -10,14 +10,6 @@
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
 #' * `grid` :: `numeric()` \cr
-#'
-#'   All methods but "lowess" ignore non-equidistant arg values.
-#' * `args` :: named `list()`\cr
-#'   List of named arguments that is passed to `tf_smooth()`. See the help page of `tf_smooth()` for
-#'   default values.
-#' * `verbose` :: `logical(1)`\cr
-#'   Whether to print messages during the transformation.
-#'   Is initialized to `FALSE`.
 #'
 #' @export
 #' @examples
@@ -53,7 +45,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
   private = list(
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
-      arg = pars$args
+      arg = pars$grid
 
       nms = names(dt)
       res = list()
