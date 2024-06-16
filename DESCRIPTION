@@ -6,18 +6,19 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-9609-3197")),
     person("Maximilian", "Muecke", , "muecke.maximilian@gmail.com", role = "aut",
            comment = c(ORCID = "0009-0000-9432-9795")),
-    person("Fabian", "Scheipl", email = "fabian.scheipl@googlemail.com", role = "ctb",
+    person("Fabian", "Scheipl", , "fabian.scheipl@googlemail.com", role = "ctb",
            comment = c(ORCID = "0000-0001-8172-3603")),
     person("Bernd", "Bischl", , "bernd_bischl@gmx.net", role = "ctb",
            comment = c(ORCID = "0000-0001-6002-6980"))
   )
-Description: Extends the 'mlr3' ecosystem to functional analysis by adding support
-    for irregular and regular functional data as defined in the 'tf' package.
-    The package provides 'PipeOps' for preprocessing functional columns and for
-    extracting scalar features, thereby allowing standard machine learning
-    algorithms to be applied afterwards. Available operations include simple
-    functional features such as the mean or maximum, smoothing, interpolation,
-    flattening, and functional 'PCA'.
+Description: Extends the 'mlr3' ecosystem to functional analysis by adding
+    support for irregular and regular functional data as defined in the
+    'tf' package.  The package provides 'PipeOps' for preprocessing
+    functional columns and for extracting scalar features, thereby
+    allowing standard machine learning algorithms to be applied
+    afterwards. Available operations include simple functional features
+    such as the mean or maximum, smoothing, interpolation, flattening, and
+    functional 'PCA'.
 License: LGPL-3
 URL: https://mlr3fda.mlr-org.com, https://github.com/mlr-org/mlr3fda
 BugReports: https://github.com/mlr-org/mlr3fda/issues

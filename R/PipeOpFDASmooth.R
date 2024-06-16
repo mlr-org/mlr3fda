@@ -11,10 +11,10 @@
 #' parameters:
 #' * `method` :: `character(1)`\cr
 #'   One of:
-#'   * "lowess": locally weighted scatterplot smoothing (default)
-#'   * "rollmean": rolling mean
-#'   * "rollmedian": rolling meadian
-#'   * "savgol":  Savitzky-Golay filtering
+#'   * `"lowess"`: locally weighted scatterplot smoothing (default)
+#'   * `"rollmean"`: rolling mean
+#'   * `"rollmedian"`: rolling meadian
+#'   * `"savgol"`:  Savitzky-Golay filtering
 #'
 #'   All methods but "lowess" ignore non-equidistant arg values.
 #' * `args` :: named `list()`\cr
@@ -45,8 +45,9 @@ PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
     initialize = function(id = "fda.smooth", param_vals = list()) {
       param_set = ps(
         method = p_fct(default = "lowess", c("lowess", "rollmean", "rollmedian", "savgol"), tags = c("train", "predict")), # nolint
-        args = p_uty(tags = c("train", "predict", "required"),
-          custom_check = crate(function(x) check_list(x, names = "unique"))),
+        args = p_uty(
+          tags = c("train", "predict", "required"), custom_check = crate(function(x) check_list(x, names = "unique"))
+        ),
         verbose = p_lgl(tags = c("train", "predict", "required"))
       )
 
