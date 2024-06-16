@@ -30,7 +30,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.cor", param_vals = list()) {
-      param_set = ps()
+      param_set = ps(grid = p_dbl(tags = c("train", "predict", "required")))
 
       super$initialize(
         id = id,
@@ -45,7 +45,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
   private = list(
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
-      arg = pars$grid
+      grid = pars$grid
 
       nms = names(dt)
       res = list()
@@ -53,10 +53,10 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
         for (j in 1:(i - 1)) {
           x = dt[[i]]
           y = dt[[j]]
-          x = invoke(tf::tfd, data = x, arg = arg)
-          y = invoke(tf::tfd, data = y, arg = arg)
+          x = invoke(tf::tfd, data = x, arg = grid)
+          y = invoke(tf::tfd, data = y, arg = grid)
           nm = sprintf("%s_%s_cor", nms[[i]], nms[[j]])
-          res[[nm]] = invoke(tf::tf_crosscor, x = x, y = y, arg = arg)
+          res[[nm]] = invoke(tf::tf_crosscor, x = x, y = y)
         }
       }
       setDT(res)
