@@ -2,9 +2,7 @@
 #' @name mlr_pipeops_fda.cor
 #'
 #' @description
-#' Smoothes functional data using [`tf::tf_smooth()`].
-#' This preprocessing operator is similar to [`PipeOpFDAInterpol`], however it does not interpolate to unobserved
-#' x-values, but rather smooths the observed values.
+#' Calculates the cross-correlation between two functional vectors using [tf::tf_crosscor()].
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following

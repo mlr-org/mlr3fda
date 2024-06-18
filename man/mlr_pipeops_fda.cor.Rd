@@ -5,9 +5,7 @@
 \alias{PipeOpFDACor}
 \title{Cross-Correlation of Functional Data}
 \description{
-Smoothes functional data using \code{\link[tf:tf_smooth]{tf::tf_smooth()}}.
-This preprocessing operator is similar to \code{\link{PipeOpFDAInterpol}}, however it does not interpolate to unobserved
-x-values, but rather smooths the observed values.
+Calculates the cross-correlation between two functional vectors using \code{\link[tf:functionwise]{tf::tf_crosscor()}}.
 }
 \section{Parameters}{
 
