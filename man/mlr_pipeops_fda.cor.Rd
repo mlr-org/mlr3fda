@@ -19,7 +19,7 @@ parameters:
 \examples{
 library(mlr3pipelines)
 
-task = tsk("dti")
+task = tsk("fuel")
 po_cor = po("fda.cor")
 task_cor = po_cor$train(list(task))[[1L]]
 task_cor
