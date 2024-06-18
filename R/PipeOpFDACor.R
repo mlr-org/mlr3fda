@@ -53,13 +53,19 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
           domain_x = tf::tf_domain(x)
           domain_y = tf::tf_domain(y)
 
-          if (!all(domain_x == domain_y)) {
-            lower = max(domain_x[[1L]], domain_y[[1L]])
-            upper = min(domain_x[[2L]], domain_y[[2L]])
+          lower = max(domain_x[[1L]], domain_y[[1L]])
+          upper = min(domain_x[[2L]], domain_y[[2L]])
+          joint_domain = c(lower, upper)
+          x_in_domain = all(domain_x == joint_domain)
+          y_in_domain = all(domain_y == joint_domain)
+
+          if (!x_in_domain) {
             args_x = tf::tf_arg(x)
             interval_x = ffind(args_x, left = lower, right = upper)
             args_x = args_x[interval_x[[1L]]:interval_x[[2L]]]
             x = invoke(tf::tfd, data = x, arg = args_x)
+          }
+          if (!y_in_domain) {
             args_y = tf::tf_arg(y)
             interval_y = ffind(args_y, left = lower, right = upper)
             args_y = args_y[interval_y[[1L]]:interval_y[[2L]]]
