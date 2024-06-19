@@ -47,29 +47,17 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
       nms = names(dt)
       res = list()
       for (i in 2:ncol(dt)) {
-        for (j in 1:(i - 1)) {
+        for (j in 1:(i - 1L)) {
           x = dt[[i]]
           y = dt[[j]]
           domain_x = tf::tf_domain(x)
           domain_y = tf::tf_domain(y)
 
-          lower = max(domain_x[[1L]], domain_y[[1L]])
-          upper = min(domain_x[[2L]], domain_y[[2L]])
-          joint_domain = c(lower, upper)
-          x_in_domain = all(domain_x == joint_domain)
-          y_in_domain = all(domain_y == joint_domain)
-
-          if (!x_in_domain) {
-            args_x = tf::tf_arg(x)
-            interval_x = ffind(args_x, left = lower, right = upper)
-            args_x = args_x[interval_x[[1L]]:interval_x[[2L]]]
-            x = invoke(tf::tfd, data = x, arg = args_x)
-          }
-          if (!y_in_domain) {
-            args_y = tf::tf_arg(y)
-            interval_y = ffind(args_y, left = lower, right = upper)
-            args_y = args_y[interval_y[[1L]]:interval_y[[2L]]]
-            y = invoke(tf::tfd, data = y, arg = args_y)
+          if (!all(domain_x == domain_y)) {
+            args_x = scale_min_max(tf::tf_arg(x))
+            x = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = args_x)
+            args_y = scale_min_max(tf::tf_arg(y))
+            y = invoke(tf::tfd, data = tf::tf_evaluations(y), arg = args_y)
           }
 
           nm = sprintf("%s_%s_cor", nms[[i]], nms[[j]])
@@ -80,6 +68,12 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
     }
   )
 )
+
+scale_min_max = function(x) {
+  lower = min(x, na.rm = TRUE)
+  upper = max(x, na.rm = TRUE)
+  (x - lower) / (upper - lower)
+}
 
 #' @include zzz.R
 register_po("fda.cor", PipeOpFDACor)
