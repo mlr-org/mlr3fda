@@ -56,4 +56,3 @@ Collate:
     'bibentries.R'
     'datasets.R'
     'hash_input.R'
-    'helpers.R'
