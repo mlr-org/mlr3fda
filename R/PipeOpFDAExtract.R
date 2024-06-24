@@ -5,7 +5,7 @@
 #' @description
 #' This is the class that extracts simple features from functional columns.
 #' Note that it only operates on values that were actually observed and does not interpolate.
-#!]'
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
