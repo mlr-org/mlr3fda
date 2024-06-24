@@ -14,11 +14,12 @@
 #' @examples
 #' library(mlr3pipelines)
 #'
-#' task = tsk("phoneme")
+#' set.seed(1234L)
+#' dt = data.table(y = 1:100, x1 = tf::tf_rgp(100L), x2 = tf::tf_rgp(100L))
+#' task = as_task_regr(dt, target = "y")
 #' po_cor = po("fda.cor")
 #' task_cor = po_cor$train(list(task))[[1L]]
 #' task_cor
-#' task_cor$data(cols = c("NIR", "UVVIS"))
 PipeOpFDACor = R6Class("PipeOpFDACor",
   inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
   public = list(
