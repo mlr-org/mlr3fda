@@ -48,14 +48,15 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
 
-      if (ncol(dt) < 2L) {
+      k = ncol(dt)
+      if (k < 2L) {
         warningf("Data table has less than 2 columns")
         return(dt)
       }
 
       nms = names(dt)
       res = list()
-      for (i in 2:ncol(dt)) {
+      for (i in 2:k) {
         for (j in 1:(i - 1L)) {
           x = dt[[i]]
           y = dt[[j]]
