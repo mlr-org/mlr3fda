@@ -33,7 +33,7 @@ Imports:
     mlr3pipelines (>= 0.5.2),
     paradox,
     R6,
-    tf
+    tf (>= 0.3.4)
 Suggests:
     rpart,
     testthat (>= 3.0.0)
