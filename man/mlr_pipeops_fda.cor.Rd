@@ -12,14 +12,15 @@ Calculates the cross-correlation between two functional vectors using \code{\lin
 The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
 parameters:
 \itemize{
-\item \code{grid} :: \code{numeric()} \cr
+\item \code{arg} :: \code{numeric()} \cr
+Grid to use for the cross-correlation.
 }
 }
 
 \examples{
 library(mlr3pipelines)
 
-task = tsk("fuel")
+task = tsk("phoneme")
 po_cor = po("fda.cor")
 task_cor = po_cor$train(list(task))[[1L]]
 task_cor

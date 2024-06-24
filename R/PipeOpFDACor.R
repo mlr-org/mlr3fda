@@ -7,13 +7,14 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
-#' * `grid` :: `numeric()` \cr
+#' * `arg` :: `numeric()` \cr
+#' Grid to use for the cross-correlation.
 #'
 #' @export
 #' @examples
 #' library(mlr3pipelines)
 #'
-#' task = tsk("fuel")
+#' task = tsk("phoneme")
 #' po_cor = po("fda.cor")
 #' task_cor = po_cor$train(list(task))[[1L]]
 #' task_cor
@@ -28,7 +29,9 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.cor", param_vals = list()) {
-      param_set = ps()
+      param_set = ps(
+        arg = p_uty(tags = c("train", "predict"), custom_check = check_numeric)
+      )
 
       super$initialize(
         id = id,
@@ -44,36 +47,28 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
 
+      if (ncol(dt) < 2L) {
+        warningf("Data table has less than 2 columns")
+        return(dt)
+      }
+
       nms = names(dt)
       res = list()
       for (i in 2:ncol(dt)) {
         for (j in 1:(i - 1L)) {
           x = dt[[i]]
           y = dt[[j]]
-          domain_x = tf::tf_domain(x)
-          domain_y = tf::tf_domain(y)
-
-          if (!all(domain_x == domain_y)) {
-            args_x = scale_min_max(tf::tf_arg(x))
-            x = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = args_x)
-            args_y = scale_min_max(tf::tf_arg(y))
-            y = invoke(tf::tfd, data = tf::tf_evaluations(y), arg = args_y)
+          if (!all(tf::tf_domain(x) == tf::tf_domain(y))) {
+            stopf("Domain of %s and %s do not match", nms[[i]], nms[[j]])
           }
-
-          nm = sprintf("%s_%s_cor", nms[[i]], nms[[j]])
-          res[[nm]] = invoke(tf::tf_crosscor, x = x, y = y)
+          nm = sprintf("%s_%s_cor", nms[[j]], nms[[i]])
+          res[[nm]] = invoke(tf::tf_crosscor, x = x, y = y, .args = pars)
         }
       }
       setDT(res)
     }
   )
 )
-
-scale_min_max = function(x) {
-  lower = min(x, na.rm = TRUE)
-  upper = max(x, na.rm = TRUE)
-  (x - lower) / (upper - lower)
-}
 
 #' @include zzz.R
 register_po("fda.cor", PipeOpFDACor)
