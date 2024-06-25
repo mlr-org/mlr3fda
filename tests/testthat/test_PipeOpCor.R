@@ -1,7 +1,7 @@
 test_that("PipeOpCor - basic properties", {
   pop = po("fda.cor")
   expect_pipeop(pop)
-  expect_equal(pop$id, "fda.cor")
+  expect_identical(pop$id, "fda.cor")
 })
 
 test_that("PipeOpCor works", {
@@ -12,8 +12,8 @@ test_that("PipeOpCor works", {
   pop = po("fda.cor")
   task_cor = pop$train(list(task))[[1L]]
   new_data = task_cor$data()
-  expect_equal(ncol(new_data), 4L)
-  expect_equal(nrow(new_data), 100L)
+  expect_identical(ncol(new_data), 4L)
+  expect_identical(nrow(new_data), 100L)
   expect_named(new_data, c("y", "x1_x2_cor", "x1_x3_cor", "x2_x3_cor"))
   expect_numeric(new_data$x1_x2_cor, lower = -1, upper = 1, len = 100)
   expect_numeric(new_data$x1_x3_cor, lower = -1, upper = 1, len = 100)
