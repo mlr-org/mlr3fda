@@ -1,13 +1,12 @@
 ^.*\.Rproj$
-^.Renviron$
-^\.pre-commit-config\.yaml$
-^CITATION.cff$
+^CITATION\.cff$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
 ^LICENSE$
 ^Meta$
-^README.html$
 ^README\.Rmd$
+^README\.html$
+^\.Renviron$
 ^\.Rproj\.user$
 ^\.ccache$
 ^\.editorconfig$
@@ -16,6 +15,7 @@
 ^\.httr-oauth$
 ^\.ignore$
 ^\.lintr$
+^\.pre-commit-config\.yaml$
 ^\.vscode$
 ^_pkgdown\.yml$
 ^attic$
