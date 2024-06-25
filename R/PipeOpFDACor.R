@@ -38,7 +38,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
         id = id,
         param_set = param_set,
         param_vals = param_vals,
-        packages = c("mlr3fda", "mlr3pipelines", "tf", "stats"),
+        packages = c("mlr3fda", "mlr3pipelines", "tf"),
         feature_types = "tfd_reg",
         tags = "fda"
       )
