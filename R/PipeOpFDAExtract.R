@@ -222,11 +222,11 @@ transform_list = function(x) {
 }
 
 ffind = function(x, left = -Inf, right = Inf) {
-  n = length(x)
-  if (left <= x[[1L]] && right >= x[[n]]) {
-    return(c(1L, n))
+  len = length(x)
+  if (left <= x[[1L]] && right >= x[[len]]) {
+    return(c(1L, len))
   }
-  if (left > x[[n]] || right < x[[1L]]) {
+  if (left > x[[len]] || right < x[[1L]]) {
     return(rep(NA_integer_, 2L))
   }
   it = findInterval(c(left, right), x)
