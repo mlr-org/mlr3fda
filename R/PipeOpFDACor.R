@@ -50,7 +50,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
 
       k = ncol(dt)
       if (k < 2L) {
-        warningf("Data table has less than 2 columns")
+        warningf("task has less than 2 columns")
         return(dt)
       }
 
@@ -61,7 +61,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
           x = dt[[i]]
           y = dt[[j]]
           if (!all(tf::tf_domain(x) == tf::tf_domain(y))) {
-            stopf("Domain of %s and %s do not match", nms[[i]], nms[[j]])
+            stopf("Domain of %s and %s do not match", nms[[j]], nms[[i]])
           }
           nm = sprintf("%s_%s_cor", nms[[j]], nms[[i]])
           res[[nm]] = invoke(tf::tf_crosscor, x = x, y = y, .args = pars)

@@ -22,6 +22,12 @@ test_that("PipeOpCor works", {
   task_cor = suppressWarnings(pop$train(list(task))[[1L]])
   expect_identical(task$data(), task_cor$data())
 
+  # different domain throws error
+  dt_domain = copy(dt)[, x1 := tf::tf_rgp(100L, 20:120)]
+  task = as_task_regr(dt_domain, target = "y")
+  pop = po("fda.cor")
+  expect_error(pop$train(list(task)))
+
   # does not touch irreg
   dt[, x1 := tf::tf_sparsify(x1)]
   task = as_task_regr(dt, target = "y")
