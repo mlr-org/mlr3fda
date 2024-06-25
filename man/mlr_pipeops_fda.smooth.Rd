@@ -17,10 +17,10 @@ parameters:
 \item \code{method} :: \code{character(1)}\cr
 One of:
 \itemize{
-\item "lowess": locally weighted scatterplot smoothing (default)
-\item "rollmean": rolling mean
-\item "rollmedian": rolling meadian
-\item "savgol":  Savitzky-Golay filtering
+\item \code{"lowess"}: locally weighted scatterplot smoothing (default)
+\item \code{"rollmean"}: rolling mean
+\item \code{"rollmedian"}: rolling meadian
+\item \code{"savgol"}:  Savitzky-Golay filtering
 }
 
 All methods but "lowess" ignore non-equidistant arg values.
