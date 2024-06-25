@@ -1,5 +1,7 @@
 # dev
 
+* New PipeOp `PipeOpFDACor`
+
 # mlr3fda 0.1.1
 
 * Fix CRAN issues
