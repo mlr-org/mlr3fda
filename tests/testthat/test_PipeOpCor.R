@@ -11,9 +11,13 @@ test_that("PipeOpCor works", {
 
   pop = po("fda.cor")
   task_cor = pop$train(list(task))[[1L]]
-  expect_equal(ncol(task_cor$data()), 4L)
-  expect_equal(nrow(task_cor$data()), 100L)
-  expect_named(task_cor$data(), c("y", "x1_x2_cor", "x1_x3_cor", "x2_x3_cor"))
+  new_data = task_cor$data()
+  expect_equal(ncol(new_data), 4L)
+  expect_equal(nrow(new_data), 100L)
+  expect_named(new_data, c("y", "x1_x2_cor", "x1_x3_cor", "x2_x3_cor"))
+  expect_numeric(new_data$x1_x2_cor, lower = -1, upper = 1, len = 100)
+  expect_numeric(new_data$x1_x3_cor, lower = -1, upper = 1, len = 100)
+  expect_numeric(new_data$x2_x3_cor, lower = -1, upper = 1, len = 100)
 
   # single col gives warning
   task$select("x1")
