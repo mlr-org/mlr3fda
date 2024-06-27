@@ -1,6 +1,7 @@
 # dev
 
 * New PipeOp `PipeOpFDACor`
+* mlr3fda now depends on mlr3pipelines instead of importing it
 
 # mlr3fda 0.1.1
 
