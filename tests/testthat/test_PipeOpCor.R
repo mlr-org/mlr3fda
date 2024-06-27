@@ -22,7 +22,7 @@ test_that("PipeOpCor works", {
   # single col gives warning
   task$select("x1")
   pop = po("fda.cor")
-  expect_warning(pop$train(list(task)))
+  expect_warning(pop$train(list(task)), "task has less than 2 columns")
   task_cor = suppressWarnings(pop$train(list(task))[[1L]])
   expect_identical(task$data(), task_cor$data())
 
