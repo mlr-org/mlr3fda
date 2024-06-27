@@ -34,6 +34,6 @@ test_that("hash input for tfd vectors", {
     x_irreg = x_irreg
   ))
 
-  expect_equal(d1$hash, d2$hash)
-  expect_equal(d2$hash, d3$hash)
+  expect_identical(d1$hash, d2$hash)
+  expect_identical(d2$hash, d3$hash)
 })

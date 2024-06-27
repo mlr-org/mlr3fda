@@ -1,11 +1,11 @@
 test_that("PipeOpFPCA - basic properties", {
   pop = po("fda.fpca")
   expect_pipeop(pop)
-  expect_equal(pop$id, "fda.fpca")
+  expect_identical(pop$id, "fda.fpca")
 })
 
 test_that("PipeOpPCA works", {
-  set.seed(1234L)
+  withr::local_seed(1234L)
   # single col works
   dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
@@ -19,8 +19,8 @@ test_that("PipeOpPCA works", {
 
   pop = po("fda.fpca")
   task_fpc = pop$train(list(task))[[1L]]
-  expect_equal(nrow(task_fpc$data()), 2L)
-  expect_equal(ncol(task_fpc$data()), 2L)
+  expect_identical(nrow(task_fpc$data()), 2L)
+  expect_identical(ncol(task_fpc$data()), 2L)
   expect_named(task_fpc$data(), c("y", "f_pc_1"))
   fpc = task_fpc$data()$f_pc_1
   expect_numeric(fpc, len = 2)
@@ -30,8 +30,8 @@ test_that("PipeOpPCA works", {
   task = as_task_regr(dt, target = "y")
   pop = po("fda.fpca", n_components = 2L)
   task_fpc = pop$train(list(task))[[1L]]
-  expect_equal(ncol(task_fpc$data()), 3L)
-  expect_equal(nrow(task_fpc$data()), 15L)
+  expect_identical(ncol(task_fpc$data()), 3L)
+  expect_identical(nrow(task_fpc$data()), 15L)
   expect_named(task_fpc$data(), c("y", "f_pc_1", "f_pc_2"))
 
   # multiple cols work
@@ -45,8 +45,8 @@ test_that("PipeOpPCA works", {
   task = as_task_regr(dt, target = "y")
   pop = po("fda.fpca")
   task_fpc = pop$train(list(task))[[1L]]
-  expect_equal(ncol(task_fpc$data()), 10L)
-  expect_equal(nrow(task_fpc$data()), 10L)
+  expect_identical(ncol(task_fpc$data()), 10L)
+  expect_identical(nrow(task_fpc$data()), 10L)
   nms = c(
     "y", "f_pc_1", "f_pc_2", "f_pc_3",
     "g_pc_1", "g_pc_2", "g_pc_3",
@@ -57,8 +57,8 @@ test_that("PipeOpPCA works", {
   # n_components works
   pop = po("fda.fpca", n_components = 2L)
   task_fpc = pop$train(list(task))[[1L]]
-  expect_equal(ncol(task_fpc$data()), 7L)
-  expect_equal(nrow(task_fpc$data()), 10L)
+  expect_identical(ncol(task_fpc$data()), 7L)
+  expect_identical(nrow(task_fpc$data()), 10L)
   nms = c(
     "y", "f_pc_1", "f_pc_2",
     "g_pc_1", "g_pc_2",

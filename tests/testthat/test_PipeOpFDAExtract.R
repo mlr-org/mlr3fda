@@ -1,7 +1,7 @@
 test_that("PipeOpFDAExtract - basic properties", {
   pop = po("fda.extract")
   expect_pipeop(pop)
-  expect_equal(pop$id, "fda.extract")
+  expect_identical(pop$id, "fda.extract")
 })
 
 test_that("PipeOpFDAExtract works", {
@@ -19,7 +19,7 @@ test_that("PipeOpFDAExtract works", {
   po_fmean = po("fda.extract", features = "mean", drop = TRUE)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_equal(fmean, c(2, 5))
+  expect_identical(fmean, c(2, 5))
 
   # multiple functions work
   pop = po("fda.extract", features = c("mean", "median", "var"), drop = TRUE)
@@ -52,7 +52,7 @@ test_that("PipeOpFDAExtract works", {
   expected = data.table(
     y = 1:2, f_mean = rep(NA_real_, 2L), f_median = rep(NA_real_, 2L), f_min = rep(NA_real_, 2L)
   )
-  expect_equal(task_pop$data(), expected)
+  expect_identical(task_pop$data(), expected)
 
   # tf_irreg works
   dt = data.table(
@@ -79,7 +79,7 @@ test_that("PipeOpFDAExtract works", {
   po_fmean = po("fda.extract", features = list("mean"), drop = TRUE, left = 100, right = 200)
   task_fmean = po_fmean$train(list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
-  expect_equal(fmean, rep(NA_real_, 2L))
+  expect_identical(fmean, rep(NA_real_, 2L))
 
   # drop works
   po_fmean = po("fda.extract", features = list("mean"), drop = FALSE)
@@ -139,51 +139,51 @@ test_that("PipeOpFDAExtract works with name clashes", {
 })
 
 test_that("ffind works", {
-  expect_equal(ffind(1:5, 2, 4), c(2, 4))
+  expect_identical(ffind(1:5, 2, 4), c(2L, 4L))
   x = 0:10 * 3
-  expect_equal(ffind(x, 9, 25), c(4, 9))
-  expect_equal(ffind(x, 9.5, 24.5), c(5, 9))
-  expect_equal(ffind(x, 9.5, 21.5), c(5, 8))
-  expect_equal(ffind(-5:5, -3, 3), c(3, 9))
-  expect_equal(ffind(1:10, 1, 10), c(1, 10))
+  expect_identical(ffind(x, 9, 25), c(4L, 9L))
+  expect_identical(ffind(x, 9.5, 24.5), c(5L, 9L))
+  expect_identical(ffind(x, 9.5, 21.5), c(5L, 8L))
+  expect_identical(ffind(-5:5, -3, 3), c(3L, 9L))
+  expect_identical(ffind(1:10, 1, 10), c(1L, 10L))
   # non-integer
   x = c(1.2, 2.3, 3.4, 4.5)
-  expect_equal(ffind(x, 2.5, 4), c(3, 3))
+  expect_identical(ffind(x, 2.5, 4), c(3L, 3L))
   # min/max
   x = c(2, 3, 4, 4)
-  expect_equal(ffind(x), c(1, 4))
-  expect_equal(ffind(1:10, -1, 11), c(1, 10))
+  expect_identical(ffind(x), c(1L, 4L))
+  expect_identical(ffind(1:10, -1, 11), c(1L, 10L))
   # negative numbers
   x = c(-5, -3, -1, 1, 3)
-  expect_equal(ffind(x, -3, 1), c(2, 4))
+  expect_identical(ffind(x, -3, 1), c(2L, 4L))
   # not in interval
-  expect_equal(ffind(2:5, 6, 10), c(NA_integer_, NA_integer_))
-  expect_equal(ffind(2:5, 1, 1), c(NA_integer_, NA_integer_))
-  expect_equal(ffind(1:10, 20, 30), c(NA_integer_, NA_integer_))
+  expect_identical(ffind(2:5, 6, 10), c(NA_integer_, NA_integer_))
+  expect_identical(ffind(2:5, 1, 1), c(NA_integer_, NA_integer_))
+  expect_identical(ffind(1:10, 20, 30), c(NA_integer_, NA_integer_))
   # single element
-  expect_equal(ffind(5, 5, 5), c(1, 1))
-  expect_equal(ffind(5, 4, 6), c(1, 1))
-  expect_equal(ffind(5, 6, 7), c(NA_integer_, NA_integer_))
+  expect_identical(ffind(5, 5, 5), c(1L, 1L))
+  expect_identical(ffind(5, 4, 6), c(1L, 1L))
+  expect_identical(ffind(5, 6, 7), c(NA_integer_, NA_integer_))
   # NA values
   x = c(2, NA, 4, 5)
-  expect_equal(ffind(x, 2, 5), c(1, 4))
+  expect_identical(ffind(x, 2, 5), c(1L, 4L))
   # large vector
   x = 1:1e6
   expect_equal(ffind(x, 1e5, 1e6), c(1e5, 1e6))
   # lower and upper same value
-  expect_equal(ffind(1:3, 1, 1), c(1, 1))
+  expect_identical(ffind(1:3, 1, 1), c(1L, 1L))
   # not in interval
-  expect_equal(ffind(1:3, 1.1, 1.2), c(NA_integer_, NA_integer_))
-  expect_equal(ffind(1:3, 1.3, 1.8), c(NA_integer_, NA_integer_))
+  expect_identical(ffind(1:3, 1.1, 1.2), c(NA_integer_, NA_integer_))
+  expect_identical(ffind(1:3, 1.3, 1.8), c(NA_integer_, NA_integer_))
   # left not in interval
-  expect_equal(ffind(1:3, 1.2, 2), c(2, 2))
+  expect_identical(ffind(1:3, 1.2, 2), c(2L, 2L))
   # right not in interval
-  expect_equal(ffind(1:3, 1, 1.2), c(1, 1))
+  expect_identical(ffind(1:3, 1, 1.2), c(1L, 1L))
   # one boundary outside
-  expect_equal(ffind(1:10, 0, 5), c(1, 5))
-  expect_equal(ffind(1:10, 5, 15), c(5, 10))
+  expect_identical(ffind(1:10, 0, 5), c(1L, 5L))
+  expect_identical(ffind(1:10, 5, 15), c(5L, 10L))
 
-  expect_equal(
+  expect_identical(
     ffind(
       c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10),
       left = -200, right = 0

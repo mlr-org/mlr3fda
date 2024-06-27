@@ -1,7 +1,7 @@
 test_that("PipeOpFDASmooth", {
   po_smooth = po("fda.smooth")
   expect_pipeop(po_smooth)
-  expect_equal(po_smooth$id, "fda.smooth")
+  expect_identical(po_smooth$id, "fda.smooth")
 
   # regular
   task1 = tsk("fuel")

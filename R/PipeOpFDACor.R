@@ -3,6 +3,8 @@
 #'
 #' @description
 #' Calculates the cross-correlation between two functional vectors using [tf::tf_crosscor()].
+#' Note that it only operates on regular data and that the cross-correlation assumes that each column
+#' has the same domain.
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
