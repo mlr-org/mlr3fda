@@ -8,7 +8,7 @@
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
 #' parameters:
 #' * `arg` :: `numeric()` \cr
-#' Grid to use for the cross-correlation.
+#'   Grid to use for the cross-correlation.
 #'
 #' @export
 #' @examples
