@@ -74,8 +74,6 @@ To train a model on this task we first need to extract scalar features from the 
 We illustrate this below by extracting the mean value.
 
 ```{r fda.extract, fig.width = 5, fig.height = 3}
-library(mlr3pipelines)
-
 po_fmean = po("fda.extract", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]

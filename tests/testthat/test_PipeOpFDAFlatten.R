@@ -1,7 +1,7 @@
 test_that("PipeOpFDAFlatten - basic properties", {
   pop = po("fda.flatten")
   expect_pipeop(pop)
-  expect_equal(pop$id, "fda.flatten")
+  expect_identical(pop$id, "fda.flatten")
 })
 
 test_that("PipeOpFDAFlatten works", {

@@ -1,7 +1,7 @@
 test_that("PipeOpFDAInterpol - basic properties", {
   pop = po("fda.interpol")
   expect_pipeop(pop)
-  expect_equal(pop$id, "fda.interpol")
+  expect_identical(pop$id, "fda.interpol")
 })
 
 test_that("PipeOpFDAInterpol input validation works", {
