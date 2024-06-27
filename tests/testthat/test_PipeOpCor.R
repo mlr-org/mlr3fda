@@ -30,7 +30,7 @@ test_that("PipeOpCor works", {
   dt_domain = copy(dt)[, x1 := tf::tf_rgp(100L, 20:120)]
   task = as_task_regr(dt_domain, target = "y")
   pop = po("fda.cor")
-  expect_error(pop$train(list(task)))
+  expect_error(pop$train(list(task)), "Domain of x1 and x2 do not match")
 
   # does not touch irreg
   dt[, x1 := tf::tf_sparsify(x1)]
