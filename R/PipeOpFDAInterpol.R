@@ -41,8 +41,6 @@
 #'
 #' @export
 #' @examples
-#' library(mlr3pipelines)
-#'
 #' task = tsk("fuel")
 #' pop = po("fda.interpol")
 #' task_interpol = pop$train(list(task))[[1L]]

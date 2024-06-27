@@ -76,8 +76,6 @@ from the functions. We illustrate this below by extracting the mean
 value.
 
 ``` r
-library(mlr3pipelines)
-
 po_fmean = po("fda.extract", features = "mean")
 
 task_fmean = po_fmean$train(list(task))[[1L]]

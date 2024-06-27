@@ -1,11 +1,9 @@
-#' @import mlr3
 #' @import checkmate
 #' @import mlr3misc
 #' @import paradox
 #' @import mlr3misc
 #' @import R6
 #' @import data.table
-#' @import mlr3pipelines
 #' @importFrom tf tf_approx_linear tf_approx_spline tf_approx_fill_extend tf_approx_locf tf_approx_nocb
 #'
 #' @section Data types:

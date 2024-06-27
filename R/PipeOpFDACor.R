@@ -12,8 +12,6 @@
 #'
 #' @export
 #' @examples
-#' library(mlr3pipelines)
-#'
 #' set.seed(1234L)
 #' dt = data.table(y = 1:100, x1 = tf::tf_rgp(100L), x2 = tf::tf_rgp(100L))
 #' task = as_task_regr(dt, target = "y")

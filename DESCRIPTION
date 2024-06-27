@@ -24,13 +24,13 @@ URL: https://mlr3fda.mlr-org.com, https://github.com/mlr-org/mlr3fda
 BugReports: https://github.com/mlr-org/mlr3fda/issues
 Depends:
     mlr3 (>= 0.14.0),
+    mlr3pipelines (>= 0.5.2),
     R (>= 3.1.0)
 Imports:
     checkmate,
     data.table,
     lgr,
     mlr3misc (>= 0.14.0),
-    mlr3pipelines (>= 0.5.2),
     paradox,
     R6,
     tf (>= 0.3.4)
