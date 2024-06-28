@@ -5,6 +5,7 @@ test_that("PipeOpFPCA - basic properties", {
 })
 
 test_that("PipeOpPCA works", {
+  skip_if_not_installed("withr")
   withr::local_seed(1234L)
   # single col works
   dt = data.table(

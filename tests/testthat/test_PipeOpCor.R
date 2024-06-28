@@ -5,6 +5,7 @@ test_that("PipeOpCor - basic properties", {
 })
 
 test_that("PipeOpCor works", {
+  skip_if_not_installed("withr")
   withr::local_seed(1234L)
   dt = data.table(y = 1:100, x1 = tf::tf_rgp(100L), x2 = tf::tf_rgp(100L), x3 = tf::tf_rgp(100L))
   task = as_task_regr(dt, target = "y")
