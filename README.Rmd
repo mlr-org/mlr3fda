@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 
 lgr::get_logger("mlr3")$set_threshold("warn")
-set.seed(1)
+set.seed(1L)
 options(datatable.print.class = FALSE, datatable.print.keys = FALSE)
 library(mlr3fda)
 library(mlr3misc)
@@ -102,7 +102,7 @@ glrn$predict(task, row_ids = ids$test)
 ## Implemented PipeOps
 
 ```{r, echo = FALSE}
-content = as.data.table(mlr3pipelines::mlr_pipeops, objects = TRUE)
+content = as.data.table(mlr_pipeops, objects = TRUE)
 content = content[map_lgl(tags, function(t) "fda" %in% t), .(key, label, packages, tags)]
 content[, packages := map(packages, function(x) setdiff(x, c("mlr3pipelines", "mlr3fda")))]
 content[, `:=`(

@@ -50,7 +50,7 @@
 #' task_custom = po_custom$train(list(task))[[1L]]
 #' task_custom
 PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
-  inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
+  inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr

@@ -32,7 +32,7 @@
 #' task_smooth
 #' task_smooth$data(cols = c("NIR", "UVVIS"))
 PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
-  inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
+  inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr

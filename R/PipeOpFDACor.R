@@ -21,7 +21,7 @@
 #' task_cor = po_cor$train(list(task))[[1L]]
 #' task_cor
 PipeOpFDACor = R6Class("PipeOpFDACor",
-  inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
+  inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
