@@ -22,7 +22,7 @@
 #' pop = po("fda.flatten")
 #' task_flat = pop$train(list(task))
 PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
-  inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
+  inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr

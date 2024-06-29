@@ -6,7 +6,8 @@
 \title{Cross-Correlation of Functional Data}
 \description{
 Calculates the cross-correlation between two functional vectors using \code{\link[tf:functionwise]{tf::tf_crosscor()}}.
-Regular data is expected and the cross-correlation assumes that each column has the same domain.
+Note that it only operates on regular data and that the cross-correlation assumes that each column
+has the same domain.
 }
 \section{Parameters}{
 

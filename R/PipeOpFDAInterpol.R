@@ -46,7 +46,7 @@
 #' task_interpol = pop$train(list(task))[[1L]]
 #' task_interpol$data()
 PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
-  inherit = mlr3pipelines::PipeOpTaskPreprocSimple,
+  inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr

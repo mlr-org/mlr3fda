@@ -29,7 +29,7 @@
 #' task_fpca = po_fpca$train(list(task))[[1L]]
 #' task_fpca$data()
 PipeOpFPCA = R6Class("PipeOpFPCA",
-  inherit = mlr3pipelines::PipeOpTaskPreproc,
+  inherit = PipeOpTaskPreproc,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
