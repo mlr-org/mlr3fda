@@ -44,11 +44,5 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
   )
 )
 
-scale_min_max = function(x) {
-  lower = min(x)
-  upper = max(x)
-  (x - lower) / (upper - lower)
-}
-
 #' @include zzz.R
 register_po("fda.scale", PipeOpFDAScale)
