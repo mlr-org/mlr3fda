@@ -49,6 +49,7 @@ Collate:
     'PipeOpFDAExtract.R'
     'PipeOpFDAFlatten.R'
     'PipeOpFDAInterpol.R'
+    'PipeOpFDAScale.R'
     'PipeOpFDASmooth.R'
     'PipeOpFPCA.R'
     'TaskClassif_phoneme.R'
