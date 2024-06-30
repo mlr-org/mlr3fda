@@ -18,6 +18,10 @@ test_that("PipeOpFDAInterpol input validation works", {
   expect_error(pop$train(list(task)))
   pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
   expect_error(pop$train(list(task)))
+  pop = po("fda.interpol", grid = 10L, left = 2)
+  expect_error(pop$train(list(task)), "Either both or none of 'left' and 'right' must be specified.")
+  pop = po("fda.interpol", grid = 10L, right = 2)
+  expect_error(pop$train(list(task)), "Either both or none of 'left' and 'right' must be specified.")
 })
 
 test_that("PipeOpFDAInterpol extrapolation works", {
@@ -33,7 +37,7 @@ test_that("PipeOpFDAInterpol extrapolation works", {
   actual = pop$train(list(task))[[1L]]$data()
   setnafill(dt, fill = 2L)
   expected = data.table(y = 1:2, f = tf::tfd(dt, id = "id", arg = "arg", value = "value"))
-  testthat::expect_equal(actual, expected, ignore_attr = TRUE)
+  expect_equal(actual, expected, ignore_attr = TRUE)
   # throw warning if extrapolation is not possible
   pop = po("fda.interpol", grid = 1:5)
   expect_warning(pop$train(list(task)))
@@ -233,9 +237,9 @@ test_that("PipeOpFDAInterpol works with custom grid", {
 
   # outside of range
   pop = po("fda.interpol", grid = 3:7)
-  expect_error(pop$train(list(task)))
+  expect_error(pop$train(list(task)), "The grid must be within the range of the domain.")
   pop = po("fda.interpol", grid = -1:3)
-  expect_error(pop$train(list(task)))
+  expect_error(pop$train(list(task)), "The grid must be within the range of the domain.")
 
   # tfi works with same min and max
   dt = data.table(
