@@ -36,7 +36,9 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
     .transform_dt = function(dt, levels) {
       map_dtc(dt, function(x) {
         arg = tf::tf_arg(x)
-        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = scale_min_max(arg))
+        domain = tf::tf_domain(x)
+        arg = (arg - domain[1L]) / (domain[2L] - domain[1L])
+        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = arg)
       })
     }
   )
