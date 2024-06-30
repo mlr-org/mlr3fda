@@ -4,14 +4,21 @@
 #' @description
 #' Needs to be done
 #'
+#' @section Parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`], as well as the following parameters:
+#' * `lower` :: `numeric(1)` \cr
+#' Target value of smallest item of input data. Initialized to 0.
+#' * `uppper` :: `numeric(1)` \cr
+#' Target value of greatest item of input data. Initialized to 1.
+#'
 #' @export
 #' @examples
 #' task = tsk("fuel")
-#' po_scale = po("fda.scale")
-#' task_scale = po_scale$train(list(task))[[1L]]
-#' task_scale
+#' pop = po("fda.scale", lower = -1, upper = 1)
+#' task$data()
+#' pop$train(list(task))[[1L]]$data()
 PipeOpFDAScale = R6Class("PipeOpFDAScale",
-  inherit = PipeOpTaskPreprocSimple,
+  inherit = PipeOpTaskPreproc,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
@@ -20,7 +27,11 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.scale", param_vals = list()) {
-      param_set = ps()
+      param_set = ps(
+        lower = p_dbl(tags = c("required", "train")),
+        upper = p_dbl(tags = c("required", "train"))
+      )
+      param_set$set_values(lower = 0, upper = 1)
 
       super$initialize(
         id = id,
@@ -33,12 +44,30 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
     }
   ),
   private = list(
-    .transform_dt = function(dt, levels) {
-      map_dtc(dt, function(x) {
-        arg = tf::tf_arg(x)
+    .train_dt = function(dt, levels, target) {
+      pars = self$param_set$get_values(tags = "train")
+
+      imap_dtc(dt, function(x, nm) {
         domain = tf::tf_domain(x)
-        arg = (arg - domain[1L]) / (domain[2L] - domain[1L])
-        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = arg)
+        scale = (pars$upper - pars$lower) / (domain[2L] - domain[1L])
+        offset = -domain[1L] * scale + pars$lower
+        self$state[[nm]] = c(domain = domain, scale = scale, offset = offset)
+
+        arg = tf::tf_arg(x)
+        new_arg = offset + arg * scale
+        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_arg)
+      })
+    },
+
+    .predict_task = function(dt, levels) {
+      imap_dtc(dt, function(x, nm) {
+        trafo = self$state[[nm]]
+        if (all(trafo[["domain"]] != tf::tf_domain(x))) {
+          stopf("Domain of new data does not match the domain of the training data.")
+        }
+        arg = tf::tf_arg(x)
+        new_arg = trafo[["offset"]] + arg * trafo[["scale"]]
+        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_arg)
       })
     }
   )

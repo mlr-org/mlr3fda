@@ -7,14 +7,25 @@
 \description{
 Needs to be done
 }
+\section{Parameters}{
+
+The parameters are the parameters inherited from \code{\link{PipeOpTaskPreproc}}, as well as the following parameters:
+\itemize{
+\item \code{lower} :: \code{numeric(1)} \cr
+Target value of smallest item of input data. Initialized to 0.
+\item \code{uppper} :: \code{numeric(1)} \cr
+Target value of greatest item of input data. Initialized to 1.
+}
+}
+
 \examples{
 task = tsk("fuel")
-po_scale = po("fda.scale")
-task_scale = po_scale$train(list(task))[[1L]]
-task_scale
+pop = po("fda.scale", lower = -1, upper = 1)
+task$data()
+pop$train(list(task))[[1L]]$data()
 }
 \section{Super classes}{
-\code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDAScale}
+\code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{PipeOpFDAScale}
 }
 \section{Methods}{
 \subsection{Public methods}{
