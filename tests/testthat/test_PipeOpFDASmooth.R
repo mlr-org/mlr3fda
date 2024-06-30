@@ -17,7 +17,7 @@ test_that("PipeOpFDASmooth", {
     observed_train = po_smooth$train(list(task2))[[1L]]$data(cols = "cca")[[1L]]
     observed_predict = po_smooth$predict(list(task2))[[1L]]$data(cols = "cca")[[1L]]
 
-    expected  = suppressMessages(invoke(tf::tf_smooth, x = x, method = method, .args = args))
+    expected = suppressMessages(invoke(tf::tf_smooth, x = x, method = method, .args = args))
 
     expect_equal(observed_train, expected)
     expect_equal(observed_predict, expected)
@@ -30,7 +30,7 @@ test_that("PipeOpFDASmooth", {
     observed_train = po_smooth$train(list(task1))[[1L]]$data(cols = "NIR")[[1L]]
     observed_predict = po_smooth$predict(list(task1))[[1L]]$data(cols = "NIR")[[1L]]
 
-    expected  = suppressMessages(invoke(tf::tf_smooth, x = x, method = method, .args = args))
+    expected = suppressMessages(invoke(tf::tf_smooth, x = x, method = method, .args = args))
 
     expect_equal(observed_train, expected)
     expect_equal(observed_predict, expected)
