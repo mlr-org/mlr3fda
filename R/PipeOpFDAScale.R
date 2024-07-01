@@ -38,7 +38,7 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf"),
-        feature_types = "tfd_reg",
+        feature_types = c("tfd_irreg", "tfd_reg"),
         tags = "fda"
       )
     }
@@ -53,9 +53,13 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
         offset = -domain[1L] * scale + pars$lower
         self$state[[nm]] = c(domain = domain, scale = scale, offset = offset)
 
-        arg = tf::tf_arg(x)
-        new_arg = offset + arg * scale
-        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_arg)
+        args = tf::tf_arg(x)
+        if (tf::is_reg(x)) {
+          new_args = offset + args * scale
+        } else {
+          new_args = map(args, function(arg) offset + arg * scale)
+        }
+        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args)
       })
     },
 
@@ -65,9 +69,13 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
         if (all(trafo[["domain"]] != tf::tf_domain(x))) {
           stopf("Domain of new data does not match the domain of the training data.")
         }
-        arg = tf::tf_arg(x)
-        new_arg = trafo[["offset"]] + arg * trafo[["scale"]]
-        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_arg)
+        args = tf::tf_arg(x)
+        if (tf::is_reg(x)) {
+          new_args = trafo[["offset"]] + args * trafo[["scale"]]
+        } else {
+          new_args = map(args, function(arg) trafo[["offset"]] + arg * trafo[["scale"]])
+        }
+        invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args)
       })
     }
   )
