@@ -1,8 +1,11 @@
-#' @title Scale Functional Data
-#' @name mlr_pipeops_fda.scale
+#' @title Linearly Transform the Range of Functional Data.
+#' @name mlr_pipeops_fda.scalerange
 #'
 #' @description
-#' Needs to be done
+#' Linearly transform the range of functional data so they are between `lower` and `upper`.
+#' The formula for this is \eqn{x' = offset + x * scale},
+#' where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
+#' \eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`], as well as the following parameters:
@@ -14,19 +17,19 @@
 #' @export
 #' @examples
 #' task = tsk("fuel")
-#' pop = po("fda.scale", lower = -1, upper = 1)
+#' pop = po("fda.scalerange", lower = -1, upper = 1)
 #' task$data()
 #' pop$train(list(task))[[1L]]$data()
-PipeOpFDAScale = R6Class("PipeOpFDAScale",
+PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
   inherit = PipeOpTaskPreproc,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default `"fda.scale"`.
+    #'   Identifier of resulting object, default `"fda.scalerange"`.
     #' @param param_vals (named `list`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
-    initialize = function(id = "fda.scale", param_vals = list()) {
+    initialize = function(id = "fda.scalerange", param_vals = list()) {
       param_set = ps(
         lower = p_dbl(tags = c("required", "train")),
         upper = p_dbl(tags = c("required", "train"))
@@ -82,4 +85,4 @@ PipeOpFDAScale = R6Class("PipeOpFDAScale",
 )
 
 #' @include zzz.R
-register_po("fda.scale", PipeOpFDAScale)
+register_po("fda.scalerange", PipeOpFDAScaleRange)
