@@ -3,9 +3,9 @@
 \name{mlr_pipeops_fda.scalerange}
 \alias{mlr_pipeops_fda.scalerange}
 \alias{PipeOpFDAScaleRange}
-\title{Linearly Transform the Range of Functional Data.}
+\title{Linearly Transform the Domain of Functional Data.}
 \description{
-Linearly transform the range of functional data so they are between \code{lower} and \code{upper}.
+Linearly transform the domain of functional data so they are between \code{lower} and \code{upper}.
 The formula for this is \eqn{x' = offset + x * scale},
 where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
 \eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.

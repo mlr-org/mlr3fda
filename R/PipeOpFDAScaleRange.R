@@ -1,8 +1,8 @@
-#' @title Linearly Transform the Range of Functional Data.
+#' @title Linearly Transform the Domain of Functional Data.
 #' @name mlr_pipeops_fda.scalerange
 #'
 #' @description
-#' Linearly transform the range of functional data so they are between `lower` and `upper`.
+#' Linearly transform the domain of functional data so they are between `lower` and `upper`.
 #' The formula for this is \eqn{x' = offset + x * scale},
 #' where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
 #' \eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.
