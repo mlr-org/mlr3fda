@@ -68,8 +68,8 @@ register_mlr3pipelines = function() {
   if (Sys.getenv("IN_PKGDOWN") == "true") {
     lg$set_threshold("warn")
   }
-  mlr3misc::register_namespace_callback(pkgname, "mlr3", register_mlr3)
-  mlr3misc::register_namespace_callback(pkgname, "mlr3pipelines", register_mlr3pipelines)
+  register_namespace_callback(pkgname, "mlr3", register_mlr3)
+  register_namespace_callback(pkgname, "mlr3pipelines", register_mlr3pipelines)
 }
 
 .onUnload = function(libPaths) { # nolint
