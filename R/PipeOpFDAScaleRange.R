@@ -54,7 +54,7 @@ PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
         domain = tf::tf_domain(x)
         scale = (pars$upper - pars$lower) / (domain[2L] - domain[1L])
         offset = -domain[1L] * scale + pars$lower
-        self$state[[nm]] = c(domain = domain, scale = scale, offset = offset)
+        self$state[[nm]] = list(domain = domain, scale = scale, offset = offset)
 
         args = tf::tf_arg(x)
         if (tf::is_reg(x)) {
@@ -66,17 +66,17 @@ PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
       })
     },
 
-    .predict_task = function(dt, levels) {
+    .predict_dt = function(dt, levels) {
       imap_dtc(dt, function(x, nm) {
         trafo = self$state[[nm]]
-        if (!all(trafo[["domain"]] == tf::tf_domain(x))) {
+        if (!all(trafo$domain == tf::tf_domain(x))) {
           stopf("Domain of new data does not match the domain of the training data.")
         }
         args = tf::tf_arg(x)
         if (tf::is_reg(x)) {
-          new_args = trafo[["offset"]] + args * trafo[["scale"]]
+          new_args = trafo$offset + args * trafo$scale
         } else {
-          new_args = map(args, function(arg) trafo[["offset"]] + arg * trafo[["scale"]])
+          new_args = map(args, function(arg) trafo$offset + arg * trafo$scale)
         }
         invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args)
       })
