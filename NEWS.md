@@ -1,6 +1,8 @@
 # dev
 
-* New PipeOp `PipeOpFDACor`
+* New PipeOps:
+  * `PipeOpFDACor`
+  * `PipeOpFDAScaleRange`
 * mlr3fda now depends on mlr3pipelines instead of importing it
 
 # mlr3fda 0.1.1
