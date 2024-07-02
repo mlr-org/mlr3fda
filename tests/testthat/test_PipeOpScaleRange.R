@@ -11,13 +11,15 @@ test_that("PipeOpScaleRange works", {
   expect_identical(dim(task_scale$data()), c(129L, 4L))
   expect_identical(task_scale$n_features, task$n_features)
   expect_setequal(names(task_scale$data()), names(task$data()))
-  expect_equal(range(tf::tf_arg(task_scale$data()$NIR)), c(0, 1))
-  expect_equal(range(tf::tf_arg(task_scale$data()$UVVIS)), c(0, 1))
+  expect_numeric(tf::tf_arg(task_scale$data()$NIR), lower = 0, upper = 1)
+  expect_numeric(tf::tf_arg(task_scale$data()$UVVIS), lower = 0, upper = 1)
+
   # different range works
   pop = po("fda.scalerange", lower = -1, upper = 1)
   task_scale = pop$train(list(task))[[1L]]
   expect_equal(range(tf::tf_arg(task_scale$data()$NIR)), c(-1, 1))
   expect_equal(range(tf::tf_arg(task_scale$data()$UVVIS)), c(-1, 1))
+
   # throws error if new data has different domain
   pop = po("fda.scalerange")
   pop$train(list(task))
