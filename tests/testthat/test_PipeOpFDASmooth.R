@@ -5,6 +5,7 @@ test_that("PipeOpFDASmooth - basic properties", {
 })
 
 test_that("PipeOpFDASmooth", {
+  po_smooth = po("fda.smooth")
   # regular
   task1 = tsk("fuel")
   task1$col_roles$feature = "NIR"
