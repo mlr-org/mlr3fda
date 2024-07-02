@@ -17,7 +17,9 @@ test_that("PipeOpScaleRange works", {
   # different range works
   pop = po("fda.scalerange", lower = -1, upper = 1)
   task_scale = pop$train(list(task))[[1L]]
+  expect_identical(tf::tf_domain(task_scale$data()$NIR), c(-1, 1))
   expect_equal(range(tf::tf_arg(task_scale$data()$NIR)), c(-1, 1))
+  expect_identical(tf::tf_domain(task_scale$data()$UVVIS), c(-1, 1))
   expect_equal(range(tf::tf_arg(task_scale$data()$UVVIS)), c(-1, 1))
 
   # throws error if new data has different domain
@@ -27,4 +29,11 @@ test_that("PipeOpScaleRange works", {
     pop$predict(list(task_scale)),
     "Domain of new data does not match the domain of the training data."
   )
+
+  # irregular data works
+  task = tsk("dti")
+  pop = po("fda.scalerange", lower = -1, upper = 1)
+  task_scale = pop$train(list(task))[[1L]]
+  expect_identical(tf::tf_domain(task_scale$data()$cca), c(-1, 1))
+  expect_identical(tf::tf_domain(task_scale$data()$rcst), c(-1, 1))
 })
