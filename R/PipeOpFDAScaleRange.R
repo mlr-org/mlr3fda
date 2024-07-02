@@ -69,7 +69,7 @@ PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
     .predict_task = function(dt, levels) {
       imap_dtc(dt, function(x, nm) {
         trafo = self$state[[nm]]
-        if (all(trafo[["domain"]] != tf::tf_domain(x))) {
+        if (!all(trafo[["domain"]] == tf::tf_domain(x))) {
           stopf("Domain of new data does not match the domain of the training data.")
         }
         args = tf::tf_arg(x)
