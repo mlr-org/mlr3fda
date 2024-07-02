@@ -5,10 +5,6 @@ test_that("PipeOpFDASmooth - basic properties", {
 })
 
 test_that("PipeOpFDASmooth", {
-  po_smooth = po("fda.smooth")
-  expect_pipeop(po_smooth)
-  expect_identical(po_smooth$id, "fda.smooth")
-
   # regular
   task1 = tsk("fuel")
   task1$col_roles$feature = "NIR"

@@ -23,9 +23,9 @@ Target value of greatest item of input data. Initialized to 1.
 
 \examples{
 task = tsk("fuel")
-pop = po("fda.scalerange", lower = -1, upper = 1)
-task$data()
-pop$train(list(task))[[1L]]$data()
+po_scale = po("fda.scalerange", lower = -1, upper = 1)
+task_scale = po_scale$train(list(task))[[1L]]$data()
+task_scale$data()
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{PipeOpFDAScaleRange}
