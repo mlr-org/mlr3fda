@@ -1,3 +1,9 @@
+test_that("PipeOpSmooth - basic properties", {
+  pop = po("fda.smooth")
+  expect_pipeop(pop)
+  expect_identical(pop$id, "fda.smooth")
+})
+
 test_that("PipeOpFDASmooth", {
   po_smooth = po("fda.smooth")
   expect_pipeop(po_smooth)
