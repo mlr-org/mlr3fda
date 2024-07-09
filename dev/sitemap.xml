@@ -1,57 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/dti.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/fuel.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr3fda-package.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_dti.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_fuel.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_phoneme.html</loc>
-  </url>
-  <url>
-    <loc>https://mlr3fda.mlr-org.com/dev/reference/phoneme.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://mlr3fda.mlr-org.com/dev/LICENSE-text.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/authors.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/index.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/news/index.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/dti.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/fuel.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/index.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr3fda-package.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_dti.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_fuel.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_phoneme.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/dev/reference/phoneme.html</loc></url>
 </urlset>
+
