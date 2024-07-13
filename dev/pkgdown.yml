@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-07-09T15:45Z
+last_built: 2024-07-13T11:50Z
 urls:
   reference: https://mlr3fda.mlr-org.com/reference
   article: https://mlr3fda.mlr-org.com/articles
