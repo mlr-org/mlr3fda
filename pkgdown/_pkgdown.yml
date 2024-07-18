@@ -2,6 +2,7 @@ url: https://mlr3fda.mlr-org.com
 
 template:
   bootstrap: 5
+  light-switch: true
   package: mlr3pkgdowntemplate
 
 development:
