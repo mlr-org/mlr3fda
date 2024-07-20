@@ -20,20 +20,20 @@ test_that("PipeOpPCA works", {
 
   pop = po("fda.fpca")
   task_fpc = pop$train(list(task))[[1L]]
-  expect_identical(nrow(task_fpc$data()), 2L)
-  expect_identical(ncol(task_fpc$data()), 2L)
-  expect_named(task_fpc$data(), c("y", "f_pc_1"))
-  fpc = task_fpc$data()$f_pc_1
-  expect_numeric(fpc, len = 2)
+  expect_task(task_fpc)
+  new_data = task_fpc$data()
+  expect_identical(dim(new_data), c(2L, 2L))
+  expect_named(new_data, c("y", "f_pc_1"))
+  expect_numeric(new_data$f_pc_1, len = 2)
+  expect_identical(new_data, pop$predict(list(task))[[1L]]$data())
 
   # n_components works
   dt = data.table(y = rnorm(15L), f = tf::tf_rgp(15L))
   task = as_task_regr(dt, target = "y")
   pop = po("fda.fpca", n_components = 2L)
-  task_fpc = pop$train(list(task))[[1L]]
-  expect_identical(ncol(task_fpc$data()), 3L)
-  expect_identical(nrow(task_fpc$data()), 15L)
-  expect_named(task_fpc$data(), c("y", "f_pc_1", "f_pc_2"))
+  new_data = pop$train(list(task))[[1L]]$data()
+  expect_identical(dim(new_data), c(15L, 3L))
+  expect_named(new_data, c("y", "f_pc_1", "f_pc_2"))
 
   # multiple cols work
   dt = data.table(
@@ -46,26 +46,27 @@ test_that("PipeOpPCA works", {
   task = as_task_regr(dt, target = "y")
   pop = po("fda.fpca")
   task_fpc = pop$train(list(task))[[1L]]
-  expect_identical(ncol(task_fpc$data()), 10L)
-  expect_identical(nrow(task_fpc$data()), 10L)
+  new_data = task_fpc$data()
+  expect_task(task_fpc)
+  expect_identical(dim(new_data), c(10L, 10L))
   nms = c(
     "y", "f_pc_1", "f_pc_2", "f_pc_3",
     "g_pc_1", "g_pc_2", "g_pc_3",
     "h_pc_1", "h_pc_2", "h_pc_3"
   )
-  expect_named(task_fpc$data(), nms)
+  expect_named(new_data, nms)
+  expect_identical(new_data, pop$predict(list(task))[[1L]]$data())
 
   # n_components works
   pop = po("fda.fpca", n_components = 2L)
-  task_fpc = pop$train(list(task))[[1L]]
-  expect_identical(ncol(task_fpc$data()), 7L)
-  expect_identical(nrow(task_fpc$data()), 10L)
+  new_data = pop$train(list(task))[[1L]]$data()
+  expect_identical(dim(new_data), c(10L, 7L))
   nms = c(
     "y", "f_pc_1", "f_pc_2",
     "g_pc_1", "g_pc_2",
     "h_pc_1", "h_pc_2"
   )
-  expect_named(task_fpc$data(), nms)
+  expect_named(new_data, nms)
 
   # affect_columns works
   pop = po("fda.fpca", affect_columns = selector_name("f"))
