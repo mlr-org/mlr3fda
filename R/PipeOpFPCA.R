@@ -58,7 +58,9 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
     .train_dt = function(dt, levels, target) {
       pars = self$param_set$get_values(tags = "train")
 
-      dt = map_dtc(dt, function(x, nm) invoke(tf::tfb_fpc, data = x, .args = remove_named(pars, "n_components")))
+      dt = map_dtc(dt, function(x, nm) {
+        invoke(tf::tfb_fpc, data = x, .args = remove_named(pars, "n_components"))
+      })
       self$state = list(fpc = dt)
 
       dt = imap_dtc(dt, function(col, nm) {
@@ -74,7 +76,12 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
       pars = self$param_set$get_values()
 
       dt = imap_dtc(dt, function(col, nm) {
-        fpc = tf::tf_rebase(col, self$state$fpc[[nm]], arg = tf::tf_arg(col))
+        fpc = invoke(
+          tf::tf_rebase,
+          object = col,
+          basis_from = self$state$fpc[[nm]],
+          arg = tf::tf_arg(col)
+        )
         map(fpc, function(x) {
           pc = as.list(x[2:min(pars$n_components + 1L, length(x))])
           set_names(pc, sprintf("%s_pc_%d", nm, seq_along(pc)))
