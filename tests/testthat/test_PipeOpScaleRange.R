@@ -8,19 +8,23 @@ test_that("PipeOpScaleRange works", {
   task = tsk("fuel")
   pop = po("fda.scalerange")
   task_scale = pop$train(list(task))[[1L]]
-  expect_identical(dim(task_scale$data()), c(129L, 4L))
+  new_data = task_scale$data()
+  expect_task(task_scale)
+  expect_identical(dim(new_data), c(129L, 4L))
   expect_identical(task_scale$n_features, task$n_features)
-  expect_setequal(names(task_scale$data()), names(task$data()))
-  expect_numeric(tf::tf_arg(task_scale$data()$NIR), lower = 0, upper = 1)
-  expect_numeric(tf::tf_arg(task_scale$data()$UVVIS), lower = 0, upper = 1)
+  expect_named(new_data, names(new_data))
+  expect_numeric(tf::tf_arg(new_data$NIR), lower = 0, upper = 1)
+  expect_numeric(tf::tf_arg(new_data$UVVIS), lower = 0, upper = 1)
+  expect_identical(new_data, pop$predict(list(task))[[1L]]$data())
 
   # different range works
   pop = po("fda.scalerange", lower = -1, upper = 1)
   task_scale = pop$train(list(task))[[1L]]
-  expect_equal(tf::tf_domain(task_scale$data()$NIR), c(-1, 1))
-  expect_equal(range(tf::tf_arg(task_scale$data()$NIR)), c(-1, 1))
-  expect_equal(tf::tf_domain(task_scale$data()$UVVIS), c(-1, 1))
-  expect_equal(range(tf::tf_arg(task_scale$data()$UVVIS)), c(-1, 1))
+  new_data = task_scale$data()
+  expect_equal(tf::tf_domain(new_data$NIR), c(-1, 1))
+  expect_equal(range(tf::tf_arg(new_data$NIR)), c(-1, 1))
+  expect_equal(tf::tf_domain(new_data$UVVIS), c(-1, 1))
+  expect_equal(range(tf::tf_arg(new_data$UVVIS)), c(-1, 1))
 
   # throws error if new data has different domain
   pop = po("fda.scalerange")
@@ -33,7 +37,7 @@ test_that("PipeOpScaleRange works", {
   # irregular data works
   task = tsk("dti")
   pop = po("fda.scalerange", lower = -1, upper = 1)
-  task_scale = pop$train(list(task))[[1L]]
-  expect_equal(tf::tf_domain(task_scale$data()$cca), c(-1, 1))
-  expect_equal(tf::tf_domain(task_scale$data()$rcst), c(-1, 1))
+  new_data = pop$train(list(task))[[1L]]$data()
+  expect_equal(tf::tf_domain(new_data$cca), c(-1, 1))
+  expect_equal(tf::tf_domain(new_data$rcst), c(-1, 1))
 })
