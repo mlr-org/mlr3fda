@@ -69,7 +69,7 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
           set_names(pc, sprintf("%s_pc_%d", nm, seq_along(pc)))
         })
       })
-      unnest(dt, colnames(dt))
+      unnest(dt, names(dt))
     },
 
     .predict_dt = function(dt, levels) {
@@ -87,7 +87,7 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
           set_names(pc, sprintf("%s_pc_%d", nm, seq_along(pc)))
         })
       })
-      unnest(dt, colnames(dt))
+      unnest(dt, names(dt))
     }
   )
 )
