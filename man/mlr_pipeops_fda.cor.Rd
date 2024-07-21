@@ -8,6 +8,9 @@
 Calculates the cross-correlation between two functional vectors using \code{\link[tf:functionwise]{tf::tf_crosscor()}}.
 Note that it only operates on regular data and that the cross-correlation assumes that each column
 has the same domain.
+
+To apply this \code{PipeOp} to irregualr data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
+If you need to change the domain of the columns, use \code{\link{PipeOpFDAScaleRange}}.
 }
 \section{Parameters}{
 
