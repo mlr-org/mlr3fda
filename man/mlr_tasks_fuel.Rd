@@ -15,7 +15,8 @@ This is a subset of the full dataset, which is contained in the package \code{FD
 }
 \section{Dictionary}{
 
-This \link{Task} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_tasks} or with the associated sugar function \code{\link[=tsk]{tsk()}}:
+This \link[mlr3:Task]{Task} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link[mlr3:mlr_tasks]{mlr_tasks}
+or with the associated sugar function \link[mlr3:mlr_sugar]{tsk()}:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("fuel")
 tsk("fuel")
