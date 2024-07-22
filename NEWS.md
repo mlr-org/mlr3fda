@@ -1,5 +1,7 @@
 # dev
 
+# mlr3fda 0.2.0
+
 * New PipeOps:
   * `PipeOpFDACor`
   * `PipeOpFDAScaleRange`
