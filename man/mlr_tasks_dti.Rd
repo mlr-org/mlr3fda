@@ -4,7 +4,7 @@
 \alias{mlr_tasks_dti}
 \title{Diffusion Tensor Imaging (DTI) Regression Task}
 \format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:TaskRegr]{TaskRegr}.
+\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:TaskRegr]{mlr3::TaskRegr}.
 }
 \description{
 This dataset contains two functional covariates and three scalar covariate. The goal is
@@ -52,8 +52,8 @@ Wisconsin-Madison.
 \item Package \CRANpkg{mlr3data} for more toy tasks.
 \item Package \CRANpkg{mlr3oml} for downloading tasks from \url{https://www.openml.org}.
 \item Package \CRANpkg{mlr3viz} for some generic visualizations.
-\item \link[mlr3misc:Dictionary]{Dictionary} of \link[=Task]{Tasks}: \link{mlr_tasks}
-\item \code{as.data.table(mlr_tasks)} for a table of available \link[=Task]{Tasks} in the running session (depending on the loaded packages).
+\item \link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Task]{Tasks}: \link[mlr3:mlr_tasks]{mlr_tasks}
+\item \code{as.data.table(mlr_tasks)} for a table of available \link[mlr3:Task]{Tasks} in the running session (depending on the loaded packages).
 \item \CRANpkg{mlr3fselect} and \CRANpkg{mlr3filters} for feature selection and feature filtering.
 \item Extension packages for additional task types:
 \itemize{

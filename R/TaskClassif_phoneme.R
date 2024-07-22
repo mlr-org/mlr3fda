@@ -1,7 +1,7 @@
 #' @title Phoneme Classification Task
 #'
 #' @name mlr_tasks_phoneme
-#' @format [R6::R6Class] inheriting from [TaskClassif][mlr3::TaskClassif].
+#' @format [R6::R6Class] inheriting from [mlr3::TaskClassif].
 #'
 #' @description
 #' The task contains a single functional covariate and 5 equally big classes (aa, ao, dcl, iy, sh).
