@@ -10,8 +10,8 @@ Note that it only operates on values that were actually observed and does not in
 }
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
-parameters:
+The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
+as well as the following parameters:
 \itemize{
 \item \code{drop} :: \code{logical(1)}\cr
 Whether to drop the original \code{functional} features and only keep the extracted features.

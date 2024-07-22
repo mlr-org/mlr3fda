@@ -7,8 +7,8 @@
 #' Note that it only operates on values that were actually observed and does not interpolate.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
-#' parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
+#' as well as the following parameters:
 #' * `drop` :: `logical(1)`\cr
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active

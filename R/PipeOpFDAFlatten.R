@@ -6,7 +6,7 @@
 #' to new columns, one for each input value to the function.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`].
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple].
 #'
 #' @section Naming:
 #' The new names generally append a `_1`, ...,  to the corresponding column name.

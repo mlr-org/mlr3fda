@@ -8,7 +8,8 @@
 #' \eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`], as well as the following parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
+#' as well as the following parameters:
 #' * `lower` :: `numeric(1)` \cr
 #' Target value of smallest item of input data. Initialized to `0`.
 #' * `uppper` :: `numeric(1)` \cr

@@ -4,7 +4,7 @@
 \alias{mlr_tasks_phoneme}
 \title{Phoneme Classification Task}
 \format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link{TaskClassif}.
+\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:TaskClassif]{TaskClassif}.
 }
 \description{
 The task contains a single functional covariate and 5 equally big classes (aa, ao, dcl, iy, sh).

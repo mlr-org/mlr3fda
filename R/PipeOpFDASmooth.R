@@ -2,13 +2,13 @@
 #' @name mlr_pipeops_fda.smooth
 #'
 #' @description
-#' Smoothes functional data using [`tf::tf_smooth()`].
+#' Smoothes functional data using [tf::tf_smooth()].
 #' This preprocessing operator is similar to [`PipeOpFDAInterpol`], however it does not interpolate to unobserved
 #' x-values, but rather smooths the observed values.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
-#' parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
+#' as well as the following parameters:
 #' * `method` :: `character(1)`\cr
 #'   One of:
 #'   * `"lowess"`: locally weighted scatterplot smoothing (default)

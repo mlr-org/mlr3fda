@@ -4,7 +4,7 @@
 \alias{mlr_tasks_fuel}
 \title{Fuel Regression Task}
 \format{
-\link[R6:R6Class]{R6::R6Class} inheriting from \link{TaskRegr}.
+\link[R6:R6Class]{R6::R6Class} inheriting from \link[mlr3:TaskRegr]{TaskRegr}.
 }
 \description{
 This dataset contains two functional covariates and one scalar covariate. The goal is

@@ -10,8 +10,8 @@
 #' If you need to change the domain of the columns, use [`PipeOpFDAScaleRange`].
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
-#' parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
+#' as well as the following parameters:
 #' * `arg` :: `numeric()` \cr
 #'   Grid to use for the cross-correlation.
 #'

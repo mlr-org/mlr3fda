@@ -10,11 +10,12 @@ extracts the principal components as features. This is done using a (truncated) 
 
 To apply this \code{PipeOp} to irregualr data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
 
-For more details, see \code{\link[tf:tfb_fpc]{tfb_fpc()}}, which is called internally.
+For more details, see \code{\link[tf:tfb_fpc]{tf::tfb_fpc()}}, which is called internally.
 }
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link{PipeOpTaskPreproc}}, as well as the following parameters:
+The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
+as well as the following parameters:
 \itemize{
 \item \code{pve} :: \code{numeric(1)} \cr
 The percentage of variance explained that should be retained. Default is \code{0.995}.

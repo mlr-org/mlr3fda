@@ -14,8 +14,8 @@ If you need to change the domain of the columns, use \code{\link{PipeOpFDAScaleR
 }
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
-parameters:
+The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
+as well as the following parameters:
 \itemize{
 \item \code{arg} :: \code{numeric()} \cr
 Grid to use for the cross-correlation.

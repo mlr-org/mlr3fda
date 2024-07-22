@@ -11,8 +11,8 @@ x-values, but rather smooths the observed values.
 }
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
-parameters:
+The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
+as well as the following parameters:
 \itemize{
 \item \code{method} :: \code{character(1)}\cr
 One of:

@@ -7,8 +7,8 @@
 #' The interpolation is done using the `tf` package. See [`tfd()`][tf::tfd] for details.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`], as well as the following
-#' parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
+#' as well as the following parameters:
 #' * `grid` :: `character(1)` | `numeric()` \cr
 #'   The grid to use for interpolation.
 #'   If `grid` is numeric, it must be a sequence of values to use for the grid or a single value that

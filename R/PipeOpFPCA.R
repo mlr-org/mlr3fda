@@ -7,11 +7,12 @@
 #'
 #' To apply this `PipeOp` to irregualr data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
 #'
-#' For more details, see [`tfb_fpc()`][tf::tfb_fpc], which is called internally.
+#' For more details, see [tf::tfb_fpc()], which is called internally.
 #'
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`], as well as the following parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
+#' as well as the following parameters:
 #' * `pve` :: `numeric(1)` \cr
 #'   The percentage of variance explained that should be retained. Default is `0.995`.
 #' * `n_components` :: `integer(1)` \cr

@@ -11,8 +11,8 @@ The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{t
 }
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link{PipeOpTaskPreprocSimple}}, as well as the following
-parameters:
+The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
+as well as the following parameters:
 \itemize{
 \item \code{grid} :: \code{character(1)} | \code{numeric()} \cr
 The grid to use for interpolation.

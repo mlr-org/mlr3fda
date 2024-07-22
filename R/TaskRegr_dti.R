@@ -1,7 +1,7 @@
 #' @title Diffusion Tensor Imaging (DTI) Regression Task
 #'
 #' @name mlr_tasks_dti
-#' @format [R6::R6Class] inheriting from [TaskRegr].
+#' @format [R6::R6Class] inheriting from [TaskRegr][mlr3::TaskRegr].
 #'
 #' @description
 #' This dataset contains two functional covariates and three scalar covariate. The goal is
