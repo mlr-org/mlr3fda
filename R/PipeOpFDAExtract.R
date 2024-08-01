@@ -157,8 +157,8 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
       })
       fextractor = make_fextractor(features)
 
-      features = unlist(features, recursive = FALSE, use.names = FALSE)
       features = map(cols, function(col) invoke(fextractor, x = dt[[col]], left = left, right = right))
+      features = unlist(features, recursive = FALSE, use.names = FALSE)
       features = set_names(features, feature_names)
       features = as.data.table(features)
 
