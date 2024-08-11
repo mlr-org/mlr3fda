@@ -52,7 +52,7 @@ register_mlr3pipelines = function() {
   iwalk(as.list(mlr3fda_pipeops), function(value, name) {
     mlr_pipeops$add(name, value$constructor, value$metainf)
   })
-  mlr_reflections$pipeops$valid_tags = unique(c(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags))
+  mlr_reflections$pipeops$valid_tags = union(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags)
 }
 
 .onLoad = function(libname, pkgname) {
@@ -67,7 +67,8 @@ register_mlr3pipelines = function() {
 .onUnload = function(libPaths) { # nolint
   walk(names(mlr3fda_tasks), function(nm) mlr_tasks$remove(nm))
   walk(names(mlr3fda_pipeops), function(nm) mlr_pipeops$remove(nm))
-  mlr_reflections$learner_feature_types = setdiff(mlr_reflections$learner_feature_types, mlr3fda_feature_types)
+  mlr_reflections$task_feature_types =
+    mlr_reflections$task_feature_types[mlr_reflections$task_feature_types %nin% mlr3fda_feature_types]
   mlr_reflections$pipeops$valid_tags = setdiff(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags)
 }
 
