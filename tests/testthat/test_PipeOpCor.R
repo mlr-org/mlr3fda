@@ -11,7 +11,7 @@ test_that("PipeOpCor works", {
   task = as_task_regr(dt, target = "y")
 
   pop = po("fda.cor")
-  task_cor = pop$train(list(task))[[1L]]
+  task_cor = train_pipeop(pop, list(task))[[1L]]
   expect_task(task_cor)
   new_data = task_cor$data()
   expect_identical(dim(new_data), c(100L, 4L))
@@ -23,19 +23,18 @@ test_that("PipeOpCor works", {
   # single col gives warning
   task$select("x1")
   pop = po("fda.cor")
-  expect_warning(pop$train(list(task)), "task has less than 2 columns")
-  task_cor = suppressWarnings(pop$train(list(task))[[1L]])
+  expect_warning(task_cor <- train_pipeop(pop, list(task))[[1L]], "task has less than 2 columns")
   expect_identical(task$data(), task_cor$data())
 
   # different domain throws error
   dt_domain = copy(dt)[, x1 := tf::tf_rgp(100L, 20:120)]
   task = as_task_regr(dt_domain, target = "y")
   pop = po("fda.cor")
-  expect_error(pop$train(list(task)), "Domain of x1 and x2 do not match")
+  expect_error(train_pipeop(pop, list(task)), "Domain of x1 and x2 do not match")
 
   # does not touch irreg
   dt[, x1 := tf::tf_sparsify(x1)]
   task = as_task_regr(dt, target = "y")
-  task_cor = pop$train(list(task))[[1L]]
+  task_cor = train_pipeop(pop, list(task))[[1L]]
   expect_set_equal(task_cor$feature_names, c("x1", "x2_x3_cor"))
 })

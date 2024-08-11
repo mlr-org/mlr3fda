@@ -15,13 +15,19 @@ test_that("PipeOpFDAInterpol input validation works", {
   expect_error(po("fda.interpol", grid = 1:3, method = "cube"))
   task = tsk("fuel")
   pop = po("fda.interpol", grid = 1:3, left = 1, right = 2)
-  expect_error(pop$train(list(task)))
+  expect_error(train_pipeop(pop, list(task)))
   pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
-  expect_error(pop$train(list(task)))
+  expect_error(train_pipeop(pop, list(task)))
   pop = po("fda.interpol", grid = 10L, left = 2)
-  expect_error(pop$train(list(task)), "Either both or none of 'left' and 'right' must be specified.")
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "Either both or none of 'left' and 'right' must be specified."
+  )
   pop = po("fda.interpol", grid = 10L, right = 2)
-  expect_error(pop$train(list(task)), "Either both or none of 'left' and 'right' must be specified.")
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "Either both or none of 'left' and 'right' must be specified."
+  )
 })
 
 test_that("PipeOpFDAInterpol extrapolation works", {
@@ -34,13 +40,13 @@ test_that("PipeOpFDAInterpol extrapolation works", {
   dt_in = data.table(y = 1:2, f = tf::tfd(dt, id = "id", arg = "arg", value = "value"))
   task = as_task_regr(dt_in, target = "y")
   pop = po("fda.interpol", grid = 1:5, method = "fill_extend")
-  actual = pop$train(list(task))[[1L]]$data()
+  actual = train_pipeop(pop, list(task))[[1L]]$data()
   setnafill(dt, fill = 2L)
   expected = data.table(y = 1:2, f = tf::tfd(dt, id = "id", arg = "arg", value = "value"))
   expect_equal(actual, expected, ignore_attr = TRUE)
   # throw warning if extrapolation is not possible
   pop = po("fda.interpol", grid = 1:5)
-  expect_warning(pop$train(list(task)))
+  expect_warning(train_pipeop(pop, list(task)))
 })
 
 test_that("PipeOpFDAInterpol works with minmax", {
@@ -54,7 +60,7 @@ test_that("PipeOpFDAInterpol works with minmax", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "minmax")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   expect_equal(task_interpol$data(), dt)
 
   # tfi works with same min and max
@@ -67,7 +73,7 @@ test_that("PipeOpFDAInterpol works with minmax", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "minmax")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 5L),
     arg = rep(1:5, 2L),
@@ -87,7 +93,7 @@ test_that("PipeOpFDAInterpol works with minmax", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "minmax")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(3:5, 2L),
@@ -109,7 +115,7 @@ test_that("PipeOpFDAInterpol works with intersect", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "intersect")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   expect_equal(task_interpol$data(), dt)
 
   # tfi works with same min and max
@@ -122,7 +128,7 @@ test_that("PipeOpFDAInterpol works with intersect", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "intersect")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(c(1, 3, 5), 2L),
@@ -142,7 +148,7 @@ test_that("PipeOpFDAInterpol works with intersect", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "intersect")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(3:5, 2L),
@@ -164,12 +170,12 @@ test_that("PipeOpFDAInterpol works with union", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "union")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   expect_equal(task_interpol$data(), dt)
 
   # works with default
   pop = po("fda.interpol")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   expect_equal(task_interpol$data(), dt)
 
   # tfi works with same min and max
@@ -182,7 +188,7 @@ test_that("PipeOpFDAInterpol works with union", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "union")
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 5L),
     arg = rep(1:5, 2L),
@@ -202,8 +208,7 @@ test_that("PipeOpFDAInterpol works with union", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "union")
-  expect_warning(pop$train(list(task)))
-  task_interpol = suppressWarnings(pop$train(list(task))[[1L]])
+  expect_warning(task_interpol <- train_pipeop(pop, list(task))[[1L]])
   dt = data.table(
     id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),
@@ -225,7 +230,7 @@ test_that("PipeOpFDAInterpol works with custom grid", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = 3:5)
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(3:5, 2L),
@@ -237,9 +242,9 @@ test_that("PipeOpFDAInterpol works with custom grid", {
 
   # outside of range
   pop = po("fda.interpol", grid = 3:7)
-  expect_error(pop$train(list(task)), "The grid must be within the range of the domain.")
+  expect_error(train_pipeop(pop, list(task)), "The grid must be within the range of the domain.")
   pop = po("fda.interpol", grid = -1:3)
-  expect_error(pop$train(list(task)), "The grid must be within the range of the domain.")
+  expect_error(train_pipeop(pop, list(task)), "The grid must be within the range of the domain.")
 
   # tfi works with same min and max
   dt = data.table(
@@ -251,7 +256,7 @@ test_that("PipeOpFDAInterpol works with custom grid", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = 3:5)
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(3:5, 2L),
@@ -271,7 +276,7 @@ test_that("PipeOpFDAInterpol works with custom grid", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = 3:5)
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(3:5, 2L),
@@ -293,7 +298,7 @@ test_that("PipeOpFDAInterpol works with grid length + left and right", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = 3L, left = 2, right = 4)
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(2:4, 2L),
@@ -313,7 +318,7 @@ test_that("PipeOpFDAInterpol works with grid length + left and right", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = 3L, left = 2, right = 5)
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(c(2, 3.5, 5), 2L),
@@ -333,7 +338,7 @@ test_that("PipeOpFDAInterpol works with grid length + left and right", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = 3L, left = 3, right = 5)
-  task_interpol = pop$train(list(task))[[1L]]
+  task_interpol = train_pipeop(pop, list(task))[[1L]]
   dt = data.table(
     id = rep(1:2, each = 3L),
     arg = rep(3:5, 2L),
@@ -361,7 +366,7 @@ test_that("PipeOpFDAInterpol method arg works", {
     dt = data.table(y = 1:2, f = f)
     task = as_task_regr(dt, target = "y")
     pop = po("fda.interpol", grid = 3:5, method = method)
-    task_interpol = pop$train(list(task))[[1L]]
+    task_interpol = train_pipeop(pop, list(task))[[1L]]
 
     evaluator = paste0("tf_approx_", method)
     f = do.call(tf::tfd, list(data = dt_out, id = "id", arg = "arg", value = "value", evaluator = evaluator))

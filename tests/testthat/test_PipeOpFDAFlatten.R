@@ -7,7 +7,7 @@ test_that("PipeOpFDAFlatten - basic properties", {
 test_that("PipeOpFDAFlatten works", {
   task = tsk("fuel")
   pop = po("fda.flatten")
-  x = pop$train(list(task))[[1L]]
+  x = train_pipeop(pop, list(task))[[1L]]
   expected_features = c(
     "h20",
     paste0("UVVIS_", 1:134),
@@ -15,8 +15,9 @@ test_that("PipeOpFDAFlatten works", {
   )
   expect_set_equal(x$feature_names, expected_features)
 
+  pop = po("fda.flatten")
   pop$param_set$values$affect_columns = selector_name("UVVIS")
-  x = pop$train(list(task))[[1L]]
+  x = train_pipeop(pop, list(task))[[1L]]
   expected_features = c(
     "h20",
     paste0("UVVIS_", 1:134),
@@ -24,13 +25,10 @@ test_that("PipeOpFDAFlatten works", {
   )
   expect_set_equal(x$feature_names, expected_features)
 
+  pop = po("fda.flatten")
   pop$param_set$values$affect_columns = selector_name("..xyz")
-  x = pop$train(list(task))[[1L]]
-  expected_features = c(
-    "h20",
-    "UVVIS",
-    "NIR"
-  )
+  x = train_pipeop(pop, list(task))[[1L]]
+  expected_features = c("h20", "UVVIS", "NIR")
   expect_set_equal(x$feature_names, expected_features)
 })
 
@@ -39,7 +37,7 @@ test_that("PipeOpFDAFlatten works with name clashes", {
   dt$NIR_1 = 1
   task = as_task_regr(dt, target = "heatan")
   pop = po("fda.flatten")
-  taskout = pop$train(pop$train(list(task)))[[1L]]
+  taskout = train_pipeop(pop, train_pipeop(pop, list(task)))[[1L]]
   expect_true("NIR_1_1" %in% taskout$feature_names)
 })
 
@@ -54,7 +52,7 @@ test_that("PipeOpFDAFlatten works with tfr and tfi", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.flatten")
-  task_flat = pop$train(list(task))[[1L]]
+  task_flat = train_pipeop(pop, list(task))[[1L]]
   expected = data.table(
     y = 1:2, f_1 = c(1, 3), f_2 = c(2, 5), f_3 = c(5, 10), f_4 = c(5, 2), f_5 = c(7, 12)
   )
@@ -71,7 +69,7 @@ test_that("PipeOpFDAFlatten works with tfr and tfi", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.flatten")
-  task_flat = pop$train(list(task))[[1L]]
+  task_flat = train_pipeop(pop, list(task))[[1L]]
   expected = data.table(
     y = 1:2, f_1 = c(NA, 1), f_2 = c(NA, 3), f_3 = c(2, 4), f_4 = c(5, 5), f_5 = c(6, 6), f_6 = c(NA, 7)
   )

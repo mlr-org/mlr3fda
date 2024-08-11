@@ -5,20 +5,13 @@ test_that("PipeOpFDASmooth - basic properties", {
 })
 
 test_that("PipeOpFDASmooth", {
-  po_smooth = po("fda.smooth")
-  # regular
-  task1 = tsk("fuel")
-  task1$col_roles$feature = "NIR"
-  # irregular
-  task2 = tsk("dti")
-  task2$col_roles$feature = "cca"
-
   test_cca = function(method, args) {
+    po_smooth = po("fda.smooth")
     x = task2$data(cols = "cca")$cca
 
     po_smooth$param_set$set_values(method = method, args = args)
-    observed_train = po_smooth$train(list(task2))[[1L]]$data(cols = "cca")[[1L]]
-    observed_predict = po_smooth$predict(list(task2))[[1L]]$data(cols = "cca")[[1L]]
+    observed_train = train_pipeop(po_smooth, list(task2))[[1L]]$data(cols = "cca")[[1L]]
+    observed_predict = predict_pipeop(po_smooth, list(task2))[[1L]]$data(cols = "cca")[[1L]]
 
     expected = suppressMessages(invoke(tf::tf_smooth, x = x, method = method, .args = args))
 
@@ -27,11 +20,12 @@ test_that("PipeOpFDASmooth", {
   }
 
   test_nir = function(method, args) {
+    po_smooth = po("fda.smooth")
     x = task1$data(cols = "NIR")$NIR
 
     po_smooth$param_set$set_values(method = method, args = args)
-    observed_train = po_smooth$train(list(task1))[[1L]]$data(cols = "NIR")[[1L]]
-    observed_predict = po_smooth$predict(list(task1))[[1L]]$data(cols = "NIR")[[1L]]
+    observed_train = train_pipeop(po_smooth, list(task1))[[1L]]$data(cols = "NIR")[[1L]]
+    observed_predict = predict_pipeop(po_smooth, list(task1))[[1L]]$data(cols = "NIR")[[1L]]
 
     expected = suppressMessages(invoke(tf::tf_smooth, x = x, method = method, .args = args))
 
@@ -39,6 +33,13 @@ test_that("PipeOpFDASmooth", {
     expect_equal(observed_predict, expected)
 
   }
+
+  # regular
+  task1 = tsk("fuel")
+  task1$col_roles$feature = "NIR"
+  # irregular
+  task2 = tsk("dti")
+  task2$col_roles$feature = "cca"
 
   test_nir("lowess", list(f = 0.3))
   test_cca("lowess", list(f = 0.2))
@@ -48,8 +49,10 @@ test_that("PipeOpFDASmooth", {
   test_nir("savgol", list())
 
   # verbose parameter is respected
+  po_smooth = po("fda.smooth")
   po_smooth$param_set$set_values(verbose = TRUE)
-  expect_message(po_smooth$train(list(task1)), "using")
+  expect_message(train_pipeop(po_smooth, list(task1)), "using")
+  po_smooth = po("fda.smooth")
   po_smooth$param_set$set_values(verbose = FALSE)
-  expect_message(po_smooth$train(list(task1)), NA)
+  expect_message(train_pipeop(po_smooth, list(task1)), NA)
 })
