@@ -1,11 +1,10 @@
-#' @import mlr3
-#' @import checkmate
-#' @import mlr3misc
-#' @import paradox
-#' @import mlr3misc
 #' @import R6
+#' @import checkmate
 #' @import data.table
+#' @import mlr3
+#' @import mlr3misc
 #' @import mlr3pipelines
+#' @import paradox
 #' @importFrom tf tf_approx_linear tf_approx_spline tf_approx_fill_extend tf_approx_locf tf_approx_nocb
 #'
 #' @section Data types:
@@ -18,6 +17,10 @@
 #' `r tools::toRd(citation("mlr3"))`
 "_PACKAGE"
 
+mlr3fda_feature_types = c(tfr = "tfd_reg", tfi = "tfd_irreg")
+mlr3fda_tasks = new.env()
+mlr3fda_pipeops = new.env()
+mlr3fda_pipeop_tags = "fda"
 
 # metainf must be manually added in the register_mlr3pipelines function
 # Because the value is substituted, we cannot pass it through this function
@@ -31,15 +34,7 @@ register_task = function(name, constructor) {
   mlr3fda_tasks[[name]] = constructor
 }
 
-named_union = function(x, y) {
-  z = union(x, y)
-  set_names(z, union(names(x), names(y)))
-}
-
-mlr3fda_feature_types = c(tfr = "tfd_reg", tfi = "tfd_irreg")
-mlr3fda_tasks = new.env()
-mlr3fda_pipeops = new.env()
-mlr3fda_pipeop_tags = "fda"
+named_union = function(x, y) set_names(union(x, y), union(names(x), names(y)))
 
 register_mlr3 = function() {
   # add data types
@@ -48,10 +43,7 @@ register_mlr3 = function() {
 
   # add tasks
   mlr_tasks = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
-  iwalk(as.list(mlr3fda_tasks), function(task, id) {
-    mlr_tasks$add(id, task)
-  })
-
+  iwalk(as.list(mlr3fda_tasks), function(task, id) mlr_tasks$add(id, task))
 }
 
 register_mlr3pipelines = function() {
