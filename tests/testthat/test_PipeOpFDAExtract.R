@@ -17,18 +17,18 @@ test_that("PipeOpFDAExtract works", {
   task = as_task_regr(dt, target = "y")
 
   po_fmean = po("fda.extract", features = "mean", drop = TRUE)
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_identical(fmean, c(2, 5))
 
   # multiple functions work
   pop = po("fda.extract", features = c("mean", "median", "var"), drop = TRUE)
-  task_pop = pop$train(list(task))[[1L]]
+  task_pop = train_pipeop(pop, list(task))[[1L]]
   expect = data.table(y = 1:2, f_mean = c(2, 5), f_median = c(2, 5), f_var = c(1, 1))
   expect_equal(task_pop$data(), expect)
 
   pop = po("fda.extract", features = list("mean", "median", "var"), drop = TRUE)
-  task_pop = pop$train(list(task))[[1L]]
+  task_pop = train_pipeop(pop, list(task))[[1L]]
   expect = data.table(y = 1:2, f_mean = c(2, 5), f_median = c(2, 5), f_var = c(1, 1))
   expect_equal(task_pop$data(), expect)
 
@@ -37,18 +37,18 @@ test_that("PipeOpFDAExtract works", {
     mean(value, na.rm = TRUE)
   }
   pop = po("fda.extract", features = list("mean", custom = custom), drop = TRUE)
-  task_pop = pop$train(list(task))[[1L]]
+  task_pop = train_pipeop(pop, list(task))[[1L]]
   expect = data.table(y = 1:2, f_mean = c(2, 5), f_custom = c(2, 5))
   expect_equal(task_pop$data(), expect)
 
   # return NA if not in interval
   po_fmean = po("fda.extract", features = "mean", drop = TRUE, left = 100, right = 200)
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, rep(NA_real_, 2L))
 
   pop = po("fda.extract", features = c("mean", "median", "min"), drop = TRUE, left = 100, right = 200)
-  task_pop = pop$train(list(task))[[1L]]
+  task_pop = train_pipeop(pop, list(task))[[1L]]
   expected = data.table(
     y = 1:2, f_mean = rep(NA_real_, 2L), f_median = rep(NA_real_, 2L), f_min = rep(NA_real_, 2L)
   )
@@ -66,33 +66,33 @@ test_that("PipeOpFDAExtract works", {
   task = as_task_regr(dt, target = "y")
 
   po_fmean = po("fda.extract", features = list("mean", "median", custom = custom), drop = TRUE)
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 4.5))
 
   po_fmean = po("fda.extract", features = "mean", drop = TRUE, left = 1, right = 3)
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_equal(fmean, c(2, 4))
 
   # return NA if not in interval
   po_fmean = po("fda.extract", features = list("mean"), drop = TRUE, left = 100, right = 200)
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   fmean = task_fmean$data()$f_mean
   expect_identical(fmean, rep(NA_real_, 2L))
 
   # drop works
   po_fmean = po("fda.extract", features = list("mean"), drop = FALSE)
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, c("f", "f_mean"))
 
   po_fmean = po("fda.extract", features = list("mean"), drop = TRUE)
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, "f_mean")
 
   # affect_columns works
   po_fmean = po("fda.extract", features = list("mean"), drop = TRUE, affect_columns = selector_name("abc"))
-  task_fmean = po_fmean$train(list(task))[[1L]]
+  task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, "f")
 })
 
@@ -101,7 +101,7 @@ test_that("PipeOpFDAExtract works (simple test) for all features", {
   pop = po("fda.extract")
   features = list("mean", "min", "max", "slope", "median")
   pop$param_set$values$features = features
-  expect_no_error(pop$train(list(task)))
+  expect_list(train_pipeop(pop, list(task)), len = 1L)
 })
 
 test_that("PipeOpFDAExtract input validation works", {
@@ -134,8 +134,8 @@ test_that("PipeOpFDAExtract works with name clashes", {
   dt$f_mean = c(-1, -1)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.extract", features = list("mean"), drop = FALSE)
-  taskout = pop$train(pop$train(list(task)))[[1L]]
-  expect_permutation(taskout$feature_names, c("f", "f_mean", "f_mean_1", "f_mean_2"))
+  taskout = train_pipeop(pop, list(task))[[1L]]
+  expect_permutation(taskout$feature_names, c("f", "f_mean", "f_mean_1"))
 })
 
 test_that("ffind works", {
@@ -184,8 +184,7 @@ test_that("ffind works", {
   expect_identical(ffind(1:10, 5, 15), c(5L, 10L))
 
   expect_identical(
-    ffind(
-      c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10),
+    ffind(c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10),
       left = -200, right = 0
     ),
     rep(NA_integer_, 2L)

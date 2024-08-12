@@ -19,19 +19,19 @@ test_that("PipeOpPCA works", {
   task = as_task_regr(dt, target = "y")
 
   pop = po("fda.fpca")
-  task_fpc = pop$train(list(task))[[1L]]
+  task_fpc = train_pipeop(pop, list(task))[[1L]]
   expect_task(task_fpc)
   new_data = task_fpc$data()
   expect_identical(dim(new_data), c(2L, 2L))
   expect_named(new_data, c("y", "f_pc_1"))
   expect_numeric(new_data$f_pc_1, len = 2)
-  expect_identical(new_data, pop$predict(list(task))[[1L]]$data())
+  expect_identical(new_data, predict_pipeop(pop, list(task))[[1L]]$data())
 
   # n_components works
   dt = data.table(y = rnorm(15L), f = tf::tf_rgp(15L))
   task = as_task_regr(dt, target = "y")
   pop = po("fda.fpca", n_components = 2L)
-  new_data = pop$train(list(task))[[1L]]$data()
+  new_data = train_pipeop(pop, list(task))[[1L]]$data()
   expect_identical(dim(new_data), c(15L, 3L))
   expect_named(new_data, c("y", "f_pc_1", "f_pc_2"))
 
@@ -45,7 +45,7 @@ test_that("PipeOpPCA works", {
   dt = data.table(y = rnorm(10L), f = f, g = f, h = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.fpca")
-  task_fpc = pop$train(list(task))[[1L]]
+  task_fpc = train_pipeop(pop, list(task))[[1L]]
   new_data = task_fpc$data()
   expect_task(task_fpc)
   expect_identical(dim(new_data), c(10L, 10L))
@@ -55,11 +55,11 @@ test_that("PipeOpPCA works", {
     "h_pc_1", "h_pc_2", "h_pc_3"
   )
   expect_named(new_data, nms)
-  expect_identical(new_data, pop$predict(list(task))[[1L]]$data())
+  expect_identical(new_data, predict_pipeop(pop, list(task))[[1L]]$data())
 
   # n_components works
   pop = po("fda.fpca", n_components = 2L)
-  new_data = pop$train(list(task))[[1L]]$data()
+  new_data = train_pipeop(pop, list(task))[[1L]]$data()
   expect_identical(dim(new_data), c(10L, 7L))
   nms = c(
     "y", "f_pc_1", "f_pc_2",
@@ -70,7 +70,7 @@ test_that("PipeOpPCA works", {
 
   # affect_columns works
   pop = po("fda.fpca", affect_columns = selector_name("f"))
-  task_fpc = pop$train(list(task))[[1L]]
+  task_fpc = train_pipeop(pop, list(task))[[1L]]
   expect_set_equal(task_fpc$feature_names, c("f_pc_1", "f_pc_2", "f_pc_3", "g", "h"))
 
   # does not touch irreg
@@ -83,6 +83,7 @@ test_that("PipeOpPCA works", {
   y = 1:2
   dt = data.table(f = f, y = y)
   task = as_task_regr(dt, target = "y")
-  task_fpca = pop$train(list(task))[[1L]]
+  pop = po("fda.fpca")
+  task_fpca = train_pipeop(pop, list(task))[[1L]]
   expect_set_equal(task$feature_names, task_fpca$feature_names)
 })
