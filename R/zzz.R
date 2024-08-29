@@ -22,19 +22,19 @@ mlr3fda_tasks = new.env()
 mlr3fda_pipeops = new.env()
 mlr3fda_pipeop_tags = "fda"
 
+named_union = function(x, y) set_names(union(x, y), union(names(x), names(y)))
+
 # metainf must be manually added in the register_mlr3pipelines function
 # Because the value is substituted, we cannot pass it through this function
 register_po = function(name, constructor) {
-  if (name %in% names(mlr3fda_pipeops)) stopf("pipeop %s registered twice", name)
+  if (hasName(mlr3fda_pipeops, name)) stopf("pipeop %s registered twice", name)
   mlr3fda_pipeops[[name]] = list(constructor = constructor)
 }
 
 register_task = function(name, constructor) {
-  if (name %in% names(mlr3fda_tasks)) stopf("task %s registered twice", name)
+  if (hasName(mlr3fda_tasks, name)) stopf("task %s registered twice", name)
   mlr3fda_tasks[[name]] = constructor
 }
-
-named_union = function(x, y) set_names(union(x, y), union(names(x), names(y)))
 
 register_mlr3 = function() {
   # add data types
