@@ -94,7 +94,7 @@ extracts features and then trains a model.
 
 ``` r
 # split data into train and test set
-ids = partition(task, stratify = FALSE)
+ids = partition(task)
 
 # define a Graph and convert it to a GraphLearner
 graph = po("fda.extract", features = "mean", drop = TRUE) %>>%
@@ -108,27 +108,27 @@ glrn$train(task, row_ids = ids$train)
 # make predictions on the test set
 glrn$predict(task, row_ids = ids$test)
 #> <PredictionRegr> for 111 observations:
-#>     row_ids truth response
-#>          11    48 49.99174
-#>          12    40 49.99174
-#>          13    43 52.42105
-#> ---                       
-#>         324    57 52.42105
-#>         325    57 41.30769
-#>         326    60 49.99174
+#>  row_ids truth response
+#>       11    48 49.99174
+#>       12    40 49.99174
+#>       13    43 52.42105
+#>      ---   ---      ---
+#>      324    57 52.42105
+#>      325    57 41.30769
+#>      326    60 49.99174
 ```
 
 ## Implemented PipeOps
 
 | Key | Label | Packages | Tags |
 |:---|:---|:---|:---|
-| [fda.cor](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor) | Cross-Correlation of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.extract](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract) | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.flatten](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten) | Flattens Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.fpca](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca) | Functional Principal Component Analysis | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.interpol](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.scalerange](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange) | Linearly Transform the Domain of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.smooth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth) | Smoothing Functional Columns | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
+| [fda.cor](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor) | Cross-Correlation of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.extract](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract) | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.flatten](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten) | Flattens Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.fpca](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca) | Functional Principal Component Analysis | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.interpol](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.scalerange](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.scalerange) | Linearly Transform the Domain of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.smooth](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.smooth) | Smoothing Functional Columns | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
 
 ## Bugs, Questions, Feedback
 

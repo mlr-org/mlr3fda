@@ -84,7 +84,7 @@ This can be combined with a `Lerner` into a `GraphLearner` that first extracts f
 
 ```{r graph}
 # split data into train and test set
-ids = partition(task, stratify = FALSE)
+ids = partition(task)
 
 # define a Graph and convert it to a GraphLearner
 graph = po("fda.extract", features = "mean", drop = TRUE) %>>%
@@ -106,7 +106,7 @@ content = as.data.table(mlr_pipeops, objects = TRUE)
 content = content[map_lgl(tags, function(t) "fda" %in% t), .(key, label, packages, tags)]
 content[, packages := map(packages, function(x) setdiff(x, c("mlr3pipelines", "mlr3fda")))]
 content[, `:=`(
-  key = sprintf("[%1$s](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_%1$s)", key),
+  key = sprintf("[%1$s](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_%1$s)", key),
   packages = map_chr(packages, function(pkg) {
     toString(ifelse(
       pkg %in% c("stats", "graphics", "datasets"), pkg, sprintf("[%1$s](https://cran.r-project.org/package=%1$s)", pkg)
