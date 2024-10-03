@@ -122,7 +122,7 @@
 <p>This can be combined with a <code>Lerner</code> into a <code>GraphLearner</code> that first extracts features and then trains a model.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># split data into train and test set</span></span>
-<span><span class="va">ids</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="va">task</span>, stratify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">ids</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/partition.html" class="external-link">partition</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># define a Graph and convert it to a GraphLearner</span></span>
 <span><span class="va">graph</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.extract"</span>, features <span class="op">=</span> <span class="st">"mean"</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://mlr3pipelines.mlr-org.com/reference/grapes-greater-than-greater-than-grapes.html" class="external-link">%&gt;&gt;%</a></span></span>
@@ -136,14 +136,14 @@
 <span><span class="co"># make predictions on the test set</span></span>
 <span><span class="va">glrn</span><span class="op">$</span><span class="fu">predict</span><span class="op">(</span><span class="va">task</span>, row_ids <span class="op">=</span> <span class="va">ids</span><span class="op">$</span><span class="va">test</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;PredictionRegr&gt; for 111 observations:</span></span>
-<span><span class="co">#&gt;     row_ids truth response</span></span>
-<span><span class="co">#&gt;          11    48 49.99174</span></span>
-<span><span class="co">#&gt;          12    40 49.99174</span></span>
-<span><span class="co">#&gt;          13    43 52.42105</span></span>
-<span><span class="co">#&gt; ---                       </span></span>
-<span><span class="co">#&gt;         324    57 52.42105</span></span>
-<span><span class="co">#&gt;         325    57 41.30769</span></span>
-<span><span class="co">#&gt;         326    60 49.99174</span></span></code></pre></div>
+<span><span class="co">#&gt;  row_ids truth response</span></span>
+<span><span class="co">#&gt;       11    48 49.99174</span></span>
+<span><span class="co">#&gt;       12    40 49.99174</span></span>
+<span><span class="co">#&gt;       13    43 52.42105</span></span>
+<span><span class="co">#&gt;      ---   ---      ---</span></span>
+<span><span class="co">#&gt;      324    57 52.42105</span></span>
+<span><span class="co">#&gt;      325    57 41.30769</span></span>
+<span><span class="co">#&gt;      326    60 49.99174</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="implemented-pipeops">Implemented PipeOps<a class="anchor" aria-label="anchor" href="#implemented-pipeops"></a>
 </h2>
@@ -162,43 +162,43 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor">fda.cor</a></td>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor">fda.cor</a></td>
 <td align="left">Cross-Correlation of Functional Data</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract">fda.extract</a></td>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract">fda.extract</a></td>
 <td align="left">Extracts Simple Features from Functional Columns</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten">fda.flatten</a></td>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten">fda.flatten</a></td>
 <td align="left">Flattens Functional Columns</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca">fda.fpca</a></td>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca">fda.fpca</a></td>
 <td align="left">Functional Principal Component Analysis</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol">fda.interpol</a></td>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol">fda.interpol</a></td>
 <td align="left">Interpolate Functional Columns</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange">fda.scalerange</a></td>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.scalerange">fda.scalerange</a></td>
 <td align="left">Linearly Transform the Domain of Functional Data</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth">fda.smooth</a></td>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.smooth">fda.smooth</a></td>
 <td align="left">Smoothing Functional Columns</td>
 <td align="left">
 <a href="https://cran.r-project.org/package=tf" class="external-link">tf</a>, stats</td>
