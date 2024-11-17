@@ -60,9 +60,9 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
 
   private = list(
     .transform_dt = function(dt, levels) {
-      if (!requireNamespace("tsfeatures", quietly = TRUE)) {
-        stopf("Package 'tsfeatures' is required for this PipeOp.")
-      }
+      require_namespaces(
+        "tsfeatures", "To use this PipeOp, please install the following package: %s"
+      )
 
       pars = self$param_set$get_values()
 
@@ -72,8 +72,8 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
         setDT(feats)
         setnames(feats, sprintf("%s_%s", nm, names(feats)))
       })
-      cols = do.call(cbind, unname(cols))
-      cols
+      cols = unlist(unname(cols), recursive = FALSE)
+      setDT(cols)
     }
   )
 )
