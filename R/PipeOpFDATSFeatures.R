@@ -1,4 +1,4 @@
-#' @title Functional Principal Component Analysis
+#' @title Time Series Feature Extraction
 #' @name mlr_pipeops_fda.tsfeats
 #'
 #' @description
@@ -42,9 +42,11 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
         ),
         parallel = p_lgl(default = FALSE, tags = c("train", "predict")),
         multiprocess = p_uty(
-          tags = c("train", "predict"), depends = quote(parallel == TRUE)
+          tags = c("train", "predict"),
+          depends = quote(parallel == TRUE),
+          custom_check = check_function
         ),
-        na.action = p_uty(tags = c("train", "predict"))
+        na.action = p_uty(tags = c("train", "predict"), custom_check = check_function)
       )
 
       super$initialize(

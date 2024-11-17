@@ -3,7 +3,7 @@
 \name{mlr_pipeops_fda.tsfeats}
 \alias{mlr_pipeops_fda.tsfeats}
 \alias{PipeOpTSFeatures}
-\title{Functional Principal Component Analysis}
+\title{Time Series Feature Extraction}
 \description{
 This \code{PipeOp} applies ...
 }
