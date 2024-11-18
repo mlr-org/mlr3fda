@@ -6,8 +6,8 @@
 # mlr3fda 0.2.0
 
 * New PipeOps:
-  * `PipeOpFDAScaleRange`
   * `PipeOpFDACor`
+  * `PipeOpFDAScaleRange`
 * mlr3fda now depends on mlr3pipelines
 
 # mlr3fda 0.1.1
