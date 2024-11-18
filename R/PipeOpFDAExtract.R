@@ -13,16 +13,16 @@
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
 #'   column role `feature`. Initial value is `TRUE`.
-#' * `features` :: `list()` | `character()` \cr
+#' * `features` :: `list()` | `character()`\cr
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
 #'   Initial is `c("mean", "max", "min", "slope", "median", "var")`
-#' * `left` :: `numeric()` \cr
+#' * `left` :: `numeric()`\cr
 #'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
-#' * `right` :: `numeric()` \cr
+#' * `right` :: `numeric()`\cr
 #'   The right boundary of the window. Initial is `Inf`.
 #'
 #' @section Naming:

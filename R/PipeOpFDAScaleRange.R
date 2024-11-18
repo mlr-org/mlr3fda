@@ -10,9 +10,9 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
 #' as well as the following parameters:
-#' * `lower` :: `numeric(1)` \cr
+#' * `lower` :: `numeric(1)`\cr
 #' Target value of smallest item of input data. Initialized to `0`.
-#' * `uppper` :: `numeric(1)` \cr
+#' * `uppper` :: `numeric(1)`\cr
 #' Target value of greatest item of input data. Initialized to `1`.
 #'
 #' @export

@@ -17,16 +17,16 @@ as well as the following parameters:
 Whether to drop the original \code{functional} features and only keep the extracted features.
 Note that this does not remove the features from the backend, but only from the active
 column role \code{feature}. Initial value is \code{TRUE}.
-\item \code{features} :: \code{list()} | \code{character()} \cr
+\item \code{features} :: \code{list()} | \code{character()}\cr
 A list of features to extract. Each element can be either a function or a string.
 If the element if is function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.
 For string elements, the following predefined features are available:
 \code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"},\code{"var"}.
 Initial is \code{c("mean", "max", "min", "slope", "median", "var")}
-\item \code{left} :: \code{numeric()} \cr
+\item \code{left} :: \code{numeric()}\cr
 The left boundary of the window. Initial is \code{-Inf}.
 The window is specified such that the all values >=left and <=right are kept for the computations.
-\item \code{right} :: \code{numeric()} \cr
+\item \code{right} :: \code{numeric()}\cr
 The right boundary of the window. Initial is \code{Inf}.
 }
 }

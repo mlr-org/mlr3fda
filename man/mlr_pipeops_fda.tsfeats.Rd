@@ -5,14 +5,32 @@
 \alias{PipeOpTSFeatures}
 \title{Time Series Feature Extraction}
 \description{
-This \code{PipeOp} applies ...
+This \code{PipeOp} extracts time series features from functional columns.
+
+For more details, see \code{\link[tsfeatures:tsfeatures]{tsfeatures::tsfeatures()}}, which is called internally.
 }
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
 as well as the following parameters:
 \itemize{
-\item ...
+\item \code{features} :: \code{character()}\cr
+Function names which return numeric vectors of features.
+All features returned by these functions must be named if they return more than one feature.
+Default is \code{c("frequency", "stl_features", "entropy", "acf_features")}.
+\item \code{scale} :: \code{logical(1)}\cr
+If \code{TRUE}, data is scaled to mean 0 and sd 1 before features are computed. Default is \code{TRUE}.
+\item \code{trim} :: \code{logical(1)}\cr
+If \code{TRUE}, data is trimmed by \code{trim_amount} before features are computed.
+Values larger than \code{trim_amount} in absolute value are set to \code{NA}. Default is \code{FALSE}.
+\item \code{trim_amount} :: \code{numeric(1)}\cr
+Default level of trimming. Default is \code{0.1}.
+\item \code{parallel} :: \code{logical(1)}\cr
+If \code{TRUE}, the features are computed in parallel. Default is \code{FALSE}.
+\item \code{multiprocess} :: \code{any}\cr
+The function from the future package to use for parallel processing. Default is \code{future::multisession}.
+\item \code{na.action} :: \code{any}\cr
+A function to handle missing values. Default is \code{stats::na.pass}.
 }
 }
 

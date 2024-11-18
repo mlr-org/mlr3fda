@@ -5,17 +5,16 @@
 #' This `PipeOp` applies a functional principal component analysis (FPCA) to functional columns and then
 #' extracts the principal components as features. This is done using a (truncated) weighted SVD.
 #'
-#' To apply this `PipeOp` to irregualr data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
+#' To apply this `PipeOp` to irregular data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
 #'
 #' For more details, see [tf::tfb_fpc()], which is called internally.
-#'
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
 #' as well as the following parameters:
-#' * `pve` :: `numeric(1)` \cr
+#' * `pve` :: `numeric(1)`\cr
 #'   The percentage of variance explained that should be retained. Default is `0.995`.
-#' * `n_components` :: `integer(1)` \cr
+#' * `n_components` :: `integer(1)`\cr
 #'   The number of principal components to extract. This parameter is initialized to `Inf`.
 #'
 #' @section Naming:

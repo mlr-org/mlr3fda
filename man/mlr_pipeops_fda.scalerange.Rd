@@ -15,9 +15,9 @@ where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
 as well as the following parameters:
 \itemize{
-\item \code{lower} :: \code{numeric(1)} \cr
+\item \code{lower} :: \code{numeric(1)}\cr
 Target value of smallest item of input data. Initialized to \code{0}.
-\item \code{uppper} :: \code{numeric(1)} \cr
+\item \code{uppper} :: \code{numeric(1)}\cr
 Target value of greatest item of input data. Initialized to \code{1}.
 }
 }
