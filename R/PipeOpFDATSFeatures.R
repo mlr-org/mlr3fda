@@ -42,11 +42,16 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
         ),
         parallel = p_lgl(default = FALSE, tags = c("train", "predict")),
         multiprocess = p_uty(
+          default = future::multisession,
           tags = c("train", "predict"),
           depends = quote(parallel == TRUE),
           custom_check = check_function
         ),
-        na.action = p_uty(tags = c("train", "predict"), custom_check = check_function)
+        na.action = p_uty(
+          default = stats::na.pass,
+          tags = c("train", "predict"),
+          custom_check = check_function
+        )
       )
 
       super$initialize(
