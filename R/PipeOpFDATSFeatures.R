@@ -52,7 +52,7 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
         features = p_uty(
           default = c("frequency", "stl_features", "entropy", "acf_features"),
           tags = "train",
-          custom_check = crate(function(x) check_character(x, any.missing = FALSE))
+          custom_check = crate(function(x) check_character(x, any.missing = FALSE, min.len = 1L))
         ),
         scale = p_lgl(default = TRUE, tags = c("train", "predict")),
         trim = p_lgl(default = FALSE, tags = c("train", "predict")),
