@@ -12,4 +12,11 @@ test_that("PipeOpFDATSFeatures works", {
   expect_task(task_tsfeats)
   expect_identical(dim(new_data), c(129L, 34L))
   expect_named(new_data, names(new_data))
+
+  # irregular data works
+  task = tsk("dti")
+  pop = po("fda.tsfeats")
+  task_tsfeats = train_pipeop(pop, list(task))[[1L]]
+  new_data = task_tsfeats$data()
+  expect_task(task_tsfeats)
 })

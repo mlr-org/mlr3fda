@@ -78,7 +78,7 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf", "tsfeatures"),
-        feature_types = "tfd_reg",
+        feature_types = c("tfd_reg", "tfd_irreg"),
         tags = "fda"
       )
     }
