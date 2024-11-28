@@ -86,10 +86,6 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
 
   private = list(
     .transform_dt = function(dt, levels) {
-      require_namespaces(
-        "tsfeatures", "To use this PipeOp, please install the following package: %s"
-      )
-
       pars = self$param_set$get_values()
 
       cols = imap(dt, function(x, nm) {
