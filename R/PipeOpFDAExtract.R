@@ -119,7 +119,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
   private = list(
     .transform = function(task) {
       cols = self$state$dt_columns
-      if (!length(cols)) {
+      if (length(cols) == 0L) {
         return(task)
       }
       dt = task$data(cols = cols)
