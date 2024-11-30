@@ -16,7 +16,7 @@
 #'   * `"rollmedian"`: rolling meadian
 #'   * `"savgol"`:  Savitzky-Golay filtering
 #'
-#'   All methods but "lowess" ignore non-equidistant arg values.
+#'   All methods but `"lowess"`` ignore non-equidistant arg values.
 #' * `args` :: named `list()`\cr
 #'   List of named arguments that is passed to `tf_smooth()`. See the help page of `tf_smooth()` for
 #'   default values.

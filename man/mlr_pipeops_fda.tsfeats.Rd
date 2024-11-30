@@ -28,9 +28,9 @@ Default level of trimming. Default is \code{0.1}.
 \item \code{parallel} :: \code{logical(1)}\cr
 If \code{TRUE}, the features are computed in parallel. Default is \code{FALSE}.
 \item \code{multiprocess} :: \code{any}\cr
-The function from the future package to use for parallel processing. Default is \code{future::multisession}.
+The function from the future package to use for parallel processing. Default is \code{\link[future:multisession]{future::multisession()}}.
 \item \code{na.action} :: \code{any}\cr
-A function to handle missing values. Default is \code{stats::na.pass}.
+A function to handle missing values. Default is \code{\link[stats:na.fail]{stats::na.pass()}}.
 }
 }
 

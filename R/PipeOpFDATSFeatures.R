@@ -23,9 +23,9 @@
 #' * `parallel` :: `logical(1)`\cr
 #' If `TRUE`, the features are computed in parallel. Default is `FALSE`.
 #' * `multiprocess` :: `any`\cr
-#' The function from the future package to use for parallel processing. Default is `future::multisession`.
+#' The function from the future package to use for parallel processing. Default is [future::multisession()].
 #' * `na.action` :: `any`\cr
-#' A function to handle missing values. Default is `stats::na.pass`.
+#' A function to handle missing values. Default is [stats::na.pass()].
 #'
 #' @section Naming:
 #' The new names generally append a `_{feature}` to the corresponding column name.
