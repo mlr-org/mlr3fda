@@ -51,7 +51,7 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
     #'   Identifier of resulting object, default `"fda.interpol"`.
-    #' @param param_vals (named `list`)\cr
+    #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.interpol", param_vals = list()) {

@@ -27,7 +27,7 @@ PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
     #'   Identifier of resulting object, default `"fda.scalerange"`.
-    #' @param param_vals (named `list`)\cr
+    #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.scalerange", param_vals = list()) {
