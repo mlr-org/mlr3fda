@@ -23,7 +23,7 @@ One of:
 \item \code{"savgol"}:  Savitzky-Golay filtering
 }
 
-All methods but `"lowess"`` ignore non-equidistant arg values.
+All methods but \code{"lowess"} ignore non-equidistant arg values.
 \item \code{args} :: named \code{list()}\cr
 List of named arguments that is passed to \code{tf_smooth()}. See the help page of \code{tf_smooth()} for
 default values.
