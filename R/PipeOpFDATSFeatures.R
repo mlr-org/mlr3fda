@@ -94,8 +94,7 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
         setDT(feats)
         setnames(feats, sprintf("%s_%s", nm, names(feats)))
       })
-      cols = unlist(unname(cols), recursive = FALSE)
-      setDT(cols)
+      setDT(unlist(unname(cols), recursive = FALSE))
     }
   )
 )
