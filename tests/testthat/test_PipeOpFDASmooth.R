@@ -31,7 +31,6 @@ test_that("PipeOpFDASmooth", {
 
     expect_equal(observed_train, expected)
     expect_equal(observed_predict, expected)
-
   }
 
   # regular

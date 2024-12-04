@@ -60,7 +60,7 @@ PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
             flat = as.matrix(x)
           }
           d = as.data.table(flat)
-          setnames(d, sprintf("%s_%s", nm, seq_len(ncol(flat))))
+          setnames(d, sprintf("%s_%i", nm, seq_len(ncol(flat))))
         }
       )
       names(flattened) = NULL # this does not set the data.table names to NULL but the list names

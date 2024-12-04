@@ -67,7 +67,7 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
       dt = imap_dtc(dt, function(col, nm) {
         map(col, function(x) {
           pc = as.list(x[2:min(pars$n_components + 1L, length(x))])
-          set_names(pc, sprintf("%s_pc_%d", nm, seq_along(pc)))
+          set_names(pc, sprintf("%s_pc_%i", nm, seq_along(pc)))
         })
       })
       unnest(dt, names(dt))
@@ -85,7 +85,7 @@ PipeOpFPCA = R6Class("PipeOpFPCA",
         )
         map(fpc, function(x) {
           pc = as.list(x[2:min(pars$n_components + 1L, length(x))])
-          set_names(pc, sprintf("%s_pc_%d", nm, seq_along(pc)))
+          set_names(pc, sprintf("%s_pc_%i", nm, seq_along(pc)))
         })
       })
       unnest(dt, names(dt))
