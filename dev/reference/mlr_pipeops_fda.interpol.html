@@ -59,7 +59,7 @@ The interpolation is done using the <code>tf</code> package. See <code><a href="
 
 
 <p>The parameters are the parameters inherited from <code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html" class="external-link">PipeOpTaskPreprocSimple</a></code>,
-as well as the following parameters:</p><ul><li><p><code>grid</code> :: <code>character(1)</code> | <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> <br>
+as well as the following parameters:</p><ul><li><p><code>grid</code> :: <code>character(1)</code> | <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 The grid to use for interpolation.
 If <code>grid</code> is numeric, it must be a sequence of values to use for the grid or a single value that
 specifies the number of points to use for the grid, requires <code>left</code> and <code>right</code> to be specified in the latter case.
@@ -76,17 +76,17 @@ This bounded grid encapsulates the argument point range common to all features.
 Note: For regular functional data this has no effect as all argument points are the same.
 Initial value is <code>"union"</code>.</p></li>
 </ul></li>
-<li><p><code>method</code> :: <code>character(1)</code> <br>
+<li><p><code>method</code> :: <code>character(1)</code><br>
 Defaults to <code>"linear"</code>. One of:</p><ul><li><p><code>"linear"</code>: applies linear interpolation without extrapolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_linear()</a></code>).</p></li>
 <li><p><code>"spline"</code>: applies cubic spline interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_spline()</a></code>).</p></li>
 <li><p><code>"fill_extend"</code>: applies linear interpolation with constant extrapolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_fill_extend()</a></code>).</p></li>
 <li><p><code>"locf"</code>: applies "last observation carried forward" interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_locf()</a></code>).</p></li>
 <li><p><code>"nocb"</code>: applies "next observation carried backward" interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_nocb()</a></code>).</p></li>
 </ul></li>
-<li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> <br>
+<li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 The left boundary of the window.
 The window is specified such that the all values &gt;=left and &lt;=right are kept for the computations.</p></li>
-<li><p><code>right</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code> <br>
+<li><p><code>right</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 The right boundary of the window.</p></li>
 </ul></div>
     <div class="section level2">
@@ -120,7 +120,7 @@ Identifier of resulting object, default <code>"fda.interpol"</code>.</p></dd>
 
 
 <dt><code>param_vals</code></dt>
-<dd><p>(named <code>list</code>)<br>
+<dd><p>(named <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>)<br>
 List of hyperparameter settings, overwriting the hyperparameter settings that would
 otherwise be set during construction. Default <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.</p></dd>
 
