@@ -12,7 +12,7 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
-#' * `arg` :: `numeric()` \cr
+#' * `arg` :: `numeric()`\cr
 #'   Grid to use for the cross-correlation.
 #'
 #' @export
@@ -29,7 +29,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
     #'   Identifier of resulting object, default `"fda.cor"`.
-    #' @param param_vals (named `list`)\cr
+    #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.cor", param_vals = list()) {

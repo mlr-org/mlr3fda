@@ -14,7 +14,7 @@ The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{t
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
 as well as the following parameters:
 \itemize{
-\item \code{grid} :: \code{character(1)} | \code{numeric()} \cr
+\item \code{grid} :: \code{character(1)} | \code{numeric()}\cr
 The grid to use for interpolation.
 If \code{grid} is numeric, it must be a sequence of values to use for the grid or a single value that
 specifies the number of points to use for the grid, requires \code{left} and \code{right} to be specified in the latter case.
@@ -33,7 +33,7 @@ This bounded grid encapsulates the argument point range common to all features.
 Note: For regular functional data this has no effect as all argument points are the same.
 Initial value is \code{"union"}.
 }
-\item \code{method} :: \code{character(1)} \cr
+\item \code{method} :: \code{character(1)}\cr
 Defaults to \code{"linear"}. One of:
 \itemize{
 \item \code{"linear"}: applies linear interpolation without extrapolation (see \code{\link[tf:tf_approx]{tf::tf_approx_linear()}}).
@@ -42,10 +42,10 @@ Defaults to \code{"linear"}. One of:
 \item \code{"locf"}: applies "last observation carried forward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_locf()}}).
 \item \code{"nocb"}: applies "next observation carried backward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_nocb()}}).
 }
-\item \code{left} :: \code{numeric()} \cr
+\item \code{left} :: \code{numeric()}\cr
 The left boundary of the window.
 The window is specified such that the all values >=left and <=right are kept for the computations.
-\item \code{right} :: \code{numeric()} \cr
+\item \code{right} :: \code{numeric()}\cr
 The right boundary of the window.
 }
 }
@@ -91,7 +91,7 @@ Initializes a new instance of this Class.
 \item{\code{id}}{(\code{character(1)})\cr
 Identifier of resulting object, default \code{"fda.interpol"}.}
 
-\item{\code{param_vals}}{(named \code{list})\cr
+\item{\code{param_vals}}{(named \code{list()})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would
 otherwise be set during construction. Default \code{list()}.}
 }

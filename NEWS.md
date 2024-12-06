@@ -1,6 +1,7 @@
 # dev
 
 * mlr3fda now depends on R 4.1.0 instead of R 3.1.0 to reflect tf requiring 4.1.0
+* New PipeOp: `PipeOpFDATSFeatures`
 
 # mlr3fda 0.2.0
 

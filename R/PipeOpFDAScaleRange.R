@@ -10,9 +10,9 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
 #' as well as the following parameters:
-#' * `lower` :: `numeric(1)` \cr
+#' * `lower` :: `numeric(1)`\cr
 #' Target value of smallest item of input data. Initialized to `0`.
-#' * `uppper` :: `numeric(1)` \cr
+#' * `uppper` :: `numeric(1)`\cr
 #' Target value of greatest item of input data. Initialized to `1`.
 #'
 #' @export
@@ -27,7 +27,7 @@ PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
     #'   Identifier of resulting object, default `"fda.scalerange"`.
-    #' @param param_vals (named `list`)\cr
+    #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.scalerange", param_vals = list()) {

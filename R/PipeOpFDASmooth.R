@@ -16,7 +16,7 @@
 #'   * `"rollmedian"`: rolling meadian
 #'   * `"savgol"`:  Savitzky-Golay filtering
 #'
-#'   All methods but "lowess" ignore non-equidistant arg values.
+#'   All methods but `"lowess"` ignore non-equidistant arg values.
 #' * `args` :: named `list()`\cr
 #'   List of named arguments that is passed to `tf_smooth()`. See the help page of `tf_smooth()` for
 #'   default values.
@@ -37,7 +37,7 @@ PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
     #'   Identifier of resulting object, default `"fda.smooth"`.
-    #' @param param_vals (named `list`)\cr
+    #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.smooth", param_vals = list()) {

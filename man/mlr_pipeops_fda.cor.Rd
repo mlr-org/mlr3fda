@@ -17,7 +17,7 @@ If you need to change the domain of the columns, use \code{\link{PipeOpFDAScaleR
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
 as well as the following parameters:
 \itemize{
-\item \code{arg} :: \code{numeric()} \cr
+\item \code{arg} :: \code{numeric()}\cr
 Grid to use for the cross-correlation.
 }
 }
@@ -65,7 +65,7 @@ Initializes a new instance of this Class.
 \item{\code{id}}{(\code{character(1)})\cr
 Identifier of resulting object, default \code{"fda.cor"}.}
 
-\item{\code{param_vals}}{(named \code{list})\cr
+\item{\code{param_vals}}{(named \code{list()})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would
 otherwise be set during construction. Default \code{list()}.}
 }

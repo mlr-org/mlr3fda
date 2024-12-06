@@ -23,7 +23,7 @@ One of:
 \item \code{"savgol"}:  Savitzky-Golay filtering
 }
 
-All methods but "lowess" ignore non-equidistant arg values.
+All methods but \code{"lowess"} ignore non-equidistant arg values.
 \item \code{args} :: named \code{list()}\cr
 List of named arguments that is passed to \code{tf_smooth()}. See the help page of \code{tf_smooth()} for
 default values.
@@ -75,7 +75,7 @@ Initializes a new instance of this Class.
 \item{\code{id}}{(\code{character(1)})\cr
 Identifier of resulting object, default \code{"fda.smooth"}.}
 
-\item{\code{param_vals}}{(named \code{list})\cr
+\item{\code{param_vals}}{(named \code{list()})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would
 otherwise be set during construction. Default \code{list()}.}
 }

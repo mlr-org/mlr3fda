@@ -8,7 +8,7 @@
 This \code{PipeOp} applies a functional principal component analysis (FPCA) to functional columns and then
 extracts the principal components as features. This is done using a (truncated) weighted SVD.
 
-To apply this \code{PipeOp} to irregualr data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
+To apply this \code{PipeOp} to irregular data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
 
 For more details, see \code{\link[tf:tfb_fpc]{tf::tfb_fpc()}}, which is called internally.
 }
@@ -17,9 +17,9 @@ For more details, see \code{\link[tf:tfb_fpc]{tf::tfb_fpc()}}, which is called i
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
 as well as the following parameters:
 \itemize{
-\item \code{pve} :: \code{numeric(1)} \cr
+\item \code{pve} :: \code{numeric(1)}\cr
 The percentage of variance explained that should be retained. Default is \code{0.995}.
-\item \code{n_components} :: \code{integer(1)} \cr
+\item \code{n_components} :: \code{integer(1)}\cr
 The number of principal components to extract. This parameter is initialized to \code{Inf}.
 }
 }
@@ -72,7 +72,7 @@ Initializes a new instance of this Class.
 \item{\code{id}}{(\code{character(1)})\cr
 Identifier of resulting object, default is \code{"fda.fpca"}.}
 
-\item{\code{param_vals}}{(named \code{list})\cr
+\item{\code{param_vals}}{(named \code{list()})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would
 otherwise be set during construction. Default \code{list()}.}
 }

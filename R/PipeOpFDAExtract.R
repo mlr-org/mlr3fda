@@ -13,16 +13,16 @@
 #'   Whether to drop the original `functional` features and only keep the extracted features.
 #'   Note that this does not remove the features from the backend, but only from the active
 #'   column role `feature`. Initial value is `TRUE`.
-#' * `features` :: `list()` | `character()` \cr
+#' * `features` :: `list()` | `character()`\cr
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
 #'   Initial is `c("mean", "max", "min", "slope", "median", "var")`
-#' * `left` :: `numeric()` \cr
+#' * `left` :: `numeric()`\cr
 #'   The left boundary of the window. Initial is `-Inf`.
 #'   The window is specified such that the all values >=left and <=right are kept for the computations.
-#' * `right` :: `numeric()` \cr
+#' * `right` :: `numeric()`\cr
 #'   The right boundary of the window. Initial is `Inf`.
 #'
 #' @section Naming:
@@ -55,7 +55,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
     #'   Identifier of resulting object, default is `"fda.extract"`.
-    #' @param param_vals (named `list`)\cr
+    #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.extract", param_vals = list()) {
@@ -111,7 +111,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf"),
-        feature_types = c("tfd_irreg", "tfd_reg"),
+        feature_types = c("tfd_reg", "tfd_irreg"),
         tags = "fda"
       )
     }
@@ -119,7 +119,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
   private = list(
     .transform = function(task) {
       cols = self$state$dt_columns
-      if (!length(cols)) {
+      if (length(cols) == 0L) {
         return(task)
       }
       dt = task$data(cols = cols)
