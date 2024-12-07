@@ -215,8 +215,8 @@ make_fextractor = function(features) {
 }
 
 transform_list = function(x) {
-  x = transpose_list(x)
-  map(x, unlist, use.names = FALSE)
+  res = transpose(x)
+  map(res, function(x) unlist(x, recursive = FALSE, use.names = FALSE))
 }
 
 ffind = function(x, left = -Inf, right = Inf) {
