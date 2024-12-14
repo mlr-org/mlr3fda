@@ -38,7 +38,7 @@ test_that("PipeOpFDAFlatten works with name clashes", {
   task = as_task_regr(dt, target = "heatan")
   pop = po("fda.flatten")
   taskout = train_pipeop(pop, train_pipeop(pop, list(task)))[[1L]]
-  expect_match(taskout$feature_names, "NIR_1_1", fixed = TRUE, all = FALSE)
+  expect_true("NIR_1_1" %in% taskout$feature_names)
 })
 
 test_that("PipeOpFDAFlatten works with tfr and tfi", {
