@@ -27,7 +27,7 @@ test_that("PipeOpFDATSFeatures works", {
   new_data = task_tsfeats$data()
   walk(new_data, \(x) expect_vector(x, numeric()))
   expect_identical(dim(new_data), c(129L, 20L))
-  expect_true(all(grepl("NIR_|UVVIS", setdiff(names(new_data), c("heatan", "h20")))))
+  expect_match(setdiff(names(new_data), c("heatan", "h20")), "NIR_|UVVIS_")
 
   # irregular data works
   task = tsk("dti")
