@@ -40,7 +40,7 @@ load_task_dti = function(id = "dti") {
     id = id,
     backend = b,
     target = "pasat",
-    label = "Diffusion Tensor Imaging (DTI)",
+    label = "Diffusion Tensor Imaging (DTI)"
   )
   b$hash = task$man = "mlr3fda::mlr_tasks_dti"
   task$col_roles$group = "subject_id"
