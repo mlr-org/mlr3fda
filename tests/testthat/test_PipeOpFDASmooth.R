@@ -50,8 +50,8 @@ test_that("PipeOpFDASmooth", {
   # verbose parameter is respected
   po_smooth = po("fda.smooth")
   po_smooth$param_set$set_values(verbose = TRUE)
-  expect_message(train_pipeop(po_smooth, list(task1)), "using")
+  expect_snapshot(train_pipeop(po_smooth, list(task1)))
   po_smooth = po("fda.smooth")
   po_smooth$param_set$set_values(verbose = FALSE)
-  expect_message(train_pipeop(po_smooth, list(task1)), NA)
+  expect_no_message(train_pipeop(po_smooth, list(task1)))
 })
