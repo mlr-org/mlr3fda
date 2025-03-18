@@ -54,7 +54,7 @@ Collate:
     'PipeOpFDAInterpol.R'
     'PipeOpFDAScaleRange.R'
     'PipeOpFDASmooth.R'
-    'PipeOpFDATSFeatures.R'
+    'PipeOpFDATsfeatures.R'
     'PipeOpFPCA.R'
     'TaskClassif_phoneme.R'
     'TaskRegr_dti.R'

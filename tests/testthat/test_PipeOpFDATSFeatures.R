@@ -1,10 +1,10 @@
-test_that("PipeOpFDATSFeatures - basic properties", {
+test_that("PipeOpFDATsfeatures - basic properties", {
   pop = po("fda.tsfeats")
   expect_pipeop(pop)
   expect_identical(pop$id, "fda.tsfeats")
 })
 
-test_that("PipeOpFDATSFeatures works", {
+test_that("PipeOpFDATsfeatures works", {
   task = tsk("fuel")
   pop = po("fda.tsfeats")
   task_tsfeats = train_pipeop(pop, list(task))[[1L]]

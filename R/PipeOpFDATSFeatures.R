@@ -38,7 +38,7 @@
 #' po_tsfeats = po("fda.tsfeats")
 #' task_tsfeats = po_tsfeats$train(list(task))[[1L]]
 #' task_tsfeats$data()
-PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
+PipeOpFDATsfeatures = R6Class("PipeOpFDATsfeatures",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
@@ -100,4 +100,4 @@ PipeOpTSFeatures = R6Class("PipeOpTSFeatures",
 )
 
 #' @include zzz.R
-register_po("fda.tsfeats", PipeOpTSFeatures)
+register_po("fda.tsfeats", PipeOpFDATsfeatures)
