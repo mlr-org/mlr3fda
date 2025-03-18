@@ -78,5 +78,6 @@ PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
     }
   )
 )
+
 #' @include zzz.R
 register_po("fda.smooth", PipeOpFDASmooth)

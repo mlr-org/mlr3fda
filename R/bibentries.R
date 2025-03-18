@@ -1,3 +1,5 @@
+#' @importFrom utils bibentry
+# nolint start
 bibentries = c(
   ferraty2003curves = bibentry("article",
     title = "Curves discrimination: a nonparametric functional approach",
@@ -30,3 +32,4 @@ bibentries = c(
     publisher = "Taylor & Francis"
   )
 )
+# nolint end
