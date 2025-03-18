@@ -36,8 +36,9 @@ Imports:
     tf (>= 0.3.5)
 Suggests:
     rpart,
-    tsfeatures,
     testthat (>= 3.2.0),
+    tsfeatures,
+    wavelets,
     withr
 Remotes:
     tidyfun/tf
