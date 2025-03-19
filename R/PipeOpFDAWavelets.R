@@ -25,18 +25,21 @@ PipeOpFDAWavelets = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.wavelets", param_vals = list()) {
       param_set = ps(
-        # `d`|`la`|`bl`|`c` follwed by an even number for the level of the filter
-        # filter.vals = c(
-        #   paste0("d", c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)),
-        #   paste0("la", c(8, 10, 12, 14, 16, 18, 20)),
-        #   paste0("bl", c(14, 18, 20)),
-        #   paste0("c", c(6, 12, 18, 24, 30)),
-        #   "haar"
-        # )
-        filter = p_uty(default = "la8"),
-        n.levels = p_uty(),
-        boundary = p_fct(default = "periodic", c("periodic", "reflection")),
-        fast = p_lgl(default = TRUE)
+        filter = p_uty(default = "la8", tags = c("train", "predict"), custom_check = crate(function(x) {
+          choices = c(
+            paste0("d", c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)),
+            paste0("la", c(8, 10, 12, 14, 16, 18, 20)),
+            paste0("bl", c(14, 18, 20)),
+            paste0("c", c(6, 12, 18, 24, 30)),
+            "haar"
+          )
+          check_choice(x, choices)
+        })),
+        n.levels = p_uty(tags = c("train", "predict")),
+        boundary = p_fct(
+          default = "periodic", c("periodic", "reflection"), tags = c("train", "predict")
+        ),
+        fast = p_lgl(default = TRUE, tags = c("train", "predict"))
       )
 
       super$initialize(
@@ -44,7 +47,7 @@ PipeOpFDAWavelets = R6Class(
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf", "wavelets"),
-        feature_types = c("tfd_reg", "tfd_irreg"),
+        feature_types = "tfd_reg",
         tags = "fda"
       )
     }
@@ -53,17 +56,16 @@ PipeOpFDAWavelets = R6Class(
   private = list(
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
+
       cols = imap(dt, function(x, nm) {
-        tslist = tf::tf_evaluations(x)
-        map_dtc(tslist, function(x) {
+        feats = map_dtr(tf::tf_evaluations(x), function(x) {
           wt = invoke(wavelets::dwt, X = x, .args = pars)
-          unlist(c(wt@W, wt@V[[wt@level]]))
+          feats = unlist(c(wt@W, wt@V[[wt@level]]), use.names = FALSE)
+          as.data.table(t(feats))
         })
-        browser()
-        setDT(feats)
-        setnames(feats, sprintf("%s_%s", nm, names(feats)))
+        setnames(feats, sprintf("%s_wav_%i", nm, seq_len(ncol(feats))))
       })
-      browser()
+      setDT(unlist(unname(cols), recursive = FALSE))
     }
   )
 )
