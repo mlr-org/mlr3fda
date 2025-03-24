@@ -17,7 +17,7 @@
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
-#'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
+#'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"` , `"re"`.
 #'   Initial is `c("mean", "max", "min", "slope", "median", "var")`
 #' * `left` :: `numeric()`\cr
 #'   The left boundary of the window. Initial is `-Inf`.
@@ -65,7 +65,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
         right = p_dbl(tags = c("train", "predict", "required")),
         features = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
           if (test_character(x)) {
-            return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
+            return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var", "re")))
           }
           if (test_list(x)) {
             res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
@@ -88,7 +88,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
                   return(res)
                 }
               } else {
-                res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
+                res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var", "re"))
                 if (!isTRUE(res)) {
                   return(res)
                 }
@@ -110,7 +110,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
         id = id,
         param_set = param_set,
         param_vals = param_vals,
-        packages = c("mlr3fda", "mlr3pipelines", "tf"),
+        packages = c("mlr3fda", "mlr3pipelines", "tf", "mlr3misc"),
         feature_types = c("tfd_reg", "tfd_irreg"),
         tags = "fda"
       )
@@ -134,6 +134,22 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
       feature_names = imap_chr(features, function(value, nm) {
         if (is.function(value)) nm else value
       })
+      
+      # separate handling of random effects as they are computed not rowwise but over all ids
+      # random effect variables are last in order of features even if specified otherwise
+      if (c('re') %in% feature_names){
+        feature_names <- feature_names[!feature_names %in% c('re')]
+        feature_names = c(feature_names, 're')
+        
+        # split random effect in random intercept and slope
+        feature_names <- unlist(lapply(feature_names, function(x) {
+          if (x == "re") {
+            c("random_intercept", "random_slope")
+          } else {
+            x
+          }
+        }))
+      }
       feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
 
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
@@ -141,7 +157,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
         feature_names = tail(unique_names, length(feature_names))
         lg$debug(sprintf("Duplicate names found in pipeop %s", self$id), feature_names = feature_names)
       }
-
+      
       features = map(features, function(feature) {
         if (is.function(feature)) {
           return(feature)
@@ -152,7 +168,8 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
           min = fmin,
           max = fmax,
           slope = fslope,
-          var = fvar
+          var = fvar,
+          re = fre
         )
       })
       fextractor = make_fextractor(features)
@@ -172,47 +189,104 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
   )
 )
 
+
 make_fextractor = function(features) {
   function(x, left = -Inf, right = Inf) {
     args = tf::tf_arg(x)
-
-    if (tf::is_reg(x)) {
-      interval = ffind(args, left = left, right = right)
-      lower = interval[[1L]]
-      upper = interval[[2L]]
-
-      if (is.na(lower) || is.na(upper)) {
-        res = map(features, function(f) rep(NA_real_, length(x))) # no observation in the given interval [left, right]
-        return(res)
-      }
-
-      values = tf::tf_evaluations(x)
-      arg = args[lower:upper]
-      res = map(seq_along(x), function(i) {
-        value = values[[i]]
-        map(features, function(f) f(arg = arg, value = value[lower:upper]))
-      })
-      return(transform_list(res))
-    }
-
-    values = tf::tf_evaluations(x)
-    res = map(seq_along(x), function(i) {
-      arg = args[[i]]
-      value = values[[i]]
-
-      interval = ffind(arg, left = left, right = right)
-      lower = interval[[1L]]
-      upper = interval[[2L]]
-
-      if (is.na(lower) || is.na(upper)) {
-        rep(NA_real_, length(features)) # no observation in the given interval [left, right]
+    
+    # Check whether random effects (re) extraction is requested.
+    re_requested = some(features, function(x) identical(x, fre))
+    # Remove 'fre' from the list for the standard extraction.
+    standard_features = if (re_requested) keep(features, function(x) !identical(x, fre)) else features
+    
+    # Compute standard features 
+    res_standard = NULL
+    if (length(standard_features) > 0) {
+      if (tf::is_reg(x)) {
+        interval = ffind(args, left = left, right = right)
+        lower = interval[[1L]]
+        upper = interval[[2L]]
+        if (is.na(lower) || is.na(upper)) {
+          res_standard = map(standard_features, function(f) rep(NA_real_, length(x)))
+        } else {
+          values = tf::tf_evaluations(x)
+          # Here we assume that all observations share the same arg window (you may adjust as needed)
+          arg = args[lower:upper]
+          res_standard = map(seq_along(x), function(i) {
+            value = values[[i]]
+            map(standard_features, function(f) f(arg = arg, value = value[lower:upper]))
+          })
+          res_standard = transform_list(res_standard)
+        }
       } else {
-        map(features, function(f) f(arg = arg[lower:upper], value = value[lower:upper]))
+        values = tf::tf_evaluations(x)
+        res_standard = map(seq_along(x), function(i) {
+          arg = args[[i]]
+          value = values[[i]]
+          
+          interval = ffind(arg, left = left, right = right)
+          lower = interval[[1L]]
+          upper = interval[[2L]]
+          if (is.na(lower) || is.na(upper)) {
+            rep(NA_real_, length(standard_features))
+          } else {
+            map(standard_features, function(f) f(arg = arg[lower:upper], value = value[lower:upper]))
+          }
+        })
+        res_standard = transform_list(res_standard)
       }
-    })
-    transform_list(res)
+    }
+    
+    # Compute random effects features if requested 
+    res_random = NULL
+    if (re_requested) {
+      
+      if (tf::is_reg(x)) {
+        interval = ffind(args, left = left, right = right)
+        lower = interval[[1L]]
+        upper = interval[[2L]]
+        if (is.na(lower) || is.na(upper)) {
+          res_random = map(c('random_intercept','random_slope'), function(f) rep(NA_real_, length(x)))
+        } else {
+          # Extract relevant interval from the data and unnest into long format.
+          x_zoom = tf::tf_zoom(x, begin = left, end = right)
+          long_df = as.data.frame(x_zoom, unnest = TRUE)
+          res_random = as.data.table(fre(long_df))
+        }
+      } else{
+        # Extract relevant interval from the data and unnest into long format.
+        x_zoom = tf::tf_zoom(x, begin = left, end = right)
+        # identify ids with NA
+        NA_ids = is.na(x_zoom)
+        
+        long_df = as.data.frame(x_zoom, unnest = TRUE)
+        # compute random effects, ids with NA are omitted from model estimation
+        ranef = fre(long_df)
+        # Create a container for random effects for every observation
+        res_random = data.table(
+          random_intercept = rep(NA_real_, length(x)),
+          random_slope      = rep(NA_real_, length(x))
+        )
+        # map results to res_random (especially relevant in the presence of NAs)
+        res_random[!NA_ids, ] = ranef
+      }
+      # adapt output format to rowwise feature extraction
+      res_random = as.list(res_random)
+      }  
+    
+    # Combine standard and random effects features
+    if (!is.null(res_standard) && !is.null(res_random)) {
+      # Both parts computed: concatenate the lists 
+      combined = c(res_standard, res_random)
+    } else if (!is.null(res_standard)) {
+      combined = res_standard
+    } else if (!is.null(res_random)) {
+      combined = res_random
+    } 
+    combined
   }
 }
+
 
 transform_list = function(x) {
   res = transpose(x)
@@ -248,6 +322,10 @@ fmax = function(arg, value) max(value, na.rm = TRUE)
 fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
 fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
 fvar = function(arg, value) stats::var(value, na.rm = TRUE)
-
+fre = function(x){
+  lmm = lme4::lmer(value ~ arg + (1 + arg | id), data = long_df)
+  re_df = lme4::ranef(lmm)$id
+  re_df
+}
 #' @include zzz.R
 register_po("fda.extract", PipeOpFDAExtract)
