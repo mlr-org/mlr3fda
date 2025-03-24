@@ -17,7 +17,7 @@ test_that("PipeOpFDATsfeatures works", {
   pop = po("fda.tsfeats", features = "entropy")
   task_tsfeats = train_pipeop(pop, list(task))[[1L]]
   new_data = task_tsfeats$data()
-  walk(new_data, \(x) expect_vector(x, numeric()))
+  walk(new_data, expect_numeric)
   expect_identical(dim(new_data), c(129L, 4L))
   expect_named(new_data, c("heatan", "h20", "NIR_entropy", "UVVIS_entropy"))
 
@@ -25,7 +25,7 @@ test_that("PipeOpFDATsfeatures works", {
   pop = po("fda.tsfeats", features = c("frequency", "stl_features"))
   task_tsfeats = train_pipeop(pop, list(task))[[1L]]
   new_data = task_tsfeats$data()
-  walk(new_data, \(x) expect_vector(x, numeric()))
+  walk(new_data, expect_numeric)
   expect_identical(dim(new_data), c(129L, 20L))
   expect_match(setdiff(names(new_data), c("heatan", "h20")), "NIR_|UVVIS_")
 
