@@ -241,6 +241,7 @@ make_fextractor = function(features) {
     res_random = NULL
     if (re_requested) {
       
+      # regular grid
       if (tf::is_reg(x)) {
         interval = ffind(args, left = left, right = right)
         lower = interval[[1L]]
@@ -254,21 +255,42 @@ make_fextractor = function(features) {
           res_random = as.data.table(fre(long_df))
         }
       } else{
-        # Extract relevant interval from the data and unnest into long format.
-        x_zoom = tf::tf_zoom(x, begin = left, end = right)
-        # identify ids with NA
-        NA_ids = is.na(x_zoom)
+        # irregular grid
         
-        long_df = as.data.frame(x_zoom, unnest = TRUE)
-        # compute random effects, ids with NA are omitted from model estimation
-        ranef = fre(long_df)
+        if (left == -Inf | right == Inf) {
+          all_args = unlist(args)
+          left = min(all_args)
+          right = max(all_args)
+        }
+        
         # Create a container for random effects for every observation
         res_random = data.table(
           random_intercept = rep(NA_real_, length(x)),
           random_slope      = rep(NA_real_, length(x))
         )
-        # map results to res_random (especially relevant in the presence of NAs)
-        res_random[!NA_ids, ] = ranef
+        # Extract relevant interval from the data and unnest into long format.
+        
+        x_zoom = tryCatch({
+          suppressWarnings(tf::tf_zoom(x, begin = left, end = right)) # suppress warning from NAs in individual rows
+        }, #catch error if there is no data in the selected interval and return NA
+        error = function(e) { 
+          if (grepl("No data in zoom region", e$message)) {
+            return(NULL)
+          } else {
+            stop(e)
+          }
+        })
+        
+        if (!is.null(x_zoom)){
+          # identify ids with NA
+          NA_ids = is.na(x_zoom)
+          
+          long_df = as.data.frame(x_zoom, unnest = TRUE)
+          # compute random effects, ids with NA are omitted from model estimation
+          ranef = fre(long_df)
+          # map results to res_random (especially relevant in the presence of NAs)
+          res_random[!NA_ids, ] = ranef
+        }
       }
       # adapt output format to rowwise feature extraction
       res_random = as.list(res_random)
@@ -322,7 +344,7 @@ fmax = function(arg, value) max(value, na.rm = TRUE)
 fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
 fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
 fvar = function(arg, value) stats::var(value, na.rm = TRUE)
-fre = function(x){
+fre = function(long_df){
   lmm = lme4::lmer(value ~ arg + (1 + arg | id), data = long_df)
   re_df = lme4::ranef(lmm)$id
   re_df
