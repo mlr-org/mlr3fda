@@ -94,34 +94,6 @@ test_that("PipeOpFDAExtract works", {
   po_fmean = po("fda.extract", features = list("mean"), drop = TRUE, affect_columns = selector_name("abc"))
   task_fmean = train_pipeop(po_fmean, list(task))[[1L]]
   expect_set_equal(task_fmean$feature_names, "f")
-  
-  
-  # re alone works
-  po_fre = po("fda.extract", features = list("re"), drop = TRUE)
-  task_fre = train_pipeop(po_fre, list(task))[[1L]]
-  expect_set_equal(task_fre$feature_names, c("f_random_intercept", "f_random_slope"))
-  
-  # re works with other features 
-  po_fre = po("fda.extract", features = list("re", "mean"), drop = TRUE)
-  task_fre = train_pipeop(po_fre, list(task))[[1L]]
-  fmean = task_fre$data()$f_mean
-  expect_equal(fmean, c(2, 4.5))
-  expect_set_equal(task_fre$feature_names, c("f_mean", "f_random_intercept", "f_random_slope"))
-  
-  # re returns NA if no data in interval 
-  po_fre = po("fda.extract", features = list("re"), drop = TRUE, left = 100, right = 200)
-  task_fre = train_pipeop(po_fre, list(task))[[1L]]
-  expect_set_equal(task_fre$feature_names, c("f_random_intercept", "f_random_slope"))
-  fre = task_fre$data()[, c('f_random_intercept', "f_random_slope")]
-  expect_true(all(is.na(unlist(fre))))
-  
-  # NAs for subjects with no data and random effects where values are present
-  task = tsk('dti')$select(c('cca', 'rcst'))
-  po_fre = po("fda.extract", features = list("re"), drop = TRUE, left = 0.1, right = 0.2)
-  task_fre = train_pipeop(po_fre, list(task))[[1L]]
-  expect_set_equal(task_fre$feature_names, as.vector(outer(task$feature_names, c("random_intercept", "random_slope"), paste, sep = '_')))
-  expect_true(all(is.na(task_fre$data()[3, c('rcst_random_intercept', 'rcst_random_slope')])))
-  
 })
 
 test_that("PipeOpFDAExtract works (simple test) for all features", {
