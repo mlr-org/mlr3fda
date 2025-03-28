@@ -7,3 +7,6 @@ linters: linters_with_defaults(
     line_length_linter = line_length_linter(120L),
     object_length_linter = object_length_linter(40L)
     )
+exclusions: list(
+    "inst/bench/bench.R"
+  )
