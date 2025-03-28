@@ -131,9 +131,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
       assert_true(left <= right)
 
       # handle name clashes of generated features with existing columns
-      feature_names = imap_chr(features, function(value, nm) {
-        if (is.function(value)) nm else value
-      })
+      feature_names = imap_chr(features, function(value, nm) if (is.function(value)) nm else value)
       feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
 
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
