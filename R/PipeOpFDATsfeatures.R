@@ -56,9 +56,7 @@ PipeOpFDATsfeatures = R6Class("PipeOpFDATsfeatures",
         ),
         scale = p_lgl(default = TRUE, tags = c("train", "predict")),
         trim = p_lgl(default = FALSE, tags = c("train", "predict")),
-        trim_amount = p_dbl(
-          default = 0.1, tags = c("train", "predict"), depends = quote(trim == TRUE)
-        ),
+        trim_amount = p_dbl(default = 0.1, tags = c("train", "predict"), depends = quote(trim == TRUE)),
         parallel = p_lgl(default = FALSE, tags = c("train", "predict")),
         multiprocess = p_uty(
           default = future::multisession,
@@ -66,11 +64,7 @@ PipeOpFDATsfeatures = R6Class("PipeOpFDATsfeatures",
           depends = quote(parallel == TRUE),
           custom_check = check_function
         ),
-        na.action = p_uty(
-          default = stats::na.pass,
-          tags = c("train", "predict"),
-          custom_check = check_function
-        )
+        na.action = p_uty(default = stats::na.pass, tags = c("train", "predict"), custom_check = check_function)
       )
 
       super$initialize(
