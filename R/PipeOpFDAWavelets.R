@@ -25,29 +25,31 @@ PipeOpFDAWavelets = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.wavelets", param_vals = list()) {
       param_set = ps(
-        filter = p_uty(default = "la8", tags = c("train", "predict"), custom_check = crate(function(x) {
-          if (test_class(filter, "wt.filter")) {
-            return(TRUE)
-          }
-          if (test_string(filter)) {
-            choices = c(
-              paste0("d", c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)),
-              paste0("la", c(8, 10, 12, 14, 16, 18, 20)),
-              paste0("bl", c(14, 18, 20)),
-              paste0("c", c(6, 12, 18, 24, 30)),
-              "haar"
-            )
-            return(check_choice(x, choices))
-          }
-          if (test_numeric(filter) && length(filter) %% 2L == 0L) {
-            return(TRUE)
-          }
-          "Must be either a string, an even numeric vector or wavelet filter object"
-        })),
-        n.levels = p_int(tags = c("train", "predict")),
-        boundary = p_fct(
-          default = "periodic", c("periodic", "reflection"), tags = c("train", "predict")
+        filter = p_uty(
+          default = "la8",
+          tags = c("train", "predict"),
+          custom_check = crate(function(x) {
+            if (test_class(filter, "wt.filter")) {
+              return(TRUE)
+            }
+            if (test_string(filter)) {
+              choices = c(
+                paste0("d", c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)),
+                paste0("la", c(8, 10, 12, 14, 16, 18, 20)),
+                paste0("bl", c(14, 18, 20)),
+                paste0("c", c(6, 12, 18, 24, 30)),
+                "haar"
+              )
+              return(check_choice(x, choices))
+            }
+            if (test_numeric(filter) && length(filter) %% 2L == 0L) {
+              return(TRUE)
+            }
+            "Must be either a string, an even numeric vector or wavelet filter object"
+          })
         ),
+        n.levels = p_int(tags = c("train", "predict")),
+        boundary = p_fct(default = "periodic", c("periodic", "reflection"), tags = c("train", "predict")),
         fast = p_lgl(default = TRUE, tags = c("train", "predict"))
       )
 
