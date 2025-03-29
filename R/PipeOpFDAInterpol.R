@@ -106,37 +106,42 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
         if (length(grid) > 1L && !has_left && !has_right) {
           max_grid = max(grid)
           min_grid = min(grid)
-          dt = map_dtc(dt, function(x) {
-            domain = tf::tf_domain(x)
-            if (min_grid < domain[[1L]] || max_grid > domain[[2L]]) {
-              stopf("The grid must be within the range of the domain.")
-            }
-            invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator))
-          })
+          dt[,
+            names(.SD) := map(.SD, function(x) {
+              domain = tf::tf_domain(x)
+              if (min_grid < domain[[1L]] || max_grid > domain[[2L]]) {
+                stopf("The grid must be within the range of the domain.")
+              }
+              invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator))
+            })
+          ]
           return(dt)
         }
         arg = seq(left, right, length.out = grid)
-        dt = map_dtc(dt, function(x) invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
+        dt[,
+          names(.SD) := map(.SD, function(x) invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
+        ]
         return(dt)
       }
 
-      dt = map_dtc(dt, function(x) {
-        if (tf::is_reg(x)) {
-          return(x)
-        }
-        arg = tf::tf_arg(x)
-        arg = switch(grid,
-          union = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE))),
-          intersect = Reduce(intersect, arg),
-          minmax = {
-            lower = max(map_dbl(arg, 1L))
-            upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
-            arg = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE)))
-            arg[seq(which(lower == arg), which(upper == arg))]
-          }
-        )
-        invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
-      })
+      dt[,
+        names(.SD) := map(.SD, function(x) {
+          arg = tf::tf_arg(x)
+          arg = switch(
+            grid,
+            union = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE))),
+            intersect = Reduce(intersect, arg),
+            minmax = {
+              lower = max(map_dbl(arg, 1L))
+              upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
+              arg = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE)))
+              arg[seq(which(lower == arg), which(upper == arg))]
+            }
+          )
+          invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
+        }),
+        .SDcols = tf::is_irreg
+      ]
       dt
     }
   )
