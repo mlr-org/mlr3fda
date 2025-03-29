@@ -106,26 +106,26 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
         if (length(grid) > 1L && !has_left && !has_right) {
           max_grid = max(grid)
           min_grid = min(grid)
-          dt[,
-            names(.SD) := map(.SD, function(x) {
-              domain = tf::tf_domain(x)
-              if (min_grid < domain[[1L]] || max_grid > domain[[2L]]) {
-                stopf("The grid must be within the range of the domain.")
-              }
-              invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator))
-            })
-          ]
+          for (j in seq_along(dt)) {
+            x = dt[[j]]
+            domain = tf::tf_domain(x)
+            if (min_grid < domain[[1L]] || max_grid > domain[[2L]]) {
+              stopf("The grid must be within the range of the domain.")
+            }
+            set(dt, j = j, value = invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator)))
+          }
           return(dt)
         }
         arg = seq(left, right, length.out = grid)
-        dt[,
-          names(.SD) := map(.SD, function(x) invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
-        ]
+        for (j in seq_along(dt)) {
+          set(dt, j = j, value = invoke(tf::tfd, data = dt[[j]], arg = arg, .args = list(evaluator = evaluator)))
+        }
         return(dt)
       }
 
-      dt[,
-        names(.SD) := map(.SD, function(x) {
+      for (j in seq_along(dt)) {
+        x = dt[[j]]
+        if (tf::is_irreg(x)) {
           arg = tf::tf_arg(x)
           arg = switch(
             grid,
@@ -138,10 +138,9 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
               arg[seq(which(lower == arg), which(upper == arg))]
             }
           )
-          invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator))
-        }),
-        .SDcols = tf::is_irreg
-      ]
+          set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
+        }
+      }
       dt
     }
   )

@@ -51,40 +51,40 @@ PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
     .train_dt = function(dt, levels, target) {
       pars = self$param_set$get_values(tags = "train")
 
-      dt[,
-        names(.SD) := imap(.SD, function(x, nm) {
-          domain = tf::tf_domain(x)
-          scale = (pars$upper - pars$lower) / (domain[2L] - domain[1L])
-          offset = -domain[1L] * scale + pars$lower
-          self$state[[nm]] = list(domain = domain, scale = scale, offset = offset)
+      for (j in names(dt)) {
+        x = dt[[j]]
+        domain = tf::tf_domain(x)
+        scale = (pars$upper - pars$lower) / (domain[2L] - domain[1L])
+        offset = -domain[1L] * scale + pars$lower
+        self$state[[j]] = list(domain = domain, scale = scale, offset = offset)
 
-          args = tf::tf_arg(x)
-          if (tf::is_reg(x)) {
-            new_args = offset + args * scale
-          } else {
-            new_args = map(args, function(arg) offset + arg * scale)
-          }
-          invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args)
-        })
-      ]
+        args = tf::tf_arg(x)
+        if (tf::is_reg(x)) {
+          new_args = offset + args * scale
+        } else {
+          new_args = map(args, function(arg) offset + arg * scale)
+        }
+        set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
+      }
+      dt
     },
 
     .predict_dt = function(dt, levels) {
-      dt[,
-        names(.SD) := imap(.SD, function(x, nm) {
-          trafo = self$state[[nm]]
-          if (!all(trafo$domain == tf::tf_domain(x))) {
-            stopf("Domain of new data does not match the domain of the training data.")
-          }
-          args = tf::tf_arg(x)
-          if (tf::is_reg(x)) {
-            new_args = trafo$offset + args * trafo$scale
-          } else {
-            new_args = map(args, function(arg) trafo$offset + arg * trafo$scale)
-          }
-          invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args)
-        })
-      ]
+      for (j in names(dt)) {
+        x = dt[[j]]
+        trafo = self$state[[j]]
+        if (!all(trafo$domain == tf::tf_domain(x))) {
+          stopf("Domain of new data does not match the domain of the training data.")
+        }
+        args = tf::tf_arg(x)
+        if (tf::is_reg(x)) {
+          new_args = trafo$offset + args * trafo$scale
+        } else {
+          new_args = map(args, function(arg) trafo$offset + arg * trafo$scale)
+        }
+        set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
+      }
+      dt
     }
   )
 )

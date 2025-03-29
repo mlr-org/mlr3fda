@@ -66,14 +66,18 @@ PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
       pars = self$param_set$get_values()
 
       if (pars$verbose) {
-        dt[, names(.SD) := map(.SD, function(x) invoke(tf::tf_smooth, x = x, method = pars$method, .args = pars$args))]
-      } else {
-        dt[,
-          names(.SD) := map(.SD, function(x) {
-            suppressMessages(invoke(tf::tf_smooth, x = x, method = pars$method, .args = pars$args))
-          })
-        ]
+        for (j in seq_along(dt)) {
+          set(dt, j = j, value = invoke(tf::tf_smooth, x = dt[[j]], method = pars$method, .args = pars$args))
+        }
+        return(dt)
       }
+      for (j in seq_along(dt)) {
+        set(dt,
+          j = j,
+          value = suppressMessages(invoke(tf::tf_smooth, x = dt[[j]], method = pars$method, .args = pars$args))
+        )
+      }
+      dt
     }
   )
 )

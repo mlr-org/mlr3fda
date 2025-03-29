@@ -28,7 +28,7 @@ Depends:
     R (>= 4.1.0)
 Imports:
     checkmate,
-    data.table (>= 1.16.0),
+    data.table,
     lgr,
     mlr3misc (>= 0.14.0),
     paradox,
