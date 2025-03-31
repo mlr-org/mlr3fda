@@ -125,9 +125,32 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
 )
 
 franeff = function(long_df){
-  lmm = lme4::lmer(value ~ arg + (1 + arg | id), data = long_df)
+  warnings_list <- character(0)
+  lmm <- tryCatch(
+    withCallingHandlers({
+      lmm <- lme4::lmer(value ~ arg + (1 + arg | id), data = long_df)
+      lmm 
+    }, warning = function(w) {
+      warnings_list <<- c(warnings_list, conditionMessage(w))
+      # Muffle warning so that it does not interrupt code
+      invokeRestart("muffleWarning")
+    }),
+    error = function(e) {
+      message("lmer encountered an error: ", conditionMessage(e))
+      return(NULL)
+    }
+  )
+  if (is.null(lmm)){
+    unique_ids = length(unique(long_df$id))
+    res_df <- data.frame(
+      random_intercept = rep(NA_real_, length(unique_ids)),
+      random_slope      = rep(NA_real_, length(unique_ids))
+    )
+    res_df
+  } else {
   re_df = lme4::ranef(lmm)$id
   re_df
+  }
 }
 # Register the operator.
 register_po("fda.randomeffect", PipeOpFDARandomEffect)
