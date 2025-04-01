@@ -26,13 +26,11 @@ PipeOpFDAWavelets = R6Class(
     initialize = function(id = "fda.wavelets", param_vals = list()) {
       param_set = ps(
         filter = p_uty(
-          default = "la8",
-          tags = c("train", "predict"),
-          custom_check = crate(function(x) {
-            if (test_class(filter, "wt.filter")) {
+          default = "la8", tags = c("train", "predict"), custom_check = crate(function(x) {
+            if (test_class(x, "wt.filter")) {
               return(TRUE)
             }
-            if (test_string(filter)) {
+            if (test_string(x)) {
               choices = c(
                 paste0("d", c(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)),
                 paste0("la", c(8, 10, 12, 14, 16, 18, 20)),
@@ -42,7 +40,7 @@ PipeOpFDAWavelets = R6Class(
               )
               return(check_choice(x, choices))
             }
-            if (test_numeric(filter) && length(filter) %% 2L == 0L) {
+            if (test_numeric(x) && length(x) %% 2L == 0L) {
               return(TRUE)
             }
             "Must be either a string, an even numeric vector or wavelet filter object"
