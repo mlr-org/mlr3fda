@@ -3,10 +3,26 @@
 #'
 #' @description
 #' This `PipeOp` extracts discrete wavelet transform coefficients from functional columns.
-#'
 #' For more details, see [wavelets::dwt()], which is called internally.
 #'
-#'
+#' @section Parameters:
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
+#' as well as the following parameters:
+#' * `filter` :: `character(1)` | `numeric()`\cr
+#'   Specifies which filter should be used.
+#'   Must be one of `"d"`|`"la"`|`"bl"`|`"c"` followed by an even
+#'   number for the level of the filter.
+#'   The level of the filter needs to be smaller or equal then the time-series length.
+#'   For more information and acceptable filters see `help(wt.filter)`.
+#'   Defaults to `"la8"`.
+#' * `n.levels` :: `integer(1)`\cr
+#'   An integer specifying the level of the decomposition.
+#' * `boundary` :: `character(1)`\cr
+#'   Boundary to be used. `"periodic"` assumes circular time series,
+#'   for `"reflection"` the series is extended to twice its length.
+#'   Default is `"periodic"`.
+#' * `fast` :: `logical(1)`\cr
+#'   Should the pyramid algorithm be calculated with an internal C function? Default is `TRUE`.
 #' @export
 #' @examples
 #' task = tsk("fuel")
@@ -65,6 +81,7 @@ PipeOpFDAWavelets = R6Class(
   private = list(
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
+      filter = pars$filter %??% "la8"
 
       cols = imap(dt, function(x, nm) {
         feats = map_dtr(tf::tf_evaluations(x), function(x) {
@@ -72,7 +89,7 @@ PipeOpFDAWavelets = R6Class(
           feats = unlist(c(wt@W, wt@V[[wt@level]]), use.names = FALSE)
           as.data.table(t(feats))
         })
-        setnames(feats, sprintf("%s_wav_%i", nm, seq_len(ncol(feats))))
+        setnames(feats, sprintf("%s_wav_%s_%i", nm, filter, seq_len(ncol(feats))))
       })
       setDT(unlist(unname(cols), recursive = FALSE))
     }
