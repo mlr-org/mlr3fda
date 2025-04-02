@@ -49,7 +49,8 @@
 #' )
 #' task_custom = po_custom$train(list(task))[[1L]]
 #' task_custom
-PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
+PipeOpFDAExtract = R6Class(
+  "PipeOpFDAExtract",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
@@ -63,41 +64,44 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
         drop = p_lgl(tags = c("train", "predict", "required")),
         left = p_dbl(tags = c("train", "predict", "required")),
         right = p_dbl(tags = c("train", "predict", "required")),
-        features = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
-          if (test_character(x)) {
-            return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
-          }
-          if (test_list(x)) {
-            res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
-            if (!isTRUE(res)) {
-              return(res)
+        features = p_uty(
+          tags = c("train", "predict", "required"),
+          custom_check = crate(function(x) {
+            if (test_character(x)) {
+              return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
             }
-            nms = names2(x)
-            res = check_names(nms[!is.na(nms)], "unique")
-            if (!isTRUE(res)) {
-              return(res)
-            }
-            for (i in seq_along(x)) {
-              if (is.function(x[[i]])) {
-                res = check_function(x[[i]], args = c("arg", "value"))
-                if (!isTRUE(res)) {
-                  return(res)
-                }
-                res = check_names(nms[i])
-                if (!isTRUE(res)) {
-                  return(res)
-                }
-              } else {
-                res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
-                if (!isTRUE(res)) {
-                  return(res)
+            if (test_list(x)) {
+              res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
+              if (!isTRUE(res)) {
+                return(res)
+              }
+              nms = names2(x)
+              res = check_names(nms[!is.na(nms)], "unique")
+              if (!isTRUE(res)) {
+                return(res)
+              }
+              for (i in seq_along(x)) {
+                if (is.function(x[[i]])) {
+                  res = check_function(x[[i]], args = c("arg", "value"))
+                  if (!isTRUE(res)) {
+                    return(res)
+                  }
+                  res = check_names(nms[i])
+                  if (!isTRUE(res)) {
+                    return(res)
+                  }
+                } else {
+                  res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
+                  if (!isTRUE(res)) {
+                    return(res)
+                  }
                 }
               }
+              return(TRUE)
             }
-            return(TRUE)
-          }
-          "Features must be a character or list"
-        }))
+            "Features must be a character or list"
+          })
+        )
       )
       param_set$set_values(
         drop = TRUE,
@@ -144,7 +148,8 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
         if (is.function(feature)) {
           return(feature)
         }
-        switch(feature,
+        switch(
+          feature,
           mean = fmean,
           median = fmedian,
           min = fmin,

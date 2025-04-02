@@ -23,7 +23,8 @@
 #' po_cor = po("fda.cor")
 #' task_cor = po_cor$train(list(task))[[1L]]
 #' task_cor
-PipeOpFDACor = R6Class("PipeOpFDACor",
+PipeOpFDACor = R6Class(
+  "PipeOpFDACor",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
