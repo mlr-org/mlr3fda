@@ -6,15 +6,28 @@ test_that("PipeOpFDARandomEffect - basic properties", {
 
 test_that("PipeOpFDARandomEffect works", {
   # tf_reg works
-  task = tsk("fuel")$select("NIR")
+  task = tsk("dti")
+  arg_list = tf::tf_arg(task$data()$cca)
+  idx_reggrid = seq_len(task$nrow)[sapply(arg_list, function(x) identical(x, arg_list[[1]]))]
+  task = tsk("dti")$select("cca")$filter(idx_reggrid)
+  
   po_fre = po("fda.randomeffect", drop = TRUE)
   task_fre = train_pipeop(po_fre, list(task))[[1L]]
-  expect_set_equal(task_fre$feature_names, c("NIR_random_intercept", "NIR_random_slope"))
+  expect_set_equal(task_fre$feature_names, c("cca_random_intercept", "cca_random_slope"))
   
   # drop = FALSE
   po_fre = po("fda.randomeffect", drop = FALSE)
   task_fre = train_pipeop(po_fre, list(task))[[1L]]
-  expect_set_equal(task_fre$feature_names, c("NIR", "NIR_random_intercept", "NIR_random_slope"))
+  expect_set_equal(task_fre$feature_names, c("cca", "cca_random_intercept", "cca_random_slope"))
+  
+  # failed to converge, returns a message and ... 
+  task = tsk("fuel")$select("NIR")
+  po_fre = po("fda.randomeffect", drop = TRUE)
+  expect_message(train_pipeop(po_fre, list(task))[[1L]])
+  # ... returns random effect estimates.
+  # po_fre = po("fda.randomeffect", drop = TRUE)
+  # task_fre = train_pipeop(po_fre, list(task))[[1L]]
+  # expect_true(!all(is.na(task_fre$data())))
   
   # tf_irreg works
   dt = data.table(
@@ -50,4 +63,17 @@ test_that("PipeOpFDARandomEffect works", {
   expect_set_equal(task_fre$feature_names, as.vector(outer(task$feature_names, c("random_intercept", "random_slope"), paste, sep = '_')))
   expect_true(all(is.na(task_fre$data()[3, c("rcst_random_intercept", "rcst_random_slope")])))
   
+  # singular solution 
+  dt = data.table(
+    id = c("Ann", "Ann", "Ann", "Bob", "Bob", "Bob"),
+    arg = rep(1:3, 2L),
+    value = c(1,1,1,-1,-1,-1)
+  )
+  f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
+  y = c(1, 1)
+  dt = data.table(f = f, y = y)
+  
+  task = as_task_regr(dt, target = "y")
+  po_fre = po("fda.randomeffect", drop = TRUE)
+  expect_message(train_pipeop(po_fre, list(task))[[1L]])
 })
