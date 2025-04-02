@@ -21,7 +21,8 @@
 #' po_scale = po("fda.scalerange", lower = -1, upper = 1)
 #' task_scale = po_scale$train(list(task))[[1L]]
 #' task_scale$data()
-PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
+PipeOpFDAScaleRange = R6Class(
+  "PipeOpFDAScaleRange",
   inherit = PipeOpTaskPreproc,
   public = list(
     #' @description Initializes a new instance of this Class.

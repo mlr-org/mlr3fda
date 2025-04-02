@@ -45,7 +45,8 @@
 #' pop = po("fda.interpol")
 #' task_interpol = pop$train(list(task))[[1L]]
 #' task_interpol$data()
-PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
+PipeOpFDAInterpol = R6Class(
+  "PipeOpFDAInterpol",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
@@ -56,17 +57,22 @@ PipeOpFDAInterpol = R6Class("PipeOpFDAInterpol",
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.interpol", param_vals = list()) {
       param_set = ps(
-        grid = p_uty(tags = c("train", "predict", "required"), custom_check = crate(function(x) {
-          if (test_string(x)) {
-            return(check_choice(x, choices = c("union", "intersect", "minmax")))
-          }
-          if (test_numeric(x, any.missing = FALSE, min.len = 1L)) {
-            return(TRUE)
-          }
-          "Must be either a string or numeric vector"
-        })),
+        grid = p_uty(
+          tags = c("train", "predict", "required"),
+          custom_check = crate(function(x) {
+            if (test_string(x)) {
+              return(check_choice(x, choices = c("union", "intersect", "minmax")))
+            }
+            if (test_numeric(x, any.missing = FALSE, min.len = 1L)) {
+              return(TRUE)
+            }
+            "Must be either a string or numeric vector"
+          })
+        ),
         method = p_fct(
-          c("linear", "spline", "fill_extend", "locf", "nocb"), default = "linear", tags = c("train", "predict")
+          c("linear", "spline", "fill_extend", "locf", "nocb"),
+          default = "linear",
+          tags = c("train", "predict")
         ),
         left = p_dbl(tags = c("train", "predict")),
         right = p_dbl(tags = c("train", "predict"))

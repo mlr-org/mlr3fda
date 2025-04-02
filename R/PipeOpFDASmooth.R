@@ -31,7 +31,8 @@
 #' task_smooth = po_smooth$train(list(task))[[1L]]
 #' task_smooth
 #' task_smooth$data(cols = c("NIR", "UVVIS"))
-PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
+PipeOpFDASmooth = R6Class(
+  "PipeOpFDASmooth",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
@@ -42,9 +43,14 @@ PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.smooth", param_vals = list()) {
       param_set = ps(
-        method = p_fct(default = "lowess", c("lowess", "rollmean", "rollmedian", "savgol"), tags = c("train", "predict")), # nolint
+        method = p_fct(
+          default = "lowess",
+          c("lowess", "rollmean", "rollmedian", "savgol"),
+          tags = c("train", "predict")
+        ),
         args = p_uty(
-          tags = c("train", "predict", "required"), custom_check = crate(function(x) check_list(x, names = "unique"))
+          tags = c("train", "predict", "required"),
+          custom_check = crate(function(x) check_list(x, names = "unique"))
         ),
         verbose = p_lgl(tags = c("train", "predict", "required"))
       )
@@ -72,7 +78,8 @@ PipeOpFDASmooth = R6Class("PipeOpFDASmooth",
         return(dt)
       }
       for (j in seq_along(dt)) {
-        set(dt,
+        set(
+          dt,
           j = j,
           value = suppressMessages(invoke(tf::tf_smooth, x = dt[[j]], method = pars$method, .args = pars$args))
         )

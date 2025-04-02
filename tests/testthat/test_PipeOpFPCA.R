@@ -50,9 +50,16 @@ test_that("PipeOpPCA works", {
   expect_task(task_fpc)
   expect_identical(dim(new_data), c(10L, 10L))
   nms = c(
-    "y", "f_pc_1", "f_pc_2", "f_pc_3",
-    "g_pc_1", "g_pc_2", "g_pc_3",
-    "h_pc_1", "h_pc_2", "h_pc_3"
+    "y",
+    "f_pc_1",
+    "f_pc_2",
+    "f_pc_3",
+    "g_pc_1",
+    "g_pc_2",
+    "g_pc_3",
+    "h_pc_1",
+    "h_pc_2",
+    "h_pc_3"
   )
   expect_named(new_data, nms)
   expect_identical(new_data, predict_pipeop(pop, list(task))[[1L]]$data())
@@ -62,9 +69,13 @@ test_that("PipeOpPCA works", {
   new_data = train_pipeop(pop, list(task))[[1L]]$data()
   expect_identical(dim(new_data), c(10L, 7L))
   nms = c(
-    "y", "f_pc_1", "f_pc_2",
-    "g_pc_1", "g_pc_2",
-    "h_pc_1", "h_pc_2"
+    "y",
+    "f_pc_1",
+    "f_pc_2",
+    "g_pc_1",
+    "g_pc_2",
+    "h_pc_1",
+    "h_pc_2"
   )
   expect_named(new_data, nms)
 

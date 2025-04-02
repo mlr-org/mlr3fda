@@ -5,9 +5,7 @@ library(mlr3pipelines)
 set.seed(1234)
 setDTthreads(threads = 1)
 
-generate_data = function(n_patients = 100,
-  n_weeks = 10,
-  type = c("reg", "irreg")) {
+generate_data = function(n_patients = 100, n_weeks = 10, type = c("reg", "irreg")) {
   type = match.arg(type)
   if (type == "reg") {
     week = 1:n_weeks
@@ -52,27 +50,29 @@ analyse_dplyr = function(patients, window_start, window_end, choice) {
 
 analyse_dt = function(patients, window_start, window_end, choice) {
   if (choice == "one") {
-    patients[between(week, window_start, window_end), .(
-      mean = mean(measurement_value)
-    ), keyby = .(patient_id, measurement_type)]
+    patients[
+      between(week, window_start, window_end),
+      .(
+        mean = mean(measurement_value)
+      ),
+      keyby = .(patient_id, measurement_type)
+    ]
   } else {
-    patients[between(week, window_start, window_end), .(
-      mean = mean(measurement_value),
-      var = var(measurement_value),
-      slope = coef(lm(measurement_value ~ week))[[2]]
-    ), keyby = .(patient_id, measurement_type)]
+    patients[
+      between(week, window_start, window_end),
+      .(
+        mean = mean(measurement_value),
+        var = var(measurement_value),
+        slope = coef(lm(measurement_value ~ week))[[2]]
+      ),
+      keyby = .(patient_id, measurement_type)
+    ]
   }
 }
 
 build_graph = function(left, right, choice) {
   features = switch(choice, one = "mean", three = c("mean", "var", "slope"))
-  po("ffs",
-    features = features,
-    id = "features",
-    drop = FALSE,
-    left = left,
-    right = right
-  )
+  po("ffs", features = features, id = "features", drop = FALSE, left = left, right = right)
 }
 
 analyse_fda = function(graph, task) {
@@ -88,7 +88,9 @@ results_one = bench::press(
     window_end = floor(n_weeks * 0.8)
 
     patients = generate_data(
-      n_patients = n_patients, n_weeks = n_weeks, type = type
+      n_patients = n_patients,
+      n_weeks = n_weeks,
+      type = type
     )
     patients_long = patients |>
       tidyr::pivot_longer(
@@ -129,7 +131,9 @@ results_three = bench::press(
     window_end = floor(n_weeks * 0.8)
 
     patients = generate_data(
-      n_patients = n_patients, n_weeks = n_weeks, type = type
+      n_patients = n_patients,
+      n_weeks = n_weeks,
+      type = type
     )
     patients_long = patients |>
       tidyr::pivot_longer(
