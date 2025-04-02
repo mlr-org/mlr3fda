@@ -144,32 +144,19 @@ otherwise be set during construction. Default <code><a href="https://rdrr.io/r/b
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - tfr (2): NIR, UVVIS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   - dbl (1): h20</span>
 <span class="r-in"><span><span class="va">task_smooth</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NIR"</span>, <span class="st">"UVVIS"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                           NIR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                     &lt;tfd_reg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  [1]: (1,  0.3);(2,  0.3);(3,  0.3); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  [2]: (1,  0.3);(2,  0.3);(3,  0.3); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  [3]: (1,-0.01);(2,-0.01);(3,-0.01); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  [4]: (1,-0.03);(2,-0.03);(3,-0.03); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  [5]: (1, -0.1);(2, -0.1);(3, -0.1); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:  [6]: (1,-0.04);(2,-0.04);(3,-0.04); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126:  [7]: (1, -0.6);(2, -0.6);(3, -0.6); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  [8]: (1, -0.8);(2, -0.8);(3, -0.8); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128:  [9]: (1,-0.05);(2,-0.05);(3,-0.05); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129: [10]: (1,  0.1);(2,  0.1);(3,  0.1); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      UVVIS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;tfd_reg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  [1]: (1, 0.7);(2, 0.7);(3, 0.7); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  [2]: (1,-0.9);(2,-0.9);(3,-0.9); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  [3]: (1,-0.2);(2,-0.2);(3,-0.2); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  [4]: (1,-0.5);(2,-0.5);(3,-0.5); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  [5]: (1,-0.8);(2,-0.8);(3,-0.8); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:  [6]: (1,-0.6);(2,-0.6);(3,-0.6); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126:  [7]: (1,-0.9);(2,-0.9);(3,-0.9); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  [8]: (1,-0.8);(2,-0.8);(3,-0.8); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128:  [9]: (1, 0.6);(2, 0.6);(3, 0.6); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129: [10]: (1,-0.8);(2,-0.8);(3,-0.8); ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             NIR                      UVVIS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       &lt;tfd_reg&gt;                  &lt;tfd_reg&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: ▇▇▇█████████████████████▇▇ ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇█████████</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: ▆▇▇▇▇▇▇▇▇█████████████████ ▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂▂▃▃▃▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: ▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ ▃▃▃▃▃▃▃▃▃▃▃▃▃▃▄▄▄▄▄▄▄▄▄▄▄▄</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: ▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ ▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: ▄▅▅▅▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆ ▂▂▂▂▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▃▃▃▃▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125: ▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆ ▂▂▃▂▂▂▂▂▂▂▂▂▂▂▃▃▃▃▃▃▃▃▃▃▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126: ▂▂▂▂▂▃▃▃▃▃▃▃▄▄▄▄▄▄▄▄▅▅▅▅▅▆ ▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127: ▁▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▄▅▅▅▆ ▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128: ▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▇▇▇▆▆▆▆▆▆▆ ▆▆▆▆▆▆▆▆▆▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129: ▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▅▅▅▅ ▂▂▂▂▂▂▂▂▂▂▂▂▂▃▃▃▃▃▃▃▃▃▃▃▃▃</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

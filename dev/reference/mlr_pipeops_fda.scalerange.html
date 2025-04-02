@@ -132,32 +132,19 @@ otherwise be set during construction. Default <code><a href="https://rdrr.io/r/b
 <span class="r-in"><span><span class="va">po_scale</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.scalerange"</span>, lower <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, upper <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">task_scale</span> <span class="op">=</span> <span class="va">po_scale</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">task_scale</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       heatan    h20                                                        NIR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;  &lt;num&gt;                                                  &lt;tfd_reg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 26.7810 2.3000  [1]: (-1.00,   0.23);(-0.99,   0.29);(-0.98,   0.30); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 27.4720 3.0000  [2]: (-1.00,   0.24);(-0.99,   0.32);(-0.98,   0.16); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 23.8400 2.0002  [3]: (-1.00, -0.052);(-0.99,  0.045);(-0.98, -0.078); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 18.1680 1.8500  [4]: (-1.00, -0.082);(-0.99, -0.082);(-0.98,  0.059); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 17.5170 2.3898  [5]: (-1.00, -0.228);(-0.99, -0.116);(-0.98, -0.042); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125: 23.8340 2.1100  [6]: (-1.00, -0.037);(-0.99, -0.023);(-0.98, -0.062); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126: 11.8050 1.6200  [7]: (-1.00,  -0.63);(-0.99,  -0.57);(-0.98,  -0.65); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  8.8315 1.4200  [8]: (-1.00,  -0.73);(-0.99,  -0.82);(-0.98,  -0.80); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128: 11.3450 1.4800  [9]: (-1.00,-0.0581);(-0.99,-0.0457);(-0.98,-0.0053); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129: 28.9940 2.5000 [10]: (-1.00,   0.10);(-0.99,   0.12);(-0.98,   0.18); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        UVVIS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                    &lt;tfd_reg&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:  [1]: (-1.00,  0.87);(-0.98,  0.75);(-0.97,  0.77); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:  [2]: (-1.00, -0.86);(-0.98, -1.29);(-0.97, -0.83); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:  [3]: (-1.00,-0.085);(-0.98,-0.294);(-0.97,-0.202); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:  [4]: (-1.00, -0.58);(-0.98, -0.49);(-0.97, -0.33); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:  [5]: (-1.00, -0.64);(-0.98, -1.12);(-0.97, -0.66); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 125:  [6]: (-1.00, -0.54);(-0.98, -0.67);(-0.97, -0.59); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 126:  [7]: (-1.00, -0.96);(-0.98, -0.82);(-0.97, -1.08); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  [8]: (-1.00, -0.89);(-0.98, -0.63);(-0.97, -0.99); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 128:  [9]: (-1.00,  0.52);(-0.98,  0.57);(-0.97,  0.61); ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 129: [10]: (-1.00, -0.54);(-0.98, -1.30);(-0.97, -0.79); ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       heatan    h20                        NIR                      UVVIS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;num&gt;  &lt;num&gt;                  &lt;tfd_reg&gt;                  &lt;tfd_reg&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: 26.7810 2.3000 ▇▇▇█████████████████████▇▇ ▆▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇███████</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: 27.4720 3.0000 ▆▇▇▇▇▇▇▇▇█████████████████ ▂▂▁▂▁▁▁▁▁▂▂▂▂▂▂▂▂▂▂▃▃▃▃▃▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: 23.8400 2.0002 ▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ ▄▃▃▃▃▃▃▃▃▃▃▃▃▄▄▄▄▄▄▄▄▄▄▄▄▄</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: 18.1680 1.8500 ▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅ ▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▄▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: 17.5170 2.3898 ▄▅▅▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆ ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▃▃▃▃▃▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 125: 23.8340 2.1100 ▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆ ▃▃▃▃▃▃▃▃▃▃▂▂▃▃▃▃▃▃▃▃▃▃▃▃▃▃</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 126: 11.8050 1.6200 ▂▂▂▂▃▃▃▃▃▃▃▄▄▄▄▄▄▄▄▅▅▅▅▅▅▆ ▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂▂</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 127:  8.8315 1.4200 ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▄▅▅▅▅▆ ▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 128: 11.3450 1.4800 ▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▇▇▇▇▇▆▆▆▆▆▆ ▆▆▆▆▆▆▆▆▅▅▅▅▅▅▅▆▆▆▆▆▆▆▆▆▆▆</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 129: 28.9940 2.5000 ▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆ ▂▂▂▂▂▂▂▂▂▂▂▂▃▃▃▃▃▃▃▃▃▃▃▃▃▃</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
