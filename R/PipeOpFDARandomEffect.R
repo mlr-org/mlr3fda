@@ -4,10 +4,10 @@
 #' 
 #' @description
 #' This is the class that extracts random effects, specifically random intercepts and
-#' random slopes, from functional columns. Random effects are computed via the lme4::lmer() function
-#' which fits a linear mixed models and subsequently enables random effects prediction. 
-#' Outcome of the mixed model are the values of functional feature which depend on the functional arguments with 
-#' id as the grouping structure.
+#' random slopes, from functional columns. This PipeOp fits a linear mixed model, specifically 
+#' a random intercept and random slope model, using the `lme4::lmer()` function.
+#' The target variable is the value of the functional feature which is regressed on the functional feature's argument while subject id 
+#' determines the grouping structure. After model estimation, the random effects are extracted and assigned to the correct id. 
 #' 
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
@@ -23,7 +23,7 @@
 #'   The right boundary of the window. Initial is `Inf`.
 #'   
 #'  @section Naming:
-#'  The new names generally append a `_random_intercept`/`_random_slope` to the corresponding column name.
+#'  The new names generally append a `_random_intercept`/`_random_slope` to the corresponding column name of the functional feature.
 #'  @export
 #'  @examples
 #'  task = tsk("fuel")
@@ -92,7 +92,7 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
         x_zoom = tryCatch({
           suppressWarnings(tf::tf_zoom(x, begin = left, end = right))
           }, error = function(e) {
-            if (grepl("No data in zoom region", e$message)){ 
+            if (grepl("No data in zoom region", conditionMessage(e))){ 
               return(NULL) 
             } else {
               stop(e)
@@ -100,14 +100,15 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
           }
         )
         if (!is.null(x_zoom)) {
-          NA_ids = is.na(x_zoom)
           # Unnest the zoomed data into long format.
           long_df = as.data.frame(x_zoom, unnest = TRUE)
           # compute random effects, ids with NA are omitted from model estimation
-          #TODO Ask Andreas: what to do of convergence issues 
           raneff = franeff(long_df)
-          # map results to res_random (especially relevant in the presence of NAs)
-          res_random[!NA_ids, ] = raneff
+          if (!is.null(raneff)){
+            # map random effects back to correct id (applies in presence of NAs)
+            ids_available = as.numeric(rownames(raneff))
+            res_random[ids_available, ] = raneff
+          }
         }
         # Rename the columns to include the original column name.
         new_names = paste0(col, "_", c("random_intercept", "random_slope"))
@@ -125,13 +126,12 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
 )
 
 franeff = function(long_df){
-  warnings_list <- character(0)
   lmm <- tryCatch(
     withCallingHandlers({
       lmm <- lme4::lmer(value ~ arg + (1 + arg | id), data = long_df)
       lmm 
     }, warning = function(w) {
-      warnings_list <<- c(warnings_list, conditionMessage(w))
+      message("Warning: ", conditionMessage(w))
       # Muffle warning so that it does not interrupt code
       invokeRestart("muffleWarning")
     }),
@@ -141,12 +141,7 @@ franeff = function(long_df){
     }
   )
   if (is.null(lmm)){
-    unique_ids = length(unique(long_df$id))
-    res_df <- data.frame(
-      random_intercept = rep(NA_real_, length(unique_ids)),
-      random_slope      = rep(NA_real_, length(unique_ids))
-    )
-    res_df
+    return(NULL)
   } else {
   re_df = lme4::ranef(lmm)$id
   re_df
