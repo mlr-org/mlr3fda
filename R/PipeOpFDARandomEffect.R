@@ -22,13 +22,14 @@
 #' * `right` :: `numeric()`\cr
 #'   The right boundary of the window. Initial is `Inf`.
 #'   
-#'  @section Naming:
-#'  The new names generally append a `_random_intercept`/`_random_slope` to the corresponding column name of the functional feature.
-#'  @export
-#'  @examples
-#'  task = tsk("fuel")
-#'  po_fre = po("fda.randomeffect")
-#'  task_fre = po_fre$train(list(task))[[1L]]
+#' @section Naming:
+#' The new names generally append `_random_intercept` and `_random_slope` to the corresponding column name of the functional feature.
+#'  
+#' @export
+#' @examples
+#' task = tsk("fuel")
+#' po_fre = po("fda.randomeffect")
+#' task_fre = po_fre$train(list(task))[[1L]]
 
 PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
   inherit = PipeOpTaskPreprocSimple,
@@ -147,5 +148,4 @@ franeff = function(long_df){
   re_df
   }
 }
-# Register the operator.
 register_po("fda.randomeffect", PipeOpFDARandomEffect)
