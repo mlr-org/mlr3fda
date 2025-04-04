@@ -52,6 +52,7 @@ Collate:
     'PipeOpFDAExtract.R'
     'PipeOpFDAFlatten.R'
     'PipeOpFDAInterpol.R'
+    'PipeOpFDARandomEffect.R'
     'PipeOpFDAScaleRange.R'
     'PipeOpFDASmooth.R'
     'PipeOpFDATsfeatures.R'
