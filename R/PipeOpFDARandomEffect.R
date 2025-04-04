@@ -76,26 +76,27 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
       # Process each functional column separately.
       for (col in cols) {
         x = dt[[col]]
-        # Obtain the argument grid.
         # Create a container for random effects for every observation
         res_random = data.table(
           random_intercept = rep(NA_real_, length(x)),
           random_slope      = rep(NA_real_, length(x))
         )
+        all_args = unlist(tf::tf_arg(x))
         # set domain for left and right window
-        if (left == -Inf | right == Inf) {
-          args = tf::tf_arg(x)
-          all_args = unlist(args)
+        if (left == -Inf) {
           left = min(all_args)
+        }
+        if (right == Inf){
           right = max(all_args)
         }
-        # Try zooming the tfd vector.
+        # Zoom the tfd vector.
         x_zoom = tryCatch({
           suppressWarnings(tf::tf_zoom(x, begin = left, end = right))
           }, error = function(e) {
             if (grepl("No data in zoom region", conditionMessage(e))){ 
               return(NULL) 
             } else {
+              message("tf_zoom encountered an error: ", conditionMessage(e))
               stop(e)
             }
           }
@@ -127,16 +128,11 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
 )
 
 franeff = function(long_df){
-  lmm <- tryCatch(
-    withCallingHandlers({
-      lmm <- lme4::lmer(value ~ arg + (1 + arg | id), data = long_df)
-      lmm 
-    }, warning = function(w) {
-      message("Warning: ", conditionMessage(w))
-      # Muffle warning so that it does not interrupt code
-      invokeRestart("muffleWarning")
-    }),
-    error = function(e) {
+  lmm = tryCatch({
+      lmm <- invoke(lme4::lmer, 
+                    .args = list(formula = value ~ arg + (1 + arg | id), 
+                                 data = long_df))
+      }, error = function(e) {
       message("lmer encountered an error: ", conditionMessage(e))
       return(NULL)
     }
@@ -148,4 +144,6 @@ franeff = function(long_df){
   re_df
   }
 }
+
+#' @include zzz.R
 register_po("fda.randomeffect", PipeOpFDARandomEffect)
