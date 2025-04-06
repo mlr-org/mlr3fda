@@ -47,7 +47,7 @@ library(gt)
 results = readr::read_csv("results_one.csv") |>
   mutate(
     expression = ifelse(expression == "data_table", "data.table", expression),
-    type = ifelse(type == "reg", "regular", "irregular"),
+    type = ifelse(type == "reg", "regular", "irregular")
   )
 
 results |>
@@ -145,7 +145,7 @@ No. patients: 10, No. weeks: 10
 results = readr::read_csv("results_three.csv") |>
   mutate(
     expression = ifelse(expression == "data_table", "data.table", expression),
-    type = ifelse(type == "reg", "regular", "irregular"),
+    type = ifelse(type == "reg", "regular", "irregular")
   )
 
 results |>

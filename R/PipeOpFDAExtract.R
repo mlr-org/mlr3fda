@@ -89,7 +89,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
                 }
               } else {
                 res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
-                if (!isTRUE(res)) {
+                if (!isTRUE(res)) { # nolint
                   return(res)
                 }
               }

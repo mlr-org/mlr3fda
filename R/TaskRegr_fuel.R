@@ -32,7 +32,7 @@ load_task_fuel = function(id = "fuel") {
     id = id,
     backend = b,
     target = "heatan",
-    label = "Spectral Data of Fossil Fuels",
+    label = "Spectral Data of Fossil Fuels"
   )
 
   b$hash = task$man = "mlr3fda::mlr_tasks_fuel"
