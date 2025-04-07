@@ -27,8 +27,8 @@
 #'  
 #' @export
 #' @examples
-#' task = tsk("fuel")
-#' po_fre = po("fda.randomeffect")
+#' task = tsk("dti")
+#' po_fre = po("fda.randomeffect", drop = FALSE)
 #' task_fre = po_fre$train(list(task))[[1L]]
 
 PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
@@ -61,22 +61,15 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
     }
   ),
   private = list(
-    .transform = function(task) {
-      # Get the names of functional columns (tfd vectors) from the task state.
-      cols = self$state$dt_columns
-      if (length(cols) == 0L) return(task)
-      dt = task$data(cols = cols)
+    .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
       drop = pars$drop
       left = pars$left
       right = pars$right
       assert_true(left <= right)
       
-      features_list = data.table()
-      # Process each functional column separately.
-      for (col in cols) {
-        x = dt[[col]]
-        # Create a container for random effects for every observation
+      cols = imap(dt, function(x, nm){
+        # create a container for random effects for every observation
         res_random = data.table(
           random_intercept = rep(NA_real_, length(x)),
           random_slope      = rep(NA_real_, length(x))
@@ -89,7 +82,7 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
         if (right == Inf){
           right = max(all_args)
         }
-        # Zoom the tfd vector.
+        # zoom the tfd vector.
         x_zoom = tryCatch({
           suppressWarnings(tf::tf_zoom(x, begin = left, end = right))
           }, error = function(e) {
@@ -102,7 +95,7 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
           }
         )
         if (!is.null(x_zoom)) {
-          # Unnest the zoomed data into long format.
+          # unnest the zoomed data into long format
           long_df = as.data.frame(x_zoom, unnest = TRUE)
           # compute random effects, ids with NA are omitted from model estimation
           raneff = franeff(long_df)
@@ -112,17 +105,14 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
             res_random[ids_available, ] = raneff
           }
         }
-        # Rename the columns to include the original column name.
-        new_names = paste0(col, "_", c("random_intercept", "random_slope"))
+        new_names = paste0(nm, "_", c("random_intercept", "random_slope"))
         setnames(res_random, old = names(res_random), new = new_names)
-        features_list = cbind(features_list, res_random)
-      }
-      # Keep/drop tfd columns and add new features to task 
+      })
+      dt_new = setDT(unlist(unname(cols), recursive = FALSE))
       if (!drop) {
-        features_list = cbind(dt, features_list)
+        dt_new = cbind(dt, dt_new)
       }
-      task$select(setdiff(task$feature_names, cols))$cbind(features_list)
-      task
+      dt_new
     }
   )
 )
