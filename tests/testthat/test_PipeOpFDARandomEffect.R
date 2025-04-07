@@ -20,15 +20,11 @@ test_that("PipeOpFDARandomEffect works", {
   task_fre = train_pipeop(po_fre, list(task))[[1L]]
   expect_set_equal(task_fre$feature_names, c("cca", "cca_random_intercept", "cca_random_slope"))
   
-  # failed to converge, returns a message and ... 
+  # failed to converge, returns a warning 
   task = tsk("fuel")$select("NIR")
   po_fre = po("fda.randomeffect", drop = TRUE)
-  expect_message(train_pipeop(po_fre, list(task))[[1L]])
-  # ... returns random effect estimates.
-  # po_fre = po("fda.randomeffect", drop = TRUE)
-  # task_fre = train_pipeop(po_fre, list(task))[[1L]]
-  # expect_true(!all(is.na(task_fre$data())))
-  
+  expect_warning(train_pipeop(po_fre, list(task))[[1L]])
+
   # tf_irreg works
   dt = data.table(
     id = c("Ann", "Ann", "Ann", "Bob", "Bob"),
