@@ -42,7 +42,7 @@ navbar:
       href: https://mlr-org.com/
 
 reference:
-- title: PipeOps
+- title: Pipeline Operators
   contents:
     - starts_with("mlr_pipeops")
 - title: Example Tasks
