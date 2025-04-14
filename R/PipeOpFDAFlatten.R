@@ -31,11 +31,8 @@ PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.flatten", param_vals = list()) {
-      param_set = ps()
-
       super$initialize(
         id = id,
-        param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf"),
         feature_types = c("tfd_reg", "tfd_irreg"),
