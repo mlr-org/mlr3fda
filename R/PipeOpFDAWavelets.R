@@ -26,8 +26,7 @@
 #' po_wavelets = po("fda.wavelets")
 #' task_wavelets = po_wavelets$train(list(task))[[1L]]
 #' task_wavelets$data()
-PipeOpFDAWavelets = R6Class(
-  "PipeOpFDAWavelets",
+PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
