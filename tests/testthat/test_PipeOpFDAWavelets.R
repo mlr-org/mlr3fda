@@ -23,7 +23,7 @@ test_that("PipeOpFDAWavelets works", {
   task_wav = train_pipeop(pop, list(task))[[1L]]
   new_data = task_wav$data()
   expect_task(task_wav)
-  expect_identical(dim(new_data), c(129L, 362L))
+  expect_identical(dim(new_data), c(task$nrow, 362L))
   expect_match(setdiff(names(new_data), c("heatan", "h20")), "_wav_la8_[0-9]+$")
 
   pop = po("fda.wavelets", filter = "haar", boundary = "reflection")
@@ -31,13 +31,17 @@ test_that("PipeOpFDAWavelets works", {
   new_data = task_wav$data()
   expect_task(task_wav)
   walk(new_data, expect_numeric)
-  expect_identical(dim(new_data), c(129L, 726L))
+  expect_identical(dim(new_data), c(task$nrow, 726L))
   expect_match(setdiff(names(new_data), c("heatan", "h20")), "_wav_haar_[0-9]+$")
 
   # irregular data works
   task = tsk("dti")
+  task$select(setdiff(task$feature_names, "sex"))
   pop = po("fda.wavelets")
   task_wav = train_pipeop(pop, list(task))[[1L]]
   new_data = task_wav$data()
   expect_task(task_wav)
+  walk(new_data, expect_numeric)
+  expect_identical(dim(new_data), c(task$nrow, 144L))
+  expect_match(setdiff(names(new_data), c("pasat")), "_wav_la8_[0-9]+$")
 })
