@@ -8,19 +8,16 @@
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
-#' * `filter` :: `character(1)` | `numeric()`\cr
+#' * `filter` :: `character(1)` | `numeric()` | `wavelets::wt.filter()`\cr
 #'   Specifies which filter should be used.
-#'   Must be one of `"d"`|`"la"`|`"bl"`|`"c"` followed by an even
-#'   number for the level of the filter.
+#'   Must be one of `"d"`|`"la"`|`"bl"`|`"c"` followed by an even number for the level of the filter.
 #'   The level of the filter needs to be smaller or equal then the time-series length.
-#'   For more information and acceptable filters see `help(wt.filter)`.
-#'   Defaults to `"la8"`.
+#'   For more information and acceptable filters see `help(wt.filter)`. Defaults to `"la8"`.
 #' * `n.levels` :: `integer(1)`\cr
 #'   An integer specifying the level of the decomposition.
 #' * `boundary` :: `character(1)`\cr
-#'   Boundary to be used. `"periodic"` assumes circular time series,
-#'   for `"reflection"` the series is extended to twice its length.
-#'   Default is `"periodic"`.
+#'   Boundary to be used. `"periodic"` assumes circular time series, for `"reflection"` the series is extended to twice
+#'   its length. Default is `"periodic"`.
 #' * `fast` :: `logical(1)`\cr
 #'   Should the pyramid algorithm be calculated with an internal C function? Default is `TRUE`.
 #' @export

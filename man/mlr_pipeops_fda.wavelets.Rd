@@ -13,19 +13,16 @@ For more details, see \code{\link[wavelets:dwt]{wavelets::dwt()}}, which is call
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
 as well as the following parameters:
 \itemize{
-\item \code{filter} :: \code{character(1)} | \code{numeric()}\cr
+\item \code{filter} :: \code{character(1)} | \code{numeric()} | \code{wavelets::wt.filter()}\cr
 Specifies which filter should be used.
-Must be one of \code{"d"}|\code{"la"}|\code{"bl"}|\code{"c"} followed by an even
-number for the level of the filter.
+Must be one of \code{"d"}|\code{"la"}|\code{"bl"}|\code{"c"} followed by an even number for the level of the filter.
 The level of the filter needs to be smaller or equal then the time-series length.
-For more information and acceptable filters see \code{help(wt.filter)}.
-Defaults to \code{"la8"}.
+For more information and acceptable filters see \code{help(wt.filter)}. Defaults to \code{"la8"}.
 \item \code{n.levels} :: \code{integer(1)}\cr
 An integer specifying the level of the decomposition.
 \item \code{boundary} :: \code{character(1)}\cr
-Boundary to be used. \code{"periodic"} assumes circular time series,
-for \code{"reflection"} the series is extended to twice its length.
-Default is \code{"periodic"}.
+Boundary to be used. \code{"periodic"} assumes circular time series, for \code{"reflection"} the series is extended to twice
+its length. Default is \code{"periodic"}.
 \item \code{fast} :: \code{logical(1)}\cr
 Should the pyramid algorithm be calculated with an internal C function? Default is \code{TRUE}.
 }
