@@ -5,6 +5,8 @@ test_that("PipeOpFDATsfeatures - basic properties", {
 })
 
 test_that("PipeOpFDATsfeatures works", {
+  skip_if_not_installed("tsfeatures")
+
   task = tsk("fuel")
   pop = po("fda.tsfeats")
   task_tsfeats = train_pipeop(pop, list(task))[[1L]]
