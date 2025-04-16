@@ -35,7 +35,9 @@ Imports:
     R6,
     tf (>= 0.3.5)
 Suggests:
+    FDboost,
     lme4,
+    mboost,
     rpart,
     testthat (>= 3.2.0),
     tsfeatures,
@@ -49,6 +51,7 @@ Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.2
 Collate:
     'zzz.R'
+    'PipeOpFDABsignal.R'
     'PipeOpFDACor.R'
     'PipeOpFDAExtract.R'
     'PipeOpFDAFlatten.R'
