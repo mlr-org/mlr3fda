@@ -68,7 +68,7 @@ PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf", "wavelets"),
-        feature_types = "tfd_reg",
+        feature_types = c("tfd_reg", "tfd_irreg"),
         tags = "fda"
       )
     }
@@ -80,11 +80,15 @@ PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
       filter = pars$filter %??% "la8"
 
       cols = imap(dt, function(x, nm) {
-        feats = map_dtr(tf::tf_evaluations(x), function(x) {
-          wt = invoke(wavelets::dwt, X = x, .args = pars)
-          feats = unlist(c(wt@W, wt@V[[wt@level]]), use.names = FALSE)
-          as.data.table(t(feats))
-        })
+        feats = map_dtr(
+          tf::tf_evaluations(x),
+          function(x) {
+            wt = invoke(wavelets::dwt, X = x, .args = pars)
+            feats = unlist(c(wt@W, wt@V[[wt@level]]), use.names = FALSE)
+            as.data.table(t(feats))
+          },
+          .fill = TRUE
+        )
         setnames(feats, sprintf("%s_wav_%s_%i", nm, filter, seq_len(ncol(feats))))
       })
       setDT(unlist(unname(cols), recursive = FALSE))
