@@ -6,6 +6,7 @@
 \title{B-spline Feature Extraction}
 \description{
 This \code{PipeOp} extracts features from functional data using B-spline basis functions.
+The extracted features are B-spline coefficients that represent the functional data in the B-spline basis space.
 For more details, see \code{\link[FDboost:bsignal]{FDboost::bsignal()}}, which is called internally.
 }
 \section{Parameters}{
