@@ -143,12 +143,13 @@ otherwise be set during construction. Default <code><a href="https://rdrr.io/r/b
 <span class="r-in"><span><span class="va">po_smooth</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.smooth"</span>, method <span class="op">=</span> <span class="st">"rollmean"</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">task_smooth</span> <span class="op">=</span> <span class="va">po_smooth</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">task_smooth</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;TaskRegr:fuel&gt; (129 x 4): Spectral Data of Fossil Fuels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Target: heatan</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Properties: -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Features (3):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - tfr (2): NIR, UVVIS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - dbl (1): h20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="color: #0000BB; font-weight: bold;">&lt;TaskRegr&gt;</span><span style="font-weight: bold;"> (129x4): Spectral Data of Fossil Fuels</span> <span style="color: #00BBBB;">───────────────────────────</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> • Target: heatan</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> • Properties: -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> • Features (3):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   • tfr (2): NIR, UVVIS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   • dbl (1): h20</span>
 <span class="r-in"><span><span class="va">task_smooth</span><span class="op">$</span><span class="fu">data</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NIR"</span>, <span class="st">"UVVIS"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             NIR                      UVVIS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       &lt;tfd_reg&gt;                  &lt;tfd_reg&gt;</span>
