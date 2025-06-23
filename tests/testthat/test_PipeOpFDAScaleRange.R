@@ -1,10 +1,10 @@
-test_that("PipeOpScaleRange - basic properties", {
+test_that("PipeOpFDAScaleRange - basic properties", {
   pop = po("fda.scalerange")
   expect_pipeop(pop)
   expect_identical(pop$id, "fda.scalerange")
 })
 
-test_that("PipeOpScaleRange works", {
+test_that("PipeOpFDAScaleRange works", {
   task = tsk("fuel")
   pop = po("fda.scalerange")
   task_scale = train_pipeop(pop, list(task))[[1L]]
