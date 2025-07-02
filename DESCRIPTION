@@ -41,6 +41,7 @@ Suggests:
     rpart,
     testthat (>= 3.2.0),
     tsfeatures,
+    wavelets,
     withr
 Remotes:
     tidyfun/tf
@@ -60,6 +61,7 @@ Collate:
     'PipeOpFDAScaleRange.R'
     'PipeOpFDASmooth.R'
     'PipeOpFDATsfeatures.R'
+    'PipeOpFDAWavelets.R'
     'PipeOpFPCA.R'
     'TaskClassif_phoneme.R'
     'TaskRegr_dti.R'
