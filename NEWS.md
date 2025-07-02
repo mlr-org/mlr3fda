@@ -4,6 +4,8 @@
 * New PipeOps:
   * `PipeOpFDARandomEffect`
   * `PipeOpFDATsfeatures`
+  * `PipeOpFDAWavelets`
+  * `PipeOpFDABsignal`
 
 # mlr3fda 0.2.0
 
