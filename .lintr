@@ -2,10 +2,10 @@ linters: all_linters(
     # lintr defaults: https://lintr.r-lib.org/reference/default_linters.html
     # the following setup changes/removes certain linters
     assignment_linter = NULL, # do not force using <- for assignments
-    object_name_linter = object_name_linter(c("snake_case", "CamelCase")), # only allow snake case and camel case object names
+    object_name_linter(c("snake_case", "CamelCase")), # only allow snake case and camel case object names
     commented_code_linter = NULL, # allow code in comments
-    line_length_linter = line_length_linter(120L),
-    object_length_linter = object_length_linter(40L),
+    line_length_linter(120L),
+    object_length_linter(40L),
     cyclocomp_linter = NULL,
     unnecessary_lambda_linter = NULL,
     library_call_linter = NULL,
@@ -16,12 +16,18 @@ linters: all_linters(
     undesirable_function_linter(fun = modify_defaults(
       defaults = default_undesirable_functions,
       library = NULL,
-      source = NULL
+      source = NULL,
+      # base messaging
+      cat = "use catf()",
+      stop = "use stopf()",
+      warning = "use warningf()",
+      message = "use messagef()",
+      # perf
+      ifelse = "use fifelse"
     ))
   )
 exclusions: list(
     "tests/testthat.R",
     "tests/testthat/helper.R",
-    "inst/bench/bench.R",
-    "inst/bench/profile.R"
+    "inst/bench/"
   )

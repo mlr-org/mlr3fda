@@ -43,5 +43,5 @@ test_that("PipeOpFDAWavelets works", {
   expect_task(task_wav)
   walk(new_data, expect_numeric)
   expect_identical(dim(new_data), c(task$nrow, 144L))
-  expect_match(setdiff(names(new_data), c("pasat")), "_wav_la8_[0-9]+$")
+  expect_match(setdiff(names(new_data), "pasat"), "_wav_la8_[0-9]+$")
 })
