@@ -89,7 +89,7 @@ task_fmean$head()
 #> 6:    40 female 0.4873356 0.4969408
 ```
 
-This can be combined with a `Lerner` into a `GraphLearner` that first
+This can be combined with a `Learner` into a `GraphLearner` that first
 extracts features and then trains a model.
 
 ``` r
