@@ -80,7 +80,7 @@ task_fmean = po_fmean$train(list(task))[[1L]]
 task_fmean$head()
 ```
 
-This can be combined with a `Lerner` into a `GraphLearner` that first extracts features and then trains a model.
+This can be combined with a `Learner` into a `GraphLearner` that first extracts features and then trains a model.
 
 ```{r graph}
 # split data into train and test set
