@@ -3,7 +3,7 @@
     Code
       train_pipeop(po_smooth, list(task1))
     Message
-      Using `f = 0.15` as smoother span for "lowess".
+      using f = 0.15 as smoother span for lowess
     Output
       $output
       
