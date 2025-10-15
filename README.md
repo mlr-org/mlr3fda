@@ -63,7 +63,7 @@ this task also contains two functional columns `cca` and `rcst`.
 task = tsk("dti")
 task
 #> 
-#> ── <TaskRegr> (340x4): Diffusion Tensor Imaging (DTI) ──────────────────────────
+#> ── <TaskRegr> (340x4): Diffusion Tensor Imaging (DTI) ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #> • Target: pasat
 #> • Properties: groups
 #> • Features (3):
@@ -109,7 +109,7 @@ glrn$train(task, row_ids = ids$train)
 # make predictions on the test set
 glrn$predict(task, row_ids = ids$test)
 #> 
-#> ── <PredictionRegr> for 111 observations: ──────────────────────────────────────
+#> ── <PredictionRegr> for 111 observations: ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #>  row_ids truth response
 #>       11    48 49.99174
 #>       12    40 49.99174
@@ -124,18 +124,18 @@ glrn$predict(task, row_ids = ids$test)
 
 | Key | Label | Packages | Tags |
 |:---|:---|:---|:---|
-| [fda.bsignal](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.bsignal) | B-spline Feature Extraction | [tf](https://cran.r-project.org/package=tf), [mboost](https://cran.r-project.org/package=mboost), [FDboost](https://cran.r-project.org/package=FDboost) | fda, data transform |
-| [fda.cor](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor) | Cross-Correlation of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.extract](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract) | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.flatten](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten) | Flattens Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.fpca](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca) | Functional Principal Component Analysis | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.interpol](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.random_effect](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.random_effect) | Extracts Random Effects from Functional Columns | [tf](https://cran.r-project.org/package=tf), [lme4](https://cran.r-project.org/package=lme4) | fda, data transform |
-| [fda.scalerange](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.scalerange) | Linearly Transform the Domain of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.smooth](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.smooth) | Smoothing Functional Columns | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
-| [fda.tsfeats](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.tsfeats) | Time Series Feature Extraction | [tf](https://cran.r-project.org/package=tf), [tsfeatures](https://cran.r-project.org/package=tsfeatures) | fda, data transform |
-| [fda.wavelets](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.wavelets) | Discrete Wavelet transform features | [tf](https://cran.r-project.org/package=tf), [wavelets](https://cran.r-project.org/package=wavelets) | fda, data transform |
-| [fda.zoom](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.zoom) | Zoom In/Out on Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.bsignal](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal) | B-spline Feature Extraction | [tf](https://cran.r-project.org/package=tf), [mboost](https://cran.r-project.org/package=mboost), [FDboost](https://cran.r-project.org/package=FDboost) | fda, data transform |
+| [fda.cor](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor) | Cross-Correlation of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.extract](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract) | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.flatten](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten) | Flattens Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.fpca](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca) | Functional Principal Component Analysis | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.interpol](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.random_effect](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect) | Extracts Random Effects from Functional Columns | [tf](https://cran.r-project.org/package=tf), [lme4](https://cran.r-project.org/package=lme4) | fda, data transform |
+| [fda.scalerange](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange) | Linearly Transform the Domain of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.smooth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth) | Smoothing Functional Columns | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
+| [fda.tsfeats](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.tsfeats) | Time Series Feature Extraction | [tf](https://cran.r-project.org/package=tf), [tsfeatures](https://cran.r-project.org/package=tsfeatures) | fda, data transform |
+| [fda.wavelets](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.wavelets) | Discrete Wavelet transform features | [tf](https://cran.r-project.org/package=tf), [wavelets](https://cran.r-project.org/package=wavelets) | fda, data transform |
+| [fda.zoom](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom) | Zoom In/Out on Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 
 ## Bugs, Questions, Feedback
 
