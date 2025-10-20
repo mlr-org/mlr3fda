@@ -18,8 +18,8 @@
 "_PACKAGE"
 
 mlr3fda_feature_types = c(tfr = "tfd_reg", tfi = "tfd_irreg")
-mlr3fda_tasks = new.env()
-mlr3fda_pipeops = new.env()
+mlr3fda_tasks = new.env(parent = emptyenv())
+mlr3fda_pipeops = new.env(parent = emptyenv())
 mlr3fda_pipeop_tags = "fda"
 
 named_union = function(x, y) set_names(union(x, y), union(names(x), names(y)))
