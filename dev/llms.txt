@@ -1,0 +1,205 @@
+# mlr3fda
+
+Package website: [release](https://mlr3fda.mlr-org.com/) \|
+[dev](https://mlr3fda.mlr-org.com/dev/)
+
+Extending mlr3 to functional data.
+
+## Installation
+
+Install the last release from [CRAN](https://CRAN.R-project.org):
+
+``` r
+install.packages("mlr3fda")
+```
+
+Install the development version from [GitHub](https://github.com/):
+
+``` r
+# install.packages("pak")
+pak::pak("mlr-org/mlr3fda")
+```
+
+## What is mlr3fda?
+
+The goal of `mlr3fda` is to extend `mlr3` to [functional
+data](https://en.wikipedia.org/wiki/Functional_data_analysis). This is
+achieved by adding support for functional feature types and providing
+preprocessing `PipeOp`s that operates on functional columns. For
+representing functional data, the `tfd_reg` and `tfd_irreg` datatypes
+from the [tf](https://github.com/tidyfun/tf) package are used and are
+available after loading `mlr3fda`:
+
+``` r
+library(mlr3fda)
+mlr_reflections$task_feature_types[c("tfr", "tfi")]
+#>         tfr         tfi 
+#>   "tfd_reg" "tfd_irreg"
+```
+
+These datatypes can be used to represent regular and irregular
+functional data respectively. Currently, `Learner`s that directly
+operate on functional data are not available, so it is necessary to
+first extract scalar features from the functional columns.
+
+# Quickstart
+
+Here we will start with the predefined `dti` (Diffusion Tensor Imaging)
+task, see `tsk("dti")$help()` for more details. Besides scalar columns,
+this task also contains two functional columns `cca` and `rcst`.
+
+``` r
+task = tsk("dti")
+task
+#> 
+#> ── <TaskRegr> (340x4): Diffusion Tensor Imaging (DTI) ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> • Target: pasat
+#> • Properties: groups
+#> • Features (3):
+#>   • tfi (2): cca, rcst
+#>   • fct (1): sex
+#> • Groups: subject_id
+```
+
+To train a model on this task we first need to extract scalar features
+from the functions. We illustrate this below by extracting the mean
+value.
+
+``` r
+po_fmean = po("fda.extract", features = "mean")
+
+task_fmean = po_fmean$train(list(task))[[1L]]
+task_fmean$head()
+#>    pasat    sex  cca_mean rcst_mean
+#> 1:    31 female 0.4493332 0.4968519
+#> 2:    31 female 0.4441292 0.4810724
+#> 3:    29 female 0.4257795 0.5102722
+#> 4:    34 female 0.4418538 0.5453188
+#> 5:    37 female 0.4700994 0.5471177
+#> 6:    40 female 0.4873356 0.4969408
+```
+
+This can be combined with a `Learner` into a `GraphLearner` that first
+extracts features and then trains a model.
+
+``` r
+# split data into train and test set
+ids = partition(task)
+
+# define a Graph and convert it to a GraphLearner
+graph = po("fda.extract", features = "mean", drop = TRUE) %>>%
+  po("learner", learner = lrn("regr.rpart"))
+
+glrn = as_learner(graph)
+
+# train the graph learner on the train set
+glrn$train(task, row_ids = ids$train)
+
+# make predictions on the test set
+glrn$predict(task, row_ids = ids$test)
+#> 
+#> ── <PredictionRegr> for 111 observations: ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#>  row_ids truth response
+#>       11    48 49.99174
+#>       12    40 49.99174
+#>       13    43 52.42105
+#>      ---   ---      ---
+#>      324    57 52.42105
+#>      325    57 41.30769
+#>      326    60 49.99174
+```
+
+## Implemented PipeOps
+
+| Key                                                                                          | Label                                            | Packages                                                                                                                                                | Tags                |
+|:---------------------------------------------------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------|
+| [fda.bsignal](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal)             | B-spline Feature Extraction                      | [tf](https://cran.r-project.org/package=tf), [mboost](https://cran.r-project.org/package=mboost), [FDboost](https://cran.r-project.org/package=FDboost) | fda, data transform |
+| [fda.cor](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor)                     | Cross-Correlation of Functional Data             | [tf](https://cran.r-project.org/package=tf)                                                                                                             | fda, data transform |
+| [fda.extract](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract)             | Extracts Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf)                                                                                                             | fda, data transform |
+| [fda.flatten](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten)             | Flattens Functional Columns                      | [tf](https://cran.r-project.org/package=tf)                                                                                                             | fda, data transform |
+| [fda.fpca](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca)                   | Functional Principal Component Analysis          | [tf](https://cran.r-project.org/package=tf)                                                                                                             | fda, data transform |
+| [fda.interpol](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol)           | Interpolate Functional Columns                   | [tf](https://cran.r-project.org/package=tf)                                                                                                             | fda, data transform |
+| [fda.random_effect](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect) | Extracts Random Effects from Functional Columns  | [tf](https://cran.r-project.org/package=tf), [lme4](https://cran.r-project.org/package=lme4)                                                            | fda, data transform |
+| [fda.scalerange](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange)       | Linearly Transform the Domain of Functional Data | [tf](https://cran.r-project.org/package=tf)                                                                                                             | fda, data transform |
+| [fda.smooth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth)               | Smoothing Functional Columns                     | [tf](https://cran.r-project.org/package=tf), stats                                                                                                      | fda, data transform |
+| [fda.tsfeats](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.tsfeats)             | Time Series Feature Extraction                   | [tf](https://cran.r-project.org/package=tf), [tsfeatures](https://cran.r-project.org/package=tsfeatures)                                                | fda, data transform |
+| [fda.wavelets](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.wavelets)           | Discrete Wavelet transform features              | [tf](https://cran.r-project.org/package=tf), [wavelets](https://cran.r-project.org/package=wavelets)                                                    | fda, data transform |
+| [fda.zoom](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom)                   | Zoom In/Out on Functional Columns                | [tf](https://cran.r-project.org/package=tf)                                                                                                             | fda, data transform |
+
+## Bugs, Questions, Feedback
+
+*mlr3fda* is a free and open source software project that encourages
+participation and feedback. If you have any issues, questions,
+suggestions or feedback, please do not hesitate to open an “issue” about
+it on the GitHub page!
+
+In case of problems / bugs, it is often helpful if you provide a
+“minimum working example” that showcases the behaviour (but don’t worry
+about this if the bug is obvious).
+
+Please understand that the resources of the project are limited:
+response may sometimes be delayed by a few days, and some feature
+suggestions may be rejected if they are deemed too tangential to the
+vision behind the project.
+
+## Acknowledgements
+
+The development of this R-package was supported by Roche Diagonstics
+R&D.
+
+# Package index
+
+## Pipeline Operators
+
+- [`mlr_pipeops_fda.bsignal`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal.md)
+  [`PipeOpFDABsignal`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal.md)
+  : B-spline Feature Extraction
+- [`mlr_pipeops_fda.cor`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.md)
+  [`PipeOpFDACor`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.md)
+  : Cross-Correlation of Functional Data
+- [`mlr_pipeops_fda.extract`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract.md)
+  [`PipeOpFDAExtract`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract.md)
+  : Extracts Simple Features from Functional Columns
+- [`mlr_pipeops_fda.flatten`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten.md)
+  [`PipeOpFDAFlatten`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten.md)
+  : Flattens Functional Columns
+- [`mlr_pipeops_fda.fpca`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.md)
+  [`PipeOpFPCA`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.md)
+  : Functional Principal Component Analysis
+- [`mlr_pipeops_fda.interpol`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.md)
+  [`PipeOpFDAInterpol`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.md)
+  : Interpolate Functional Columns
+- [`mlr_pipeops_fda.random_effect`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect.md)
+  [`PipeOpFDARandomEffect`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect.md)
+  : Extracts Random Effects from Functional Columns
+- [`mlr_pipeops_fda.scalerange`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange.md)
+  [`PipeOpFDAScaleRange`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange.md)
+  : Linearly Transform the Domain of Functional Data
+- [`mlr_pipeops_fda.smooth`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth.md)
+  [`PipeOpFDASmooth`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth.md)
+  : Smoothing Functional Columns
+- [`mlr_pipeops_fda.tsfeats`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.tsfeats.md)
+  [`PipeOpFDATsfeatures`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.tsfeats.md)
+  : Time Series Feature Extraction
+- [`mlr_pipeops_fda.wavelets`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.wavelets.md)
+  [`PipeOpFDAWavelets`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.wavelets.md)
+  : Discrete Wavelet transform features
+- [`mlr_pipeops_fda.zoom`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom.md)
+  [`PipeOpFDAZoom`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom.md)
+  : Zoom In/Out on Functional Columns
+
+## Example Tasks
+
+- [`mlr_tasks_dti`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_dti.md)
+  : Diffusion Tensor Imaging (DTI) Regression Task
+- [`mlr_tasks_fuel`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_fuel.md)
+  : Fuel Regression Task
+- [`mlr_tasks_phoneme`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_phoneme.md)
+  : Phoneme Classification Task
+
+## Package
+
+- [`mlr3fda`](https://mlr3fda.mlr-org.com/dev/reference/mlr3fda-package.md)
+  [`mlr3fda-package`](https://mlr3fda.mlr-org.com/dev/reference/mlr3fda-package.md)
+  : mlr3fda: Extending 'mlr3' to Functional Data Analysis
+
