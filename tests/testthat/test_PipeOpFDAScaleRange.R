@@ -10,7 +10,7 @@ test_that("PipeOpFDAScaleRange works", {
   task_scale = train_pipeop(pop, list(task))[[1L]]
   new_data = task_scale$data()
   expect_task(task_scale)
-  expect_identical(dim(new_data), c(129L, 4L))
+  expect_shape(new_data, dim = c(129L, 4L))
   expect_identical(task_scale$n_features, task$n_features)
   expect_named(new_data, names(new_data))
   expect_numeric(tf::tf_arg(new_data$NIR), lower = 0, upper = 1)

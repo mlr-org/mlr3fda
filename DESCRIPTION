@@ -39,7 +39,7 @@ Suggests:
     lme4,
     mboost,
     rpart,
-    testthat (>= 3.2.0),
+    testthat (>= 3.3.0),
     tsfeatures,
     wavelets,
     withr

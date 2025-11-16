@@ -22,7 +22,7 @@ test_that("PipeOpPCA works", {
   task_fpc = train_pipeop(pop, list(task))[[1L]]
   expect_task(task_fpc)
   new_data = task_fpc$data()
-  expect_identical(dim(new_data), c(2L, 2L))
+  expect_shape(new_data, dim = c(2L, 2L))
   expect_named(new_data, c("y", "f_pc_1"))
   expect_numeric(new_data$f_pc_1, len = 2)
   expect_identical(new_data, predict_pipeop(pop, list(task))[[1L]]$data())
@@ -32,7 +32,7 @@ test_that("PipeOpPCA works", {
   task = as_task_regr(dt, target = "y")
   pop = po("fda.fpca", n_components = 2L)
   new_data = train_pipeop(pop, list(task))[[1L]]$data()
-  expect_identical(dim(new_data), c(15L, 3L))
+  expect_shape(new_data, dim = c(15L, 3L))
   expect_named(new_data, c("y", "f_pc_1", "f_pc_2"))
 
   # multiple cols work
@@ -48,7 +48,7 @@ test_that("PipeOpPCA works", {
   task_fpc = train_pipeop(pop, list(task))[[1L]]
   new_data = task_fpc$data()
   expect_task(task_fpc)
-  expect_identical(dim(new_data), c(10L, 10L))
+  expect_shape(new_data, dim = c(10L, 10L))
   nms = c(
     "y", "f_pc_1", "f_pc_2", "f_pc_3",
     "g_pc_1", "g_pc_2", "g_pc_3",
@@ -60,7 +60,7 @@ test_that("PipeOpPCA works", {
   # n_components works
   pop = po("fda.fpca", n_components = 2L)
   new_data = train_pipeop(pop, list(task))[[1L]]$data()
-  expect_identical(dim(new_data), c(10L, 7L))
+  expect_shape(new_data, dim = c(10L, 7L))
   nms = c(
     "y", "f_pc_1", "f_pc_2",
     "g_pc_1", "g_pc_2",

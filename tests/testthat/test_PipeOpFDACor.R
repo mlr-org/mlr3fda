@@ -14,7 +14,7 @@ test_that("PipeOpCor works", {
   task_cor = train_pipeop(pop, list(task))[[1L]]
   expect_task(task_cor)
   new_data = task_cor$data()
-  expect_identical(dim(new_data), c(100L, 4L))
+  expect_shape(new_data, dim = c(100L, 4L))
   expect_named(new_data, c("y", "x1_x2_cor", "x1_x3_cor", "x2_x3_cor"))
   expect_numeric(new_data$x1_x2_cor, lower = -1, upper = 1, len = 100)
   expect_numeric(new_data$x1_x3_cor, lower = -1, upper = 1, len = 100)

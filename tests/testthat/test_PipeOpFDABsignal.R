@@ -12,7 +12,7 @@ test_that("PipeOpFDABsignal works", {
   task_bsignal = train_pipeop(pop, list(task))[[1L]]
   new_data = task_bsignal$data()
   expect_task(task_bsignal)
-  expect_identical(dim(new_data), c(129L, 30L))
+  expect_shape(new_data, dim = c(129L, 30L))
   expect_named(new_data, names(new_data))
 
   # irregular data works
