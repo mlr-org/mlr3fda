@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
 lgr::get_logger("mlr3")$set_threshold("warn")
 set.seed(1L)
 options(datatable.print.class = FALSE, datatable.print.keys = FALSE)
+library(data.table)
 library(mlr3fda)
 library(mlr3misc)
 ```
@@ -108,7 +109,7 @@ content[, packages := map(packages, function(x) setdiff(x, c("mlr3pipelines", "m
 content[, `:=`(
   key = sprintf("[%1$s](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_%1$s)", key),
   packages = map_chr(packages, function(pkg) {
-    toString(ifelse(
+    toString(fifelse(
       pkg %in% c("stats", "graphics", "datasets"), pkg, sprintf("[%1$s](https://cran.r-project.org/package=%1$s)", pkg)
     ))
   }),
