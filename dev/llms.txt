@@ -52,7 +52,7 @@ this task also contains two functional columns `cca` and `rcst`.
 task = tsk("dti")
 task
 #> 
-#> ── <TaskRegr> (340x4): Diffusion Tensor Imaging (DTI) ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ── <TaskRegr> (340x4): Diffusion Tensor Imaging (DTI) ──────────────────────────
 #> • Target: pasat
 #> • Properties: groups
 #> • Features (3):
@@ -98,7 +98,7 @@ glrn$train(task, row_ids = ids$train)
 # make predictions on the test set
 glrn$predict(task, row_ids = ids$test)
 #> 
-#> ── <PredictionRegr> for 111 observations: ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ── <PredictionRegr> for 111 observations: ──────────────────────────────────────
 #>  row_ids truth response
 #>       11    48 49.99174
 #>       12    40 49.99174
