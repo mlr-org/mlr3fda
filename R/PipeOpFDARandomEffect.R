@@ -42,14 +42,13 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
   ),
   private = list(
     .transform_dt = function(dt, levels) {
-      cols = imap(dt, function(x, nm) {
+      setcbindlist(imap(dt, function(x, nm) {
         tab = as.data.frame(x, unnest = TRUE)
         model = invoke(lme4::lmer, .args = list(formula = value ~ arg + (1 + arg | id), data = tab))
         feats = lme4::ranef(model)$id
         setDT(feats)
         setnames(feats, sprintf("%s_%s", nm, c("random_intercept", "random_slope")))
-      })
-      setDT(unlist(unname(cols), recursive = FALSE))
+      }))
     }
   )
 )

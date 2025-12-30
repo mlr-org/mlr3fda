@@ -82,13 +82,12 @@ PipeOpFDATsfeatures = R6Class("PipeOpFDATsfeatures",
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
 
-      cols = imap(dt, function(x, nm) {
+      setcbindlist(imap(dt, function(x, nm) {
         tslist = tf::tf_evaluations(x)
         feats = invoke(tsfeatures::tsfeatures, tslist = tslist, .args = pars)
         setDT(feats)
         setnames(feats, sprintf("%s_%s", nm, names(feats)))
-      })
-      setDT(unlist(unname(cols), recursive = FALSE))
+      }))
     }
   )
 )

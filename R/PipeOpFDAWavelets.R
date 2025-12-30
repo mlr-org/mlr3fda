@@ -79,7 +79,7 @@ PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
       pars = self$param_set$get_values()
       filter = pars$filter %??% "la8"
 
-      cols = imap(dt, function(x, nm) {
+      setcbindlist(imap(dt, function(x, nm) {
         feats = map_dtr(
           tf::tf_evaluations(x),
           function(x) {
@@ -90,8 +90,7 @@ PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
           .fill = TRUE
         )
         setnames(feats, sprintf("%s_wav_%s_%i", nm, filter, seq_len(ncol(feats))))
-      })
-      setDT(unlist(unname(cols), recursive = FALSE))
+      }))
     }
   )
 )
