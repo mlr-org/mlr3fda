@@ -30,7 +30,7 @@ Imports:
     checkmate,
     data.table (>= 1.18.0),
     lgr,
-    mlr3misc (>= 0.14.0),
+    mlr3misc (>= 0.19.0),
     paradox,
     R6,
     tf (>= 0.3.4)
