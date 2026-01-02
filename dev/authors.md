@@ -19,13 +19,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/mlr-org/mlr3fda/blob/main/DESCRIPTION)
 
-Fischer S, Mücke M (2025). *mlr3fda: Extending 'mlr3' to Functional Data
+Fischer S, Mücke M (2026). *mlr3fda: Extending 'mlr3' to Functional Data
 Analysis*. R package version 0.3.0.9000, <https://mlr3fda.mlr-org.com>.
 
     @Manual{,
       title = {mlr3fda: Extending 'mlr3' to Functional Data Analysis},
       author = {Sebastian Fischer and Maximilian Mücke},
-      year = {2025},
+      year = {2026},
       note = {R package version 0.3.0.9000},
       url = {https://mlr3fda.mlr-org.com},
     }
