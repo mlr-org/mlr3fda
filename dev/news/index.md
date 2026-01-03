@@ -2,6 +2,8 @@
 
 ## mlr3fda (development version)
 
+- feat: `Mlr3Error` and `Mlr3Warning` classes for errors and warnings.
+
 ## mlr3fda 0.3.0
 
 CRAN release: 2025-10-15
