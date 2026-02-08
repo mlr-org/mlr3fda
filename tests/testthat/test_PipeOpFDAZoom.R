@@ -4,7 +4,7 @@ test_that("PipeOpFDAZoom - basic properties", {
   expect_identical(pop$id, "fda.zoom")
 })
 
-test_that("PipeOpScaleRange works", {
+test_that("PipeOpFDAZoom works", {
   task = tsk("fuel")
   pop = po("fda.zoom", begin = 50, end = 100)
   task_zoom = train_pipeop(pop, list(task))[[1L]]
