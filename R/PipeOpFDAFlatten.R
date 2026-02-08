@@ -12,8 +12,8 @@
 #' The new names generally append a `_1`, ...,  to the corresponding column name.
 #' However this can lead to name clashes with existing columns.
 #' This is solved as follows:
-#' If a column was called `"x"` and the feature is `"mean"`, the corresponding new column will
-#' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()` and
+#' If a column was called `"x"`, the corresponding new columns will
+#' be called `"x_1"`, `"x_2"`, etc. In case of duplicates, unique names are obtained using `make.unique()` and
 #' a warning is given.
 #'
 #' @export

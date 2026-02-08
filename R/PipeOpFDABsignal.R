@@ -31,7 +31,7 @@
 #' * `Z` :: `any`\cr
 #'   Custom transformation matrix for the spline design.
 #' * `penalty` :: `character(1)`\cr
-#'   The penalty type: `"ps"` (P-spline) or `"pss"` (shrinkage). DEfault is `"ps"`.
+#'   The penalty type: `"ps"` (P-spline) or `"pss"` (shrinkage). Default is `"ps"`.
 #' * `check.ident` :: `logical(1)`\cr
 #'   Use checks for identifiability of the effect. Default is `FALSE`.
 #'

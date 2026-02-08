@@ -36,7 +36,7 @@ If true the fitted coefficient function coincides at the boundaries.
 \item \code{Z} :: \code{any}\cr
 Custom transformation matrix for the spline design.
 \item \code{penalty} :: \code{character(1)}\cr
-The penalty type: \code{"ps"} (P-spline) or \code{"pss"} (shrinkage). DEfault is \code{"ps"}.
+The penalty type: \code{"ps"} (P-spline) or \code{"pss"} (shrinkage). Default is \code{"ps"}.
 \item \code{check.ident} :: \code{logical(1)}\cr
 Use checks for identifiability of the effect. Default is \code{FALSE}.
 }

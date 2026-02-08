@@ -6,7 +6,7 @@
 #' Note that it only operates on regular data and that the cross-correlation assumes that each column
 #' has the same domain.
 #'
-#' To apply this `PipeOp` to irregualr data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
+#' To apply this `PipeOp` to irregular data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
 #' If you need to change the domain of the columns, use [`PipeOpFDAScaleRange`].
 #'
 #' @section Parameters:

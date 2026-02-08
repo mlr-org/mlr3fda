@@ -27,7 +27,7 @@ The number of principal components to extract. This parameter is initialized to 
 \section{Naming}{
 
 The new names generally append a \verb{_pc_\{number\}} to the corresponding column name.
-If a column was called \code{"x"} and the there are three principcal components, the corresponding
+If a column was called \code{"x"} and there are three principal components, the corresponding
 new columns will be called \verb{"x_pc_1", "x_pc_2", "x_pc_3"}.
 }
 

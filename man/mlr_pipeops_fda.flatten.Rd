@@ -18,8 +18,8 @@ The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeO
 The new names generally append a \verb{_1}, ...,  to the corresponding column name.
 However this can lead to name clashes with existing columns.
 This is solved as follows:
-If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
-be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
+If a column was called \code{"x"}, the corresponding new columns will
+be called \code{"x_1"}, \code{"x_2"}, etc. In case of duplicates, unique names are obtained using \code{make.unique()} and
 a warning is given.
 }
 
