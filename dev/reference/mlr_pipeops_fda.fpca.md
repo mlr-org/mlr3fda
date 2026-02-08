@@ -29,8 +29,8 @@ as well as the following parameters:
 ## Naming
 
 The new names generally append a `_pc_{number}` to the corresponding
-column name. If a column was called `"x"` and the there are three
-principcal components, the corresponding new columns will be called
+column name. If a column was called `"x"` and there are three principal
+components, the corresponding new columns will be called
 `"x_pc_1", "x_pc_2", "x_pc_3"`.
 
 ## Super classes

@@ -70,8 +70,8 @@ to new columns, one for each input value to the function.</p>
 <p>The new names generally append a <code>_1</code>, ...,  to the corresponding column name.
 However this can lead to name clashes with existing columns.
 This is solved as follows:
-If a column was called <code>"x"</code> and the feature is <code>"mean"</code>, the corresponding new column will
-be called <code>"x_mean"</code>. In case of duplicates, unique names are obtained using <code><a href="https://rdrr.io/r/base/make.unique.html" class="external-link">make.unique()</a></code> and
+If a column was called <code>"x"</code>, the corresponding new columns will
+be called <code>"x_1"</code>, <code>"x_2"</code>, etc. In case of duplicates, unique names are obtained using <code><a href="https://rdrr.io/r/base/make.unique.html" class="external-link">make.unique()</a></code> and
 a warning is given.</p>
     </div>
     <div class="section level2">

@@ -5,7 +5,7 @@ Calculates the cross-correlation between two functional vectors using
 Note that it only operates on regular data and that the
 cross-correlation assumes that each column has the same domain.
 
-To apply this `PipeOp` to irregualr data, convert it to a regular grid
+To apply this `PipeOp` to irregular data, convert it to a regular grid
 first using
 [`PipeOpFDAInterpol`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.md).
 If you need to change the domain of the columns, use

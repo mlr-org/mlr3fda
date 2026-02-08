@@ -20,7 +20,7 @@ as well as the following parameters:
 
   - `"rollmean"`: rolling mean
 
-  - `"rollmedian"`: rolling meadian
+  - `"rollmedian"`: rolling median
 
   - `"savgol"`: Savitzky-Golay filtering
 

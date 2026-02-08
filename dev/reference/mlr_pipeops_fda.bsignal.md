@@ -47,7 +47,7 @@ as well as the following parameters:
   Custom transformation matrix for the spline design.
 
 - `penalty` :: `character(1)`  
-  The penalty type: `"ps"` (P-spline) or `"pss"` (shrinkage). DEfault is
+  The penalty type: `"ps"` (P-spline) or `"pss"` (shrinkage). Default is
   `"ps"`.
 
 - `check.ident` :: `logical(1)`  
