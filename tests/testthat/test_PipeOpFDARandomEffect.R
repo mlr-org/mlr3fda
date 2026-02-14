@@ -15,7 +15,7 @@ test_that("PipeOpFDARandomEffect works", {
   expect_shape(new_data, dim = c(129L, 6L))
   expect_named(
     new_data,
-    c("heatan", "h20", "NIR_random_intercept", "NIR_random_slope", "UVVIS_random_intercept", "UVVIS_random_slope")
+    c("heatan", "h2o", "NIR_random_intercept", "NIR_random_slope", "UVVIS_random_intercept", "UVVIS_random_slope")
   )
 
   # irregular data works

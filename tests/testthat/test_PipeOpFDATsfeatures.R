@@ -21,7 +21,7 @@ test_that("PipeOpFDATsfeatures works", {
   new_data = task_tsfeats$data()
   walk(new_data, expect_numeric)
   expect_shape(new_data, dim = c(129L, 4L))
-  expect_named(new_data, c("heatan", "h20", "NIR_entropy", "UVVIS_entropy"))
+  expect_named(new_data, c("heatan", "h2o", "NIR_entropy", "UVVIS_entropy"))
 
   # multiple features work
   pop = po("fda.tsfeats", features = c("frequency", "stl_features"))
@@ -29,7 +29,7 @@ test_that("PipeOpFDATsfeatures works", {
   new_data = task_tsfeats$data()
   walk(new_data, expect_numeric)
   expect_shape(new_data, dim = c(129L, 20L))
-  expect_match(setdiff(names(new_data), c("heatan", "h20")), "NIR_|UVVIS_")
+  expect_match(setdiff(names(new_data), c("heatan", "h2o")), "NIR_|UVVIS_")
 
   # irregular data works
   task = tsk("dti")

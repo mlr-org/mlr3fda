@@ -9,7 +9,7 @@ test_that("PipeOpFDAFlatten works", {
   pop = po("fda.flatten")
   x = train_pipeop(pop, list(task))[[1L]]
   expected_features = c(
-    "h20",
+    "h2o",
     paste0("UVVIS_", 1:134),
     paste0("NIR_", 1:231)
   )
@@ -19,7 +19,7 @@ test_that("PipeOpFDAFlatten works", {
   pop$param_set$values$affect_columns = selector_name("UVVIS")
   x = train_pipeop(pop, list(task))[[1L]]
   expected_features = c(
-    "h20",
+    "h2o",
     paste0("UVVIS_", 1:134),
     "NIR"
   )
@@ -28,7 +28,7 @@ test_that("PipeOpFDAFlatten works", {
   pop = po("fda.flatten")
   pop$param_set$values$affect_columns = selector_name("..xyz")
   x = train_pipeop(pop, list(task))[[1L]]
-  expected_features = c("h20", "UVVIS", "NIR")
+  expected_features = c("h2o", "UVVIS", "NIR")
   expect_set_equal(x$feature_names, expected_features)
 })
 

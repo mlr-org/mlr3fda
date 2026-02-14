@@ -4,7 +4,7 @@
 #' @format [R6::R6Class] inheriting from [mlr3::TaskRegr].
 #'
 #' @description
-#' This dataset contains two functional covariates and three scalar covariate. The goal is
+#' This dataset contains two functional covariates and three scalar covariates. The goal is
 #' to predict the PASAT score. `pasat` represents the PASAT score at each vist.
 #' `subject_id` represents the subject ID. `cca` represents the fractional anisotropy tract profiles from the corpus
 #' callosum. `sex` indicates subject's sex. `rcst` represents the fractional anisotropy tract profiles from the right

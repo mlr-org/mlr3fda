@@ -13,7 +13,7 @@
 #' @templateVar id fuel
 #' @template task
 #'
-#' @references `r format_bib("brockhaus2015functional") `
+#' @references `r format_bib("brockhaus2015functional")`
 #'
 #' @template seealso_task
 NULL
@@ -22,7 +22,7 @@ load_task_fuel = function(id = "fuel") {
   fuel = load_dataset("fuel", package = "mlr3fda")
   fuel = data.table(
     heatan = fuel$heatan,
-    h20 = fuel$h20,
+    h2o = fuel$h2o,
     UVVIS = tf::tfd(fuel$UVVIS),
     NIR = tf::tfd(fuel$NIR)
   )

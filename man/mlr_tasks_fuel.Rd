@@ -31,7 +31,7 @@ tsk("fuel")
 \item Properties: -
 \item Has Missings: \code{FALSE}
 \item Target: \dQuote{heatan}
-\item Features: \dQuote{NIR}, \dQuote{UVVIS}, \dQuote{h20}
+\item Features: \dQuote{NIR}, \dQuote{UVVIS}, \dQuote{h2o}
 }
 }
 
