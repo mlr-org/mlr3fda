@@ -105,7 +105,7 @@ task = tsk("fuel")
 po_wavelets = po("fda.wavelets")
 task_wavelets = po_wavelets$train(list(task))[[1L]]
 task_wavelets$data()
-#>       heatan    h20 NIR_wav_la8_1 NIR_wav_la8_2 NIR_wav_la8_3 NIR_wav_la8_4
+#>       heatan    h2o NIR_wav_la8_1 NIR_wav_la8_2 NIR_wav_la8_3 NIR_wav_la8_4
 #>        <num>  <num>         <num>         <num>         <num>         <num>
 #>   1: 26.7810 2.3000   0.016162576  -0.049774573  -0.002390476    0.08041782
 #>   2: 27.4720 3.0000  -0.008291343   0.031142025  -0.116628695    0.01118454

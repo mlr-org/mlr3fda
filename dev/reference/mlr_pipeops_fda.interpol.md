@@ -139,7 +139,7 @@ task = tsk("fuel")
 pop = po("fda.interpol")
 task_interpol = pop$train(list(task))[[1L]]
 task_interpol$data()
-#>       heatan    h20
+#>       heatan    h2o
 #>        <num>  <num>
 #>   1: 26.7810 2.3000
 #>   2: 27.4720 3.0000

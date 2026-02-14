@@ -111,7 +111,7 @@ task_smooth
 #> • Properties: -
 #> • Features (3):
 #>   • tfr (2): NIR, UVVIS
-#>   • dbl (1): h20
+#>   • dbl (1): h2o
 task_smooth$data(cols = c("NIR", "UVVIS"))
 #>                                                                                         NIR
 #>                                                                                   <tfd_reg>

@@ -94,7 +94,7 @@ task = tsk("fuel")
 pop = po("fda.zoom", begin = 50, end = 100)
 task_zoom = pop$train(list(task))[[1L]]
 task_zoom$data()
-#>       heatan    h20
+#>       heatan    h2o
 #>        <num>  <num>
 #>   1: 26.7810 2.3000
 #>   2: 27.4720 3.0000

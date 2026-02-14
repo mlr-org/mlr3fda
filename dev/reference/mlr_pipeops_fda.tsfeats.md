@@ -119,7 +119,7 @@ task = tsk("fuel")
 po_tsfeats = po("fda.tsfeats")
 task_tsfeats = po_tsfeats$train(list(task))[[1L]]
 task_tsfeats$data()
-#>       heatan    h20 NIR_frequency NIR_nperiods NIR_seasonal_period NIR_trend
+#>       heatan    h2o NIR_frequency NIR_nperiods NIR_seasonal_period NIR_trend
 #>        <num>  <num>         <num>        <num>               <num>     <num>
 #>   1: 26.7810 2.3000             1            0                   1 0.9546922
 #>   2: 27.4720 3.0000             1            0                   1 0.9515743

@@ -37,7 +37,7 @@ the associated sugar function
 
 - Target: “heatan”
 
-- Features: “NIR”, “UVVIS”, “h20”
+- Features: “NIR”, “UVVIS”, “h2o”
 
 ## References
 

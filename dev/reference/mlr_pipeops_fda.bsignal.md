@@ -124,7 +124,7 @@ task = tsk("fuel")
 po_bsignal = po("fda.bsignal")
 task_bsignal = po_bsignal$train(list(task))[[1L]]
 task_bsignal$data()
-#>       heatan    h20  NIR_bsig_1 NIR_bsig_2   NIR_bsig_3  NIR_bsig_4  NIR_bsig_5
+#>       heatan    h2o  NIR_bsig_1 NIR_bsig_2   NIR_bsig_3  NIR_bsig_4  NIR_bsig_5
 #>        <num>  <num>       <num>      <num>        <num>       <num>       <num>
 #>   1: 26.7810 2.3000  0.30895622  3.8875914   8.25757958   9.8406292  10.8301760
 #>   2: 27.4720 3.0000  0.23327867  2.6601669   5.63516646   7.0596187   7.9722599

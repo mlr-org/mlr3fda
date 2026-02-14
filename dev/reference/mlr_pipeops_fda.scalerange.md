@@ -87,7 +87,7 @@ task = tsk("fuel")
 po_scale = po("fda.scalerange", lower = -1, upper = 1)
 task_scale = po_scale$train(list(task))[[1L]]
 task_scale$data()
-#>       heatan    h20
+#>       heatan    h2o
 #>        <num>  <num>
 #>   1: 26.7810 2.3000
 #>   2: 27.4720 3.0000

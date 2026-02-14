@@ -129,5 +129,5 @@ task_custom
 #> • Target: heatan
 #> • Properties: -
 #> • Features (3):
-#>   • dbl (3): NIR_mean, UVVIS_mean, h20
+#>   • dbl (3): NIR_mean, UVVIS_mean, h2o
 ```

@@ -102,7 +102,7 @@ task = tsk("fuel")
 po_fpca = po("fda.fpca", n_components = 3L)
 task_fpca = po_fpca$train(list(task))[[1L]]
 task_fpca$data()
-#>       heatan    h20   NIR_pc_1   NIR_pc_2     NIR_pc_3 UVVIS_pc_1 UVVIS_pc_2
+#>       heatan    h2o   NIR_pc_1   NIR_pc_2     NIR_pc_3 UVVIS_pc_1 UVVIS_pc_2
 #>        <num>  <num>      <num>      <num>        <num>      <num>      <num>
 #>   1: 26.7810 2.3000  7.5675043  1.1371827 -0.377501250  11.000976 -2.7804661
 #>   2: 27.4720 3.0000  6.2793462  1.9345782  0.160548831  -9.298016 -1.7955553
