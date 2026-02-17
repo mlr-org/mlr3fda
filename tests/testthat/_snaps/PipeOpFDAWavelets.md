@@ -1,4 +1,4 @@
-# PipeOpFDAWavelets input validation validation
+# PipeOpFDAWavelets input validation
 
     Code
       po("fda.wavelets", filter = "la4")
