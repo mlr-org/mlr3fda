@@ -19,7 +19,7 @@ as well as the following parameters:
 - `features` :: [`list()`](https://rdrr.io/r/base/list.html) \|
   [`character()`](https://rdrr.io/r/base/character.html)  
   A list of features to extract. Each element can be either a function
-  or a string. If the element if is function it requires the following
+  or a string. If the element is a function it requires the following
   arguments: `arg` and `value` and returns a `numeric`. For string
   elements, the following predefined features are available: `"mean"`,
   `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`. Initial is
