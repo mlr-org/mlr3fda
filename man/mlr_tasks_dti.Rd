@@ -8,7 +8,7 @@
 }
 \description{
 This dataset contains two functional covariates and three scalar covariates. The goal is
-to predict the PASAT score. \code{pasat} represents the PASAT score at each vist.
+to predict the PASAT score. \code{pasat} represents the PASAT score at each visit.
 \code{subject_id} represents the subject ID. \code{cca} represents the fractional anisotropy tract profiles from the corpus
 callosum. \code{sex} indicates subject's sex. \code{rcst} represents the fractional anisotropy tract profiles from the right
 corticospinal tract. Rows containing NAs are removed.

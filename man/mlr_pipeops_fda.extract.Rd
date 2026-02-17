@@ -19,7 +19,7 @@ Note that this does not remove the features from the backend, but only from the 
 column role \code{feature}. Initial value is \code{TRUE}.
 \item \code{features} :: \code{list()} | \code{character()}\cr
 A list of features to extract. Each element can be either a function or a string.
-If the element if is function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.
+If the element is a function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.
 For string elements, the following predefined features are available:
 \code{"mean"}, \code{"max"},\code{"min"},\code{"slope"},\code{"median"},\code{"var"}.
 Initial is \code{c("mean", "max", "min", "slope", "median", "var")}

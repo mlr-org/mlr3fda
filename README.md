@@ -155,5 +155,5 @@ vision behind the project.
 
 ## Acknowledgements
 
-The development of this R-package was supported by Roche Diagonstics
+The development of this R-package was supported by Roche Diagnostics
 R&D.

@@ -1,5 +1,5 @@
 test_that("hash input for tfd vectors", {
-  # this tests that the hash of the DataBackendDataTable is not influenced by bagge of the evaluator attribute
+  # this tests that the hash of the DataBackendDataTable is not influenced by baggage of the evaluator attribute
   # of tfd vectors
   x_reg = tsk("fuel")$data(cols = "NIR")[[1]][1:5]
   e_reg = attr(x_reg, "evaluator")

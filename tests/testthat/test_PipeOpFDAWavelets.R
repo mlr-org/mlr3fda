@@ -4,7 +4,7 @@ test_that("PipeOpFDAWavelets - basic properties", {
   expect_identical(pop$id, "fda.wavelets")
 })
 
-test_that("PipeOpFDAWavelets input validation validation", {
+test_that("PipeOpFDAWavelets input validation", {
   skip_if_not_installed("wavelets")
   expect_no_error(po("fda.wavelets", filter = wavelets::wt.filter()))
   expect_no_error(po("fda.wavelets", filter = "la8"))

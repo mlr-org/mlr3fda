@@ -15,7 +15,7 @@ test_that("PipeOpFDATsfeatures works", {
   expect_shape(new_data, dim = c(129L, 34L))
   expect_named(new_data, names(new_data))
 
-  # single feature work
+  # single feature works
   pop = po("fda.tsfeats", features = "entropy")
   task_tsfeats = train_pipeop(pop, list(task))[[1L]]
   new_data = task_tsfeats$data()

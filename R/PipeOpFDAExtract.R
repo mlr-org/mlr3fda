@@ -15,7 +15,7 @@
 #'   column role `feature`. Initial value is `TRUE`.
 #' * `features` :: `list()` | `character()`\cr
 #'   A list of features to extract. Each element can be either a function or a string.
-#'   If the element if is function it requires the following arguments: `arg` and `value` and returns a `numeric`.
+#'   If the element is a function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
 #'   Initial is `c("mean", "max", "min", "slope", "median", "var")`

@@ -18,7 +18,7 @@ test_that("PipeOpFDABsignal works", {
   # irregular data works
   task = tsk("dti")
   pop = po("fda.bsignal")
-  task_bgsinal = train_pipeop(pop, list(task))[[1L]]
+  task_bsignal = train_pipeop(pop, list(task))[[1L]]
   new_data = task_bsignal$data()
   expect_task(task_bsignal)
 })
