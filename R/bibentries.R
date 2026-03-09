@@ -30,6 +30,14 @@ bibentries = c(
     pages = "830--851",
     year = "2011",
     publisher = "Taylor & Francis"
+  ),
+  oppenheim2010discrete = bibentry("book",
+    title = "Discrete-Time Signal Processing",
+    author = "Oppenheim, Alan V and Schafer, Ronald W",
+    year = "2010",
+    edition = "3rd",
+    publisher = "Pearson",
+    isbn = "978-0131988422"
   )
 )
 # nolint end
