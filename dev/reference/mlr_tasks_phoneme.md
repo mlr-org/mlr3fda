@@ -14,12 +14,12 @@ from
 
 ## Dictionary
 
-This [Task](https://mlr3.mlr-org.com/reference/Task.html) can be
+This [mlr3::Task](https://mlr3.mlr-org.com/reference/Task.html) can be
 instantiated via the
 [dictionary](https://mlr3misc.mlr-org.com/reference/Dictionary.html)
-[mlr_tasks](https://mlr3.mlr-org.com/reference/mlr_tasks.html) or with
-the associated sugar function
-[tsk()](https://mlr3.mlr-org.com/reference/mlr_sugar.html):
+[mlr3::mlr_tasks](https://mlr3.mlr-org.com/reference/mlr_tasks.html) or
+with the associated sugar function
+[`mlr3::tsk()`](https://mlr3.mlr-org.com/reference/mlr_sugar.html):
 
     mlr_tasks$get("phoneme")
     tsk("phoneme")
@@ -60,7 +60,7 @@ Analysis*, **44**(1-2), 161–173.
 
 - [Dictionary](https://mlr3misc.mlr-org.com/reference/Dictionary.html)
   of [Tasks](https://mlr3.mlr-org.com/reference/Task.html):
-  [mlr_tasks](https://mlr3.mlr-org.com/reference/mlr_tasks.html)
+  [mlr3::mlr_tasks](https://mlr3.mlr-org.com/reference/mlr_tasks.html)
 
 - `as.data.table(mlr_tasks)` for a table of available
   [Tasks](https://mlr3.mlr-org.com/reference/Task.html) in the running
