@@ -5,7 +5,7 @@
 #' * Package \CRANpkg{mlr3data} for more toy tasks.
 #' * Package \CRANpkg{mlr3oml} for downloading tasks from \url{https://www.openml.org}.
 #' * Package \CRANpkg{mlr3viz} for some generic visualizations.
-#' * [Dictionary][mlr3misc::Dictionary] of [Tasks][mlr3::Task]: [mlr_tasks][mlr3::mlr_tasks]
+#' * [Dictionary][mlr3misc::Dictionary] of [Tasks][mlr3::Task]: [mlr3::mlr_tasks]
 #' * `as.data.table(mlr_tasks)` for a table of available [Tasks][mlr3::Task] in the running session (depending on the loaded packages).
 #' * \CRANpkg{mlr3fselect} and \CRANpkg{mlr3filters} for feature selection and feature filtering.
 #' * Extension packages for additional task types:

@@ -15,8 +15,7 @@ This is a subset of the full dataset, which is contained in the package \code{FD
 }
 \section{Dictionary}{
 
-This \link[mlr3:Task]{Task} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link[mlr3:mlr_tasks]{mlr_tasks}
-or with the associated sugar function \link[mlr3:mlr_sugar]{tsk()}:
+This \link[mlr3:Task]{mlr3::Task} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link[mlr3:mlr_tasks]{mlr3::mlr_tasks} or with the associated sugar function \code{\link[mlr3:mlr_sugar]{mlr3::tsk()}}:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("fuel")
 tsk("fuel")
@@ -47,7 +46,7 @@ Brockhaus, Sarah, Scheipl, Fabian, Hothorn, Torsten, Greven, Sonja (2015).
 \item Package \CRANpkg{mlr3data} for more toy tasks.
 \item Package \CRANpkg{mlr3oml} for downloading tasks from \url{https://www.openml.org}.
 \item Package \CRANpkg{mlr3viz} for some generic visualizations.
-\item \link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Task]{Tasks}: \link[mlr3:mlr_tasks]{mlr_tasks}
+\item \link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Task]{Tasks}: \link[mlr3:mlr_tasks]{mlr3::mlr_tasks}
 \item \code{as.data.table(mlr_tasks)} for a table of available \link[mlr3:Task]{Tasks} in the running session (depending on the loaded packages).
 \item \CRANpkg{mlr3fselect} and \CRANpkg{mlr3filters} for feature selection and feature filtering.
 \item Extension packages for additional task types:
