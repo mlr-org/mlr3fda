@@ -2,6 +2,7 @@
 
 * fix: The `fuel` task now correctly names the scalar column `h2o` instead of `h20`.
 * feat: `Mlr3Error` and `Mlr3Warning` classes for errors and warnings.
+* feat: New `PipeOpFDAFourier` for extracting fast Fourier transform features from functional columns.
 
 # mlr3fda 0.3.0
 
