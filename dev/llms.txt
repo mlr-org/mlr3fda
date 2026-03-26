@@ -163,6 +163,9 @@ R&D.
 - [`mlr_pipeops_fda.flatten`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten.md)
   [`PipeOpFDAFlatten`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten.md)
   : Flattens Functional Columns
+- [`mlr_pipeops_fda.fourier`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fourier.md)
+  [`PipeOpFDAFourier`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fourier.md)
+  : Fast Fourier transform features
 - [`mlr_pipeops_fda.fpca`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.md)
   [`PipeOpFPCA`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.md)
   : Functional Principal Component Analysis
