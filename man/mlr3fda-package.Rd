@@ -34,11 +34,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Sebastian Fischer \email{sebf.fischer@gmail.com} (\href{https://orcid.org/0000-0002-9609-3197}{ORCID})
+\strong{Maintainer}: Maximilian Mücke \email{muecke.maximilian@gmail.com} (\href{https://orcid.org/0009-0000-9432-9795}{ORCID})
 
 Authors:
 \itemize{
-  \item Maximilian Mücke \email{muecke.maximilian@gmail.com} (\href{https://orcid.org/0009-0000-9432-9795}{ORCID})
+  \item Sebastian Fischer \email{sebf.fischer@gmail.com} (\href{https://orcid.org/0000-0002-9609-3197}{ORCID})
 }
 
 Other contributors:
