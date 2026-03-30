@@ -38,13 +38,13 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Sebastian Fischer <sebf.fischer@gmail.com>
-([ORCID](https://orcid.org/0000-0002-9609-3197))
+**Maintainer**: Maximilian Mücke <muecke.maximilian@gmail.com>
+([ORCID](https://orcid.org/0009-0000-9432-9795))
 
 Authors:
 
-- Maximilian Mücke <muecke.maximilian@gmail.com>
-  ([ORCID](https://orcid.org/0009-0000-9432-9795))
+- Sebastian Fischer <sebf.fischer@gmail.com>
+  ([ORCID](https://orcid.org/0000-0002-9609-3197))
 
 Other contributors:
 
