@@ -2,6 +2,10 @@
 
 ## mlr3fda (development version)
 
+## mlr3fda 0.4.0
+
+CRAN release: 2026-03-30
+
 - fix: The `fuel` task now correctly names the scalar column `h2o`
   instead of `h20`.
 - feat: `Mlr3Error` and `Mlr3Warning` classes for errors and warnings.
