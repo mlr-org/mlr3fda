@@ -1,5 +1,7 @@
 # mlr3fda (development version)
 
+* feat: New `PipeOpFDARegister` for aligning functional columns to a learned template via `tf::tf_register()`.
+
 # mlr3fda 0.4.0
 
 * fix: The `fuel` task now correctly names the scalar column `h2o` instead of `h20`.
