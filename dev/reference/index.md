@@ -26,6 +26,9 @@
 - [`mlr_pipeops_fda.random_effect`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect.md)
   [`PipeOpFDARandomEffect`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect.md)
   : Extracts Random Effects from Functional Columns
+- [`mlr_pipeops_fda.register`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.register.md)
+  [`PipeOpFDARegister`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.register.md)
+  : Register (Align) Functional Columns
 - [`mlr_pipeops_fda.scalerange`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange.md)
   [`PipeOpFDAScaleRange`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange.md)
   : Linearly Transform the Domain of Functional Data
