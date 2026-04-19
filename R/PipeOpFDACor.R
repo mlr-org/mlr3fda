@@ -53,7 +53,7 @@ PipeOpFDACor = R6Class("PipeOpFDACor",
 
       k = ncol(dt)
       if (k < 2L) {
-        warning_input("task has less than 2 columns")
+        warning_input("task has fewer than 2 columns")
         return(dt)
       }
 
