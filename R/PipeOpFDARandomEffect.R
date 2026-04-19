@@ -25,11 +25,12 @@
 PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
-    #' @description
-    #' Initializes a new instance of this Class
-    #' @param id (`character(1)`) Identifier of the operator, default is `"fda.random_effect"`.
-    #' @param param_vals (named `list()`) List of hyperparameter settings, overwriting
-    #' default settings set during construction.
+    #' @description Initializes a new instance of this Class.
+    #' @param id (`character(1)`)\cr
+    #'   Identifier of resulting object, default is `"fda.random_effect"`.
+    #' @param param_vals (named `list()`)\cr
+    #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
+    #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.random_effect", param_vals = list()) {
       super$initialize(
         id = id,

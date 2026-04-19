@@ -52,7 +52,7 @@ task_fre = po_fre$train(list(task))[[1L]]
 \if{html}{\out{<a id="method-PipeOpFDARandomEffect-new"></a>}}
 \if{latex}{\out{\hypertarget{method-PipeOpFDARandomEffect-new}{}}}
 \subsection{Method \code{new()}}{
-Initializes a new instance of this Class
+Initializes a new instance of this Class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PipeOpFDARandomEffect$new(id = "fda.random_effect", param_vals = list())}\if{html}{\out{</div>}}
 }
@@ -60,10 +60,12 @@ Initializes a new instance of this Class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{(\code{character(1)}) Identifier of the operator, default is \code{"fda.random_effect"}.}
+\item{\code{id}}{(\code{character(1)})\cr
+Identifier of resulting object, default is \code{"fda.random_effect"}.}
 
-\item{\code{param_vals}}{(named \code{list()}) List of hyperparameter settings, overwriting
-default settings set during construction.}
+\item{\code{param_vals}}{(named \code{list()})\cr
+List of hyperparameter settings, overwriting the hyperparameter settings that would
+otherwise be set during construction. Default \code{list()}.}
 }
 \if{html}{\out{</div>}}
 }

@@ -15,7 +15,7 @@ The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeO
 
 \section{Naming}{
 
-The new names generally append a \verb{_1}, ...,  to the corresponding column name.
+The new names generally append \verb{_1}, \verb{_2}, ... to the corresponding column name.
 However this can lead to name clashes with existing columns.
 This is solved as follows:
 If a column was called \code{"x"}, the corresponding new columns will
@@ -26,7 +26,7 @@ a warning is given.
 \examples{
 task = tsk("fuel")
 pop = po("fda.flatten")
-task_flat = pop$train(list(task))
+task_flat = pop$train(list(task))[[1L]]
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDAFlatten}

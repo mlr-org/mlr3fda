@@ -20,7 +20,7 @@ One of:
 \item \code{"lowess"}: locally weighted scatterplot smoothing (default)
 \item \code{"rollmean"}: rolling mean
 \item \code{"rollmedian"}: rolling median
-\item \code{"savgol"}:  Savitzky-Golay filtering
+\item \code{"savgol"}: Savitzky-Golay filtering
 }
 
 All methods but \code{"lowess"} ignore non-equidistant arg values.

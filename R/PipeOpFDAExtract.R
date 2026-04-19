@@ -17,11 +17,11 @@
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element is a function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
-#'   `"mean"`, `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`.
+#'   `"mean"`, `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`.
 #'   Initial is `c("mean", "max", "min", "slope", "median", "var")`
 #' * `left` :: `numeric()`\cr
 #'   The left boundary of the window. Initial is `-Inf`.
-#'   The window is specified such that the all values >=left and <=right are kept for the computations.
+#'   The window is specified such that all values >=left and <=right are kept for the computations.
 #' * `right` :: `numeric()`\cr
 #'   The right boundary of the window. Initial is `Inf`.
 #'

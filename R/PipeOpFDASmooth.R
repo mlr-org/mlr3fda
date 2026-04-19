@@ -14,7 +14,7 @@
 #'   * `"lowess"`: locally weighted scatterplot smoothing (default)
 #'   * `"rollmean"`: rolling mean
 #'   * `"rollmedian"`: rolling median
-#'   * `"savgol"`:  Savitzky-Golay filtering
+#'   * `"savgol"`: Savitzky-Golay filtering
 #'
 #'   All methods but `"lowess"` ignore non-equidistant arg values.
 #' * `args` :: named `list()`\cr

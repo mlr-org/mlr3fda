@@ -5,7 +5,7 @@
 #'
 #' @description
 #' The task contains a single functional covariate and 5 equally big classes (aa, ao, dcl, iy, sh).
-#' The aim is to predict the class of the phoneme in the functional, which is a
+#' The aim is to predict the class of the phoneme from the functional feature, which is a
 #' log-periodogram.\cr
 #' This is a subset of the full dataset, which is contained in the package `fda.usc`.
 #'

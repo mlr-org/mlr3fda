@@ -17,7 +17,7 @@
 #'   * `"union"`: This option creates a grid based on the union of all argument points from the provided functional
 #'     features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
 #'     be the combined unique set of these points. This option is generally used when the argument points vary across
-#'     observations and a  common grid is needed for comparison or further analysis.
+#'     observations and a common grid is needed for comparison or further analysis.
 #'   * `"intersect"`: Creates a grid using the intersection of all argument points of a feature.
 #'     This grid includes only those points that are common across all functional features,
 #'     facilitating direct comparison on a shared set of points.
@@ -35,7 +35,7 @@
 #'   * `"nocb"`: applies "next observation carried backward" interpolation (see [tf::tf_approx_nocb()]).
 #' * `left` :: `numeric()`\cr
 #'   The left boundary of the window.
-#'   The window is specified such that the all values >=left and <=right are kept for the computations.
+#'   The window is specified such that all values >=left and <=right are kept for the computations.
 #' * `right` :: `numeric()`\cr
 #'   The right boundary of the window.
 #'

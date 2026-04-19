@@ -16,7 +16,7 @@ as well as the following parameters:
 \item \code{filter} :: \code{character(1)} | \code{numeric()} | \code{\link[wavelets:wt.filter]{wavelets::wt.filter()}}\cr
 Specifies which filter should be used. Must be either \code{\link[wavelets:wt.filter]{wavelets::wt.filter()}} object, an even numeric vector or a
 string. In case of a string must be one of \code{"d"}|\code{"la"}|\code{"bl"}|\code{"c"} followed by an even number for the level of
-the filter. The level of the filter needs to be smaller or equal then the time-series length.
+the filter. The level of the filter needs to be smaller or equal than the time-series length.
 For more information and acceptable filters see \code{help(wt.filter)}. Defaults to \code{"la8"}.
 \item \code{n.levels} :: \code{integer(1)}\cr
 An integer specifying the level of the decomposition.

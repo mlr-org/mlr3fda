@@ -3,7 +3,7 @@
 bibentries = c(
   ferraty2003curves = bibentry("article",
     title = "Curves discrimination: a nonparametric functional approach",
-    author = "Ferraty, Fr\xc3\xa9dric and Vieu, Philippe",
+    author = "Ferraty, Fr\xc3\xa9d\xc3\xa9ric and Vieu, Philippe",
     journal = "Computational Statistics & Data Analysis",
     volume = "44",
     number = "1-2",

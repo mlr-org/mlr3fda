@@ -9,7 +9,7 @@
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple].
 #'
 #' @section Naming:
-#' The new names generally append a `_1`, ...,  to the corresponding column name.
+#' The new names generally append `_1`, `_2`, ... to the corresponding column name.
 #' However this can lead to name clashes with existing columns.
 #' This is solved as follows:
 #' If a column was called `"x"`, the corresponding new columns will
@@ -20,7 +20,7 @@
 #' @examples
 #' task = tsk("fuel")
 #' pop = po("fda.flatten")
-#' task_flat = pop$train(list(task))
+#' task_flat = pop$train(list(task))[[1L]]
 PipeOpFDAFlatten = R6Class("PipeOpFDAFlatten",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
