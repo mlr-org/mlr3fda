@@ -1,4 +1,4 @@
-#' @title Extracts Random Effects from Functional Columns
+#' @title Extract Random Effects from Functional Columns
 #'
 #' @name mlr_pipeops_fda.random_effect
 #'

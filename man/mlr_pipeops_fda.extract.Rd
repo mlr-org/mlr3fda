@@ -3,7 +3,7 @@
 \name{mlr_pipeops_fda.extract}
 \alias{mlr_pipeops_fda.extract}
 \alias{PipeOpFDAExtract}
-\title{Extracts Simple Features from Functional Columns}
+\title{Extract Simple Features from Functional Columns}
 \description{
 This is the class that extracts simple features from functional columns.
 Note that it only operates on values that were actually observed and does not interpolate.

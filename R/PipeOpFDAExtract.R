@@ -1,4 +1,4 @@
-#' @title Extracts Simple Features from Functional Columns
+#' @title Extract Simple Features from Functional Columns
 #'
 #' @name mlr_pipeops_fda.extract
 #'

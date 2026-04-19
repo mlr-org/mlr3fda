@@ -3,7 +3,7 @@
 \name{mlr_pipeops_fda.random_effect}
 \alias{mlr_pipeops_fda.random_effect}
 \alias{PipeOpFDARandomEffect}
-\title{Extracts Random Effects from Functional Columns}
+\title{Extract Random Effects from Functional Columns}
 \description{
 This is the class that extracts random effects, specifically random intercepts and
 random slopes, from functional columns. This PipeOp fits a linear mixed model, specifically

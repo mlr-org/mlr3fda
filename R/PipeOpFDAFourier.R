@@ -1,4 +1,4 @@
-#' @title Fast Fourier transform features
+#' @title Fast Fourier Transform Features
 #' @name mlr_pipeops_fda.fourier
 #'
 #' @description

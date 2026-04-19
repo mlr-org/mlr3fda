@@ -3,7 +3,7 @@
 \name{mlr_pipeops_fda.flatten}
 \alias{mlr_pipeops_fda.flatten}
 \alias{PipeOpFDAFlatten}
-\title{Flattens Functional Columns}
+\title{Flatten Functional Columns}
 \description{
 Convert regular functional features (e.g. all individuals are observed at the same time-points)
 to new columns, one for each input value to the function.

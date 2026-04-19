@@ -3,7 +3,7 @@
 \name{mlr_pipeops_fda.fourier}
 \alias{mlr_pipeops_fda.fourier}
 \alias{PipeOpFDAFourier}
-\title{Fast Fourier transform features}
+\title{Fast Fourier Transform Features}
 \description{
 This \code{PipeOp} extracts Fourier coefficients from functional columns.
 For more details, see \code{\link[stats:fft]{stats::fft()}}, which is called internally.

@@ -1,4 +1,4 @@
-#' @title Discrete Wavelet transform features
+#' @title Discrete Wavelet Transform Features
 #' @name mlr_pipeops_fda.wavelets
 #'
 #' @description

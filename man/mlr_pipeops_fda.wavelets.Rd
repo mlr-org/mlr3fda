@@ -3,7 +3,7 @@
 \name{mlr_pipeops_fda.wavelets}
 \alias{mlr_pipeops_fda.wavelets}
 \alias{PipeOpFDAWavelets}
-\title{Discrete Wavelet transform features}
+\title{Discrete Wavelet Transform Features}
 \description{
 This \code{PipeOp} extracts discrete wavelet transform coefficients from functional columns.
 For more details, see \code{\link[wavelets:dwt]{wavelets::dwt()}}, which is called internally.
