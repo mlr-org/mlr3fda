@@ -62,8 +62,8 @@ as well as the following parameters:
     [`tf::tf_approx_nocb()`](https://tidyfun.github.io/tf/reference/tf_approx.html)).
 
 - `left` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
-  The left boundary of the window. The window is specified such that the
-  all values \>=left and \<=right are kept for the computations.
+  The left boundary of the window. The window is specified such that all
+  values \>=left and \<=right are kept for the computations.
 
 - `right` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   The right boundary of the window.

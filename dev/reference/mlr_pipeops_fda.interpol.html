@@ -72,7 +72,7 @@ specifies the number of points to use for the grid, requires <code>left</code> a
 If <code>grid</code> is a character, it must be one of:</p><ul><li><p><code>"union"</code>: This option creates a grid based on the union of all argument points from the provided functional
 features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
 be the combined unique set of these points. This option is generally used when the argument points vary across
-observations and a  common grid is needed for comparison or further analysis.</p></li>
+observations and a common grid is needed for comparison or further analysis.</p></li>
 <li><p><code>"intersect"</code>: Creates a grid using the intersection of all argument points of a feature.
 This grid includes only those points that are common across all functional features,
 facilitating direct comparison on a shared set of points.</p></li>
@@ -91,7 +91,7 @@ Defaults to <code>"linear"</code>. One of:</p><ul><li><p><code>"linear"</code>: 
 </ul></li>
 <li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 The left boundary of the window.
-The window is specified such that the all values &gt;=left and &lt;=right are kept for the computations.</p></li>
+The window is specified such that all values &gt;=left and &lt;=right are kept for the computations.</p></li>
 <li><p><code>right</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 The right boundary of the window.</p></li>
 </ul></div>

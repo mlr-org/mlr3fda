@@ -2,7 +2,7 @@
 
 The task contains a single functional covariate and 5 equally big
 classes (aa, ao, dcl, iy, sh). The aim is to predict the class of the
-phoneme in the functional, which is a log-periodogram.  
+phoneme from the functional feature, which is a log-periodogram.  
 This is a subset of the full dataset, which is contained in the package
 `fda.usc`.
 
@@ -40,7 +40,7 @@ with the associated sugar function
 
 ## References
 
-Ferraty, Frédric, Vieu, Philippe (2003). “Curves discrimination: a
+Ferraty, Frédéric, Vieu, Philippe (2003). “Curves discrimination: a
 nonparametric functional approach.” *Computational Statistics & Data
 Analysis*, **44**(1-2), 161–173.
 

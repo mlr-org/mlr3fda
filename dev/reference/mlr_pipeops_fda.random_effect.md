@@ -48,7 +48,7 @@ Inherited methods
 
 ### Method `new()`
 
-Initializes a new instance of this Class
+Initializes a new instance of this Class.
 
 #### Usage
 
@@ -58,14 +58,15 @@ Initializes a new instance of this Class
 
 - `id`:
 
-  (`character(1)`) Identifier of the operator, default is
-  `"fda.random_effect"`.
+  (`character(1)`)  
+  Identifier of resulting object, default is `"fda.random_effect"`.
 
 - `param_vals`:
 
-  (named [`list()`](https://rdrr.io/r/base/list.html)) List of
-  hyperparameter settings, overwriting default settings set during
-  construction.
+  (named [`list()`](https://rdrr.io/r/base/list.html))  
+  List of hyperparameter settings, overwriting the hyperparameter
+  settings that would otherwise be set during construction. Default
+  [`list()`](https://rdrr.io/r/base/list.html).
 
 ------------------------------------------------------------------------
 

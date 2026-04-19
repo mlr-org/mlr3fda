@@ -11,11 +11,11 @@ The parameters are the parameters inherited from
 
 ## Naming
 
-The new names generally append a `_1`, ..., to the corresponding column
-name. However this can lead to name clashes with existing columns. This
-is solved as follows: If a column was called `"x"`, the corresponding
-new columns will be called `"x_1"`, `"x_2"`, etc. In case of duplicates,
-unique names are obtained using
+The new names generally append `_1`, `_2`, ... to the corresponding
+column name. However this can lead to name clashes with existing
+columns. This is solved as follows: If a column was called `"x"`, the
+corresponding new columns will be called `"x_1"`, `"x_2"`, etc. In case
+of duplicates, unique names are obtained using
 [`make.unique()`](https://rdrr.io/r/base/make.unique.html) and a warning
 is given.
 
@@ -88,5 +88,5 @@ The objects of this class are cloneable with this method.
 ``` r
 task = tsk("fuel")
 pop = po("fda.flatten")
-task_flat = pop$train(list(task))
+task_flat = pop$train(list(task))[[1L]]
 ```

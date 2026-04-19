@@ -67,7 +67,7 @@ to new columns, one for each input value to the function.</p>
     <h2 id="naming">Naming<a class="anchor" aria-label="anchor" href="#naming"></a></h2>
 
 
-<p>The new names generally append a <code>_1</code>, ...,  to the corresponding column name.
+<p>The new names generally append <code>_1</code>, <code>_2</code>, ... to the corresponding column name.
 However this can lead to name clashes with existing columns.
 This is solved as follows:
 If a column was called <code>"x"</code>, the corresponding new columns will
@@ -137,7 +137,7 @@ otherwise be set during construction. Default <code><a href="https://rdrr.io/r/b
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">task</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3.mlr-org.com/reference/mlr_sugar.html" class="external-link">tsk</a></span><span class="op">(</span><span class="st">"fuel"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pop</span> <span class="op">=</span> <span class="fu"><a href="https://mlr3pipelines.mlr-org.com/reference/po.html" class="external-link">po</a></span><span class="op">(</span><span class="st">"fda.flatten"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">task_flat</span> <span class="op">=</span> <span class="va">pop</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">task_flat</span> <span class="op">=</span> <span class="va">pop</span><span class="op">$</span><span class="fu">train</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">task</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
