@@ -78,7 +78,7 @@ PipeOpFDAFourier = R6Class("PipeOpFDAFourier",
           )
           as.data.table(t(res))
         })
-        setnames(fft_coeff, sprintf("%s_fft_%s_%i", nm, type, seq_len(ncol(fft_coeff))))
+        setnames(fft_coeff, sprintf("%s_fft_%s_%i", nm, type, seq_col(fft_coeff)))
       }))
     }
   )

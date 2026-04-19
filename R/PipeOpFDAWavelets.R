@@ -91,7 +91,7 @@ PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
           },
           .fill = TRUE
         )
-        setnames(feats, sprintf("%s_wav_%s_%i", nm, filter, seq_len(ncol(feats))))
+        setnames(feats, sprintf("%s_wav_%s_%i", nm, filter, seq_col(feats)))
       }))
     }
   )
