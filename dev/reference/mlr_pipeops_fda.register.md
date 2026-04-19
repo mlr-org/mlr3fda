@@ -44,7 +44,7 @@ as well as the following parameters:
     the form \\h(t) = a \cdot t + b\\. Supports regular and irregular
     grids. Default template is the arithmetic mean.
 
-  Initial value is `"srvf"`.
+  Default is `"srvf"`.
 
 - `args` :: named [`list()`](https://rdrr.io/r/base/list.html)  
   Method-specific arguments passed to

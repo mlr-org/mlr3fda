@@ -1,4 +1,4 @@
-# Fast Fourier transform features
+# Fast Fourier Transform Features
 
 This `PipeOp` extracts Fourier coefficients from functional columns. For
 more details, see [`stats::fft()`](https://rdrr.io/r/stats/fft.html),
@@ -60,7 +60,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.fourier"`.
+  Identifier of resulting object, default `"fda.fourier"`.
 
 - `param_vals`:
 

@@ -1,4 +1,4 @@
-# Discrete Wavelet transform features
+# Discrete Wavelet Transform Features
 
 This `PipeOp` extracts discrete wavelet transform coefficients from
 functional columns. For more details, see
@@ -20,7 +20,7 @@ as well as the following parameters:
   be one of `"d"`\|`"la"`\|`"bl"`\|`"c"` followed by an even number for
   the level of the filter. The level of the filter needs to be smaller
   or equal than the time-series length. For more information and
-  acceptable filters see `help(wt.filter)`. Defaults to `"la8"`.
+  acceptable filters see `help(wt.filter)`. Default is `"la8"`.
 
 - `n.levels` :: `integer(1)`  
   An integer specifying the level of the decomposition.
@@ -73,7 +73,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.wavelets"`.
+  Identifier of resulting object, default `"fda.wavelets"`.
 
 - `param_vals`:
 

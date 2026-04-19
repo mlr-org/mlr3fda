@@ -87,7 +87,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.tsfeats"`.
+  Identifier of resulting object, default `"fda.tsfeats"`.
 
 - `param_vals`:
 

@@ -41,7 +41,7 @@ as well as the following parameters:
     value is `"union"`.
 
 - `method` :: `character(1)`  
-  Defaults to `"linear"`. One of:
+  One of:
 
   - `"linear"`: applies linear interpolation without extrapolation (see
     [`tf::tf_approx_linear()`](https://tidyfun.github.io/tf/reference/tf_approx.html)).
@@ -60,6 +60,8 @@ as well as the following parameters:
   - `"nocb"`: applies "next observation carried backward" interpolation
     (see
     [`tf::tf_approx_nocb()`](https://tidyfun.github.io/tf/reference/tf_approx.html)).
+
+  Default is `"linear"`.
 
 - `left` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   The left boundary of the window. The window is specified such that all

@@ -1,4 +1,4 @@
-# Flattens Functional Columns
+# Flatten Functional Columns
 
 Convert regular functional features (e.g. all individuals are observed
 at the same time-points) to new columns, one for each input value to the

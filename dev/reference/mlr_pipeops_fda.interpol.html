@@ -83,12 +83,12 @@ Note: For regular functional data this has no effect as all argument points are 
 Initial value is <code>"union"</code>.</p></li>
 </ul></li>
 <li><p><code>method</code> :: <code>character(1)</code><br>
-Defaults to <code>"linear"</code>. One of:</p><ul><li><p><code>"linear"</code>: applies linear interpolation without extrapolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_linear()</a></code>).</p></li>
+One of:</p><ul><li><p><code>"linear"</code>: applies linear interpolation without extrapolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_linear()</a></code>).</p></li>
 <li><p><code>"spline"</code>: applies cubic spline interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_spline()</a></code>).</p></li>
 <li><p><code>"fill_extend"</code>: applies linear interpolation with constant extrapolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_fill_extend()</a></code>).</p></li>
 <li><p><code>"locf"</code>: applies "last observation carried forward" interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_locf()</a></code>).</p></li>
 <li><p><code>"nocb"</code>: applies "next observation carried backward" interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_nocb()</a></code>).</p></li>
-</ul></li>
+</ul><p>Default is <code>"linear"</code>.</p></li>
 <li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 The left boundary of the window.
 The window is specified such that all values &gt;=left and &lt;=right are kept for the computations.</p></li>

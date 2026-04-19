@@ -1,4 +1,4 @@
-# Extracts Random Effects from Functional Columns
+# Extract Random Effects from Functional Columns
 
 This is the class that extracts random effects, specifically random
 intercepts and random slopes, from functional columns. This PipeOp fits
@@ -59,7 +59,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.random_effect"`.
+  Identifier of resulting object, default `"fda.random_effect"`.
 
 - `param_vals`:
 

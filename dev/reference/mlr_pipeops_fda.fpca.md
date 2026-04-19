@@ -70,7 +70,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.fpca"`.
+  Identifier of resulting object, default `"fda.fpca"`.
 
 - `param_vals`:
 

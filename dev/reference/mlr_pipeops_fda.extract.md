@@ -1,4 +1,4 @@
-# Extracts Simple Features from Functional Columns
+# Extract Simple Features from Functional Columns
 
 This is the class that extracts simple features from functional columns.
 Note that it only operates on values that were actually observed and
@@ -82,7 +82,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.extract"`.
+  Identifier of resulting object, default `"fda.extract"`.
 
 - `param_vals`:
 

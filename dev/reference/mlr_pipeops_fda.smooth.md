@@ -1,4 +1,4 @@
-# Smoothing Functional Columns
+# Smooth Functional Columns
 
 Smoothes functional data using
 [`tf::tf_smooth()`](https://tidyfun.github.io/tf/reference/tf_smooth.html).

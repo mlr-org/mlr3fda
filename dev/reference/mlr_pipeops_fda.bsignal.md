@@ -15,7 +15,7 @@ as well as the following parameters:
 
 - `inS` :: `character(1)`  
   Type of effect in the covariate index: one of `"smooth"`, `"linear"`,
-  `"constant"`. Default `"smooth"`.
+  `"constant"`. Default is `"smooth"`.
 
 - `knots` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   Either the number of interior knots or a vector of their positions.
@@ -92,7 +92,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.bsignal"`.
+  Identifier of resulting object, default `"fda.bsignal"`.
 
 - `param_vals`:
 
