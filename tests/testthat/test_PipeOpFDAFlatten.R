@@ -54,7 +54,12 @@ test_that("PipeOpFDAFlatten works with tfr and tfi", {
   pop = po("fda.flatten")
   task_flat = train_pipeop(pop, list(task))[[1L]]
   expected = data.table(
-    y = 1:2, f_1 = c(1, 3), f_2 = c(2, 5), f_3 = c(5, 10), f_4 = c(5, 2), f_5 = c(7, 12)
+    y = 1:2,
+    f_1 = c(1, 3),
+    f_2 = c(2, 5),
+    f_3 = c(5, 10),
+    f_4 = c(5, 2),
+    f_5 = c(7, 12)
   )
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)
@@ -71,7 +76,13 @@ test_that("PipeOpFDAFlatten works with tfr and tfi", {
   pop = po("fda.flatten")
   task_flat = train_pipeop(pop, list(task))[[1L]]
   expected = data.table(
-    y = 1:2, f_1 = c(NA, 1), f_2 = c(NA, 3), f_3 = c(2, 4), f_4 = c(5, 5), f_5 = c(6, 6), f_6 = c(NA, 7)
+    y = 1:2,
+    f_1 = c(NA, 1),
+    f_2 = c(NA, 3),
+    f_3 = c(2, 4),
+    f_4 = c(5, 5),
+    f_5 = c(6, 6),
+    f_6 = c(NA, 7)
   )
   expect_set_equal(c("f_1", "f_2", "f_3", "f_4", "f_5", "f_6"), task_flat$feature_names)
   expect_equal(task_flat$data(), expected)

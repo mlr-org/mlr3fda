@@ -42,7 +42,8 @@
 #' po_bsignal = po("fda.bsignal")
 #' task_bsignal = po_bsignal$train(list(task))[[1L]]
 #' task_bsignal$data()
-PipeOpFDABsignal = R6Class("PipeOpFDABsignal",
+PipeOpFDABsignal = R6Class(
+  "PipeOpFDABsignal",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.

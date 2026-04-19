@@ -28,7 +28,8 @@
 #' po_wavelets = po("fda.wavelets")
 #' task_wavelets = po_wavelets$train(list(task))[[1L]]
 #' task_wavelets$data()
-PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
+PipeOpFDAWavelets = R6Class(
+  "PipeOpFDAWavelets",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
@@ -40,7 +41,9 @@ PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
     initialize = function(id = "fda.wavelets", param_vals = list()) {
       param_set = ps(
         filter = p_uty(
-          default = "la8", tags = c("train", "predict"), custom_check = crate(function(x) {
+          default = "la8",
+          tags = c("train", "predict"),
+          custom_check = crate(function(x) {
             if (test_class(x, "wt.filter")) {
               return(TRUE)
             }

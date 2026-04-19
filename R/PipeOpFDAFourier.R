@@ -22,7 +22,8 @@
 #' po_fourier = po("fda.fourier")
 #' task_fourier = po_fourier$train(list(task))[[1L]]
 #' task_fourier$data()
-PipeOpFDAFourier = R6Class("PipeOpFDAFourier",
+PipeOpFDAFourier = R6Class(
+  "PipeOpFDAFourier",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.

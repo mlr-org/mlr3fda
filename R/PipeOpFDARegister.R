@@ -50,7 +50,8 @@
 #' po_reg = po("fda.register", method = "affine", args = list(type = "shift_scale"))
 #' task_reg = po_reg$train(list(task))[[1L]]
 #' task_reg$data(cols = c("NIR", "UVVIS"))
-PipeOpFDARegister = R6Class("PipeOpFDARegister",
+PipeOpFDARegister = R6Class(
+  "PipeOpFDARegister",
   inherit = PipeOpTaskPreproc,
   public = list(
     #' @description Initializes a new instance of this Class.

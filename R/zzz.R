@@ -27,12 +27,16 @@ named_union = function(x, y) set_names(union(x, y), union(names(x), names(y)))
 # metainf must be manually added in the register_mlr3pipelines function
 # Because the value is substituted, we cannot pass it through this function
 register_po = function(name, constructor) {
-  if (name %chin% names(mlr3fda_pipeops)) stopf("pipeop %s registered twice", name)
+  if (name %chin% names(mlr3fda_pipeops)) {
+    stopf("pipeop %s registered twice", name)
+  }
   mlr3fda_pipeops[[name]] = list(constructor = constructor)
 }
 
 register_task = function(name, constructor) {
-  if (name %chin% names(mlr3fda_tasks)) stopf("task %s registered twice", name)
+  if (name %chin% names(mlr3fda_tasks)) {
+    stopf("task %s registered twice", name)
+  }
   mlr3fda_tasks[[name]] = constructor
 }
 
@@ -64,7 +68,7 @@ register_mlr3pipelines = function() {
   register_namespace_callback(pkgname, "mlr3pipelines", register_mlr3pipelines)
 }
 
-.onUnload = function(libPaths) { # nolint
+.onUnload = function(libPaths) {
   walk(names(mlr3fda_tasks), function(nm) mlr_tasks$remove(nm))
   walk(names(mlr3fda_pipeops), function(nm) mlr_pipeops$remove(nm))
   mlr_reflections$task_feature_types =

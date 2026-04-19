@@ -22,7 +22,8 @@
 #' task = tsk("dti")
 #' po_fre = po("fda.random_effect")
 #' task_fre = po_fre$train(list(task))[[1L]]
-PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
+PipeOpFDARandomEffect = R6Class(
+  "PipeOpFDARandomEffect",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.

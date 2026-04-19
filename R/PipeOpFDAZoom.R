@@ -25,7 +25,8 @@
 #' pop = po("fda.zoom", begin = 50, end = 100)
 #' task_zoom = pop$train(list(task))[[1L]]
 #' task_zoom$data()
-PipeOpFDAZoom = R6Class("PipeOpFDAZoom",
+PipeOpFDAZoom = R6Class(
+  "PipeOpFDAZoom",
   inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.

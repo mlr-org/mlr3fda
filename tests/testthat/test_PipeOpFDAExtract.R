@@ -50,7 +50,10 @@ test_that("PipeOpFDAExtract works", {
   pop = po("fda.extract", features = c("mean", "median", "min"), drop = TRUE, left = 100, right = 200)
   task_pop = train_pipeop(pop, list(task))[[1L]]
   expected = data.table(
-    y = 1:2, f_mean = rep(NA_real_, 2L), f_median = rep(NA_real_, 2L), f_min = rep(NA_real_, 2L)
+    y = 1:2,
+    f_mean = rep(NA_real_, 2L),
+    f_median = rep(NA_real_, 2L),
+    f_min = rep(NA_real_, 2L)
   )
   expect_identical(task_pop$data(), expected)
 
@@ -184,9 +187,7 @@ test_that("ffind works", {
   expect_identical(ffind(1:10, 5, 15), c(5L, 10L))
 
   expect_identical(
-    ffind(c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10),
-      left = -200, right = 0
-    ),
+    ffind(c(-3876, -3798, -3453, -3363, -2974, -2953, -2871, -1917, -1335, -1304, -725, 10), left = -200, right = 0),
     rep(NA_integer_, 2L)
   )
 })
