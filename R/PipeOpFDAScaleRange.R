@@ -11,9 +11,9 @@
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
 #' as well as the following parameters:
 #' * `lower` :: `numeric(1)`\cr
-#' Target value of smallest item of input data. Initialized to `0`.
+#'   Target value of smallest item of input data. Initialized to `0`.
 #' * `upper` :: `numeric(1)`\cr
-#' Target value of greatest item of input data. Initialized to `1`.
+#'   Target value of greatest item of input data. Initialized to `1`.
 #'
 #' @export
 #' @examples
@@ -42,7 +42,7 @@ PipeOpFDAScaleRange = R6Class("PipeOpFDAScaleRange",
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf"),
-        feature_types = c("tfd_irreg", "tfd_reg"),
+        feature_types = c("tfd_reg", "tfd_irreg"),
         tags = "fda"
       )
     }
