@@ -57,6 +57,7 @@ Collate:
     'PipeOpFDAFourier.R'
     'PipeOpFDAInterpol.R'
     'PipeOpFDARandomEffect.R'
+    'PipeOpFDARegister.R'
     'PipeOpFDAScaleRange.R'
     'PipeOpFDASmooth.R'
     'PipeOpFDATsfeatures.R'
