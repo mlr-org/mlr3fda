@@ -1,4 +1,5 @@
 #' @title B-spline Feature Extraction
+#'
 #' @name mlr_pipeops_fda.bsignal
 #'
 #' @description

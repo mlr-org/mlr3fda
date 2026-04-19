@@ -1,4 +1,5 @@
 #' @title Register (Align) Functional Columns
+#'
 #' @name mlr_pipeops_fda.register
 #'
 #' @description

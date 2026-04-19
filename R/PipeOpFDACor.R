@@ -1,4 +1,5 @@
 #' @title Cross-Correlation of Functional Data
+#'
 #' @name mlr_pipeops_fda.cor
 #'
 #' @description

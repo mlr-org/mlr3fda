@@ -1,4 +1,5 @@
 #' @title Discrete Wavelet Transform Features
+#'
 #' @name mlr_pipeops_fda.wavelets
 #'
 #' @description
@@ -20,6 +21,7 @@
 #'   its length. Default is `"periodic"`.
 #' * `fast` :: `logical(1)`\cr
 #'   Should the pyramid algorithm be calculated with an internal C function? Default is `TRUE`.
+#'
 #' @export
 #' @examples
 #' task = tsk("fuel")

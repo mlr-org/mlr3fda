@@ -1,4 +1,5 @@
 #' @title Smooth Functional Columns
+#'
 #' @name mlr_pipeops_fda.smooth
 #'
 #' @description

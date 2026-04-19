@@ -1,4 +1,5 @@
 #' @title Functional Principal Component Analysis
+#'
 #' @name mlr_pipeops_fda.fpca
 #'
 #' @description

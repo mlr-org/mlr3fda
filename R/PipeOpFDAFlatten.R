@@ -1,4 +1,5 @@
 #' @title Flatten Functional Columns
+#'
 #' @name mlr_pipeops_fda.flatten
 #'
 #' @description

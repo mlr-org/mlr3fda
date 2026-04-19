@@ -1,4 +1,5 @@
 #' @title Linearly Transform the Domain of Functional Data
+#'
 #' @name mlr_pipeops_fda.scalerange
 #'
 #' @description

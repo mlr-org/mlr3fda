@@ -1,4 +1,5 @@
 #' @title Zoom In/Out on Functional Columns
+#'
 #' @name mlr_pipeops_fda.zoom
 #'
 #' @description

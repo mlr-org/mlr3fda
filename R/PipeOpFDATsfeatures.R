@@ -1,4 +1,5 @@
 #' @title Time Series Feature Extraction
+#'
 #' @name mlr_pipeops_fda.tsfeats
 #'
 #' @description
