@@ -28,7 +28,7 @@
 #'   * `"affine"`: affine (shift and/or scale) registration with warps of the form \eqn{h(t) = a \cdot t + b}.
 #'     Supports regular and irregular grids. Default template is the arithmetic mean.
 #'
-#'   Initial value is `"srvf"`.
+#'   Default is `"srvf"`.
 #' * `args` :: named `list()`\cr
 #'   Method-specific arguments passed to [tf::tf_register()] via `...`. See the help page of
 #'   [tf::tf_estimate_warps()] for valid arguments (e.g. `lambda` / `penalty_method` for `"srvf"`;

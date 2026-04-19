@@ -34,7 +34,7 @@ Default template is the arithmetic mean.
 Supports regular and irregular grids. Default template is the arithmetic mean.
 }
 
-Initial value is \code{"srvf"}.
+Default is \code{"srvf"}.
 \item \code{args} :: named \code{list()}\cr
 Method-specific arguments passed to \code{\link[tf:tf_register]{tf::tf_register()}} via \code{...}. See the help page of
 \code{\link[tf:tf_estimate_warps]{tf::tf_estimate_warps()}} for valid arguments (e.g. \code{lambda} / \code{penalty_method} for \code{"srvf"};

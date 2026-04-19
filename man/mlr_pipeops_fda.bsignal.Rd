@@ -15,7 +15,7 @@ The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeO
 as well as the following parameters:
 \itemize{
 \item \code{inS} :: \code{character(1)}\cr
-Type of effect in the covariate index: one of \code{"smooth"}, \code{"linear"}, \code{"constant"}. Default \code{"smooth"}.
+Type of effect in the covariate index: one of \code{"smooth"}, \code{"linear"}, \code{"constant"}. Default is \code{"smooth"}.
 \item \code{knots} :: \code{numeric()}\cr
 Either the number of interior knots or a vector of their positions.
 \item \code{boundary.knots} :: \code{numeric(2)}\cr
@@ -81,7 +81,7 @@ Initializes a new instance of this Class.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{(\code{character(1)})\cr
-Identifier of resulting object, default is \code{"fda.bsignal"}.}
+Identifier of resulting object, default \code{"fda.bsignal"}.}
 
 \item{\code{param_vals}}{(named \code{list()})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would

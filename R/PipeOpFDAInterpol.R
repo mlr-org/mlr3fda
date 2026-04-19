@@ -28,12 +28,14 @@
 #'   Note: For regular functional data this has no effect as all argument points are the same.
 #'   Initial value is `"union"`.
 #' * `method` :: `character(1)`\cr
-#'   Defaults to `"linear"`. One of:
+#'   One of:
 #'   * `"linear"`: applies linear interpolation without extrapolation (see [tf::tf_approx_linear()]).
 #'   * `"spline"`: applies cubic spline interpolation (see [tf::tf_approx_spline()]).
 #'   * `"fill_extend"`: applies linear interpolation with constant extrapolation (see [tf::tf_approx_fill_extend()]).
 #'   * `"locf"`: applies "last observation carried forward" interpolation (see [tf::tf_approx_locf()]).
 #'   * `"nocb"`: applies "next observation carried backward" interpolation (see [tf::tf_approx_nocb()]).
+#'
+#'   Default is `"linear"`.
 #' * `left` :: `numeric()`\cr
 #'   The left boundary of the window.
 #'   The window is specified such that all values >=left and <=right are kept for the computations.

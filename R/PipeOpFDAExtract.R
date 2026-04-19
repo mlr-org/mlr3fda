@@ -54,7 +54,7 @@ PipeOpFDAExtract = R6Class("PipeOpFDAExtract",
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"fda.extract"`.
+    #'   Identifier of resulting object, default `"fda.extract"`.
     #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.

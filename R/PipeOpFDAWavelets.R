@@ -13,7 +13,7 @@
 #'   Specifies which filter should be used. Must be either [wavelets::wt.filter()] object, an even numeric vector or a
 #'   string. In case of a string must be one of `"d"`|`"la"`|`"bl"`|`"c"` followed by an even number for the level of
 #'   the filter. The level of the filter needs to be smaller or equal than the time-series length.
-#'   For more information and acceptable filters see `help(wt.filter)`. Defaults to `"la8"`.
+#'   For more information and acceptable filters see `help(wt.filter)`. Default is `"la8"`.
 #' * `n.levels` :: `integer(1)`\cr
 #'   An integer specifying the level of the decomposition.
 #' * `boundary` :: `character(1)`\cr
@@ -33,7 +33,7 @@ PipeOpFDAWavelets = R6Class("PipeOpFDAWavelets",
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"fda.wavelets"`.
+    #'   Identifier of resulting object, default `"fda.wavelets"`.
     #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.

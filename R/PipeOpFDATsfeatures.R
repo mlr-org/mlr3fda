@@ -44,7 +44,7 @@ PipeOpFDATsfeatures = R6Class("PipeOpFDATsfeatures",
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"fda.tsfeats"`.
+    #'   Identifier of resulting object, default `"fda.tsfeats"`.
     #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.

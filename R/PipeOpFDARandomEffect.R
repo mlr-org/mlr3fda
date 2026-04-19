@@ -27,7 +27,7 @@ PipeOpFDARandomEffect = R6Class("PipeOpFDARandomEffect",
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"fda.random_effect"`.
+    #'   Identifier of resulting object, default `"fda.random_effect"`.
     #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.

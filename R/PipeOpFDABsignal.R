@@ -11,7 +11,7 @@
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
 #' * `inS` :: `character(1)`\cr
-#'   Type of effect in the covariate index: one of `"smooth"`, `"linear"`, `"constant"`. Default `"smooth"`.
+#'   Type of effect in the covariate index: one of `"smooth"`, `"linear"`, `"constant"`. Default is `"smooth"`.
 #' * `knots` :: `numeric()`\cr
 #'   Either the number of interior knots or a vector of their positions.
 #' * `boundary.knots` :: `numeric(2)`\cr
@@ -47,7 +47,7 @@ PipeOpFDABsignal = R6Class("PipeOpFDABsignal",
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
-    #'   Identifier of resulting object, default is `"fda.bsignal"`.
+    #'   Identifier of resulting object, default `"fda.bsignal"`.
     #' @param param_vals (named `list()`)\cr
     #'   List of hyperparameter settings, overwriting the hyperparameter settings that would
     #'   otherwise be set during construction. Default `list()`.

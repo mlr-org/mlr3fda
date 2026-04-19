@@ -34,7 +34,7 @@ Note: For regular functional data this has no effect as all argument points are 
 Initial value is \code{"union"}.
 }
 \item \code{method} :: \code{character(1)}\cr
-Defaults to \code{"linear"}. One of:
+One of:
 \itemize{
 \item \code{"linear"}: applies linear interpolation without extrapolation (see \code{\link[tf:tf_approx]{tf::tf_approx_linear()}}).
 \item \code{"spline"}: applies cubic spline interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_spline()}}).
@@ -42,6 +42,8 @@ Defaults to \code{"linear"}. One of:
 \item \code{"locf"}: applies "last observation carried forward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_locf()}}).
 \item \code{"nocb"}: applies "next observation carried backward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_nocb()}}).
 }
+
+Default is \code{"linear"}.
 \item \code{left} :: \code{numeric()}\cr
 The left boundary of the window.
 The window is specified such that all values >=left and <=right are kept for the computations.

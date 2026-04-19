@@ -80,7 +80,7 @@ Initializes a new instance of this Class.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{id}}{(\code{character(1)})\cr
-Identifier of resulting object, default is \code{"fda.tsfeats"}.}
+Identifier of resulting object, default \code{"fda.tsfeats"}.}
 
 \item{\code{param_vals}}{(named \code{list()})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would
