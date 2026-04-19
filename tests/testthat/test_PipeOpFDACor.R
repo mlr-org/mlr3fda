@@ -23,7 +23,7 @@ test_that("PipeOpCor works", {
   # single col gives warning
   task$select("x1")
   pop = po("fda.cor")
-  expect_warning(task_cor <- train_pipeop(pop, list(task))[[1L]], "task has less than 2 columns")
+  expect_warning(task_cor <- train_pipeop(pop, list(task))[[1L]], "task has fewer than 2 columns")
   expect_identical(task$data(), task_cor$data())
 
   # different domain throws error
