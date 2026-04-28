@@ -47,7 +47,7 @@ register_mlr3 = function() {
 
   # add tasks
   mlr_tasks = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
-  iwalk(as.list(mlr3fda_tasks), function(task, id) mlr_tasks$add(id, task))
+  iwalk(as.list(mlr3fda_tasks), \(task, id) mlr_tasks$add(id, task))
 }
 
 register_mlr3pipelines = function() {
@@ -69,8 +69,8 @@ register_mlr3pipelines = function() {
 }
 
 .onUnload = function(libPaths) {
-  walk(names(mlr3fda_tasks), function(nm) mlr_tasks$remove(nm))
-  walk(names(mlr3fda_pipeops), function(nm) mlr_pipeops$remove(nm))
+  walk(names(mlr3fda_tasks), \(nm) mlr_tasks$remove(nm))
+  walk(names(mlr3fda_pipeops), \(nm) mlr_pipeops$remove(nm))
   mlr_reflections$task_feature_types =
     mlr_reflections$task_feature_types[mlr_reflections$task_feature_types %nin% mlr3fda_feature_types]
   mlr_reflections$pipeops$valid_tags = setdiff(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags)

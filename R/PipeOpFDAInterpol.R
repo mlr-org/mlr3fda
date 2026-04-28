@@ -142,7 +142,7 @@ PipeOpFDAInterpol = R6Class(
             intersect = Reduce(intersect, arg),
             minmax = {
               lower = max(map_dbl(arg, 1L))
-              upper = min(map_dbl(arg, function(arg) arg[[length(arg)]]))
+              upper = min(map_dbl(arg, \(arg) arg[[length(arg)]]))
               arg = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE)))
               arg[seq(which(lower == arg), which(upper == arg))]
             }

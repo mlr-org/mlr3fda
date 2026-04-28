@@ -39,11 +39,11 @@ PipeOpFDAZoom = R6Class(
       param_set = ps(
         begin = p_uty(
           tags = c("train", "predict"),
-          custom_check = crate(function(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1))
+          custom_check = crate(\(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1))
         ),
         end = p_uty(
           tags = c("train", "predict"),
-          custom_check = crate(function(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1))
+          custom_check = crate(\(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1))
         )
       )
 

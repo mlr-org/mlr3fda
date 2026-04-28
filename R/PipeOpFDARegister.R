@@ -65,7 +65,7 @@ PipeOpFDARegister = R6Class(
         method = p_fct(default = "srvf", c("srvf", "cc", "affine"), tags = c("train", "predict")),
         args = p_uty(
           tags = c("train", "predict", "required"),
-          custom_check = crate(function(x) check_list(x, names = "unique"))
+          custom_check = crate(\(x) check_list(x, names = "unique"))
         ),
         max_iter = p_int(1L, default = 3L, tags = "train"),
         tol = p_dbl(default = 1e-2, lower = 0, tags = "train")

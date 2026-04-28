@@ -51,7 +51,7 @@ PipeOpFDASmooth = R6Class(
         ),
         args = p_uty(
           tags = c("train", "predict", "required"),
-          custom_check = crate(function(x) check_list(x, names = "unique"))
+          custom_check = crate(\(x) check_list(x, names = "unique"))
         ),
         verbose = p_lgl(tags = c("train", "predict", "required"))
       )

@@ -64,7 +64,7 @@ PipeOpFDAScaleRange = R6Class(
         if (tf::is_reg(x)) {
           new_args = offset + args * scale
         } else {
-          new_args = map(args, function(arg) offset + arg * scale)
+          new_args = map(args, \(arg) offset + arg * scale)
         }
         set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
       }
@@ -82,7 +82,7 @@ PipeOpFDAScaleRange = R6Class(
         if (tf::is_reg(x)) {
           new_args = trafo$offset + args * trafo$scale
         } else {
-          new_args = map(args, function(arg) trafo$offset + arg * trafo$scale)
+          new_args = map(args, \(arg) trafo$offset + arg * trafo$scale)
         }
         set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
       }

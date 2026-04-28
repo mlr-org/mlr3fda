@@ -136,7 +136,7 @@ PipeOpFDAExtract = R6Class(
       assert_true(left <= right)
 
       # handle name clashes of generated features with existing columns
-      feature_names = imap_chr(features, function(value, nm) if (is.function(value)) nm else value)
+      feature_names = imap_chr(features, \(value, nm) if (is.function(value)) nm else value)
       feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
 
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
@@ -153,7 +153,7 @@ PipeOpFDAExtract = R6Class(
       })
       fextractor = make_fextractor(features)
 
-      features = map(cols, function(col) invoke(fextractor, x = dt[[col]], left = left, right = right))
+      features = map(cols, \(col) invoke(fextractor, x = dt[[col]], left = left, right = right))
       features = setDT(unlist(features, recursive = FALSE, use.names = FALSE))
       setnames(features, feature_names)
 
@@ -177,7 +177,7 @@ make_fextractor = function(features) {
       upper = interval[[2L]]
 
       if (is.na(lower) || is.na(upper)) {
-        res = map(features, function(f) rep(NA_real_, length(x))) # no observation in the given interval [left, right]
+        res = map(features, \(f) rep(NA_real_, length(x))) # no observation in the given interval [left, right]
         return(res)
       }
 
@@ -185,7 +185,7 @@ make_fextractor = function(features) {
       arg = args[lower:upper]
       res = map(seq_along(x), function(i) {
         value = values[[i]]
-        map(features, function(f) f(arg = arg, value = value[lower:upper]))
+        map(features, \(f) f(arg = arg, value = value[lower:upper]))
       })
       return(transform_list(res))
     }
@@ -202,7 +202,7 @@ make_fextractor = function(features) {
       if (is.na(lower) || is.na(upper)) {
         rep(NA_real_, length(features)) # no observation in the given interval [left, right]
       } else {
-        map(features, function(f) f(arg = arg[lower:upper], value = value[lower:upper]))
+        map(features, \(f) f(arg = arg[lower:upper], value = value[lower:upper]))
       }
     })
     transform_list(res)
@@ -211,7 +211,7 @@ make_fextractor = function(features) {
 
 transform_list = function(x) {
   res = transpose(x)
-  map(res, function(x) unlist(x, recursive = FALSE, use.names = FALSE))
+  map(res, \(x) unlist(x, recursive = FALSE, use.names = FALSE))
 }
 
 ffind = function(x, left = -Inf, right = Inf) {

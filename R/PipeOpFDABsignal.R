@@ -58,13 +58,13 @@ PipeOpFDABsignal = R6Class(
         knots = p_uty(
           default = 10L,
           tags = c("train", "predict"),
-          custom_check = crate(function(x) check_numeric(x, min.len = 1))
+          custom_check = crate(\(x) check_numeric(x, min.len = 1))
         ),
         boundary.knots = p_uty(
           default = NULL,
           special_vals = list(NULL),
           tags = c("train", "predict"),
-          custom_check = crate(function(x) check_numeric(x, len = 2L, null.ok = TRUE))
+          custom_check = crate(\(x) check_numeric(x, len = 2L, null.ok = TRUE))
         ),
         degree = p_int(default = 3L, tags = c("train", "predict")),
         differences = p_int(1L, default = 1L, tags = c("train", "predict")),
