@@ -25,7 +25,7 @@ pak::pak("mlr-org/mlr3fda")
 The goal of `mlr3fda` is to extend `mlr3` to [functional
 data](https://en.wikipedia.org/wiki/Functional_data_analysis). This is
 achieved by adding support for functional feature types and providing
-preprocessing `PipeOp`s that operates on functional columns. For
+preprocessing `PipeOp`s that operate on functional columns. For
 representing functional data, the `tfd_reg` and `tfd_irreg` datatypes
 from the [tf](https://github.com/tidyfun/tf) package are used and are
 available after loading `mlr3fda`:
