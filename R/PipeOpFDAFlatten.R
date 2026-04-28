@@ -50,7 +50,7 @@ PipeOpFDAFlatten = R6Class(
       }
       dt = task$data(cols = cols)
 
-      flattened = imap(dt, function(x, nm) {
+      dt_flat = setcbindlist(imap(dt, function(x, nm) {
         if (tf::is_irreg(x)) {
           flat = suppressWarnings(as.matrix(x))
         } else {
@@ -58,10 +58,7 @@ PipeOpFDAFlatten = R6Class(
         }
         d = as.data.table(flat)
         setnames(d, sprintf("%s_%i", nm, seq_col(flat)))
-      })
-      names(flattened) = NULL # this does not set the data.table names to NULL but the list names
-      # convert to data.table and append names
-      dt_flat = invoke(cbind, .args = flattened)
+      }))
       feature_names = names(dt_flat)
 
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
