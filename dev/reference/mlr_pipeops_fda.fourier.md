@@ -34,7 +34,7 @@ Oppenheim, V A, Schafer, W R (2010). *Discrete-Time Signal Processing*,
 
 ### Public methods
 
-- [`PipeOpFDAFourier$new()`](#method-PipeOpFDAFourier-new)
+- [`PipeOpFDAFourier$new()`](#method-PipeOpFDAFourier-initialize)
 
 - [`PipeOpFDAFourier$clone()`](#method-PipeOpFDAFourier-clone)
 
@@ -47,7 +47,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAFourier$new()`
 
 Initializes a new instance of this Class.
 
@@ -71,7 +71,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAFourier$clone()`
 
 The objects of this class are cloneable with this method.
 

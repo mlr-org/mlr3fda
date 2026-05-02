@@ -83,7 +83,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDAInterpol$new()`](#method-PipeOpFDAInterpol-new)
+- [`PipeOpFDAInterpol$new()`](#method-PipeOpFDAInterpol-initialize)
 
 - [`PipeOpFDAInterpol$clone()`](#method-PipeOpFDAInterpol-clone)
 
@@ -96,7 +96,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAInterpol$new()`
 
 Initializes a new instance of this Class.
 
@@ -120,7 +120,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAInterpol$clone()`
 
 The objects of this class are cloneable with this method.
 

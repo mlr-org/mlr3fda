@@ -33,7 +33,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDACor$new()`](#method-PipeOpFDACor-new)
+- [`PipeOpFDACor$new()`](#method-PipeOpFDACor-initialize)
 
 - [`PipeOpFDACor$clone()`](#method-PipeOpFDACor-clone)
 
@@ -46,7 +46,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDACor$new()`
 
 Initializes a new instance of this Class.
 
@@ -70,7 +70,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDACor$clone()`
 
 The objects of this class are cloneable with this method.
 

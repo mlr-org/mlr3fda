@@ -29,7 +29,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDAScaleRange$new()`](#method-PipeOpFDAScaleRange-new)
+- [`PipeOpFDAScaleRange$new()`](#method-PipeOpFDAScaleRange-initialize)
 
 - [`PipeOpFDAScaleRange$clone()`](#method-PipeOpFDAScaleRange-clone)
 
@@ -42,7 +42,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAScaleRange$new()`
 
 Initializes a new instance of this Class.
 
@@ -66,7 +66,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAScaleRange$clone()`
 
 The objects of this class are cloneable with this method.
 

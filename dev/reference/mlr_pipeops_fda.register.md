@@ -81,7 +81,7 @@ vector) for each functional column.
 
 ### Public methods
 
-- [`PipeOpFDARegister$new()`](#method-PipeOpFDARegister-new)
+- [`PipeOpFDARegister$new()`](#method-PipeOpFDARegister-initialize)
 
 - [`PipeOpFDARegister$clone()`](#method-PipeOpFDARegister-clone)
 
@@ -94,7 +94,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDARegister$new()`
 
 Initializes a new instance of this Class.
 
@@ -118,7 +118,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDARegister$clone()`
 
 The objects of this class are cloneable with this method.
 

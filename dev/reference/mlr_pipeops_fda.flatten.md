@@ -32,7 +32,7 @@ is given.
 
 ### Public methods
 
-- [`PipeOpFDAFlatten$new()`](#method-PipeOpFDAFlatten-new)
+- [`PipeOpFDAFlatten$new()`](#method-PipeOpFDAFlatten-initialize)
 
 - [`PipeOpFDAFlatten$clone()`](#method-PipeOpFDAFlatten-clone)
 
@@ -45,7 +45,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAFlatten$new()`
 
 Initializes a new instance of this Class.
 
@@ -69,7 +69,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAFlatten$clone()`
 
 The objects of this class are cloneable with this method.
 

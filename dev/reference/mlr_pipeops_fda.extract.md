@@ -56,7 +56,7 @@ is given.
 
 ### Public methods
 
-- [`PipeOpFDAExtract$new()`](#method-PipeOpFDAExtract-new)
+- [`PipeOpFDAExtract$new()`](#method-PipeOpFDAExtract-initialize)
 
 - [`PipeOpFDAExtract$clone()`](#method-PipeOpFDAExtract-clone)
 
@@ -69,7 +69,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAExtract$new()`
 
 Initializes a new instance of this Class.
 
@@ -93,7 +93,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAExtract$clone()`
 
 The objects of this class are cloneable with this method.
 

@@ -66,7 +66,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDABsignal$new()`](#method-PipeOpFDABsignal-new)
+- [`PipeOpFDABsignal$new()`](#method-PipeOpFDABsignal-initialize)
 
 - [`PipeOpFDABsignal$clone()`](#method-PipeOpFDABsignal-clone)
 
@@ -79,7 +79,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDABsignal$new()`
 
 Initializes a new instance of this Class.
 
@@ -103,7 +103,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDABsignal$clone()`
 
 The objects of this class are cloneable with this method.
 

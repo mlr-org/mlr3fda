@@ -47,7 +47,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDAWavelets$new()`](#method-PipeOpFDAWavelets-new)
+- [`PipeOpFDAWavelets$new()`](#method-PipeOpFDAWavelets-initialize)
 
 - [`PipeOpFDAWavelets$clone()`](#method-PipeOpFDAWavelets-clone)
 
@@ -60,7 +60,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAWavelets$new()`
 
 Initializes a new instance of this Class.
 
@@ -84,7 +84,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAWavelets$clone()`
 
 The objects of this class are cloneable with this method.
 

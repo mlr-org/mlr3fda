@@ -33,7 +33,7 @@ corresponding column name of the functional feature.
 
 ### Public methods
 
-- [`PipeOpFDARandomEffect$new()`](#method-PipeOpFDARandomEffect-new)
+- [`PipeOpFDARandomEffect$new()`](#method-PipeOpFDARandomEffect-initialize)
 
 - [`PipeOpFDARandomEffect$clone()`](#method-PipeOpFDARandomEffect-clone)
 
@@ -46,7 +46,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDARandomEffect$new()`
 
 Initializes a new instance of this Class.
 
@@ -70,7 +70,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDARandomEffect$clone()`
 
 The objects of this class are cloneable with this method.
 

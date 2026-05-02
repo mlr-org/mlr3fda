@@ -44,7 +44,7 @@ components, the corresponding new columns will be called
 
 ### Public methods
 
-- [`PipeOpFPCA$new()`](#method-PipeOpFPCA-new)
+- [`PipeOpFPCA$new()`](#method-PipeOpFPCA-initialize)
 
 - [`PipeOpFPCA$clone()`](#method-PipeOpFPCA-clone)
 
@@ -57,7 +57,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFPCA$new()`
 
 Initializes a new instance of this Class.
 
@@ -81,7 +81,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFPCA$clone()`
 
 The objects of this class are cloneable with this method.
 
