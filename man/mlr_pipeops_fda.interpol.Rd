@@ -36,11 +36,11 @@ Initial value is \code{"union"}.
 \item \code{method} :: \code{character(1)}\cr
 One of:
 \itemize{
-\item \code{"linear"}: applies linear interpolation without extrapolation (see \code{\link[tf:tf_approx]{tf::tf_approx_linear()}}).
-\item \code{"spline"}: applies cubic spline interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_spline()}}).
-\item \code{"fill_extend"}: applies linear interpolation with constant extrapolation (see \code{\link[tf:tf_approx]{tf::tf_approx_fill_extend()}}).
-\item \code{"locf"}: applies "last observation carried forward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_locf()}}).
-\item \code{"nocb"}: applies "next observation carried backward" interpolation (see \code{\link[tf:tf_approx]{tf::tf_approx_nocb()}}).
+\item \code{"linear"}: applies linear interpolation without extrapolation (see \code{\link[tf:tf_approx_linear]{tf::tf_approx_linear()}}).
+\item \code{"spline"}: applies cubic spline interpolation (see \code{\link[tf:tf_approx_spline]{tf::tf_approx_spline()}}).
+\item \code{"fill_extend"}: applies linear interpolation with constant extrapolation (see \code{\link[tf:tf_approx_fill_extend]{tf::tf_approx_fill_extend()}}).
+\item \code{"locf"}: applies "last observation carried forward" interpolation (see \code{\link[tf:tf_approx_locf]{tf::tf_approx_locf()}}).
+\item \code{"nocb"}: applies "next observation carried backward" interpolation (see \code{\link[tf:tf_approx_nocb]{tf::tf_approx_nocb()}}).
 }
 
 Default is \code{"linear"}.
@@ -63,58 +63,59 @@ task_interpol$data()
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-PipeOpFDAInterpol-new}{\code{PipeOpFDAInterpol$new()}}
-\item \href{#method-PipeOpFDAInterpol-clone}{\code{PipeOpFDAInterpol$clone()}}
+  \itemize{
+    \item \href{#method-PipeOpFDAInterpol-initialize}{\code{PipeOpFDAInterpol$new()}}
+    \item \href{#method-PipeOpFDAInterpol-clone}{\code{PipeOpFDAInterpol$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
+\if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="help"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-help'><code>mlr3pipelines::PipeOp$help()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-predict'><code>mlr3pipelines::PipeOp$predict()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-print'><code>mlr3pipelines::PipeOp$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-train'><code>mlr3pipelines::PipeOp$train()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="help"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-help'><code>mlr3pipelines::PipeOp$help()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-predict'><code>mlr3pipelines::PipeOp$predict()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-print'><code>mlr3pipelines::PipeOp$print()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href='../../mlr3pipelines/html/PipeOp.html#method-PipeOp-train'><code>mlr3pipelines::PipeOp$train()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-PipeOpFDAInterpol-new"></a>}}
-\if{latex}{\out{\hypertarget{method-PipeOpFDAInterpol-new}{}}}
-\subsection{Method \code{new()}}{
-Initializes a new instance of this Class.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PipeOpFDAInterpol$new(id = "fda.interpol", param_vals = list())}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{id}}{(\code{character(1)})\cr
+\if{html}{\out{<a id="method-PipeOpFDAInterpol-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-PipeOpFDAInterpol-initialize}{}}}
+\subsection{\code{PipeOpFDAInterpol$new()}}{
+  Initializes a new instance of this Class.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PipeOpFDAInterpol$new(id = "fda.interpol", param_vals = list())}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{id}}{(\code{character(1)})\cr
 Identifier of resulting object, default \code{"fda.interpol"}.}
-
-\item{\code{param_vals}}{(named \code{list()})\cr
+      \item{\code{param_vals}}{(named \code{list()})\cr
 List of hyperparameter settings, overwriting the hyperparameter settings that would
 otherwise be set during construction. Default \code{list()}.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-PipeOpFDAInterpol-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-PipeOpFDAInterpol-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PipeOpFDAInterpol$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{PipeOpFDAInterpol$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{PipeOpFDAInterpol$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

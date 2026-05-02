@@ -14,7 +14,7 @@ This is a subset of the full dataset, which is contained in the package \code{fd
 }
 \section{Dictionary}{
 
-This \link[mlr3:Task]{mlr3::Task} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link[mlr3:mlr_tasks]{mlr3::mlr_tasks} or with the associated sugar function \code{\link[mlr3:mlr_sugar]{mlr3::tsk()}}:
+This \link[mlr3:Task]{mlr3::Task} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link[mlr3:mlr_tasks]{mlr3::mlr_tasks} or with the associated sugar function \code{\link[mlr3:tsk]{mlr3::tsk()}}:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{mlr_tasks$get("phoneme")
 tsk("phoneme")
@@ -55,7 +55,7 @@ Ferraty, Frédéric, Vieu, Philippe (2003).
 }
 }
 
-Other Task: 
+Other Task:
 \code{\link{mlr_tasks_dti}},
 \code{\link{mlr_tasks_fuel}}
 }

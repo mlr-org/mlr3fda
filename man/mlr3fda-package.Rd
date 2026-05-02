@@ -21,7 +21,8 @@ for each individual.
 Lang M, Binder M, Richter J, Schratz P, Pfisterer F, Coors S, Au Q, Casalicchio G, Kotthoff L, Bischl B (2019).
 \dQuote{mlr3: A modern object-oriented machine learning framework in R.}
 \emph{Journal of Open Source Software}.
-\doi{10.21105/joss.01903}, \url{https://joss.theoj.org/papers/10.21105/joss.01903}.
+\doi{10.21105/joss.01903}.
+\url{https://joss.theoj.org/papers/10.21105/joss.01903}.
 }
 
 \seealso{
@@ -38,6 +39,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Maximilian Mücke \email{muecke.maximilian@gmail.com} (\href{https://orcid.org/0009-0000-9432-9795}{ORCID})
   \item Sebastian Fischer \email{sebf.fischer@gmail.com} (\href{https://orcid.org/0000-0002-9609-3197}{ORCID})
 }
 
