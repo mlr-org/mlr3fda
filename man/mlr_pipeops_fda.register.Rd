@@ -54,11 +54,13 @@ Convergence tolerance for template refinement during training. Default is \code{
 }
 
 \examples{
+\donttest{
 set.seed(1)
 task = tsk("fuel")
 po_reg = po("fda.register", method = "affine", args = list(type = "shift_scale"))
 task_reg = po_reg$train(list(task))[[1L]]
 task_reg$data(cols = c("NIR", "UVVIS"))
+}
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{PipeOpFDARegister}

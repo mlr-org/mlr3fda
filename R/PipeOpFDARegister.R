@@ -45,11 +45,13 @@
 #'
 #' @export
 #' @examples
+#' \donttest{
 #' set.seed(1)
 #' task = tsk("fuel")
 #' po_reg = po("fda.register", method = "affine", args = list(type = "shift_scale"))
 #' task_reg = po_reg$train(list(task))[[1L]]
 #' task_reg$data(cols = c("NIR", "UVVIS"))
+#' }
 PipeOpFDARegister = R6Class(
   "PipeOpFDARegister",
   inherit = PipeOpTaskPreproc,
