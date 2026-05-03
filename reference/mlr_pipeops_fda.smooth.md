@@ -1,4 +1,4 @@
-# Smoothing Functional Columns
+# Smooth Functional Columns
 
 Smoothes functional data using
 [`tf::tf_smooth()`](https://tidyfun.github.io/tf/reference/tf_smooth.html).
@@ -47,7 +47,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDASmooth$new()`](#method-PipeOpFDASmooth-new)
+- [`PipeOpFDASmooth$new()`](#method-PipeOpFDASmooth-initialize)
 
 - [`PipeOpFDASmooth$clone()`](#method-PipeOpFDASmooth-clone)
 
@@ -60,7 +60,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDASmooth$new()`
 
 Initializes a new instance of this Class.
 
@@ -84,7 +84,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDASmooth$clone()`
 
 The objects of this class are cloneable with this method.
 

@@ -61,7 +61,7 @@ the corresponding new column will be called `"x_trend"`.
 
 ### Public methods
 
-- [`PipeOpFDATsfeatures$new()`](#method-PipeOpFDATsfeatures-new)
+- [`PipeOpFDATsfeatures$new()`](#method-PipeOpFDATsfeatures-initialize)
 
 - [`PipeOpFDATsfeatures$clone()`](#method-PipeOpFDATsfeatures-clone)
 
@@ -74,7 +74,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDATsfeatures$new()`
 
 Initializes a new instance of this Class.
 
@@ -87,7 +87,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.tsfeats"`.
+  Identifier of resulting object, default `"fda.tsfeats"`.
 
 - `param_vals`:
 
@@ -98,7 +98,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDATsfeatures$clone()`
 
 The objects of this class are cloneable with this method.
 

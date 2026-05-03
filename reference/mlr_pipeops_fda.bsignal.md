@@ -15,7 +15,7 @@ as well as the following parameters:
 
 - `inS` :: `character(1)`  
   Type of effect in the covariate index: one of `"smooth"`, `"linear"`,
-  `"constant"`. Default `"smooth"`.
+  `"constant"`. Default is `"smooth"`.
 
 - `knots` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   Either the number of interior knots or a vector of their positions.
@@ -66,7 +66,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDABsignal$new()`](#method-PipeOpFDABsignal-new)
+- [`PipeOpFDABsignal$new()`](#method-PipeOpFDABsignal-initialize)
 
 - [`PipeOpFDABsignal$clone()`](#method-PipeOpFDABsignal-clone)
 
@@ -79,7 +79,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDABsignal$new()`
 
 Initializes a new instance of this Class.
 
@@ -92,7 +92,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.bsignal"`.
+  Identifier of resulting object, default `"fda.bsignal"`.
 
 - `param_vals`:
 
@@ -103,7 +103,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDABsignal$clone()`
 
 The objects of this class are cloneable with this method.
 

@@ -1,4 +1,4 @@
-# Extracts Random Effects from Functional Columns
+# Extract Random Effects from Functional Columns
 
 This is the class that extracts random effects, specifically random
 intercepts and random slopes, from functional columns. This PipeOp fits
@@ -33,7 +33,7 @@ corresponding column name of the functional feature.
 
 ### Public methods
 
-- [`PipeOpFDARandomEffect$new()`](#method-PipeOpFDARandomEffect-new)
+- [`PipeOpFDARandomEffect$new()`](#method-PipeOpFDARandomEffect-initialize)
 
 - [`PipeOpFDARandomEffect$clone()`](#method-PipeOpFDARandomEffect-clone)
 
@@ -46,9 +46,9 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDARandomEffect$new()`
 
-Initializes a new instance of this Class
+Initializes a new instance of this Class.
 
 #### Usage
 
@@ -58,18 +58,19 @@ Initializes a new instance of this Class
 
 - `id`:
 
-  (`character(1)`) Identifier of the operator, default is
-  `"fda.random_effect"`.
+  (`character(1)`)  
+  Identifier of resulting object, default `"fda.random_effect"`.
 
 - `param_vals`:
 
-  (named [`list()`](https://rdrr.io/r/base/list.html)) List of
-  hyperparameter settings, overwriting default settings set during
-  construction.
+  (named [`list()`](https://rdrr.io/r/base/list.html))  
+  List of hyperparameter settings, overwriting the hyperparameter
+  settings that would otherwise be set during construction. Default
+  [`list()`](https://rdrr.io/r/base/list.html).
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDARandomEffect$clone()`
 
 The objects of this class are cloneable with this method.
 

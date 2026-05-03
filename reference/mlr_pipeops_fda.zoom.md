@@ -36,7 +36,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDAZoom$new()`](#method-PipeOpFDAZoom-new)
+- [`PipeOpFDAZoom$new()`](#method-PipeOpFDAZoom-initialize)
 
 - [`PipeOpFDAZoom$clone()`](#method-PipeOpFDAZoom-clone)
 
@@ -49,7 +49,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAZoom$new()`
 
 Initializes a new instance of this Class.
 
@@ -73,7 +73,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAZoom$clone()`
 
 The objects of this class are cloneable with this method.
 

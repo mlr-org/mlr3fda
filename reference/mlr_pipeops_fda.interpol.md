@@ -41,7 +41,7 @@ as well as the following parameters:
     value is `"union"`.
 
 - `method` :: `character(1)`  
-  Defaults to `"linear"`. One of:
+  One of:
 
   - `"linear"`: applies linear interpolation without extrapolation (see
     [`tf::tf_approx_linear()`](https://tidyfun.github.io/tf/reference/tf_approx.html)).
@@ -61,9 +61,11 @@ as well as the following parameters:
     (see
     [`tf::tf_approx_nocb()`](https://tidyfun.github.io/tf/reference/tf_approx.html)).
 
+  Default is `"linear"`.
+
 - `left` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
-  The left boundary of the window. The window is specified such that the
-  all values \>=left and \<=right are kept for the computations.
+  The left boundary of the window. The window is specified such that all
+  values \>=left and \<=right are kept for the computations.
 
 - `right` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   The right boundary of the window.
@@ -81,7 +83,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDAInterpol$new()`](#method-PipeOpFDAInterpol-new)
+- [`PipeOpFDAInterpol$new()`](#method-PipeOpFDAInterpol-initialize)
 
 - [`PipeOpFDAInterpol$clone()`](#method-PipeOpFDAInterpol-clone)
 
@@ -94,7 +96,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAInterpol$new()`
 
 Initializes a new instance of this Class.
 
@@ -118,7 +120,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAInterpol$clone()`
 
 The objects of this class are cloneable with this method.
 

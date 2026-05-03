@@ -1,4 +1,4 @@
-# Extracts Simple Features from Functional Columns
+# Extract Simple Features from Functional Columns
 
 This is the class that extracts simple features from functional columns.
 Note that it only operates on values that were actually observed and
@@ -22,16 +22,16 @@ as well as the following parameters:
   or a string. If the element is a function it requires the following
   arguments: `arg` and `value` and returns a `numeric`. For string
   elements, the following predefined features are available: `"mean"`,
-  `"max"`,`"min"`,`"slope"`,`"median"`,`"var"`. Initial is
-  `c("mean", "max", "min", "slope", "median", "var")`
+  `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`. Initial value is
+  `c("mean", "max", "min", "slope", "median", "var")`.
 
 - `left` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
-  The left boundary of the window. Initial is `-Inf`. The window is
-  specified such that the all values \>=left and \<=right are kept for
+  The left boundary of the window. Initial value is `-Inf`. The window
+  is specified such that all values \>=left and \<=right are kept for
   the computations.
 
 - `right` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
-  The right boundary of the window. Initial is `Inf`.
+  The right boundary of the window. Initial value is `Inf`.
 
 ## Naming
 
@@ -56,7 +56,7 @@ is given.
 
 ### Public methods
 
-- [`PipeOpFDAExtract$new()`](#method-PipeOpFDAExtract-new)
+- [`PipeOpFDAExtract$new()`](#method-PipeOpFDAExtract-initialize)
 
 - [`PipeOpFDAExtract$clone()`](#method-PipeOpFDAExtract-clone)
 
@@ -69,7 +69,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAExtract$new()`
 
 Initializes a new instance of this Class.
 
@@ -82,7 +82,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.extract"`.
+  Identifier of resulting object, default `"fda.extract"`.
 
 - `param_vals`:
 
@@ -93,7 +93,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAExtract$clone()`
 
 The objects of this class are cloneable with this method.
 

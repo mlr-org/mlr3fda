@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">mlr3fda</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +88,7 @@
 <div class="section level2">
 <h2 id="what-is-mlr3fda">What is mlr3fda?<a class="anchor" aria-label="anchor" href="#what-is-mlr3fda"></a>
 </h2>
-<p>The goal of <code>mlr3fda</code> is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. This is achieved by adding support for functional feature types and providing preprocessing <code>PipeOp</code>s that operates on functional columns. For representing functional data, the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes from the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> package are used and are available after loading <code>mlr3fda</code>:</p>
+<p>The goal of <code>mlr3fda</code> is to extend <code>mlr3</code> to <a href="https://en.wikipedia.org/wiki/Functional_data_analysis" class="external-link">functional data</a>. This is achieved by adding support for functional feature types and providing preprocessing <code>PipeOp</code>s that operate on functional columns. For representing functional data, the <code>tfd_reg</code> and <code>tfd_irreg</code> datatypes from the <a href="https://github.com/tidyfun/tf" class="external-link">tf</a> package are used and are available after loading <code>mlr3fda</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mlr3fda.mlr-org.com">mlr3fda</a></span><span class="op">)</span></span>
 <span><span class="va">mlr_reflections</span><span class="op">$</span><span class="va">task_feature_types</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tfr"</span>, <span class="st">"tfi"</span><span class="op">)</span><span class="op">]</span></span>
@@ -161,14 +161,14 @@
 <col width="25%">
 <col width="25%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th align="left">Key</th>
 <th align="left">Label</th>
 <th align="left">Packages</th>
 <th align="left">Tags</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal">fda.bsignal</a></td>
 <td align="left">B-spline Feature Extraction</td>
 <td align="left">
@@ -176,37 +176,43 @@
 </td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor">fda.cor</a></td>
 <td align="left">Cross-Correlation of Functional Data</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract">fda.extract</a></td>
 <td align="left">Extracts Simple Features from Functional Columns</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten">fda.flatten</a></td>
 <td align="left">Flattens Functional Columns</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="odd">
+<tr>
+<td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fourier">fda.fourier</a></td>
+<td align="left">Fast Fourier transform features</td>
+<td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
+<td align="left">fda, data transform</td>
+</tr>
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca">fda.fpca</a></td>
 <td align="left">Functional Principal Component Analysis</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol">fda.interpol</a></td>
 <td align="left">Interpolate Functional Columns</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect">fda.random_effect</a></td>
 <td align="left">Extracts Random Effects from Functional Columns</td>
 <td align="left">
@@ -214,20 +220,20 @@
 </td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange">fda.scalerange</a></td>
 <td align="left">Linearly Transform the Domain of Functional Data</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth">fda.smooth</a></td>
 <td align="left">Smoothing Functional Columns</td>
 <td align="left">
 <a href="https://cran.r-project.org/package=tf" class="external-link">tf</a>, stats</td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.tsfeats">fda.tsfeats</a></td>
 <td align="left">Time Series Feature Extraction</td>
 <td align="left">
@@ -235,7 +241,7 @@
 </td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.wavelets">fda.wavelets</a></td>
 <td align="left">Discrete Wavelet transform features</td>
 <td align="left">
@@ -243,7 +249,7 @@
 </td>
 <td align="left">fda, data transform</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><a href="https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom">fda.zoom</a></td>
 <td align="left">Zoom In/Out on Functional Columns</td>
 <td align="left"><a href="https://cran.r-project.org/package=tf" class="external-link">tf</a></td>
@@ -278,7 +284,8 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/LGPL-3" class="external-link">LGPL-3</a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://www.r-project.org/Licenses/LGPL-3" class="external-link">LGPL-3</a></small></li>
 </ul>
 </div>
 

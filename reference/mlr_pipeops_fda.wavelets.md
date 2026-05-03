@@ -1,4 +1,4 @@
-# Discrete Wavelet transform features
+# Discrete Wavelet Transform Features
 
 This `PipeOp` extracts discrete wavelet transform coefficients from
 functional columns. For more details, see
@@ -19,8 +19,8 @@ as well as the following parameters:
   object, an even numeric vector or a string. In case of a string must
   be one of `"d"`\|`"la"`\|`"bl"`\|`"c"` followed by an even number for
   the level of the filter. The level of the filter needs to be smaller
-  or equal then the time-series length. For more information and
-  acceptable filters see `help(wt.filter)`. Defaults to `"la8"`.
+  or equal than the time-series length. For more information and
+  acceptable filters see `help(wt.filter)`. Default is `"la8"`.
 
 - `n.levels` :: `integer(1)`  
   An integer specifying the level of the decomposition.
@@ -47,7 +47,7 @@ as well as the following parameters:
 
 ### Public methods
 
-- [`PipeOpFDAWavelets$new()`](#method-PipeOpFDAWavelets-new)
+- [`PipeOpFDAWavelets$new()`](#method-PipeOpFDAWavelets-initialize)
 
 - [`PipeOpFDAWavelets$clone()`](#method-PipeOpFDAWavelets-clone)
 
@@ -60,7 +60,7 @@ Inherited methods
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `PipeOpFDAWavelets$new()`
 
 Initializes a new instance of this Class.
 
@@ -73,7 +73,7 @@ Initializes a new instance of this Class.
 - `id`:
 
   (`character(1)`)  
-  Identifier of resulting object, default is `"fda.wavelets"`.
+  Identifier of resulting object, default `"fda.wavelets"`.
 
 - `param_vals`:
 
@@ -84,7 +84,7 @@ Initializes a new instance of this Class.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `PipeOpFDAWavelets$clone()`
 
 The objects of this class are cloneable with this method.
 

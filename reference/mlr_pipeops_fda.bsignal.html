@@ -17,7 +17,7 @@ For more details, see FDboost::bsignal(), which is called internally."></head><b
 
     <a class="navbar-brand me-2" href="../index.html">mlr3fda</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,7 @@ For more details, see <code><a href="https://rdrr.io/pkg/FDboost/man/bsignal.htm
 
 <p>The parameters are the parameters inherited from <code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html" class="external-link">PipeOpTaskPreprocSimple</a></code>,
 as well as the following parameters:</p><ul><li><p><code>inS</code> :: <code>character(1)</code><br>
-Type of effect in the covariate index: one of <code>"smooth"</code>, <code>"linear"</code>, <code>"constant"</code>. Default <code>"smooth"</code>.</p></li>
+Type of effect in the covariate index: one of <code>"smooth"</code>, <code>"linear"</code>, <code>"constant"</code>. Default is <code>"smooth"</code>.</p></li>
 <li><p><code>knots</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 Either the number of interior knots or a vector of their positions.</p></li>
 <li><p><code>boundary.knots</code> :: <code>numeric(2)</code><br>
@@ -100,28 +100,24 @@ Use checks for identifiability of the effect. Default is <code>FALSE</code>.</p>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-PipeOpFDABsignal-new"><code>PipeOpFDABsignal$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-PipeOpFDABsignal-initialize"><code>PipeOpFDABsignal$new()</code></a></p></li>
 <li><p><a href="#method-PipeOpFDABsignal-clone"><code>PipeOpFDABsignal$clone()</code></a></p></li>
 </ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="help"><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html#method-help"><code>mlr3pipelines::PipeOp$help()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html#method-predict"><code>mlr3pipelines::PipeOp$predict()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html#method-print"><code>mlr3pipelines::PipeOp$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html#method-train"><code>mlr3pipelines::PipeOp$train()</code></a></span></li>
-</ul></details></p><hr><a id="method-PipeOpFDABsignal-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+  <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="predict"><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html#method-predict"><code>mlr3pipelines::PipeOp$predict()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="print"><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html#method-print"><code>mlr3pipelines::PipeOp$print()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="mlr3pipelines" data-topic="PipeOp" data-id="train"><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html#method-train"><code>mlr3pipelines::PipeOp$train()</code></a></span></li>
+</ul></details></p><hr><a id="method-PipeOpFDABsignal-initialize"></a><div class="section">
+<h3 id="pipeopfdabsignal-new-"><code>PipeOpFDABsignal$new()</code><a class="anchor" aria-label="anchor" href="#pipeopfdabsignal-new-"></a></h3>
 <p>Initializes a new instance of this Class.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/mlr_pipeops_fda.bsignal.html">PipeOpFDABsignal</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"fda.bsignal"</span>, param_vals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>id</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
-Identifier of resulting object, default is <code>"fda.bsignal"</code>.</p></dd>
+Identifier of resulting object, default <code>"fda.bsignal"</code>.</p></dd>
 
-
-<dt><code>param_vals</code></dt>
+      <dt><code>param_vals</code></dt>
 <dd><p>(named <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>)<br>
 List of hyperparameter settings, overwriting the hyperparameter settings that would
 otherwise be set during construction. Default <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>.</p></dd>
@@ -130,14 +126,14 @@ otherwise be set during construction. Default <code><a href="https://rdrr.io/r/b
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-PipeOpFDABsignal-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-PipeOpFDABsignal-clone"></a><div class="section">
+<h3 id="pipeopfdabsignal-clone-"><code>PipeOpFDABsignal$clone()</code><a class="anchor" aria-label="anchor" href="#pipeopfdabsignal-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">PipeOpFDABsignal</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -147,6 +143,7 @@ otherwise be set during construction. Default <code><a href="https://rdrr.io/r/b
 </div>
 
 </div>
+
 
     </div>
 
