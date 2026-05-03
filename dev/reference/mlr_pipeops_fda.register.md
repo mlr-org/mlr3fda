@@ -135,6 +135,7 @@ The objects of this class are cloneable with this method.
 ## Examples
 
 ``` r
+# \donttest{
 set.seed(1)
 task = tsk("fuel")
 po_reg = po("fda.register", method = "affine", args = list(type = "shift_scale"))
@@ -220,4 +221,5 @@ task_reg$data(cols = c("NIR", "UVVIS"))
 #> 127:   <list[2]>   <list[2]>
 #> 128:   <list[2]>   <list[2]>
 #> 129:   <list[2]>   <list[2]>
+# }
 ```

@@ -2,6 +2,10 @@
 
 ## mlr3fda (development version)
 
+## mlr3fda 0.5.0
+
+CRAN release: 2026-05-03
+
 - feat: New `PipeOpFDARegister` for aligning functional columns to a
   learned template via
   [`tf::tf_register()`](https://tidyfun.github.io/tf/reference/tf_register.html).
