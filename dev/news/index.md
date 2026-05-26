@@ -2,6 +2,10 @@
 
 ## mlr3fda (development version)
 
+- feat: New `PipeOpFDADerive` for computing derivatives of functional
+  columns via
+  [`tf::tf_derive()`](https://tidyfun.github.io/tf/reference/tf_derive.html).
+
 ## mlr3fda 0.5.0
 
 CRAN release: 2026-05-03
