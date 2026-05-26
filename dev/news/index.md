@@ -2,6 +2,8 @@
 
 ## mlr3fda (development version)
 
+- fix: Add `mlr3fda` to `mlr_reflections$loaded_packages` to fix errors
+  when using `mlr3fda` in parallel.
 - feat: New `PipeOpFDADerive` for computing derivatives of functional
   columns via
   [`tf::tf_derive()`](https://tidyfun.github.io/tf/reference/tf_derive.html).
