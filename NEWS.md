@@ -1,5 +1,7 @@
 # mlr3fda (development version)
 
+* feat: New `PipeOpFDADerive` for computing derivatives of functional columns via `tf::tf_derive()`.
+
 # mlr3fda 0.5.0
 
 * feat: New `PipeOpFDARegister` for aligning functional columns to a learned template via `tf::tf_register()`.

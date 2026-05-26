@@ -53,6 +53,7 @@ Collate:
     'zzz.R'
     'PipeOpFDABsignal.R'
     'PipeOpFDACor.R'
+    'PipeOpFDADerive.R'
     'PipeOpFDAExtract.R'
     'PipeOpFDAFlatten.R'
     'PipeOpFDAFourier.R'
