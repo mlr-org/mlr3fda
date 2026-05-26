@@ -44,6 +44,7 @@ register_mlr3 = function() {
   # add data types
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_reflections$task_feature_types = named_union(mlr_reflections$task_feature_types, mlr3fda_feature_types)
+  mlr_reflections$loaded_packages = union(mlr_reflections$loaded_packages, "mlr3fda")
 
   # add tasks
   mlr_tasks = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
@@ -74,6 +75,7 @@ register_mlr3pipelines = function() {
   mlr_reflections$task_feature_types =
     mlr_reflections$task_feature_types[mlr_reflections$task_feature_types %nin% mlr3fda_feature_types]
   mlr_reflections$pipeops$valid_tags = setdiff(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags)
+  mlr_reflections$loaded_packages = setdiff(mlr_reflections$loaded_packages, "mlr3fda")
 }
 
 leanify_package()
