@@ -29,12 +29,10 @@ test_that("PipeOpFDADepth supports all methods", {
 
 test_that("PipeOpFDADepth RPD is reproducible with a seed", {
   task = tsk("fuel")
-  set.seed(1)
-  a = train_pipeop(po("fda.depth", method = "RPD", n_projections = 200L, n_projections_beta = 100L),
-    list(task))[[1L]]$data()$NIR_depth
-  set.seed(1)
-  b = train_pipeop(po("fda.depth", method = "RPD", n_projections = 200L, n_projections_beta = 100L),
-    list(task))[[1L]]$data()$NIR_depth
+  withr::local_seed(1)
+  a = train_pipeop(po("fda.depth", method = "RPD"), list(task))[[1L]]$data()$NIR_depth
+  withr::local_seed(1)
+  b = train_pipeop(po("fda.depth", method = "RPD"), list(task))[[1L]]$data()$NIR_depth
   expect_identical(a, b)
 })
 
