@@ -1,6 +1,7 @@
 # mlr3fda (development version)
 
 * fix: Add `mlr3fda` to `mlr_reflections$loaded_packages` to fix errors when using `mlr3fda` in parallel.
+* feat: New `PipeOpFDADepth` for computing the data depth of functional columns via `tf::tf_depth()`.
 * feat: New `PipeOpFDADerive` for computing derivatives of functional columns via `tf::tf_derive()`.
 
 # mlr3fda 0.5.0
