@@ -165,6 +165,9 @@ R&D.
 - [`mlr_pipeops_fda.cor`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.md)
   [`PipeOpFDACor`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.md)
   : Cross-Correlation of Functional Data
+- [`mlr_pipeops_fda.depth`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.depth.md)
+  [`PipeOpFDADepth`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.depth.md)
+  : Functional Data Depth Features
 - [`mlr_pipeops_fda.derive`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.derive.md)
   [`PipeOpFDADerive`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.derive.md)
   : Derivatives of Functional Columns
