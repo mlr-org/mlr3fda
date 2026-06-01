@@ -1,5 +1,21 @@
 # Changelog
 
+## mlr3fda 0.6.0
+
+CRAN release: 2026-06-01
+
+- fix: Add `mlr3fda` to `mlr_reflections$loaded_packages` to fix errors
+  when using `mlr3fda` in parallel.
+- feat: New `PipeOpFDADepth` for computing the data depth of functional
+  columns via
+  [`tf::tf_depth()`](https://tidyfun.github.io/tf/reference/tf_depth.html).
+- feat: New `PipeOpFDADerive` for computing derivatives of functional
+  columns via
+  [`tf::tf_derive()`](https://tidyfun.github.io/tf/reference/tf_derive.html).
+- feat: `PipeOpFDAExtract` gained the `"sd"` feature for extracting the
+  standard deviation.
+- perf: `PipeOpFDAFourier` is now several times faster.
+
 ## mlr3fda 0.5.0
 
 CRAN release: 2026-05-03

@@ -22,8 +22,8 @@ as well as the following parameters:
   or a string. If the element is a function it requires the following
   arguments: `arg` and `value` and returns a `numeric`. For string
   elements, the following predefined features are available: `"mean"`,
-  `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`. Initial value is
-  `c("mean", "max", "min", "slope", "median", "var")`.
+  `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`, `"sd"`. Initial
+  value is `c("mean", "max", "min", "slope", "median", "var")`.
 
 - `left` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   The left boundary of the window. Initial value is `-Inf`. The window

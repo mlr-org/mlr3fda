@@ -8,6 +8,12 @@
 - [`mlr_pipeops_fda.cor`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor.md)
   [`PipeOpFDACor`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor.md)
   : Cross-Correlation of Functional Data
+- [`mlr_pipeops_fda.depth`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.depth.md)
+  [`PipeOpFDADepth`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.depth.md)
+  : Functional Data Depth Features
+- [`mlr_pipeops_fda.derive`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.derive.md)
+  [`PipeOpFDADerive`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.derive.md)
+  : Derivatives of Functional Columns
 - [`mlr_pipeops_fda.extract`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract.md)
   [`PipeOpFDAExtract`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.extract.md)
   : Extract Simple Features from Functional Columns

@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.10/font.css" rel="stylesheet"><link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet"><link href="../deps/Roboto_Slab-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Extract Simple Features from Functional Columns — mlr_pipeops_fda.extract"><meta name="description" content="This is the class that extracts simple features from functional columns.
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Roboto-0.4.10/font.css" rel="stylesheet"><link href="../deps/JetBrains_Mono-0.4.10/font.css" rel="stylesheet"><link href="../deps/Roboto_Slab-0.4.10/font.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Extract Simple Features from Functional Columns — mlr_pipeops_fda.extract"><meta name="description" content="This is the class that extracts simple features from functional columns.
 Note that it only operates on values that were actually observed and does not interpolate."><meta property="og:description" content="This is the class that extracts simple features from functional columns.
 Note that it only operates on values that were actually observed and does not interpolate."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -15,7 +15,7 @@ Note that it only operates on values that were actually observed and does not in
 
     <a class="navbar-brand me-2" href="../index.html">mlr3fda</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@ Note that it only operates on values that were actually observed and does not in
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Extract Simple Features from Functional Columns</h1>
-      <small class="dont-index">Source: <a href="https://github.com/mlr-org/mlr3fda/blob/main/R/PipeOpFDAExtract.R" class="external-link"><code>R/PipeOpFDAExtract.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mlr-org/mlr3fda/blob/v0.6.0/R/PipeOpFDAExtract.R" class="external-link"><code>R/PipeOpFDAExtract.R</code></a></small>
       <div class="d-none name"><code>mlr_pipeops_fda.extract.Rd</code></div>
     </div>
 
@@ -70,7 +70,7 @@ column role <code>feature</code>. Initial value is <code>TRUE</code>.</p></li>
 A list of features to extract. Each element can be either a function or a string.
 If the element is a function it requires the following arguments: <code>arg</code> and <code>value</code> and returns a <code>numeric</code>.
 For string elements, the following predefined features are available:
-<code>"mean"</code>, <code>"max"</code>, <code>"min"</code>, <code>"slope"</code>, <code>"median"</code>, <code>"var"</code>.
+<code>"mean"</code>, <code>"max"</code>, <code>"min"</code>, <code>"slope"</code>, <code>"median"</code>, <code>"var"</code>, <code>"sd"</code>.
 Initial value is <code>c("mean", "max", "min", "slope", "median", "var")</code>.</p></li>
 <li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
 The left boundary of the window. Initial value is <code>-Inf</code>.
