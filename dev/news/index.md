@@ -10,6 +10,8 @@
 - feat: New `PipeOpFDADerive` for computing derivatives of functional
   columns via
   [`tf::tf_derive()`](https://tidyfun.github.io/tf/reference/tf_derive.html).
+- feat: `PipeOpFDAExtract` gained the `"sd"` feature for extracting the
+  standard deviation.
 - perf: `PipeOpFDAFourier` is now several times faster.
 
 ## mlr3fda 0.5.0
