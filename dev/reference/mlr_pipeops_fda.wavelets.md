@@ -14,7 +14,7 @@ as well as the following parameters:
 - `filter` :: `character(1)` \|
   [`numeric()`](https://rdrr.io/r/base/numeric.html) \|
   [`wavelets::wt.filter()`](https://rdrr.io/pkg/wavelets/man/wt.filter.html)  
-  Specifies which filter should be used. Must be either
+  Specifies which filter should be used. Must be either a
   [`wavelets::wt.filter()`](https://rdrr.io/pkg/wavelets/man/wt.filter.html)
   object, an even numeric vector or a string. In case of a string must
   be one of `"d"`\|`"la"`\|`"bl"`\|`"c"` followed by an even number for
