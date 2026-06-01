@@ -17,7 +17,7 @@
 #'   A list of features to extract. Each element can be either a function or a string.
 #'   If the element is a function it requires the following arguments: `arg` and `value` and returns a `numeric`.
 #'   For string elements, the following predefined features are available:
-#'   `"mean"`, `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`.
+#'   `"mean"`, `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`, `"sd"`.
 #'   Initial value is `c("mean", "max", "min", "slope", "median", "var")`.
 #' * `left` :: `numeric()`\cr
 #'   The left boundary of the window. Initial value is `-Inf`.
@@ -68,7 +68,7 @@ PipeOpFDAExtract = R6Class(
           tags = c("train", "predict", "required"),
           custom_check = crate(function(x) {
             if (test_character(x)) {
-              return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var")))
+              return(check_subset(x, choices = c("mean", "median", "min", "max", "slope", "var", "sd")))
             }
             if (test_list(x)) {
               res = check_list(x, types = c("character", "function"), any.missing = FALSE, unique = TRUE)
@@ -91,7 +91,7 @@ PipeOpFDAExtract = R6Class(
                     return(res)
                   }
                 } else {
-                  res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var"))
+                  res = check_choice(x[[i]], choices = c("mean", "median", "min", "max", "slope", "var", "sd"))
                   # nolint next
                   if (!isTRUE(res)) {
                     return(res)
@@ -149,7 +149,7 @@ PipeOpFDAExtract = R6Class(
         if (is.function(feature)) {
           return(feature)
         }
-        switch(feature, mean = fmean, median = fmedian, min = fmin, max = fmax, slope = fslope, var = fvar)
+        switch(feature, mean = fmean, median = fmedian, min = fmin, max = fmax, slope = fslope, var = fvar, sd = fsd)
       })
       fextractor = make_fextractor(features)
 
@@ -243,6 +243,7 @@ fmax = function(arg, value) max(value, na.rm = TRUE)
 fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
 fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
 fvar = function(arg, value) stats::var(value, na.rm = TRUE)
+fsd = function(arg, value) stats::sd(value, na.rm = TRUE)
 
 #' @include zzz.R
 register_po("fda.extract", PipeOpFDAExtract)

@@ -21,7 +21,7 @@ column role \code{feature}. Initial value is \code{TRUE}.
 A list of features to extract. Each element can be either a function or a string.
 If the element is a function it requires the following arguments: \code{arg} and \code{value} and returns a \code{numeric}.
 For string elements, the following predefined features are available:
-\code{"mean"}, \code{"max"}, \code{"min"}, \code{"slope"}, \code{"median"}, \code{"var"}.
+\code{"mean"}, \code{"max"}, \code{"min"}, \code{"slope"}, \code{"median"}, \code{"var"}, \code{"sd"}.
 Initial value is \code{c("mean", "max", "min", "slope", "median", "var")}.
 \item \code{left} :: \code{numeric()}\cr
 The left boundary of the window. Initial value is \code{-Inf}.
