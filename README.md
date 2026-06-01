@@ -126,6 +126,8 @@ glrn$predict(task, row_ids = ids$test)
 |:---|:---|:---|:---|
 | [fda.bsignal](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal) | B-spline Feature Extraction | [tf](https://cran.r-project.org/package=tf), [mboost](https://cran.r-project.org/package=mboost), [FDboost](https://cran.r-project.org/package=FDboost) | fda, data transform |
 | [fda.cor](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor) | Cross-Correlation of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.depth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.depth) | Functional Data Depth Features | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.derive](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.derive) | Derivatives of Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.extract](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract) | Extract Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.flatten](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten) | Flatten Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.fourier](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fourier) | Fast Fourier Transform Features | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
