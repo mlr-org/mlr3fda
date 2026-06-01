@@ -10,7 +10,7 @@
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
 #' * `filter` :: `character(1)` | `numeric()` | [wavelets::wt.filter()]\cr
-#'   Specifies which filter should be used. Must be either [wavelets::wt.filter()] object, an even numeric vector or a
+#'   Specifies which filter should be used. Must be either a [wavelets::wt.filter()] object, an even numeric vector or a
 #'   string. In case of a string must be one of `"d"`|`"la"`|`"bl"`|`"c"` followed by an even number for the level of
 #'   the filter. The level of the filter needs to be smaller or equal than the time-series length.
 #'   For more information and acceptable filters see `help(wt.filter)`. Default is `"la8"`.

@@ -54,31 +54,30 @@ PipeOpFDAFourier = R6Class(
       type = self$param_set$get_values()$type
 
       setcbindlist(imap(dt, function(x, nm) {
-        values = tf::tf_evaluations(x)
-        n = length(values[[1L]])
+        mat = t(as.matrix(x))
+        n = nrow(mat)
         n_onesided = n %/% 2L + 1L
-        fft_coeff = map_dtr(values, function(v) {
-          coeff = stats::fft(v)[seq_len(n_onesided)] / n
-          res = switch(
-            type,
-            amplitude = {
-              amp = Mod(coeff)
-              # double interior positive frequencies (DC and Nyquist have no conjugate pair)
-              double_end = if (n %% 2L == 0L) n_onesided - 1L else n_onesided
-              if (double_end >= 2L) {
-                amp[2L:double_end] = amp[2L:double_end] * 2
-              }
-              amp
-            },
-            phase = {
-              mag = Mod(coeff)
-              phase = Arg(coeff) * 180 / pi
-              phase[mag < max(mag) * 1e-4] = 0
-              phase
+        coeff = stats::mvfft(mat)[seq_len(n_onesided), , drop = FALSE] / n
+        res = switch(
+          type,
+          amplitude = {
+            amp = Mod(coeff)
+            # double interior positive frequencies (DC and Nyquist have no conjugate pair)
+            double_end = if (n %% 2L == 0L) n_onesided - 1L else n_onesided
+            if (double_end >= 2L) {
+              amp[2L:double_end, ] = amp[2L:double_end, , drop = FALSE] * 2
             }
-          )
-          as.data.table(t(res))
-        })
+            amp
+          },
+          phase = {
+            mag = Mod(coeff)
+            phase = Arg(coeff) * 180 / pi
+            threshold = rep(apply(mag, 2L, max) * 1e-4, each = n_onesided)
+            phase[mag < threshold] = 0
+            phase
+          }
+        )
+        fft_coeff = as.data.table(t(res))
         setnames(fft_coeff, sprintf("%s_fft_%s_%i", nm, type, seq_col(fft_coeff)))
       }))
     }
