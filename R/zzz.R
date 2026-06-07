@@ -40,7 +40,7 @@ register_task = function(name, constructor) {
   mlr3fda_tasks[[name]] = constructor
 }
 
-register_mlr3 = function() {
+register_mlr3 = function(...) {
   # add data types
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_reflections$task_feature_types = named_union(mlr_reflections$task_feature_types, mlr3fda_feature_types)
@@ -51,7 +51,7 @@ register_mlr3 = function() {
   iwalk(as.list(mlr3fda_tasks), \(task, id) mlr_tasks$add(id, task))
 }
 
-register_mlr3pipelines = function() {
+register_mlr3pipelines = function(...) {
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_pipeops = utils::getFromNamespace("mlr_pipeops", ns = "mlr3pipelines")
   iwalk(as.list(mlr3fda_pipeops), function(value, name) {
