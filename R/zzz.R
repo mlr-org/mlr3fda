@@ -54,9 +54,7 @@ register_mlr3 = function(...) {
 register_mlr3pipelines = function(...) {
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_pipeops = utils::getFromNamespace("mlr_pipeops", ns = "mlr3pipelines")
-  iwalk(as.list(mlr3fda_pipeops), function(value, name) {
-    mlr_pipeops$add(name, value$constructor, value$metainf)
-  })
+  iwalk(as.list(mlr3fda_pipeops), \(value, name) mlr_pipeops$add(name, value$constructor, value$metainf))
   mlr_reflections$pipeops$valid_tags = union(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags)
 }
 

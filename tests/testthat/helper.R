@@ -9,6 +9,6 @@ walk(list.files(system.file("testthat", package = "mlr3"), pattern = "^helper.*\
 # filter out helper_compat.R for weird reason to overload testthat functions to v2 behavior
 map_if(
   list.files(system.file("testthat", package = "mlr3pipelines"), pattern = "^helper.*\\.[rR]", full.names = TRUE),
-  function(x) !endsWith(x, "helper_compat.R"),
+  \(x) !endsWith(x, "helper_compat.R"),
   source
 )
