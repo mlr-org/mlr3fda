@@ -43,6 +43,8 @@ Suggests:
     tsfeatures,
     wavelets,
     withr
+Remotes:
+    mlr-org/mlr3pipelines
 Config/roxygen2/markdown: TRUE
 Config/roxygen2/r6: TRUE
 Config/roxygen2/version: 8.0.0

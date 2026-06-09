@@ -1,5 +1,7 @@
 # mlr3fda (development version)
 
+* fix: `as.data.table(mlr_pipeops)` no longer errors with `object 'value' not found` when `mlr3fda` is loaded.
+
 # mlr3fda 0.6.0
 
 * fix: Add `mlr3fda` to `mlr_reflections$loaded_packages` to fix errors when using `mlr3fda` in parallel.
