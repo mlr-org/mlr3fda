@@ -23,7 +23,7 @@
 #'   Should the pyramid algorithm be calculated with an internal C function? Default is `TRUE`.
 #'
 #' @export
-#' @examples
+#' @examplesIf requireNamespace("wavelets", quietly = TRUE)
 #' task = tsk("fuel")
 #' po_wavelets = po("fda.wavelets")
 #' task_wavelets = po_wavelets$train(list(task))[[1L]]

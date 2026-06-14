@@ -18,7 +18,7 @@
 #' functional feature.
 #'
 #' @export
-#' @examples
+#' @examplesIf requireNamespace("lme4", quietly = TRUE)
 #' task = tsk("dti")
 #' po_fre = po("fda.random_effect")
 #' task_fre = po_fre$train(list(task))[[1L]]
