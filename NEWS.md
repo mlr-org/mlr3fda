@@ -1,5 +1,7 @@
 # mlr3fda (development version)
 
+* feat: New `PipeOpFDACatch22` for extracting the catch22 time series features from functional columns via `Rcatch22::catch22_all()`.
+
 # mlr3fda 0.6.0
 
 * fix: Add `mlr3fda` to `mlr_reflections$loaded_packages` to fix errors when using `mlr3fda` in parallel.

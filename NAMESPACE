@@ -3,6 +3,7 @@
 S3method(hash_input,tfd_irreg)
 S3method(hash_input,tfd_reg)
 export(PipeOpFDABsignal)
+export(PipeOpFDACatch22)
 export(PipeOpFDACor)
 export(PipeOpFDADepth)
 export(PipeOpFDADerive)
