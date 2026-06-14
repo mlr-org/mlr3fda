@@ -5,6 +5,9 @@
 - [`mlr_pipeops_fda.bsignal`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal.md)
   [`PipeOpFDABsignal`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal.md)
   : B-spline Feature Extraction
+- [`mlr_pipeops_fda.catch22`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.catch22.md)
+  [`PipeOpFDACatch22`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.catch22.md)
+  : Catch22 Feature Extraction
 - [`mlr_pipeops_fda.cor`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.md)
   [`PipeOpFDACor`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor.md)
   : Cross-Correlation of Functional Data

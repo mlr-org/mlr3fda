@@ -2,6 +2,10 @@
 
 ## mlr3fda (development version)
 
+- feat: New `PipeOpFDACatch22` for extracting the catch22 time series
+  features from functional columns via
+  [`Rcatch22::catch22_all()`](https://rdrr.io/pkg/Rcatch22/man/catch22_all.html).
+
 ## mlr3fda 0.6.0
 
 CRAN release: 2026-06-01
