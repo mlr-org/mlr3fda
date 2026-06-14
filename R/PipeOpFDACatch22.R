@@ -62,8 +62,15 @@ PipeOpFDACatch22 = R6Class(
 
       setcbindlist(imap(dt, function(x, nm) {
         feats = map_dtr(tf::tf_evaluations(x), function(x) {
-          # suppress Rcatch22's once-per-session notice about CO_f1ecac's return type
-          res = suppressWarnings(invoke(Rcatch22::catch22_all, x, .args = pars))
+          # muffle Rcatch22's once-per-session notice about CO_f1ecac's return type
+          res = withCallingHandlers(
+            invoke(Rcatch22::catch22_all, x, .args = pars),
+            warning = function(w) {
+              if (grepl("CO_f1ecac", conditionMessage(w), fixed = TRUE)) {
+                invokeRestart("muffleWarning")
+              }
+            }
+          )
           set_names(as.list(res$values), res$names)
         })
         setnames(feats, sprintf("%s_%s", nm, names(feats)))
