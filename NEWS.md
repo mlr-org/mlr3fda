@@ -1,6 +1,7 @@
 # mlr3fda (development version)
 
 * feat: New `PipeOpFDACatch22` for extracting the catch22 time series features from functional columns via `Rcatch22::catch22_all()`.
+* feat: New `PipeOpFDAIntegrate` for extracting the definite integral of functional columns via `tf::tf_integrate()`.
 
 # mlr3fda 0.6.0
 

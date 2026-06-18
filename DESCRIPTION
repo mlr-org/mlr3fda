@@ -60,6 +60,7 @@ Collate:
     'PipeOpFDAExtract.R'
     'PipeOpFDAFlatten.R'
     'PipeOpFDAFourier.R'
+    'PipeOpFDAIntegrate.R'
     'PipeOpFDAInterpol.R'
     'PipeOpFDARandomEffect.R'
     'PipeOpFDARegister.R'
