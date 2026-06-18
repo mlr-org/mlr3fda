@@ -24,7 +24,7 @@ URL: https://mlr3fda.mlr-org.com, https://github.com/mlr-org/mlr3fda
 BugReports: https://github.com/mlr-org/mlr3fda/issues
 Depends:
     mlr3 (>= 1.3.0),
-    mlr3pipelines (>= 0.5.2),
+    mlr3pipelines (>= 0.11.0),
     R (>= 4.1.0)
 Imports:
     checkmate,
@@ -44,8 +44,6 @@ Suggests:
     tsfeatures,
     wavelets,
     withr
-Remotes:
-    mlr-org/mlr3pipelines
 Config/roxygen2/markdown: TRUE
 Config/roxygen2/r6: TRUE
 Config/roxygen2/version: 8.0.0
