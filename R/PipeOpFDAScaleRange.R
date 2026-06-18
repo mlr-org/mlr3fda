@@ -61,11 +61,7 @@ PipeOpFDAScaleRange = R6Class(
         self$state[[j]] = list(domain = domain, scale = scale, offset = offset)
 
         args = tf::tf_arg(x)
-        if (tf::is_reg(x)) {
-          new_args = offset + args * scale
-        } else {
-          new_args = map(args, \(arg) offset + arg * scale)
-        }
+        new_args = if (tf::is_reg(x)) offset + args * scale else map(args, \(arg) offset + arg * scale)
         set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
       }
       dt
@@ -79,10 +75,10 @@ PipeOpFDAScaleRange = R6Class(
           error_input("Domain of new data does not match the domain of the training data.")
         }
         args = tf::tf_arg(x)
-        if (tf::is_reg(x)) {
-          new_args = trafo$offset + args * trafo$scale
+        new_args = if (tf::is_reg(x)) {
+          trafo$offset + args * trafo$scale
         } else {
-          new_args = map(args, \(arg) trafo$offset + arg * trafo$scale)
+          map(args, \(arg) trafo$offset + arg * trafo$scale)
         }
         set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
       }

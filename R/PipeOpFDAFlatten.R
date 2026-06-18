@@ -51,11 +51,7 @@ PipeOpFDAFlatten = R6Class(
       dt = task$data(cols = cols)
 
       dt_flat = setcbindlist(imap(dt, function(x, nm) {
-        if (tf::is_irreg(x)) {
-          flat = suppressWarnings(as.matrix(x))
-        } else {
-          flat = as.matrix(x)
-        }
+        flat = if (tf::is_irreg(x)) suppressWarnings(as.matrix(x)) else as.matrix(x)
         d = as.data.table(flat)
         setnames(d, sprintf("%s_%i", nm, seq_col(flat)))
       }))
