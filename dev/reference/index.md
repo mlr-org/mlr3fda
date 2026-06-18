@@ -29,6 +29,9 @@
 - [`mlr_pipeops_fda.fpca`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.md)
   [`PipeOpFPCA`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca.md)
   : Functional Principal Component Analysis
+- [`mlr_pipeops_fda.integrate`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.integrate.md)
+  [`PipeOpFDAIntegrate`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.integrate.md)
+  : Functional Integral Features
 - [`mlr_pipeops_fda.interpol`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.md)
   [`PipeOpFDAInterpol`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.md)
   : Interpolate Functional Columns
