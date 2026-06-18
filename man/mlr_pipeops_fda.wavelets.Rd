@@ -29,10 +29,12 @@ Should the pyramid algorithm be calculated with an internal C function? Default 
 }
 
 \examples{
+\dontshow{if (requireNamespace("wavelets", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 task = tsk("fuel")
 po_wavelets = po("fda.wavelets")
 task_wavelets = po_wavelets$train(list(task))[[1L]]
 task_wavelets$data()
+\dontshow{\}) # examplesIf}
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDAWavelets}

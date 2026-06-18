@@ -34,7 +34,7 @@
 #' be called `"x_trend"`.
 #'
 #' @export
-#' @examples
+#' @examplesIf requireNamespace("tsfeatures", quietly = TRUE)
 #' task = tsk("fuel")
 #' po_tsfeats = po("fda.tsfeats")
 #' task_tsfeats = po_tsfeats$train(list(task))[[1L]]

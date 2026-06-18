@@ -42,10 +42,12 @@ be called \code{"x_trend"}.
 }
 
 \examples{
+\dontshow{if (requireNamespace("tsfeatures", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 task = tsk("fuel")
 po_tsfeats = po("fda.tsfeats")
 task_tsfeats = po_tsfeats$train(list(task))[[1L]]
 task_tsfeats$data()
+\dontshow{\}) # examplesIf}
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDATsfeatures}

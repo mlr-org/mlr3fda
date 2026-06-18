@@ -37,7 +37,7 @@
 #'   Use checks for identifiability of the effect. Default is `FALSE`.
 #'
 #' @export
-#' @examples
+#' @examplesIf requireNamespace("FDboost", quietly = TRUE) && requireNamespace("mboost", quietly = TRUE)
 #' task = tsk("fuel")
 #' po_bsignal = po("fda.bsignal")
 #' task_bsignal = po_bsignal$train(list(task))[[1L]]

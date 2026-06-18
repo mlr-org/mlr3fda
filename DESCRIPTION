@@ -38,6 +38,7 @@ Suggests:
     FDboost,
     lme4,
     mboost,
+    Rcatch22,
     rpart,
     testthat (>= 3.3.0),
     tsfeatures,
@@ -54,6 +55,7 @@ LazyData: true
 Collate:
     'zzz.R'
     'PipeOpFDABsignal.R'
+    'PipeOpFDACatch22.R'
     'PipeOpFDACor.R'
     'PipeOpFDADepth.R'
     'PipeOpFDADerive.R'

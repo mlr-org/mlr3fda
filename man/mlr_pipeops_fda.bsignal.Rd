@@ -43,10 +43,12 @@ Use checks for identifiability of the effect. Default is \code{FALSE}.
 }
 
 \examples{
+\dontshow{if (requireNamespace("FDboost", quietly = TRUE) && requireNamespace("mboost", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 task = tsk("fuel")
 po_bsignal = po("fda.bsignal")
 task_bsignal = po_bsignal$train(list(task))[[1L]]
 task_bsignal$data()
+\dontshow{\}) # examplesIf}
 }
 \section{Super classes}{
 \code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDABsignal}

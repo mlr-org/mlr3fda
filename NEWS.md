@@ -1,6 +1,7 @@
 # mlr3fda (development version)
 
 * fix: `as.data.table(mlr_pipeops)` no longer errors with `object 'value' not found` when `mlr3fda` is loaded.
+* feat: New `PipeOpFDACatch22` for extracting the catch22 time series features from functional columns via `Rcatch22::catch22_all()`.
 
 # mlr3fda 0.6.0
 
