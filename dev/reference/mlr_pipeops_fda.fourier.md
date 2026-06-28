@@ -18,8 +18,8 @@ as well as the following parameters:
 
 ## References
 
-Oppenheim, V A, Schafer, W R (2010). *Discrete-Time Signal Processing*,
-3rd edition. Pearson. ISBN 978-0131988422.
+Oppenheim AV, Schafer RW (2010). *Discrete-Time Signal Processing*, 3rd
+edition. Pearson. ISBN 978-0131988422.
 
 ## Super classes
 

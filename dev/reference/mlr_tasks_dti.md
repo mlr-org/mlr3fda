@@ -44,9 +44,9 @@ with the associated sugar function
 
 ## References
 
-Goldsmith, Jeff, Bobb, Jennifer, Crainiceanu, M C, Caffo, Brian, Reich,
-Daniel (2011). “Penalized functional regression.” *Journal of
-Computational and Graphical Statistics*, **20**(4), 830–851.
+Goldsmith J, Bobb J, Crainiceanu CM, Caffo B, Reich D (2011). “Penalized
+functional regression.” *Journal of Computational and Graphical
+Statistics*, **20**(4), 830–851.
 
 Brain dataset courtesy of Gordon Kindlmann at the Scientific Computing
 and Imaging Institute, University of Utah, and Andrew Alexander, W. M.
