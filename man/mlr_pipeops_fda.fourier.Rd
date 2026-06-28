@@ -27,7 +27,7 @@ task_fourier = po_fourier$train(list(task))[[1L]]
 task_fourier$data()
 }
 \references{
-Oppenheim, V A, Schafer, W R (2010).
+Oppenheim AV, Schafer RW (2010).
 \emph{Discrete-Time Signal Processing}, 3rd edition.
 Pearson.
 ISBN 978-0131988422.

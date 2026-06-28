@@ -37,7 +37,7 @@ tsk("dti")
 }
 
 \references{
-Goldsmith, Jeff, Bobb, Jennifer, Crainiceanu, M C, Caffo, Brian, Reich, Daniel (2011).
+Goldsmith J, Bobb J, Crainiceanu CM, Caffo B, Reich D (2011).
 \dQuote{Penalized functional regression.}
 \emph{Journal of Computational and Graphical Statistics}, \bold{20}(4), 830--851.
 

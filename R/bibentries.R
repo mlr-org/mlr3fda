@@ -4,7 +4,7 @@ bibentries = c(
   ferraty2003curves = bibentry(
     "article",
     title = "Curves discrimination: a nonparametric functional approach",
-    author = "Ferraty, Fr\xc3\xa9d\xc3\xa9ric and Vieu, Philippe",
+    author = "Fr\xc3\xa9d\xc3\xa9ric Ferraty and Philippe Vieu",
     journal = "Computational Statistics & Data Analysis",
     volume = "44",
     number = "1-2",
@@ -15,7 +15,7 @@ bibentries = c(
   brockhaus2015functional = bibentry(
     "article",
     title = "The functional linear array model",
-    author = "Brockhaus, Sarah and Scheipl, Fabian and Hothorn, Torsten and Greven, Sonja",
+    author = "Sarah Brockhaus and Fabian Scheipl and Torsten Hothorn and Sonja Greven",
     journal = "Statistical Modelling",
     volume = "15",
     number = "3",
@@ -26,7 +26,7 @@ bibentries = c(
   goldsmith2011penalized = bibentry(
     "article",
     title = "Penalized functional regression",
-    author = "Goldsmith, Jeff and Bobb, Jennifer and Crainiceanu, Ciprian M and Caffo, Brian and Reich, Daniel",
+    author = "Jeff Goldsmith and Jennifer Bobb and Ciprian M Crainiceanu and Brian Caffo and Daniel Reich",
     journal = "Journal of Computational and Graphical Statistics",
     volume = "20",
     number = "4",
@@ -37,7 +37,7 @@ bibentries = c(
   oppenheim2010discrete = bibentry(
     "book",
     title = "Discrete-Time Signal Processing",
-    author = "Oppenheim, Alan V and Schafer, Ronald W",
+    author = "Alan V Oppenheim and Ronald W Schafer",
     year = "2010",
     edition = "3rd",
     publisher = "Pearson",

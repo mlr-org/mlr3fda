@@ -34,7 +34,7 @@ tsk("phoneme")
 }
 
 \references{
-Ferraty, Frédéric, Vieu, Philippe (2003).
+Ferraty F, Vieu P (2003).
 \dQuote{Curves discrimination: a nonparametric functional approach.}
 \emph{Computational Statistics & Data Analysis}, \bold{44}(1-2), 161--173.
 }

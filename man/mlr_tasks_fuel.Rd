@@ -35,7 +35,7 @@ tsk("fuel")
 }
 
 \references{
-Brockhaus, Sarah, Scheipl, Fabian, Hothorn, Torsten, Greven, Sonja (2015).
+Brockhaus S, Scheipl F, Hothorn T, Greven S (2015).
 \dQuote{The functional linear array model.}
 \emph{Statistical Modelling}, \bold{15}(3), 279--300.
 }
