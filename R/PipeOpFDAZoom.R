@@ -62,8 +62,8 @@ PipeOpFDAZoom = R6Class(
       pars = self$param_set$get_values()
       begin = pars$begin
       end = pars$end
-      assert_true(length(begin) == length(end))
       if (!is.null(begin) && !is.null(end)) {
+        assert_true(length(begin) == length(end) || length(begin) == 1L || length(end) == 1L)
         assert_true(all(begin < end))
       }
 
