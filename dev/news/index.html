@@ -50,7 +50,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mlr3fda-development-version">mlr3fda (development version)<a class="anchor" aria-label="anchor" href="#mlr3fda-development-version"></a></h2>
-<ul><li>fix: <code>as.data.table(mlr_pipeops)</code> no longer errors with <code>object 'value' not found</code> when <code>mlr3fda</code> is loaded.</li>
+<ul><li>fix: <code>PipeOpFDAWavelets</code> no longer errors when <code>filter</code> is a <code>wt.filter</code> object or a numeric vector. Generated columns are now named <code>&lt;column&gt;_wav_&lt;i&gt;</code> regardless of the filter.</li>
+<li>fix: <code>PipeOpFDAZoom</code> now accepts a one-sided <code>begin</code> or <code>end</code> instead of requiring both.</li>
+<li>fix: <code>as.data.table(mlr_pipeops)</code> no longer errors with <code>object 'value' not found</code> when <code>mlr3fda</code> is loaded.</li>
 <li>feat: New <code>PipeOpFDACatch22</code> for extracting the catch22 time series features from functional columns via <code><a href="https://rdrr.io/pkg/Rcatch22/man/catch22_all.html" class="external-link">Rcatch22::catch22_all()</a></code>.</li>
 <li>feat: New <code>PipeOpFDAIntegrate</code> for extracting the definite integral of functional columns via <code><a href="https://tidyfun.github.io/tf/reference/tf_integrate.html" class="external-link">tf::tf_integrate()</a></code>.</li>
 </ul></div>
