@@ -82,7 +82,6 @@ PipeOpFDAWavelets = R6Class(
   private = list(
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
-      filter = pars$filter %??% "la8"
 
       setcbindlist(imap(dt, function(x, nm) {
         feats = map_dtr(
@@ -94,7 +93,7 @@ PipeOpFDAWavelets = R6Class(
           },
           .fill = TRUE
         )
-        setnames(feats, sprintf("%s_wav_%s_%i", nm, filter, seq_col(feats)))
+        setnames(feats, sprintf("%s_wav_%i", nm, seq_col(feats)))
       }))
     }
   )
