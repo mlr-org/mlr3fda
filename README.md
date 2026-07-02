@@ -125,6 +125,7 @@ glrn$predict(task, row_ids = ids$test)
 | Key | Label | Packages | Tags |
 |:---|:---|:---|:---|
 | [fda.bsignal](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal) | B-spline Feature Extraction | [tf](https://cran.r-project.org/package=tf), [mboost](https://cran.r-project.org/package=mboost), [FDboost](https://cran.r-project.org/package=FDboost) | fda, data transform |
+| [fda.catch22](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.catch22) | Catch22 Feature Extraction | [tf](https://cran.r-project.org/package=tf), [Rcatch22](https://cran.r-project.org/package=Rcatch22) | fda, data transform |
 | [fda.cor](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor) | Cross-Correlation of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.depth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.depth) | Functional Data Depth Features | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.derive](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.derive) | Derivatives of Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
@@ -132,6 +133,7 @@ glrn$predict(task, row_ids = ids$test)
 | [fda.flatten](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten) | Flatten Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.fourier](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fourier) | Fast Fourier Transform Features | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.fpca](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fpca) | Functional Principal Component Analysis | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.integrate](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.integrate) | Functional Integral Features | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.interpol](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol) | Interpolate Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.random_effect](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect) | Extract Random Effects from Functional Columns | [tf](https://cran.r-project.org/package=tf), [lme4](https://cran.r-project.org/package=lme4) | fda, data transform |
 | [fda.register](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.register) | Register (Align) Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
