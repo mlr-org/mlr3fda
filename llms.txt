@@ -121,6 +121,8 @@ glrn$predict(task, row_ids = ids$test)
 |:---|:---|:---|:---|
 | [fda.bsignal](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal) | B-spline Feature Extraction | [tf](https://cran.r-project.org/package=tf), [mboost](https://cran.r-project.org/package=mboost), [FDboost](https://cran.r-project.org/package=FDboost) | fda, data transform |
 | [fda.cor](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.cor) | Cross-Correlation of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.depth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.depth) | Functional Data Depth Features | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
+| [fda.derive](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.derive) | Derivatives of Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.extract](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.extract) | Extract Simple Features from Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.flatten](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.flatten) | Flatten Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.fourier](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.fourier) | Fast Fourier Transform Features | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
@@ -162,6 +164,9 @@ R&D.
 - [`mlr_pipeops_fda.bsignal`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.bsignal.md)
   [`PipeOpFDABsignal`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.bsignal.md)
   : B-spline Feature Extraction
+- [`mlr_pipeops_fda.catch22`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.catch22.md)
+  [`PipeOpFDACatch22`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.catch22.md)
+  : Catch22 Feature Extraction
 - [`mlr_pipeops_fda.cor`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor.md)
   [`PipeOpFDACor`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor.md)
   : Cross-Correlation of Functional Data
@@ -183,6 +188,9 @@ R&D.
 - [`mlr_pipeops_fda.fpca`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca.md)
   [`PipeOpFPCA`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca.md)
   : Functional Principal Component Analysis
+- [`mlr_pipeops_fda.integrate`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.integrate.md)
+  [`PipeOpFDAIntegrate`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.integrate.md)
+  : Functional Integral Features
 - [`mlr_pipeops_fda.interpol`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol.md)
   [`PipeOpFDAInterpol`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol.md)
   : Interpolate Functional Columns

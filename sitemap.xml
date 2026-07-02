@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://mlr3fda.mlr-org.com/404.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/AGENTS.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/LICENSE.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/authors.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/index.html</loc></url>
@@ -9,6 +10,7 @@
 <url><loc>https://mlr3fda.mlr-org.com/reference/index.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr3fda-package.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.bsignal.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.catch22.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.depth.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.derive.html</loc></url>
@@ -16,6 +18,7 @@
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.flatten.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fourier.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca.html</loc></url>
+<url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.integrate.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.random_effect.html</loc></url>
 <url><loc>https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.register.html</loc></url>

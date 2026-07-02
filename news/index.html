@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mlr3fda</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.6.0</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,9 +45,17 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/mlr-org/mlr3fda/blob/v0.6.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/mlr-org/mlr3fda/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.7.0" id="mlr3fda-070">mlr3fda 0.7.0<a class="anchor" aria-label="anchor" href="#mlr3fda-070"></a></h2><p class="text-muted">CRAN release: 2026-07-02</p>
+<ul><li>fix: <code>PipeOpFDAWavelets</code> no longer errors when <code>filter</code> is a <code>wt.filter</code> object or a numeric vector. Generated columns are now named <code>&lt;column&gt;_wav_&lt;i&gt;</code> regardless of the filter.</li>
+<li>fix: <code>PipeOpFDAZoom</code> now accepts a one-sided <code>begin</code> or <code>end</code> instead of requiring both.</li>
+<li>fix: <code>as.data.table(mlr_pipeops)</code> no longer errors with <code>object 'value' not found</code> when <code>mlr3fda</code> is loaded.</li>
+<li>feat: New <code>PipeOpFDACatch22</code> for extracting the catch22 time series features from functional columns via <code><a href="https://rdrr.io/pkg/Rcatch22/man/catch22_all.html" class="external-link">Rcatch22::catch22_all()</a></code>.</li>
+<li>feat: New <code>PipeOpFDAIntegrate</code> for extracting the definite integral of functional columns via <code><a href="https://tidyfun.github.io/tf/reference/tf_integrate.html" class="external-link">tf::tf_integrate()</a></code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.0" id="mlr3fda-060">mlr3fda 0.6.0<a class="anchor" aria-label="anchor" href="#mlr3fda-060"></a></h2><p class="text-muted">CRAN release: 2026-06-01</p>
 <ul><li>fix: Add <code>mlr3fda</code> to <code>mlr_reflections$loaded_packages</code> to fix errors when using <code>mlr3fda</code> in parallel.</li>

@@ -41,9 +41,8 @@ with the associated sugar function
 
 ## References
 
-Brockhaus, Sarah, Scheipl, Fabian, Hothorn, Torsten, Greven, Sonja
-(2015). “The functional linear array model.” *Statistical Modelling*,
-**15**(3), 279–300.
+Brockhaus S, Scheipl F, Hothorn T, Greven S (2015). “The functional
+linear array model.” *Statistical Modelling*, **15**(3), 279–300.
 
 ## See also
 

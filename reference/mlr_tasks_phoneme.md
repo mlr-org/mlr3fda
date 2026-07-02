@@ -40,9 +40,9 @@ with the associated sugar function
 
 ## References
 
-Ferraty, Frédéric, Vieu, Philippe (2003). “Curves discrimination: a
-nonparametric functional approach.” *Computational Statistics & Data
-Analysis*, **44**(1-2), 161–173.
+Ferraty F, Vieu P (2003). “Curves discrimination: a nonparametric
+functional approach.” *Computational Statistics & Data Analysis*,
+**44**(1-2), 161–173.
 
 ## See also
 

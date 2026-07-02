@@ -5,6 +5,9 @@
 - [`mlr_pipeops_fda.bsignal`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.bsignal.md)
   [`PipeOpFDABsignal`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.bsignal.md)
   : B-spline Feature Extraction
+- [`mlr_pipeops_fda.catch22`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.catch22.md)
+  [`PipeOpFDACatch22`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.catch22.md)
+  : Catch22 Feature Extraction
 - [`mlr_pipeops_fda.cor`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor.md)
   [`PipeOpFDACor`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.cor.md)
   : Cross-Correlation of Functional Data
@@ -26,6 +29,9 @@
 - [`mlr_pipeops_fda.fpca`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca.md)
   [`PipeOpFPCA`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.fpca.md)
   : Functional Principal Component Analysis
+- [`mlr_pipeops_fda.integrate`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.integrate.md)
+  [`PipeOpFDAIntegrate`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.integrate.md)
+  : Functional Integral Features
 - [`mlr_pipeops_fda.interpol`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol.md)
   [`PipeOpFDAInterpol`](https://mlr3fda.mlr-org.com/reference/mlr_pipeops_fda.interpol.md)
   : Interpolate Functional Columns
