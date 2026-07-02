@@ -2,6 +2,10 @@
 
 ## mlr3fda (development version)
 
+## mlr3fda 0.7.0
+
+CRAN release: 2026-07-02
+
 - fix: `PipeOpFDAWavelets` no longer errors when `filter` is a
   `wt.filter` object or a numeric vector. Generated columns are now
   named `<column>_wav_<i>` regardless of the filter.
