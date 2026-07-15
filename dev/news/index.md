@@ -2,6 +2,12 @@
 
 ## mlr3fda (development version)
 
+## mlr3fda 0.7.1
+
+CRAN release: 2026-07-15
+
+- Compatibility with new `tf` version 0.5.0.
+
 ## mlr3fda 0.7.0
 
 CRAN release: 2026-07-02
