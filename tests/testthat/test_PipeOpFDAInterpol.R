@@ -208,7 +208,9 @@ test_that("PipeOpFDAInterpol works with union", {
   dt = data.table(y = 1:2, f = f)
   task = as_task_regr(dt, target = "y")
   pop = po("fda.interpol", grid = "union")
-  expect_warning(task_interpol <- train_pipeop(pop, list(task))[[1L]])
+  expect_warning({
+    task_interpol = train_pipeop(pop, list(task))[[1L]]
+  })
   dt = data.table(
     id = c(rep(1L, 3L), rep(2L, 6L)),
     arg = c(3:5, 1:6),

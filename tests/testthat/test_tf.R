@@ -12,7 +12,9 @@ test_that("tf all-NA functional input", {
     x = tf::tfd(dt, arg = "time", value = "value", id = "id")
     expect_length(x, 0L)
   } else {
-    expect_warning(x <- tf::tfd(d, arg = "time", value = "value", id = "id"))
+    expect_warning({
+      x = tf::tfd(dt, arg = "time", value = "value", id = "id")
+    })
     expect_length(x, 1L)
     expect_true(allMissing(x))
   }
