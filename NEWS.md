@@ -1,5 +1,7 @@
 # mlr3fda (development version)
 
+* fix: Version validation-error snapshots for compatibility with paradox 2.0.0.
+
 # mlr3fda 0.7.1
 
 * Compatibility with new `tf` version 0.5.0.
