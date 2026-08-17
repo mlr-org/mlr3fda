@@ -65,7 +65,7 @@ register_mlr3pipelines = function(...) {
   register_namespace_callback(pkgname, "mlr3pipelines", register_mlr3pipelines)
 }
 
-.onUnload = function(libPaths) {
+.onUnload = function(libpath) {
   walk(names(mlr3fda_tasks), \(nm) mlr_tasks$remove(nm))
   walk(names(mlr3fda_pipeops), \(nm) mlr_pipeops$remove(nm))
   mlr_reflections$task_feature_types =
