@@ -241,7 +241,7 @@ fmean = function(arg, value) mean(value, na.rm = TRUE)
 fmin = function(arg, value) min(value, na.rm = TRUE)
 fmax = function(arg, value) max(value, na.rm = TRUE)
 fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
-fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
+fslope = function(arg, value) stats::coef(stats::lm(value ~ arg))[[2L]]
 fvar = function(arg, value) stats::var(value, na.rm = TRUE)
 fsd = function(arg, value) stats::sd(value, na.rm = TRUE)
 
