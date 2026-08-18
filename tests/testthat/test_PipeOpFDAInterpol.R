@@ -41,6 +41,11 @@ test_that("PipeOpFDAInterpol input validation works", {
     train_pipeop(pop, list(task)),
     "If 'grid' is a single count, 'left' and 'right' must be specified."
   )
+  pop = po("fda.interpol", grid = 10L, left = 1, right = 1000)
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "The grid must be within the range of the domain."
+  )
 })
 
 test_that("PipeOpFDAInterpol extrapolation works", {

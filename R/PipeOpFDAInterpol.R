@@ -132,7 +132,12 @@ PipeOpFDAInterpol = R6Class(
         }
         arg = seq(left, right, length.out = grid)
         for (j in seq_along(dt)) {
-          set(dt, j = j, value = invoke(tf::tfd, data = dt[[j]], arg = arg, .args = list(evaluator = evaluator)))
+          x = dt[[j]]
+          domain = tf::tf_domain(x)
+          if (left < domain[[1L]] || right > domain[[2L]]) {
+            error_config("The grid must be within the range of the domain.")
+          }
+          set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
         }
         return(dt)
       }
