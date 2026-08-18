@@ -15,7 +15,15 @@ test_that("PipeOpFDAInterpol input validation works", {
   expect_error(po("fda.interpol", grid = 1:3, method = "cube"))
   task = tsk("fuel")
   pop = po("fda.interpol", grid = 1:3, left = 1, right = 2)
-  expect_error(train_pipeop(pop, list(task)))
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "If 'left' and 'right' are specified, 'grid' must be a single count."
+  )
+  pop = po("fda.interpol", grid = "union", left = 1, right = 2)
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "If 'left' and 'right' are specified, 'grid' must be a single count."
+  )
   pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
   expect_error(train_pipeop(pop, list(task)))
   pop = po("fda.interpol", grid = 10L, left = 2)
@@ -27,6 +35,11 @@ test_that("PipeOpFDAInterpol input validation works", {
   expect_error(
     train_pipeop(pop, list(task)),
     "Either both or none of 'left' and 'right' must be specified."
+  )
+  pop = po("fda.interpol", grid = 10L)
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "If 'grid' is a single count, 'left' and 'right' must be specified."
   )
 })
 

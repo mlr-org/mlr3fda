@@ -105,7 +105,9 @@ PipeOpFDAInterpol = R6Class(
         error_config("Either both or none of 'left' and 'right' must be specified.")
       }
       if (has_left && has_right) {
-        assert_count(grid)
+        if (!test_count(grid)) {
+          error_config("If 'left' and 'right' are specified, 'grid' must be a single count.")
+        }
         assert_true(left <= right)
       }
       method = method %??% "linear"
@@ -124,6 +126,9 @@ PipeOpFDAInterpol = R6Class(
             set(dt, j = j, value = invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator)))
           }
           return(dt)
+        }
+        if (!has_left) {
+          error_config("If 'grid' is a single count, 'left' and 'right' must be specified.")
         }
         arg = seq(left, right, length.out = grid)
         for (j in seq_along(dt)) {
