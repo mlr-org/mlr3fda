@@ -104,13 +104,15 @@ glrn$predict(task, row_ids = ids$test)
 
 ```{r, echo = FALSE}
 content = as.data.table(mlr_pipeops, objects = TRUE)
-content = content[map_lgl(tags, function(t) "fda" %in% t), .(key, label, packages, tags)]
-content[, packages := map(packages, function(x) setdiff(x, c("mlr3pipelines", "mlr3fda")))]
+content = content[map_lgl(tags, \(t) "fda" %in% t), .(key, label, packages, tags)]
+content[, packages := map(packages, \(x) setdiff(x, c("mlr3pipelines", "mlr3fda")))]
 content[, `:=`(
   key = sprintf("[%1$s](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_%1$s)", key),
   packages = map_chr(packages, function(pkg) {
     toString(fifelse(
-      pkg %in% c("stats", "graphics", "datasets"), pkg, sprintf("[%1$s](https://cran.r-project.org/package=%1$s)", pkg)
+      pkg %in% c("stats", "graphics", "datasets"),
+      pkg,
+      sprintf("[%1$s](https://cran.r-project.org/package=%1$s)", pkg)
     ))
   }),
   tags = map_chr(tags, toString)
