@@ -36,7 +36,7 @@ PipeOpFDACor = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.cor", param_vals = list()) {
       param_set = ps(
-        arg = p_uty(tags = c("train", "predict"), custom_check = check_numeric)
+        arg = p_uty(tags = c("train", "predict", "crosscor"), custom_check = check_numeric)
       )
 
       super$initialize(
@@ -51,7 +51,7 @@ PipeOpFDACor = R6Class(
   ),
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "crosscor")
 
       k = ncol(dt)
       if (k < 2L) {

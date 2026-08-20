@@ -53,20 +53,28 @@ PipeOpFDATsfeatures = R6Class(
       param_set = ps(
         features = p_uty(
           default = c("frequency", "stl_features", "entropy", "acf_features"),
-          tags = "train",
+          tags = c("train", "tsfeatures"),
           custom_check = crate(\(x) check_character(x, any.missing = FALSE, min.len = 1L))
         ),
-        scale = p_lgl(default = TRUE, tags = c("train", "predict")),
-        trim = p_lgl(default = FALSE, tags = c("train", "predict")),
-        trim_amount = p_dbl(default = 0.1, tags = c("train", "predict"), depends = quote(trim == TRUE)), # nolint
-        parallel = p_lgl(default = FALSE, tags = c("train", "predict")),
+        scale = p_lgl(default = TRUE, tags = c("train", "predict", "tsfeatures")),
+        trim = p_lgl(default = FALSE, tags = c("train", "predict", "tsfeatures")),
+        trim_amount = p_dbl(
+          default = 0.1,
+          tags = c("train", "predict", "tsfeatures"),
+          depends = quote(trim == TRUE) # nolint
+        ),
+        parallel = p_lgl(default = FALSE, tags = c("train", "predict", "tsfeatures")),
         multiprocess = p_uty(
           default = future::multisession,
-          tags = c("train", "predict"),
+          tags = c("train", "predict", "tsfeatures"),
           depends = quote(parallel == TRUE), # nolint
           custom_check = check_function
         ),
-        na.action = p_uty(default = stats::na.pass, tags = c("train", "predict"), custom_check = check_function)
+        na.action = p_uty(
+          default = stats::na.pass,
+          tags = c("train", "predict", "tsfeatures"),
+          custom_check = check_function
+        )
       )
 
       super$initialize(
@@ -82,7 +90,7 @@ PipeOpFDATsfeatures = R6Class(
 
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "tsfeatures")
 
       setcbindlist(imap(dt, function(x, nm) {
         tslist = tf::tf_evaluations(x)
