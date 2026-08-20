@@ -50,8 +50,13 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mlr3fda-development-version">mlr3fda (development version)<a class="anchor" aria-label="anchor" href="#mlr3fda-development-version"></a></h2>
-<ul><li>fix: <code>PipeOpFDAInterpol</code> now reports which <code>grid</code>, <code>left</code>, and <code>right</code> combination is invalid instead of failing with an opaque assertion.</li>
+<ul><li>fix: <code>PipeOpFDABsignal</code> no longer errors when <code>affect_columns</code> is set.</li>
+<li>fix: <code>PipeOpFDACatch22</code> no longer errors when <code>affect_columns</code> is set.</li>
+<li>fix: <code>PipeOpFDACor</code> no longer errors when <code>affect_columns</code> is set.</li>
+<li>fix: <code>PipeOpFDAInterpol</code> now reports which <code>grid</code>, <code>left</code>, and <code>right</code> combination is invalid instead of failing with an opaque assertion.</li>
 <li>fix: <code>PipeOpFDAInterpol</code> now errors when <code>left</code> and <code>right</code> fall outside the domain of a functional column.</li>
+<li>fix: <code>PipeOpFDATsfeatures</code> no longer errors when <code>affect_columns</code> is set.</li>
+<li>fix: <code>PipeOpFDAWavelets</code> no longer errors when <code>affect_columns</code> is set.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.1" id="mlr3fda-071">mlr3fda 0.7.1<a class="anchor" aria-label="anchor" href="#mlr3fda-071"></a></h2><p class="text-muted">CRAN release: 2026-07-15</p>
