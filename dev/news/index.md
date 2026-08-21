@@ -2,6 +2,8 @@
 
 ## mlr3fda (development version)
 
+## mlr3fda 0.7.2
+
 - docs: Various documentation improvements.
 - fix: `PipeOp`s no longer forward `affect_columns` to their backend
   functions.
