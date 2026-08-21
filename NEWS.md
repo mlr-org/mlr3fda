@@ -3,6 +3,7 @@
 * fix: `PipeOpFDABsignal` no longer errors when `affect_columns` is set.
 * fix: `PipeOpFDACatch22` no longer errors when `affect_columns` is set.
 * fix: `PipeOpFDACor` no longer errors when `affect_columns` is set.
+* fix: `PipeOpFDADepth` no longer errors when `affect_columns` is set and `method` is `"RPD"`.
 * fix: `PipeOpFDAInterpol` now reports which `grid`, `left`, and `right` combination is invalid instead of failing with an opaque assertion.
 * fix: `PipeOpFDAInterpol` now errors when `left` and `right` fall outside the domain of a functional column.
 * fix: `PipeOpFDARegister` no longer errors when `affect_columns` is set.

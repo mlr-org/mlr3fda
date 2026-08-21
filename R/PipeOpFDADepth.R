@@ -57,11 +57,11 @@ PipeOpFDADepth = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.depth", param_vals = list()) {
       param_set = ps(
-        method = p_fct(c("MBD", "MHI", "FM", "FSD", "RPD"), tags = c("train", "predict", "required")),
-        na.rm = p_lgl(tags = c("train", "predict", "required")),
-        u = p_dbl(0, 1, tags = c("train", "predict"), depends = quote(method == "RPD")),
-        n_projections = p_int(1L, tags = c("train", "predict"), depends = quote(method == "RPD")),
-        n_projections_beta = p_int(1L, tags = c("train", "predict"), depends = quote(method == "RPD"))
+        method = p_fct(c("MBD", "MHI", "FM", "FSD", "RPD"), tags = c("train", "predict", "required", "depth")),
+        na.rm = p_lgl(tags = c("train", "predict", "required", "depth")),
+        u = p_dbl(0, 1, tags = c("train", "predict", "depth"), depends = quote(method == "RPD")),
+        n_projections = p_int(1L, tags = c("train", "predict", "depth"), depends = quote(method == "RPD")),
+        n_projections_beta = p_int(1L, tags = c("train", "predict", "depth"), depends = quote(method == "RPD"))
       )
       param_set$set_values(method = "MBD", na.rm = TRUE)
 
@@ -77,7 +77,7 @@ PipeOpFDADepth = R6Class(
   ),
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "depth")
       method = pars$method
       pars = remove_named(pars, "method")
       setcbindlist(imap(dt, function(x, nm) {

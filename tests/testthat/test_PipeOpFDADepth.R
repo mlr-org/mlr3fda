@@ -45,3 +45,13 @@ test_that("PipeOpFDADepth works on irregular data with incomplete curves", {
   expect_numeric(new_data$rcst_depth)
   expect_gt(sum(is.na(new_data$rcst_depth)), 0)
 })
+
+test_that("PipeOpFDADepth works with affect_columns", {
+  task = tsk("fuel")
+  for (method in c("MBD", "RPD")) {
+    pop = po("fda.depth", method = method, affect_columns = selector_name("NIR"))
+    task_depth = train_pipeop(pop, list(task))[[1L]]
+    expect_subset(c("NIR_depth", "UVVIS"), task_depth$feature_names)
+    expect_numeric(task_depth$data()$NIR_depth, finite = TRUE, any.missing = FALSE)
+  }
+})
