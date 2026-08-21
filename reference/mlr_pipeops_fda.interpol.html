@@ -17,7 +17,7 @@ The interpolation is done using the tf package. See tfd() for details."></head><
 
     <a class="navbar-brand me-2" href="../index.html">mlr3fda</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,11 +89,12 @@ One of:</p><ul><li><p><code>"linear"</code>: applies linear interpolation withou
 <li><p><code>"locf"</code>: applies "last observation carried forward" interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_locf()</a></code>).</p></li>
 <li><p><code>"nocb"</code>: applies "next observation carried backward" interpolation (see <code><a href="https://tidyfun.github.io/tf/reference/tf_approx.html" class="external-link">tf::tf_approx_nocb()</a></code>).</p></li>
 </ul><p>Default is <code>"linear"</code>.</p></li>
-<li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-The left boundary of the window.
-The window is specified such that all values &gt;=left and &lt;=right are kept for the computations.</p></li>
-<li><p><code>right</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-The right boundary of the window.</p></li>
+<li><p><code>left</code> :: <code>numeric(1)</code><br>
+The lower end of the interpolation grid. Must be set together with <code>right</code>, and only applies when <code>grid</code> is a
+single count, in which case the grid is <code>seq(left, right, length.out = grid)</code>.
+Must lie within the domain of every functional column.</p></li>
+<li><p><code>right</code> :: <code>numeric(1)</code><br>
+The upper end of the interpolation grid. See <code>left</code>.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>

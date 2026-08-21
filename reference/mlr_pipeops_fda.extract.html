@@ -15,7 +15,7 @@ Note that it only operates on values that were actually observed and does not in
 
     <a class="navbar-brand me-2" href="../index.html">mlr3fda</a>
 
-    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.1</small>
+    <small class="nav-text text-default me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,10 +72,10 @@ If the element is a function it requires the following arguments: <code>arg</cod
 For string elements, the following predefined features are available:
 <code>"mean"</code>, <code>"max"</code>, <code>"min"</code>, <code>"slope"</code>, <code>"median"</code>, <code>"var"</code>, <code>"sd"</code>.
 Initial value is <code>c("mean", "max", "min", "slope", "median", "var")</code>.</p></li>
-<li><p><code>left</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
+<li><p><code>left</code> :: <code>numeric(1)</code><br>
 The left boundary of the window. Initial value is <code>-Inf</code>.
 The window is specified such that all values &gt;=left and &lt;=right are kept for the computations.</p></li>
-<li><p><code>right</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
+<li><p><code>right</code> :: <code>numeric(1)</code><br>
 The right boundary of the window. Initial value is <code>Inf</code>.</p></li>
 </ul></div>
     <div class="section level2">
@@ -86,8 +86,7 @@ The right boundary of the window. Initial value is <code>Inf</code>.</p></li>
 However this can lead to name clashes with existing columns.
 This is solved as follows:
 If a column was called <code>"x"</code> and the feature is <code>"mean"</code>, the corresponding new column will
-be called <code>"x_mean"</code>. In case of duplicates, unique names are obtained using <code><a href="https://rdrr.io/r/base/make.unique.html" class="external-link">make.unique()</a></code> and
-a warning is given.</p>
+be called <code>"x_mean"</code>. In case of duplicates, unique names are obtained using <code><a href="https://rdrr.io/r/base/make.unique.html" class="external-link">make.unique()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>
