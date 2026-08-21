@@ -36,11 +36,12 @@
 #'   * `"nocb"`: applies "next observation carried backward" interpolation (see [tf::tf_approx_nocb()]).
 #'
 #'   Default is `"linear"`.
-#' * `left` :: `numeric()`\cr
-#'   The left boundary of the window.
-#'   The window is specified such that all values >=left and <=right are kept for the computations.
-#' * `right` :: `numeric()`\cr
-#'   The right boundary of the window.
+#' * `left` :: `numeric(1)`\cr
+#'   The lower end of the interpolation grid. Must be set together with `right`, and only applies when `grid` is a
+#'   single count, in which case the grid is `seq(left, right, length.out = grid)`.
+#'   Must lie within the domain of every functional column.
+#' * `right` :: `numeric(1)`\cr
+#'   The upper end of the interpolation grid. See `left`.
 #'
 #' @export
 #' @examples

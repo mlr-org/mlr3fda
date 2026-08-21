@@ -19,8 +19,7 @@ The new names generally append \verb{_1}, \verb{_2}, ... to the corresponding co
 However this can lead to name clashes with existing columns.
 This is solved as follows:
 If a column was called \code{"x"}, the corresponding new columns will
-be called \code{"x_1"}, \code{"x_2"}, etc. In case of duplicates, unique names are obtained using \code{make.unique()} and
-a warning is given.
+be called \code{"x_1"}, \code{"x_2"}, etc. In case of duplicates, unique names are obtained using \code{make.unique()}.
 }
 
 \examples{

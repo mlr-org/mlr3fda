@@ -37,8 +37,7 @@ The new names generally append a \verb{_\{feature\}} to the corresponding column
 However this can lead to name clashes with existing columns.
 This is solved as follows:
 If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
-be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
-a warning is given.
+be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()}.
 }
 
 \examples{
