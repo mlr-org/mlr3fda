@@ -19,10 +19,10 @@
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`, `"sd"`.
 #'   Initial value is `c("mean", "max", "min", "slope", "median", "var")`.
-#' * `left` :: `numeric()`\cr
+#' * `left` :: `numeric(1)`\cr
 #'   The left boundary of the window. Initial value is `-Inf`.
 #'   The window is specified such that all values >=left and <=right are kept for the computations.
-#' * `right` :: `numeric()`\cr
+#' * `right` :: `numeric(1)`\cr
 #'   The right boundary of the window. Initial value is `Inf`.
 #'
 #' @section Naming:

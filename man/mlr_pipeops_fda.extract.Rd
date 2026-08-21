@@ -23,10 +23,10 @@ If the element is a function it requires the following arguments: \code{arg} and
 For string elements, the following predefined features are available:
 \code{"mean"}, \code{"max"}, \code{"min"}, \code{"slope"}, \code{"median"}, \code{"var"}, \code{"sd"}.
 Initial value is \code{c("mean", "max", "min", "slope", "median", "var")}.
-\item \code{left} :: \code{numeric()}\cr
+\item \code{left} :: \code{numeric(1)}\cr
 The left boundary of the window. Initial value is \code{-Inf}.
 The window is specified such that all values >=left and <=right are kept for the computations.
-\item \code{right} :: \code{numeric()}\cr
+\item \code{right} :: \code{numeric(1)}\cr
 The right boundary of the window. Initial value is \code{Inf}.
 }
 }
