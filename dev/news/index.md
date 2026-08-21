@@ -2,19 +2,12 @@
 
 ## mlr3fda (development version)
 
-- fix: `PipeOpFDABsignal` no longer errors when `affect_columns` is set.
-- fix: `PipeOpFDACatch22` no longer errors when `affect_columns` is set.
-- fix: `PipeOpFDACor` no longer errors when `affect_columns` is set.
+- fix: `PipeOp`s no longer forward `affect_columns` to their backend
+  functions.
 - fix: `PipeOpFDAInterpol` now reports which `grid`, `left`, and `right`
   combination is invalid instead of failing with an opaque assertion.
 - fix: `PipeOpFDAInterpol` now errors when `left` and `right` fall
   outside the domain of a functional column.
-- fix: `PipeOpFDARegister` no longer errors when `affect_columns` is
-  set.
-- fix: `PipeOpFDATsfeatures` no longer errors when `affect_columns` is
-  set.
-- fix: `PipeOpFDAWavelets` no longer errors when `affect_columns` is
-  set.
 
 ## mlr3fda 0.7.1
 
