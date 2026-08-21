@@ -63,12 +63,14 @@ as well as the following parameters:
 
   Default is `"linear"`.
 
-- `left` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
-  The left boundary of the window. The window is specified such that all
-  values \>=left and \<=right are kept for the computations.
+- `left` :: `numeric(1)`  
+  The lower end of the interpolation grid. Must be set together with
+  `right`, and only applies when `grid` is a single count, in which case
+  the grid is `seq(left, right, length.out = grid)`. Must lie within the
+  domain of every functional column.
 
-- `right` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
-  The right boundary of the window.
+- `right` :: `numeric(1)`  
+  The upper end of the interpolation grid. See `left`.
 
 ## Super classes
 
