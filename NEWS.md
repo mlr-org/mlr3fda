@@ -1,5 +1,6 @@
 # mlr3fda (development version)
 
+* docs: Various documentation improvements.
 * fix: `PipeOp`s no longer forward `affect_columns` to their backend functions.
 * fix: `PipeOpFDAInterpol` now reports which `grid`, `left`, and `right` combination is invalid instead of failing with an opaque assertion.
 * fix: `PipeOpFDAInterpol` now errors when `left` and `right` fall outside the domain of a functional column.
