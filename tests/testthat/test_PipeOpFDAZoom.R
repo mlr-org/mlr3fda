@@ -26,3 +26,12 @@ test_that("PipeOpFDAZoom works", {
   expect_identical(tf::tf_domain(new_data$cca), c(0.2, 0.8))
   expect_identical(tf::tf_domain(new_data$rcst), c(0.2, 0.8))
 })
+
+test_that("PipeOpFDAZoom works with affect_columns", {
+  task = tsk("fuel")
+  pop = po("fda.zoom", begin = 50, end = 100, affect_columns = selector_name("NIR"))
+  expect_false("affect_columns" %chin% names(pop$param_set$get_values(tags = "zoom")))
+  new_data = train_pipeop(pop, list(task))[[1L]]$data()
+  expect_identical(tf::tf_domain(new_data$NIR), c(50, 100))
+  expect_identical(tf::tf_domain(new_data$UVVIS), tf::tf_domain(task$data(cols = "UVVIS")$UVVIS))
+})

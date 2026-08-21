@@ -37,3 +37,12 @@ test_that("PipeOpFDADerive validates order", {
   expect_error(po("fda.derive", order = 0L))
   expect_error(po("fda.derive", order = -1L))
 })
+
+test_that("PipeOpFDADerive works with affect_columns", {
+  task = tsk("fuel")
+  pop = po("fda.derive", order = 2L, affect_columns = selector_name("NIR"))
+  expect_false("affect_columns" %chin% names(pop$param_set$get_values(tags = "derive")))
+  task_deriv = train_pipeop(pop, list(task))[[1L]]
+  expect_task(task_deriv)
+  expect_set_equal(task_deriv$feature_names, task$feature_names)
+})

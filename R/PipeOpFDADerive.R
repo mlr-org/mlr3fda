@@ -35,9 +35,9 @@ PipeOpFDADerive = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.derive", param_vals = list()) {
       param_set = ps(
-        order = p_int(lower = 1L, tags = c("train", "predict", "required")),
+        order = p_int(lower = 1L, tags = c("train", "predict", "required", "derive")),
         arg = p_uty(
-          tags = c("train", "predict"),
+          tags = c("train", "predict", "derive"),
           custom_check = crate(\(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L, sorted = TRUE))
         )
       )
@@ -55,7 +55,7 @@ PipeOpFDADerive = R6Class(
   ),
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "derive")
       for (j in seq_along(dt)) {
         set(dt, j = j, value = invoke(tf::tf_derive, f = dt[[j]], .args = pars))
       }

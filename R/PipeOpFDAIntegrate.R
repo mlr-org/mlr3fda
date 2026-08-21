@@ -39,8 +39,8 @@ PipeOpFDAIntegrate = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.integrate", param_vals = list()) {
       param_set = ps(
-        lower = p_dbl(tags = c("train", "predict")),
-        upper = p_dbl(tags = c("train", "predict"))
+        lower = p_dbl(tags = c("train", "predict", "integrate")),
+        upper = p_dbl(tags = c("train", "predict", "integrate"))
       )
 
       super$initialize(
@@ -55,7 +55,7 @@ PipeOpFDAIntegrate = R6Class(
   ),
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "integrate")
       setcbindlist(imap(dt, function(x, nm) {
         integral = invoke(tf::tf_integrate, f = x, .args = pars)
         integral_dt = as.data.table(integral)
