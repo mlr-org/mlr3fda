@@ -25,12 +25,12 @@ as well as the following parameters:
   `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`, `"sd"`. Initial
   value is `c("mean", "max", "min", "slope", "median", "var")`.
 
-- `left` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
+- `left` :: `numeric(1)`  
   The left boundary of the window. Initial value is `-Inf`. The window
   is specified such that all values \>=left and \<=right are kept for
   the computations.
 
-- `right` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
+- `right` :: `numeric(1)`  
   The right boundary of the window. Initial value is `Inf`.
 
 ## Naming
