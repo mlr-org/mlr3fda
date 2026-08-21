@@ -2,6 +2,7 @@
 
 ## mlr3fda (development version)
 
+- docs: Various documentation improvements.
 - fix: `PipeOp`s no longer forward `affect_columns` to their backend
   functions.
 - fix: `PipeOpFDAInterpol` now reports which `grid`, `left`, and `right`
