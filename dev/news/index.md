@@ -4,6 +4,8 @@
 
 ## mlr3fda 0.7.2
 
+CRAN release: 2026-08-21
+
 - docs: Various documentation improvements.
 - fix: `PipeOp`s no longer forward `affect_columns` to their backend
   functions.
