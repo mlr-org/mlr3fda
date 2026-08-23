@@ -6,6 +6,8 @@
 \alias{mlr3fda-package}
 \title{mlr3fda: Extending 'mlr3' to Functional Data Analysis}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Extends the 'mlr3' ecosystem to functional analysis by adding support for irregular and regular functional data as defined in the 'tf' package. The package provides 'PipeOps' for preprocessing functional columns and for extracting scalar features, thereby allowing standard machine learning algorithms to be applied afterwards. Available operations include simple functional features such as the mean or maximum, smoothing, interpolation, flattening, and functional 'PCA'.
 }
 \section{Data types}{
