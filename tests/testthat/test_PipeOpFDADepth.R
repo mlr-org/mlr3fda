@@ -28,6 +28,8 @@ test_that("PipeOpFDADepth supports all methods", {
 })
 
 test_that("PipeOpFDADepth RPD is reproducible with a seed", {
+  skip_if_not_installed("withr")
+
   task = tsk("fuel")
   withr::local_seed(1)
   a = train_pipeop(po("fda.depth", method = "RPD"), list(task))[[1L]]$data()$NIR_depth

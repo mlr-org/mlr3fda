@@ -65,7 +65,6 @@ PipeOpFDATsfeatures = R6Class(
         ),
         parallel = p_lgl(default = FALSE, tags = c("train", "predict", "tsfeatures")),
         multiprocess = p_uty(
-          default = future::multisession,
           tags = c("train", "predict", "tsfeatures"),
           depends = quote(parallel == TRUE), # nolint
           custom_check = check_function
