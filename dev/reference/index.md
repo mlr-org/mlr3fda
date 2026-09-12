@@ -1,5 +1,14 @@
 # Package index
 
+## Tasks
+
+- [`mlr_tasks_dti`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_dti.md)
+  : Diffusion Tensor Imaging (DTI) Regression Task
+- [`mlr_tasks_fuel`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_fuel.md)
+  : Fuel Regression Task
+- [`mlr_tasks_phoneme`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_phoneme.md)
+  : Phoneme Classification Task
+
 ## Pipeline Operators
 
 - [`mlr_pipeops_fda.bsignal`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.bsignal.md)
@@ -56,15 +65,6 @@
 - [`mlr_pipeops_fda.zoom`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom.md)
   [`PipeOpFDAZoom`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom.md)
   : Zoom In/Out on Functional Columns
-
-## Example Tasks
-
-- [`mlr_tasks_dti`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_dti.md)
-  : Diffusion Tensor Imaging (DTI) Regression Task
-- [`mlr_tasks_fuel`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_fuel.md)
-  : Fuel Regression Task
-- [`mlr_tasks_phoneme`](https://mlr3fda.mlr-org.com/dev/reference/mlr_tasks_phoneme.md)
-  : Phoneme Classification Task
 
 ## Package
 
