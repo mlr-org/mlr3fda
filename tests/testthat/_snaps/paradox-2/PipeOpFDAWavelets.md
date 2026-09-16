@@ -29,3 +29,4 @@
     Condition
       Error in `.__paradox2_ParamSet__values()`:
       ! Assertion on 'xs' failed: filter: Must be either a string, an even numeric vector or wavelet filter object.
+
