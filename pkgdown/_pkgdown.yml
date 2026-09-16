@@ -16,7 +16,7 @@ toc:
 
 navbar:
   structure:
-    left:  [reference, news, book]
+    left: [reference, news, book]
     right: [search, github, mattermost, stackoverflow, rss, lightswitch]
   components:
     home: ~
@@ -42,12 +42,12 @@ navbar:
       href: https://mlr-org.com/
 
 reference:
-- title: Pipeline Operators
-  contents:
-    - starts_with("mlr_pipeops")
-- title: Example Tasks
-  contents:
-    - starts_with("mlr_tasks")
-- title: Package
-  contents:
-    - mlr3fda-package
+  - title: Tasks
+    contents:
+      - starts_with("mlr_tasks")
+  - title: Pipeline Operators
+    contents:
+      - starts_with("mlr_pipeops")
+  - title: Package
+    contents:
+      - mlr3fda-package

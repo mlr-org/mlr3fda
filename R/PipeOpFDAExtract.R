@@ -19,10 +19,10 @@
 #'   For string elements, the following predefined features are available:
 #'   `"mean"`, `"max"`, `"min"`, `"slope"`, `"median"`, `"var"`, `"sd"`.
 #'   Initial value is `c("mean", "max", "min", "slope", "median", "var")`.
-#' * `left` :: `numeric()`\cr
+#' * `left` :: `numeric(1)`\cr
 #'   The left boundary of the window. Initial value is `-Inf`.
 #'   The window is specified such that all values >=left and <=right are kept for the computations.
-#' * `right` :: `numeric()`\cr
+#' * `right` :: `numeric(1)`\cr
 #'   The right boundary of the window. Initial value is `Inf`.
 #'
 #' @section Naming:
@@ -30,8 +30,7 @@
 #' However this can lead to name clashes with existing columns.
 #' This is solved as follows:
 #' If a column was called `"x"` and the feature is `"mean"`, the corresponding new column will
-#' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()` and
-#' a warning is given.
+#' be called `"x_mean"`. In case of duplicates, unique names are obtained using `make.unique()`.
 #'
 #' @export
 #' @examples
@@ -241,7 +240,7 @@ fmean = function(arg, value) mean(value, na.rm = TRUE)
 fmin = function(arg, value) min(value, na.rm = TRUE)
 fmax = function(arg, value) max(value, na.rm = TRUE)
 fmedian = function(arg, value) stats::median(value, na.rm = TRUE)
-fslope = function(arg, value) stats::coefficients(stats::lm(value ~ arg))[[2L]]
+fslope = function(arg, value) stats::coef(stats::lm(value ~ arg))[[2L]]
 fvar = function(arg, value) stats::var(value, na.rm = TRUE)
 fsd = function(arg, value) stats::sd(value, na.rm = TRUE)
 

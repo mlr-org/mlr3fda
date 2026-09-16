@@ -79,8 +79,9 @@ test_that("PipeOpFPCA works", {
   )
   expect_named(new_data, nms)
 
-  # affect_columns works
-  pop = po("fda.fpca", affect_columns = selector_name("f"))
+  # affect_columns works and is not forwarded to tfb_fpc()
+  pop = po("fda.fpca", pve = 0.9, affect_columns = selector_name("f"))
+  expect_false("affect_columns" %chin% names(pop$param_set$get_values(tags = "fpc")))
   task_fpc = train_pipeop(pop, list(task))[[1L]]
   expect_set_equal(task_fpc$feature_names, c("f_pc_1", "f_pc_2", "f_pc_3", "g", "h"))
 

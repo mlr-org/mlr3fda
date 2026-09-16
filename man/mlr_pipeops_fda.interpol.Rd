@@ -44,11 +44,12 @@ One of:
 }
 
 Default is \code{"linear"}.
-\item \code{left} :: \code{numeric()}\cr
-The left boundary of the window.
-The window is specified such that all values >=left and <=right are kept for the computations.
-\item \code{right} :: \code{numeric()}\cr
-The right boundary of the window.
+\item \code{left} :: \code{numeric(1)}\cr
+The lower end of the interpolation grid. Must be set together with \code{right}, and only applies when \code{grid} is a
+single count, in which case the grid is \code{seq(left, right, length.out = grid)}.
+Must lie within the domain of every functional column.
+\item \code{right} :: \code{numeric(1)}\cr
+The upper end of the interpolation grid. See \code{left}.
 }
 }
 

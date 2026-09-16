@@ -41,7 +41,7 @@ PipeOpFPCA = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.fpca", param_vals = list()) {
       param_set = ps(
-        pve = p_dbl(default = 0.995, lower = 0, upper = 1, tags = "train"),
+        pve = p_dbl(default = 0.995, lower = 0, upper = 1, tags = c("train", "fpc")),
         n_components = p_int(1L, special_vals = list(Inf), tags = c("train", "required"))
       )
       param_set$set_values(n_components = Inf)
@@ -58,14 +58,15 @@ PipeOpFPCA = R6Class(
   ),
   private = list(
     .train_dt = function(dt, levels, target) {
-      pars = self$param_set$get_values(tags = "train")
+      pars = self$param_set$get_values(tags = "fpc")
+      n_components = self$param_set$values$n_components
 
-      dt = map_dtc(dt, \(x, nm) invoke(tf::tfb_fpc, data = x, .args = remove_named(pars, "n_components")))
+      dt = map_dtc(dt, \(x, nm) invoke(tf::tfb_fpc, data = x, .args = pars))
       self$state = list(fpc = dt)
 
       dt = imap_dtc(dt, function(col, nm) {
         map(col, function(x) {
-          pc = as.list(x[2:min(pars$n_components + 1L, length(x))])
+          pc = as.list(x[2:min(n_components + 1L, length(x))])
           set_names(pc, sprintf("%s_pc_%i", nm, seq_along(pc)))
         })
       })
@@ -73,7 +74,7 @@ PipeOpFPCA = R6Class(
     },
 
     .predict_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      n_components = self$param_set$values$n_components
 
       dt = imap_dtc(dt, function(col, nm) {
         fpc = invoke(
@@ -83,7 +84,7 @@ PipeOpFPCA = R6Class(
           arg = tf::tf_arg(col)
         )
         map(fpc, function(x) {
-          pc = as.list(x[2:min(pars$n_components + 1L, length(x))])
+          pc = as.list(x[2:min(n_components + 1L, length(x))])
           set_names(pc, sprintf("%s_pc_%i", nm, seq_along(pc)))
         })
       })

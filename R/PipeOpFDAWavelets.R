@@ -42,7 +42,7 @@ PipeOpFDAWavelets = R6Class(
       param_set = ps(
         filter = p_uty(
           default = "la8",
-          tags = c("train", "predict"),
+          tags = c("train", "predict", "dwt"),
           custom_check = crate(function(x) {
             if (test_class(x, "wt.filter")) {
               return(TRUE)
@@ -63,9 +63,9 @@ PipeOpFDAWavelets = R6Class(
             "Must be either a string, an even numeric vector or wavelet filter object"
           })
         ),
-        n.levels = p_int(tags = c("train", "predict")),
-        boundary = p_fct(default = "periodic", c("periodic", "reflection"), tags = c("train", "predict")),
-        fast = p_lgl(default = TRUE, tags = c("train", "predict"))
+        n.levels = p_int(tags = c("train", "predict", "dwt")),
+        boundary = p_fct(default = "periodic", c("periodic", "reflection"), tags = c("train", "predict", "dwt")),
+        fast = p_lgl(default = TRUE, tags = c("train", "predict", "dwt"))
       )
 
       super$initialize(
@@ -81,7 +81,7 @@ PipeOpFDAWavelets = R6Class(
 
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "dwt")
 
       setcbindlist(imap(dt, function(x, nm) {
         feats = map_dtr(

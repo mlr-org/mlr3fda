@@ -32,3 +32,12 @@ test_that("PipeOpFDAIntegrate window changes the result", {
   windowed = train_pipeop(po("fda.integrate", lower = 50, upper = 100), list(task))[[1L]]$data()$NIR_integral
   expect_false(isTRUE(all.equal(full, windowed)))
 })
+
+test_that("PipeOpFDAIntegrate works with affect_columns", {
+  task = tsk("fuel")
+  pop = po("fda.integrate", lower = 10, upper = 100, affect_columns = selector_name("NIR"))
+  expect_false("affect_columns" %chin% names(pop$param_set$get_values(tags = "integrate")))
+  task_int = train_pipeop(pop, list(task))[[1L]]
+  expect_set_equal(task_int$feature_names, c("NIR_integral", "UVVIS", "h2o"))
+  expect_numeric(task_int$data()$NIR_integral, finite = TRUE, any.missing = FALSE)
+})

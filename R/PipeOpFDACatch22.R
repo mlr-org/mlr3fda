@@ -42,7 +42,7 @@ PipeOpFDACatch22 = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.catch22", param_vals = list()) {
       param_set = ps(
-        catch24 = p_lgl(default = FALSE, tags = c("train", "predict"))
+        catch24 = p_lgl(default = FALSE, tags = c("train", "predict", "catch22"))
       )
 
       super$initialize(
@@ -58,7 +58,7 @@ PipeOpFDACatch22 = R6Class(
 
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "catch22")
 
       setcbindlist(imap(dt, function(x, nm) {
         feats = map_dtr(tf::tf_evaluations(x), function(x) {

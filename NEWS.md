@@ -1,6 +1,13 @@
 # mlr3fda (development version)
 
-* fix: Version validation-error snapshots for compatibility with paradox 2.0.0.
+* tests: Version validation-error snapshots for compatibility with paradox 2.0.0.
+
+# mlr3fda 0.7.2
+
+* docs: Various documentation improvements.
+* fix: `PipeOp`s no longer forward `affect_columns` to their backend functions.
+* fix: `PipeOpFDAInterpol` now reports which `grid`, `left`, and `right` combination is invalid instead of failing with an opaque assertion.
+* fix: `PipeOpFDAInterpol` now errors when `left` and `right` fall outside the domain of a functional column.
 
 # mlr3fda 0.7.1
 

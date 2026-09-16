@@ -6,6 +6,7 @@ test_that("PipeOpFDABsignal - basic properties", {
 
 test_that("PipeOpFDABsignal works", {
   skip_if_not_installed("FDboost")
+  skip_if_not_installed("mboost")
 
   task = tsk("fuel")
   pop = po("fda.bsignal")

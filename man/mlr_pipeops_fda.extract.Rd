@@ -23,10 +23,10 @@ If the element is a function it requires the following arguments: \code{arg} and
 For string elements, the following predefined features are available:
 \code{"mean"}, \code{"max"}, \code{"min"}, \code{"slope"}, \code{"median"}, \code{"var"}, \code{"sd"}.
 Initial value is \code{c("mean", "max", "min", "slope", "median", "var")}.
-\item \code{left} :: \code{numeric()}\cr
+\item \code{left} :: \code{numeric(1)}\cr
 The left boundary of the window. Initial value is \code{-Inf}.
 The window is specified such that all values >=left and <=right are kept for the computations.
-\item \code{right} :: \code{numeric()}\cr
+\item \code{right} :: \code{numeric(1)}\cr
 The right boundary of the window. Initial value is \code{Inf}.
 }
 }
@@ -37,8 +37,7 @@ The new names generally append a \verb{_\{feature\}} to the corresponding column
 However this can lead to name clashes with existing columns.
 This is solved as follows:
 If a column was called \code{"x"} and the feature is \code{"mean"}, the corresponding new column will
-be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()} and
-a warning is given.
+be called \code{"x_mean"}. In case of duplicates, unique names are obtained using \code{make.unique()}.
 }
 
 \examples{

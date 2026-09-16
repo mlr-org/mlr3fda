@@ -1,5 +1,5 @@
 
-# mlr3fda
+# mlr3fda <img src="man/figures/logo.png" align="right" width = "120" />
 
 Package website: [release](https://mlr3fda.mlr-org.com/) \|
 [dev](https://mlr3fda.mlr-org.com/dev/)

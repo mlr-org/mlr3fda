@@ -36,11 +36,12 @@
 #'   * `"nocb"`: applies "next observation carried backward" interpolation (see [tf::tf_approx_nocb()]).
 #'
 #'   Default is `"linear"`.
-#' * `left` :: `numeric()`\cr
-#'   The left boundary of the window.
-#'   The window is specified such that all values >=left and <=right are kept for the computations.
-#' * `right` :: `numeric()`\cr
-#'   The right boundary of the window.
+#' * `left` :: `numeric(1)`\cr
+#'   The lower end of the interpolation grid. Must be set together with `right`, and only applies when `grid` is a
+#'   single count, in which case the grid is `seq(left, right, length.out = grid)`.
+#'   Must lie within the domain of every functional column.
+#' * `right` :: `numeric(1)`\cr
+#'   The upper end of the interpolation grid. See `left`.
 #'
 #' @export
 #' @examples
@@ -105,7 +106,9 @@ PipeOpFDAInterpol = R6Class(
         error_config("Either both or none of 'left' and 'right' must be specified.")
       }
       if (has_left && has_right) {
-        assert_count(grid)
+        if (!test_count(grid)) {
+          error_config("If 'left' and 'right' are specified, 'grid' must be a single count.")
+        }
         assert_true(left <= right)
       }
       method = method %??% "linear"
@@ -125,9 +128,17 @@ PipeOpFDAInterpol = R6Class(
           }
           return(dt)
         }
+        if (!has_left) {
+          error_config("If 'grid' is a single count, 'left' and 'right' must be specified.")
+        }
         arg = seq(left, right, length.out = grid)
         for (j in seq_along(dt)) {
-          set(dt, j = j, value = invoke(tf::tfd, data = dt[[j]], arg = arg, .args = list(evaluator = evaluator)))
+          x = dt[[j]]
+          domain = tf::tf_domain(x)
+          if (left < domain[[1L]] || right > domain[[2L]]) {
+            error_config("The grid must be within the range of the domain.")
+          }
+          set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
         }
         return(dt)
       }

@@ -38,11 +38,11 @@ PipeOpFDAZoom = R6Class(
     initialize = function(id = "fda.zoom", param_vals = list()) {
       param_set = ps(
         begin = p_uty(
-          tags = c("train", "predict"),
+          tags = c("train", "predict", "zoom"),
           custom_check = crate(\(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L))
         ),
         end = p_uty(
-          tags = c("train", "predict"),
+          tags = c("train", "predict", "zoom"),
           custom_check = crate(\(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L))
         )
       )
@@ -59,7 +59,7 @@ PipeOpFDAZoom = R6Class(
   ),
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "zoom")
       begin = pars$begin
       end = pars$end
       if (!is.null(begin) && !is.null(end)) {

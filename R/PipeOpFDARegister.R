@@ -64,13 +64,13 @@ PipeOpFDARegister = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.register", param_vals = list()) {
       param_set = ps(
-        method = p_fct(default = "srvf", c("srvf", "cc", "affine"), tags = c("train", "predict")),
+        method = p_fct(default = "srvf", c("srvf", "cc", "affine"), tags = c("train", "predict", "register")),
         args = p_uty(
-          tags = c("train", "predict", "required"),
+          tags = c("train", "predict", "required", "register"),
           custom_check = crate(\(x) check_list(x, names = "unique"))
         ),
-        max_iter = p_int(1L, default = 3L, tags = "train"),
-        tol = p_dbl(default = 1e-2, lower = 0, tags = "train")
+        max_iter = p_int(1L, default = 3L, tags = c("train", "register")),
+        tol = p_dbl(default = 1e-2, lower = 0, tags = c("train", "register"))
       )
       param_set$set_values(args = list())
 
@@ -86,7 +86,7 @@ PipeOpFDARegister = R6Class(
   ),
   private = list(
     .train_dt = function(dt, levels, target) {
-      pars = self$param_set$get_values(tags = "train")
+      pars = self$param_set$get_values(tags = c("train", "register"))
       args = c(remove_named(pars, "args"), pars$args)
       templates = vector("list", length(dt))
       names(templates) = names(dt)
@@ -100,7 +100,7 @@ PipeOpFDARegister = R6Class(
     },
 
     .predict_dt = function(dt, levels) {
-      pars = self$param_set$get_values(tags = "predict")
+      pars = self$param_set$get_values(tags = c("predict", "register"))
       args = c(remove_named(pars, "args"), pars$args)
       templates = self$state$templates
       for (j in names(dt)) {

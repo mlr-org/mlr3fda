@@ -14,8 +14,7 @@
 #' However this can lead to name clashes with existing columns.
 #' This is solved as follows:
 #' If a column was called `"x"`, the corresponding new columns will
-#' be called `"x_1"`, `"x_2"`, etc. In case of duplicates, unique names are obtained using `make.unique()` and
-#' a warning is given.
+#' be called `"x_1"`, `"x_2"`, etc. In case of duplicates, unique names are obtained using `make.unique()`.
 #'
 #' @export
 #' @examples

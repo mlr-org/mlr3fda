@@ -54,27 +54,27 @@ PipeOpFDABsignal = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.bsignal", param_vals = list()) {
       param_set = ps(
-        inS = p_fct(default = "smooth", c("smooth", "linear", "constant"), tags = c("train", "predict")),
+        inS = p_fct(default = "smooth", c("smooth", "linear", "constant"), tags = c("train", "predict", "bsignal")),
         knots = p_uty(
           default = 10L,
-          tags = c("train", "predict"),
+          tags = c("train", "predict", "bsignal"),
           custom_check = crate(\(x) check_numeric(x, min.len = 1L))
         ),
         boundary.knots = p_uty(
           default = NULL,
           special_vals = list(NULL),
-          tags = c("train", "predict"),
+          tags = c("train", "predict", "bsignal"),
           custom_check = crate(\(x) check_numeric(x, len = 2L, null.ok = TRUE))
         ),
-        degree = p_int(default = 3L, tags = c("train", "predict")),
-        differences = p_int(1L, default = 1L, tags = c("train", "predict")),
-        df = p_dbl(default = 4, tags = c("train", "predict")),
-        lambda = p_uty(default = NULL, tags = c("train", "predict")),
-        center = p_lgl(default = FALSE, tags = c("train", "predict")),
-        cyclic = p_lgl(default = FALSE, tags = c("train", "predict")),
-        Z = p_uty(default = NULL, tags = c("train", "predict")),
-        penalty = p_fct(default = "ps", c("ps", "pss"), tags = c("train", "predict")),
-        check.ident = p_lgl(default = FALSE, tags = c("train", "predict"))
+        degree = p_int(default = 3L, tags = c("train", "predict", "bsignal")),
+        differences = p_int(1L, default = 1L, tags = c("train", "predict", "bsignal")),
+        df = p_dbl(default = 4, tags = c("train", "predict", "bsignal")),
+        lambda = p_uty(default = NULL, tags = c("train", "predict", "bsignal")),
+        center = p_lgl(default = FALSE, tags = c("train", "predict", "bsignal")),
+        cyclic = p_lgl(default = FALSE, tags = c("train", "predict", "bsignal")),
+        Z = p_uty(default = NULL, tags = c("train", "predict", "bsignal")),
+        penalty = p_fct(default = "ps", c("ps", "pss"), tags = c("train", "predict", "bsignal")),
+        check.ident = p_lgl(default = FALSE, tags = c("train", "predict", "bsignal"))
       )
 
       super$initialize(
@@ -90,7 +90,7 @@ PipeOpFDABsignal = R6Class(
 
   private = list(
     .transform_dt = function(dt, levels) {
-      pars = self$param_set$get_values()
+      pars = self$param_set$get_values(tags = "bsignal")
 
       setcbindlist(imap(dt, function(x, nm) {
         x = as.matrix(x)
