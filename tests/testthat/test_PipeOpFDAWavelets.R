@@ -6,13 +6,14 @@ test_that("PipeOpFDAWavelets - basic properties", {
 
 test_that("PipeOpFDAWavelets input validation", {
   skip_if_not_installed("wavelets")
+  snapshot_variant = if (packageVersion("paradox") >= "2.0.0") "paradox-2" else NULL
   expect_no_error(po("fda.wavelets", filter = wavelets::wt.filter()))
   expect_no_error(po("fda.wavelets", filter = "la8"))
   expect_no_error(po("fda.wavelets", filter = 1:10))
-  expect_snapshot(po("fda.wavelets", filter = "la4"), error = TRUE)
-  expect_snapshot(po("fda.wavelets", filter = "invalid_filter"), error = TRUE)
-  expect_snapshot(po("fda.wavelets", filter = c(1, 2, 3)), error = TRUE)
-  expect_snapshot(po("fda.wavelets", filter = list("la8")), error = TRUE)
+  expect_snapshot(po("fda.wavelets", filter = "la4"), error = TRUE, variant = snapshot_variant)
+  expect_snapshot(po("fda.wavelets", filter = "invalid_filter"), error = TRUE, variant = snapshot_variant)
+  expect_snapshot(po("fda.wavelets", filter = c(1, 2, 3)), error = TRUE, variant = snapshot_variant)
+  expect_snapshot(po("fda.wavelets", filter = list("la8")), error = TRUE, variant = snapshot_variant)
 })
 
 test_that("PipeOpFDAWavelets works", {
