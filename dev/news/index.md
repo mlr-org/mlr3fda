@@ -2,6 +2,9 @@
 
 ## mlr3fda (development version)
 
+- tests: Version validation-error snapshots for compatibility with
+  paradox 2.0.0.
+
 ## mlr3fda 0.7.2
 
 CRAN release: 2026-08-21
