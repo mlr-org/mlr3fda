@@ -60,10 +60,11 @@ PipeOpFDAExtract = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.extract", param_vals = list()) {
       param_set = ps(
-        drop = p_lgl(tags = c("train", "predict", "required")),
-        left = p_dbl(tags = c("train", "predict", "required")),
-        right = p_dbl(tags = c("train", "predict", "required")),
+        drop = p_lgl(init = TRUE, tags = c("train", "predict", "required")),
+        left = p_dbl(init = -Inf, tags = c("train", "predict", "required")),
+        right = p_dbl(init = Inf, tags = c("train", "predict", "required")),
         features = p_uty(
+          init = c("mean", "max", "min", "slope", "median", "var"),
           tags = c("train", "predict", "required"),
           custom_check = crate(function(x) {
             if (test_character(x)) {
@@ -102,12 +103,6 @@ PipeOpFDAExtract = R6Class(
             "Features must be a character or list"
           })
         )
-      )
-      param_set$set_values(
-        drop = TRUE,
-        left = -Inf,
-        right = Inf,
-        features = c("mean", "max", "min", "slope", "median", "var")
       )
 
       super$initialize(

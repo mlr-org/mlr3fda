@@ -34,9 +34,8 @@ PipeOpFDAFourier = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.fourier", param_vals = list()) {
       param_set = ps(
-        type = p_fct(levels = c("phase", "amplitude"), tags = c("train", "predict"))
+        type = p_fct(levels = c("phase", "amplitude"), init = "phase", tags = c("train", "predict"))
       )
-      param_set$set_values(type = "phase")
 
       super$initialize(
         id = id,

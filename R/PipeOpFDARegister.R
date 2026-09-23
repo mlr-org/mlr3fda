@@ -66,13 +66,13 @@ PipeOpFDARegister = R6Class(
       param_set = ps(
         method = p_fct(default = "srvf", c("srvf", "cc", "affine"), tags = c("train", "predict", "register")),
         args = p_uty(
+          init = list(),
           tags = c("train", "predict", "required", "register"),
           custom_check = crate(\(x) check_list(x, names = "unique"))
         ),
         max_iter = p_int(1L, default = 3L, tags = c("train", "register")),
         tol = p_dbl(default = 1e-2, lower = 0, tags = c("train", "register"))
       )
-      param_set$set_values(args = list())
 
       super$initialize(
         id = id,

@@ -34,10 +34,9 @@ PipeOpFDAScaleRange = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.scalerange", param_vals = list()) {
       param_set = ps(
-        lower = p_dbl(tags = c("required", "train")),
-        upper = p_dbl(tags = c("required", "train"))
+        lower = p_dbl(init = 0, tags = c("required", "train")),
+        upper = p_dbl(init = 1, tags = c("required", "train"))
       )
-      param_set$set_values(lower = 0, upper = 1)
 
       super$initialize(
         id = id,

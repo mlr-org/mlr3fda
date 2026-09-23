@@ -35,13 +35,12 @@ PipeOpFDADerive = R6Class(
     #'   otherwise be set during construction. Default `list()`.
     initialize = function(id = "fda.derive", param_vals = list()) {
       param_set = ps(
-        order = p_int(lower = 1L, tags = c("train", "predict", "required", "derive")),
+        order = p_int(lower = 1L, init = 1L, tags = c("train", "predict", "required", "derive")),
         arg = p_uty(
           tags = c("train", "predict", "derive"),
           custom_check = crate(\(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L, sorted = TRUE))
         )
       )
-      param_set$set_values(order = 1L)
 
       super$initialize(
         id = id,

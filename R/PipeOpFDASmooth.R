@@ -50,13 +50,12 @@ PipeOpFDASmooth = R6Class(
           tags = c("train", "predict")
         ),
         args = p_uty(
+          init = list(),
           tags = c("train", "predict", "required"),
           custom_check = crate(\(x) check_list(x, names = "unique"))
         ),
-        verbose = p_lgl(tags = c("train", "predict", "required"))
+        verbose = p_lgl(init = FALSE, tags = c("train", "predict", "required"))
       )
-
-      param_set$set_values(args = list(), verbose = FALSE)
 
       super$initialize(
         id = id,

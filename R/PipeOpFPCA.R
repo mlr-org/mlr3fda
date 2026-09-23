@@ -42,9 +42,8 @@ PipeOpFPCA = R6Class(
     initialize = function(id = "fda.fpca", param_vals = list()) {
       param_set = ps(
         pve = p_dbl(default = 0.995, lower = 0, upper = 1, tags = c("train", "fpc")),
-        n_components = p_int(1L, special_vals = list(Inf), tags = c("train", "required"))
+        n_components = p_int(1L, special_vals = list(Inf), init = Inf, tags = c("train", "required"))
       )
-      param_set$set_values(n_components = Inf)
 
       super$initialize(
         id = id,

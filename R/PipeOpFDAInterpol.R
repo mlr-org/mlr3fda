@@ -62,6 +62,7 @@ PipeOpFDAInterpol = R6Class(
     initialize = function(id = "fda.interpol", param_vals = list()) {
       param_set = ps(
         grid = p_uty(
+          init = "union",
           tags = c("train", "predict", "required"),
           custom_check = crate(function(x) {
             if (test_string(x)) {
@@ -81,7 +82,6 @@ PipeOpFDAInterpol = R6Class(
         left = p_dbl(tags = c("train", "predict")),
         right = p_dbl(tags = c("train", "predict"))
       )
-      param_set$set_values(grid = "union")
 
       super$initialize(
         id = id,
