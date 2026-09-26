@@ -71,13 +71,11 @@ PipeOpFDASmooth = R6Class(
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values()
       for (j in seq_along(dt)) {
-        set(dt, j = j, value = invoke(
-          tf::tf_smooth,
-          x = dt[[j]],
-          method = pars$method,
-          verbose = pars$verbose,
-          .args = pars$args
-        ))
+        set(
+          dt,
+          j = j,
+          value = invoke(tf::tf_smooth, x = dt[[j]], method = pars$method, verbose = pars$verbose, .args = pars$args)
+        )
       }
       dt
     }

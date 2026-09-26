@@ -63,7 +63,7 @@ PipeOpFDAWavelets = R6Class(
             "Must be either a string, an even numeric vector or wavelet filter object"
           })
         ),
-        n.levels = p_int(1L, tags =c("train", "predict", "dwt")),
+        n.levels = p_int(1L, tags = c("train", "predict", "dwt")),
         boundary = p_fct(default = "periodic", c("periodic", "reflection"), tags = c("train", "predict", "dwt")),
         fast = p_lgl(default = TRUE, tags = c("train", "predict", "dwt"))
       )
