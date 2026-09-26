@@ -2,6 +2,8 @@ test_that("PipeOpFDAFourier - basic properties", {
   pop = po("fda.fourier")
   expect_pipeop(pop)
   expect_identical(pop$id, "fda.fourier")
+  pop$param_set$values$type = NULL
+  expect_error(train_pipeop(pop, list(tsk("fuel"))), "Missing required parameters: type")
 })
 
 test_that("PipeOpFDAFourier works", {
