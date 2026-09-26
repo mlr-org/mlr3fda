@@ -17,10 +17,10 @@ as well as the following parameters:
 \item \code{inS} :: \code{character(1)}\cr
 Type of effect in the covariate index: one of \code{"smooth"}, \code{"linear"}, \code{"constant"}. Default is \code{"smooth"}.
 \item \code{knots} :: \code{numeric()}\cr
-Either the number of interior knots or a vector of their positions.
+Either the number of interior knots or a vector of their positions on the scale of the argument values.
 \item \code{boundary.knots} :: \code{numeric(2)}\cr
-Boundary points at which to anchor the B-spline basis.
-Lower and upper boundary points for the spline basis. Defaults to the range of the data.
+Lower and upper boundary points at which to anchor the B-spline basis.
+Defaults to the range of the argument values.
 \item \code{degree} :: \code{integer(1)}\cr
 The degree of the regression spline. Default is \code{3L}.
 \item \code{differences} :: \code{integer(1)}\cr

@@ -13,10 +13,10 @@
 #' * `inS` :: `character(1)`\cr
 #'   Type of effect in the covariate index: one of `"smooth"`, `"linear"`, `"constant"`. Default is `"smooth"`.
 #' * `knots` :: `numeric()`\cr
-#'   Either the number of interior knots or a vector of their positions.
+#'   Either the number of interior knots or a vector of their positions on the scale of the argument values.
 #' * `boundary.knots` :: `numeric(2)`\cr
-#'   Boundary points at which to anchor the B-spline basis.
-#'   Lower and upper boundary points for the spline basis. Defaults to the range of the data.
+#'   Lower and upper boundary points at which to anchor the B-spline basis.
+#'   Defaults to the range of the argument values.
 #' * `degree` :: `integer(1)`\cr
 #'   The degree of the regression spline. Default is `3L`.
 #' * `differences` :: `integer(1)`\cr
@@ -93,8 +93,7 @@ PipeOpFDABsignal = R6Class(
       pars = self$param_set$get_values(tags = "bsignal")
 
       setcbindlist(imap(dt, function(x, nm) {
-        x = as.matrix(x)
-        blrn = invoke(FDboost::bsignal, x = x, s = seq_col(x), .args = pars)
+        blrn = invoke(FDboost::bsignal, x = as.matrix(x), s = tf::tf_arg(x), .args = pars)
         bsignal = mboost::extract(object = blrn, what = "design") # get the design matrix of the base learner
         feats = as.data.table(bsignal)
         setnames(feats, sprintf("%s_bsig_%i", nm, seq_col(feats)))
