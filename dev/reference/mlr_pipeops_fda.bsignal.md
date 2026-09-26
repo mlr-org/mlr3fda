@@ -18,12 +18,12 @@ as well as the following parameters:
   `"constant"`. Default is `"smooth"`.
 
 - `knots` :: [`numeric()`](https://rdrr.io/r/base/numeric.html)  
-  Either the number of interior knots or a vector of their positions.
+  Either the number of interior knots or a vector of their positions on
+  the scale of the argument values.
 
 - `boundary.knots` :: `numeric(2)`  
-  Boundary points at which to anchor the B-spline basis. Lower and upper
-  boundary points for the spline basis. Defaults to the range of the
-  data.
+  Lower and upper boundary points at which to anchor the B-spline basis.
+  Defaults to the range of the argument values.
 
 - `degree` :: `integer(1)`  
   The degree of the regression spline. Default is `3L`.

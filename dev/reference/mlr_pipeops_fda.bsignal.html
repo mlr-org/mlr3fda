@@ -67,10 +67,10 @@ For more details, see <code><a href="https://rdrr.io/pkg/FDboost/man/bsignal.htm
 as well as the following parameters:</p><ul><li><p><code>inS</code> :: <code>character(1)</code><br>
 Type of effect in the covariate index: one of <code>"smooth"</code>, <code>"linear"</code>, <code>"constant"</code>. Default is <code>"smooth"</code>.</p></li>
 <li><p><code>knots</code> :: <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric()</a></code><br>
-Either the number of interior knots or a vector of their positions.</p></li>
+Either the number of interior knots or a vector of their positions on the scale of the argument values.</p></li>
 <li><p><code>boundary.knots</code> :: <code>numeric(2)</code><br>
-Boundary points at which to anchor the B-spline basis.
-Lower and upper boundary points for the spline basis. Defaults to the range of the data.</p></li>
+Lower and upper boundary points at which to anchor the B-spline basis.
+Defaults to the range of the argument values.</p></li>
 <li><p><code>degree</code> :: <code>integer(1)</code><br>
 The degree of the regression spline. Default is <code>3L</code>.</p></li>
 <li><p><code>differences</code> :: <code>integer(1)</code><br>
