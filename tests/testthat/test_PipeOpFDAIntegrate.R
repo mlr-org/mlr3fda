@@ -22,8 +22,8 @@ test_that("PipeOpFDAIntegrate works on irregular data", {
   pop = po("fda.integrate")
   new_data = train_pipeop(pop, list(task))[[1L]]$data()
   expect_identical(nrow(new_data), task$nrow)
-  expect_numeric(new_data$cca_integral)
-  expect_numeric(new_data$rcst_integral)
+  expect_numeric(new_data$cca_integral, any.missing = FALSE)
+  expect_numeric(new_data$rcst_integral, any.missing = FALSE)
 })
 
 test_that("PipeOpFDAIntegrate window changes the result", {
