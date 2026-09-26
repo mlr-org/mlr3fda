@@ -27,7 +27,7 @@ test_that("PipeOpFDACor works", {
     {
       task_cor = train_pipeop(pop, list(task))[[1L]]
     },
-    "task has fewer than 2 columns"
+    "Fewer than 2 functional columns to correlate."
   )
   expect_identical(task$data(), task_cor$data())
 
@@ -35,7 +35,7 @@ test_that("PipeOpFDACor works", {
   dt_domain = copy(dt)[, x1 := tf::tf_rgp(100L, 20:120)]
   task = as_task_regr(dt_domain, target = "y")
   pop = po("fda.cor")
-  expect_error(train_pipeop(pop, list(task)), "Domain of x1 and x2 do not match")
+  expect_error(train_pipeop(pop, list(task)), "Domains of columns 'x1' and 'x2' do not match.")
 
   # does not touch irreg
   dt[, x1 := tf::tf_sparsify(x1)]

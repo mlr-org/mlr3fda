@@ -44,7 +44,7 @@ test_that("PipeOpFDAInterpol input validation works", {
   pop = po("fda.interpol", grid = 10L, left = 1, right = 1000)
   expect_error(
     train_pipeop(pop, list(task)),
-    "The grid must be within the range of the domain."
+    "'left' and 'right' must be within the domain of column 'NIR'."
   )
 })
 
@@ -272,9 +272,9 @@ test_that("PipeOpFDAInterpol works with custom grid", {
 
   # outside of range
   pop = po("fda.interpol", grid = 3:7)
-  expect_error(train_pipeop(pop, list(task)), "The grid must be within the range of the domain.")
+  expect_error(train_pipeop(pop, list(task)), "'grid' must be within the domain of column 'f'.")
   pop = po("fda.interpol", grid = -1:3)
-  expect_error(train_pipeop(pop, list(task)), "The grid must be within the range of the domain.")
+  expect_error(train_pipeop(pop, list(task)), "'grid' must be within the domain of column 'f'.")
 
   # tfi works with same min and max
   dt = data.table(

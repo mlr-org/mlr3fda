@@ -77,7 +77,7 @@ PipeOpFDAScaleRange = R6Class(
         x = dt[[j]]
         trafo = trafos[[j]]
         if (!all(trafo$domain == tf::tf_domain(x))) {
-          error_input("Domain of new data does not match the domain of the training data.")
+          error_input("Domain of column '%s' does not match its domain during training.", j)
         }
         rescale = function(arg) trafo$offset + arg * trafo$scale
         args = tf::tf_arg(x)

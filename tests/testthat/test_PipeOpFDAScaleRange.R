@@ -31,7 +31,7 @@ test_that("PipeOpFDAScaleRange works", {
   train_pipeop(pop, list(task))
   expect_error(
     predict_pipeop(pop, list(task_scale)),
-    "Domain of new data does not match the domain of the training data."
+    "Domain of column 'NIR' does not match its domain during training."
   )
 
   # irregular data works

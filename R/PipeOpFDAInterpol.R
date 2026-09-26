@@ -128,7 +128,7 @@ PipeOpFDAInterpol = R6Class(
             x = dt[[j]]
             domain = tf::tf_domain(x)
             if (min_grid < domain[[1L]] || max_grid > domain[[2L]]) {
-              error_config("The grid must be within the range of the domain.")
+              error_config("'grid' must be within the domain of column '%s'.", names(dt)[[j]])
             }
             set(dt, j = j, value = invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator)))
           }
@@ -142,7 +142,7 @@ PipeOpFDAInterpol = R6Class(
           x = dt[[j]]
           domain = tf::tf_domain(x)
           if (left < domain[[1L]] || right > domain[[2L]]) {
-            error_config("The grid must be within the range of the domain.")
+            error_config("'left' and 'right' must be within the domain of column '%s'.", names(dt)[[j]])
           }
           set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
         }

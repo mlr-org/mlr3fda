@@ -59,7 +59,7 @@ PipeOpFDACor = R6Class(
 
       k = ncol(dt)
       if (k < 2L) {
-        warning_input("task has fewer than 2 columns")
+        warning_input("Fewer than 2 functional columns to correlate.")
         return(dt)
       }
 
@@ -70,7 +70,7 @@ PipeOpFDACor = R6Class(
           x = dt[[i]]
           y = dt[[j]]
           if (!all(tf::tf_domain(x) == tf::tf_domain(y))) {
-            error_input("Domain of %s and %s do not match", nms[[j]], nms[[i]])
+            error_input("Domains of columns '%s' and '%s' do not match.", nms[[j]], nms[[i]])
           }
           nm = sprintf("%s_%s_cor", nms[[j]], nms[[i]])
           res[[nm]] = invoke(tf::tf_crosscor, x = x, y = y, .args = pars)
