@@ -3,6 +3,7 @@
 * Compatibility with new `paradox` version 2.0.0.
 * fix: `PipeOpFDABsignal` now uses the argument values of functional columns instead of their index positions, which changes the extracted features for non-equidistant grids and for grids other than `1, 2, ..., p`.
 * fix: `PipeOpFDAScaleRange` now keeps the evaluator of functional columns and scales their domain to `[lower, upper]` instead of shrinking it to the range of the argument values.
+* fix: `PipeOpFDAScaleRange` now reports an informative error when `lower` is not smaller than `upper`.
 
 # mlr3fda 0.7.2
 

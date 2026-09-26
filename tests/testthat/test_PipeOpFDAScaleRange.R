@@ -52,3 +52,9 @@ test_that("PipeOpFDAScaleRange keeps evaluator and scales domain", {
   expect_equal(tf::tf_arg(new_x), c(1, 1.5, 2) / 3)
   expect_equal(predict_pipeop(pop, list(task))[[1L]]$data()$x, new_x)
 })
+
+test_that("PipeOpFDAScaleRange errors if lower is not smaller than upper", {
+  task = tsk("fuel")
+  expect_error(train_pipeop(po("fda.scalerange", lower = 1, upper = 0), list(task)), "'lower' must be smaller")
+  expect_error(train_pipeop(po("fda.scalerange", lower = 1, upper = 1), list(task)), "'lower' must be smaller")
+})

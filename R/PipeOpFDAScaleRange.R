@@ -51,6 +51,9 @@ PipeOpFDAScaleRange = R6Class(
   private = list(
     .train_dt = function(dt, levels, target) {
       pars = self$param_set$get_values(tags = "train")
+      if (pars$lower >= pars$upper) {
+        error_config("'lower' must be smaller than 'upper'.")
+      }
 
       for (j in names(dt)) {
         x = dt[[j]]
