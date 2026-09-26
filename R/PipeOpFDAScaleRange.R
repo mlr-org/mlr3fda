@@ -79,24 +79,21 @@ PipeOpFDAScaleRange = R6Class(
         if (!all(trafo$domain == tf::tf_domain(x))) {
           error_input("Domain of new data does not match the domain of the training data.")
         }
-        set(dt, j = j, value = rescale_domain(x, trafo$scale, trafo$offset))
+        rescale = function(arg) trafo$offset + arg * trafo$scale
+        args = tf::tf_arg(x)
+        new_x = invoke(
+          tf::tfd,
+          data = tf::tf_evaluations(x),
+          arg = if (tf::is_reg(x)) rescale(args) else map(args, rescale),
+          domain = rescale(trafo$domain),
+          .args = list(evaluator = attr(x, "evaluator_name"))
+        )
+        set(dt, j = j, value = new_x)
       }
       dt
     }
   )
 )
-
-rescale_domain = function(x, scale, offset) {
-  args = tf::tf_arg(x)
-  new_args = if (tf::is_reg(x)) offset + args * scale else map(args, \(arg) offset + arg * scale)
-  invoke(
-    tf::tfd,
-    data = tf::tf_evaluations(x),
-    arg = new_args,
-    domain = offset + tf::tf_domain(x) * scale,
-    .args = list(evaluator = attr(x, "evaluator_name"))
-  )
-}
 
 #' @include zzz.R
 register_po("fda.scalerange", PipeOpFDAScaleRange)
