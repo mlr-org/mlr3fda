@@ -2,6 +2,7 @@
 
 * fix: `PipeOpFDABsignal` now uses the argument values instead of index positions, which changes the features for grids other than `1, ..., p`.
 * fix: `PipeOpFDAScaleRange` now keeps the evaluator, maps the domain to `[lower, upper]`, and errors if `lower >= upper`.
+* fix: `PipeOpFDAWavelets` now requires `n.levels` to be at least `1`.
 
 # mlr3fda 0.7.2
 

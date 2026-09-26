@@ -14,6 +14,7 @@ test_that("PipeOpFDAWavelets input validation", {
   expect_snapshot(po("fda.wavelets", filter = "invalid_filter"), error = TRUE, variant = snapshot_variant)
   expect_snapshot(po("fda.wavelets", filter = c(1, 2, 3)), error = TRUE, variant = snapshot_variant)
   expect_snapshot(po("fda.wavelets", filter = list("la8")), error = TRUE, variant = snapshot_variant)
+  expect_error(po("fda.wavelets", n.levels = 0L), "n.levels")
 })
 
 test_that("PipeOpFDAWavelets works", {
