@@ -53,7 +53,7 @@ PipeOpFDATsfeatures = R6Class(
       param_set = ps(
         features = p_uty(
           default = c("frequency", "stl_features", "entropy", "acf_features"),
-          tags = c("train", "tsfeatures"),
+          tags = c("train", "predict", "tsfeatures"),
           custom_check = crate(\(x) check_character(x, any.missing = FALSE, min.len = 1L))
         ),
         scale = p_lgl(default = TRUE, tags = c("train", "predict", "tsfeatures")),
