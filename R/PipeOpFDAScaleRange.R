@@ -58,10 +58,7 @@ PipeOpFDAScaleRange = R6Class(
         scale = (pars$upper - pars$lower) / (domain[2L] - domain[1L])
         offset = -domain[1L] * scale + pars$lower
         self$state[[j]] = list(domain = domain, scale = scale, offset = offset)
-
-        args = tf::tf_arg(x)
-        new_args = if (tf::is_reg(x)) offset + args * scale else map(args, \(arg) offset + arg * scale)
-        set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
+        set(dt, j = j, value = rescale_domain(x, scale, offset))
       }
       dt
     },
@@ -73,18 +70,24 @@ PipeOpFDAScaleRange = R6Class(
         if (!all(trafo$domain == tf::tf_domain(x))) {
           error_input("Domain of new data does not match the domain of the training data.")
         }
-        args = tf::tf_arg(x)
-        new_args = if (tf::is_reg(x)) {
-          trafo$offset + args * trafo$scale
-        } else {
-          map(args, \(arg) trafo$offset + arg * trafo$scale)
-        }
-        set(dt, j = j, value = invoke(tf::tfd, data = tf::tf_evaluations(x), arg = new_args))
+        set(dt, j = j, value = rescale_domain(x, trafo$scale, trafo$offset))
       }
       dt
     }
   )
 )
+
+rescale_domain = function(x, scale, offset) {
+  args = tf::tf_arg(x)
+  new_args = if (tf::is_reg(x)) offset + args * scale else map(args, \(arg) offset + arg * scale)
+  invoke(
+    tf::tfd,
+    data = tf::tf_evaluations(x),
+    arg = new_args,
+    domain = offset + tf::tf_domain(x) * scale,
+    .args = list(evaluator = attr(x, "evaluator_name"))
+  )
+}
 
 #' @include zzz.R
 register_po("fda.scalerange", PipeOpFDAScaleRange)

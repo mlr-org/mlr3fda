@@ -1,6 +1,7 @@
 # mlr3fda (development version)
 
 * Compatibility with new `paradox` version 2.0.0.
+* fix: `PipeOpFDAScaleRange` now keeps the evaluator of functional columns and scales their domain to `[lower, upper]` instead of shrinking it to the range of the argument values.
 
 # mlr3fda 0.7.2
 
