@@ -20,7 +20,7 @@
       po("fda.wavelets", filter = c(1, 2, 3))
     Condition
       Error in `.__paradox2_ParamSet__values()`:
-      ! Assertion on 'xs' failed: filter: Must be either a string, an even numeric vector or wavelet filter object.
+      ! Assertion on 'xs' failed: filter: Must be either a string, an even numeric vector, or a wavelet filter object.
 
 ---
 
@@ -28,5 +28,5 @@
       po("fda.wavelets", filter = list("la8"))
     Condition
       Error in `.__paradox2_ParamSet__values()`:
-      ! Assertion on 'xs' failed: filter: Must be either a string, an even numeric vector or wavelet filter object.
+      ! Assertion on 'xs' failed: filter: Must be either a string, an even numeric vector, or a wavelet filter object.
 

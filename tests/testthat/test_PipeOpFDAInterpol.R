@@ -7,7 +7,7 @@ test_that("PipeOpFDAInterpol - basic properties", {
 test_that("PipeOpFDAInterpol input validation works", {
   expect_error(po("fda.interpol", grid = c("union", "intersect")))
   expect_error(po("fda.interpol", grid = "unionh"))
-  expect_error(po("fda.interpol", grid = list(1L)))
+  expect_error(po("fda.interpol", grid = list(1L)), "grid: Must be either a string or a numeric vector")
   expect_error(po("fda.interpol", grid = logical(1L)))
   expect_error(po("fda.interpol", grid = factor(1L)))
   expect_error(po("fda.interpol", grid = numeric(0L)))

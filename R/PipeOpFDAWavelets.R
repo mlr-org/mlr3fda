@@ -66,7 +66,7 @@ PipeOpFDAWavelets = R6Class(
             if (test_numeric(x) && length(x) %% 2L == 0L) {
               return(TRUE)
             }
-            "Must be either a string, an even numeric vector or wavelet filter object"
+            "Must be either a string, an even numeric vector, or a wavelet filter object"
           })
         ),
         n.levels = p_int(1L, tags = c("train", "predict", "dwt")),

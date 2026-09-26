@@ -64,7 +64,7 @@ PipeOpFDAFlatten = R6Class(
         unique_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
         feature_names = tail(unique_names, length(feature_names))
         setnames(dt_flat, feature_names)
-        lg$debug(sprintf("Duplicate names found in pipeop %s", self$id), feature_names = feature_names)
+        lg$debug(sprintf("Renamed duplicate feature names in PipeOp '%s'.", self$id), feature_names = feature_names)
       }
 
       task$select(setdiff(task$feature_names, cols))$cbind(dt_flat)

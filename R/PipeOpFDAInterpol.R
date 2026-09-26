@@ -75,7 +75,7 @@ PipeOpFDAInterpol = R6Class(
             if (test_numeric(x, any.missing = FALSE, min.len = 1L)) {
               return(TRUE)
             }
-            "Must be either a string or numeric vector"
+            "Must be either a string or a numeric vector"
           })
         ),
         method = p_fct(

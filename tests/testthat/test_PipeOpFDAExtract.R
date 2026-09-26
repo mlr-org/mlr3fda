@@ -109,7 +109,7 @@ test_that("PipeOpFDAExtract works (simple test) for all features", {
 
 test_that("PipeOpFDAExtract input validation works", {
   # features not a list or character
-  expect_error(po("fda.extract", features = 2L))
+  expect_error(po("fda.extract", features = 2L), "features: Must be a character vector or a list")
   # wrong features
   expect_error(po("fda.extract", features = list("mean", "fmean")))
   expect_error(po("fda.extract", features = c("mean", "fmean")))
