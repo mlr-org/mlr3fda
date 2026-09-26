@@ -60,7 +60,7 @@ PipeOpFPCA = R6Class(
       pars = self$param_set$get_values(tags = "fpc")
       n_components = self$param_set$values$n_components
 
-      dt = map_dtc(dt, \(x, nm) invoke(tf::tfb_fpc, data = x, .args = pars))
+      dt = map_dtc(dt, \(x) invoke(tf::tfb_fpc, data = x, .args = pars))
       self$state = list(fpc = dt)
 
       dt = imap_dtc(dt, function(col, nm) {
