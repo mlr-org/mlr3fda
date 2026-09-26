@@ -1,10 +1,7 @@
 # mlr3fda (development version)
 
-* Require `tf` >= 0.5.0, which fixes `NA` results of `PipeOpFDAIntegrate` on irregular data.
-* Compatibility with new `paradox` version 2.0.0.
-* fix: `PipeOpFDABsignal` now uses the argument values of functional columns instead of their index positions, which changes the extracted features for non-equidistant grids and for grids other than `1, 2, ..., p`.
-* fix: `PipeOpFDAScaleRange` now keeps the evaluator of functional columns and scales their domain to `[lower, upper]` instead of shrinking it to the range of the argument values.
-* fix: `PipeOpFDAScaleRange` now reports an informative error when `lower` is not smaller than `upper`.
+* fix: `PipeOpFDABsignal` now uses the argument values instead of index positions, which changes the features for grids other than `1, ..., p`.
+* fix: `PipeOpFDAScaleRange` now keeps the evaluator, maps the domain to `[lower, upper]`, and errors if `lower >= upper`.
 
 # mlr3fda 0.7.2
 
