@@ -33,6 +33,13 @@ column name. If a column was called `"x"` and there are three principal
 components, the corresponding new columns will be called
 `"x_pc_1", "x_pc_2", "x_pc_3"`.
 
+## State
+
+`$state$fpc` contains the fitted
+[`tf::tfb_fpc()`](https://tidyfun.github.io/tf/reference/tfb_fpc.html)
+object for each functional column, and `$state$n_components` the number
+of components used during training.
+
 ## Super classes
 
 [`mlr3pipelines::PipeOp`](https://mlr3pipelines.mlr-org.com/reference/PipeOp.html)

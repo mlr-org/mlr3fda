@@ -81,6 +81,13 @@ If a column was called <code>"x"</code> and there are three principal components
 new columns will be called <code>"x_pc_1", "x_pc_2", "x_pc_3"</code>.</p>
     </div>
     <div class="section level2">
+    <h2 id="state">State<a class="anchor" aria-label="anchor" href="#state"></a></h2>
+
+
+<p><code>$state$fpc</code> contains the fitted <code><a href="https://tidyfun.github.io/tf/reference/tfb_fpc.html" class="external-link">tf::tfb_fpc()</a></code> object for each functional column,
+and <code>$state$n_components</code> the number of components used during training.</p>
+    </div>
+    <div class="section level2">
     <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>
     <p><code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html" class="external-link">mlr3pipelines::PipeOp</a></code> -&gt; <code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html" class="external-link">mlr3pipelines::PipeOpTaskPreproc</a></code> -&gt; <code>PipeOpFPCA</code></p>
     </div>

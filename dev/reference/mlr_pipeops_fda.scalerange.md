@@ -18,11 +18,18 @@ as well as the following parameters:
 - `upper` :: `numeric(1)`  
   Target value of greatest item of input data. Initialized to `1`.
 
+## State
+
+`$state$trafos` contains the training `domain`, `scale`, and `offset`
+for each functional column.
+
 ## Super classes
 
 [`mlr3pipelines::PipeOp`](https://mlr3pipelines.mlr-org.com/reference/PipeOp.html)
 -\>
 [`mlr3pipelines::PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html)
+-\>
+[`mlr3pipelines::PipeOpTaskPreprocSimple`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html)
 -\> `PipeOpFDAScaleRange`
 
 ## Methods
