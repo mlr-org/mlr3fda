@@ -131,7 +131,9 @@ PipeOpFDAExtract = R6Class(
       features = pars$features
       left = pars$left
       right = pars$right
-      assert_true(left <= right)
+      if (left > right) {
+        error_config("'left' must not be greater than 'right'.")
+      }
 
       # handle name clashes of generated features with existing columns
       feature_names = imap_chr(features, \(value, nm) if (is.function(value)) nm else value)

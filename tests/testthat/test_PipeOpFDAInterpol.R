@@ -25,7 +25,7 @@ test_that("PipeOpFDAInterpol input validation works", {
     "If 'left' and 'right' are specified, 'grid' must be a single count."
   )
   pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
-  expect_error(train_pipeop(pop, list(task)))
+  expect_error(train_pipeop(pop, list(task)), "'left' must not be greater than 'right'.")
   pop = po("fda.interpol", grid = 10L, left = 2)
   expect_error(
     train_pipeop(pop, list(task)),
@@ -175,6 +175,16 @@ test_that("PipeOpFDAInterpol works with intersect", {
   f = tf::tfd(dt, id = "id", arg = "arg", value = "value")
   expected = data.table(y = 1:2, f = f)
   expect_equal(task_interpol$data(), expected)
+})
+
+test_that("PipeOpFDAInterpol errors if minmax or intersect grid is empty", {
+  f = tf::tfd(list(1:3, 5:7), arg = list(1:3, 5:7))
+  task = as_task_regr(data.table(y = 1:2, f = f), target = "y")
+  expect_error(train_pipeop(po("fda.interpol", grid = "minmax"), list(task)), "Grid 'minmax' is empty for column 'f'")
+  expect_error(
+    train_pipeop(po("fda.interpol", grid = "intersect"), list(task)),
+    "Grid 'intersect' is empty for column 'f'"
+  )
 })
 
 test_that("PipeOpFDAInterpol works with union", {

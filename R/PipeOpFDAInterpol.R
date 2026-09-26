@@ -113,7 +113,9 @@ PipeOpFDAInterpol = R6Class(
         if (!test_count(grid)) {
           error_config("If 'left' and 'right' are specified, 'grid' must be a single count.")
         }
-        assert_true(left <= right)
+        if (left > right) {
+          error_config("'left' must not be greater than 'right'.")
+        }
       }
       method = method %??% "linear"
       evaluator = sprintf("tf_approx_%s", method)
@@ -159,9 +161,12 @@ PipeOpFDAInterpol = R6Class(
               lower = max(map_dbl(arg, 1L))
               upper = min(map_dbl(arg, \(arg) arg[[length(arg)]]))
               arg = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE)))
-              arg[seq(which(lower == arg), which(upper == arg))]
+              arg[arg >= lower & arg <= upper]
             }
           )
+          if (!length(arg)) {
+            error_input("Grid '%s' is empty for column '%s'. Use grid 'union' or a numeric grid.", grid, names(dt)[[j]])
+          }
           set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
         }
       }

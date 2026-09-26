@@ -35,3 +35,11 @@ test_that("PipeOpFDAZoom works with affect_columns", {
   expect_identical(tf::tf_domain(new_data$NIR), c(50, 100))
   expect_identical(tf::tf_domain(new_data$UVVIS), tf::tf_domain(task$data(cols = "UVVIS")$UVVIS))
 })
+
+test_that("PipeOpFDAZoom input validation works", {
+  task = tsk("fuel")
+  pop = po("fda.zoom", begin = 100, end = 50)
+  expect_error(train_pipeop(pop, list(task)), "'begin' must be smaller than 'end'.")
+  pop = po("fda.zoom", begin = c(10, 20), end = c(50, 60, 70))
+  expect_error(train_pipeop(pop, list(task)), "'begin' and 'end' must have the same length")
+})

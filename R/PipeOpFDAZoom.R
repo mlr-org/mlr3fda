@@ -67,8 +67,12 @@ PipeOpFDAZoom = R6Class(
       begin = pars$begin
       end = pars$end
       if (!is.null(begin) && !is.null(end)) {
-        assert_true(length(begin) == length(end) || length(begin) == 1L || length(end) == 1L)
-        assert_true(all(begin < end))
+        if (length(begin) != length(end) && length(begin) != 1L && length(end) != 1L) {
+          error_config("'begin' and 'end' must have the same length, or one of them must have length 1.")
+        }
+        if (any(begin >= end)) {
+          error_config("'begin' must be smaller than 'end'.")
+        }
       }
 
       for (j in seq_along(dt)) {

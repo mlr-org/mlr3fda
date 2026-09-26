@@ -123,6 +123,9 @@ test_that("PipeOpFDAExtract input validation works", {
   expect_error(po("fda.extract", features = list(custom = function(x, y) sum(x, y))))
   # missing name for custom function
   expect_error(po("fda.extract", features = list(function(arg, value) mean(value, na.rm = TRUE))))
+  # left greater than right
+  pop = po("fda.extract", left = 2, right = 1)
+  expect_error(train_pipeop(pop, list(tsk("fuel"))), "'left' must not be greater than 'right'.")
 })
 
 test_that("PipeOpFDAExtract works with name clashes", {
