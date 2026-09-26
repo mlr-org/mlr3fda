@@ -5,6 +5,10 @@ functional columns. For more details, see
 [`wavelets::dwt()`](https://rdrr.io/pkg/wavelets/man/dwt.html), which is
 called internally.
 
+To apply this `PipeOp` to irregular data, convert it to a regular grid
+first using
+[`PipeOpFDAInterpol`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.interpol.md).
+
 ## Parameters
 
 The parameters are the parameters inherited from

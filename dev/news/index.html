@@ -52,6 +52,7 @@
 <ul><li>fix: <code>PipeOpFDABsignal</code> now uses the argument values instead of index positions, which changes the features for grids other than <code>1, ..., p</code>.</li>
 <li>fix: <code>PipeOpFDAScaleRange</code> now keeps the evaluator, maps the domain to <code>[lower, upper]</code>, and errors if <code>lower &gt;= upper</code>.</li>
 <li>fix: <code>PipeOpFDAWavelets</code> now requires <code>n.levels</code> to be at least <code>1</code>.</li>
+<li>fix: <code>PipeOpFDAWavelets</code> no longer supports irregular functional data, where coefficients of curves with different lengths were misaligned. Use <code>PipeOpFDAInterpol</code> first.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.2" id="mlr3fda-072">mlr3fda 0.7.2<a class="anchor" aria-label="anchor" href="#mlr3fda-072"></a></h2><p class="text-muted">CRAN release: 2026-08-21</p>
