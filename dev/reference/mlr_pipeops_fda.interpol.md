@@ -6,6 +6,11 @@ compare functional features across observations. The interpolation is
 done using the `tf` package. See
 [`tfd()`](https://tidyfun.github.io/tf/reference/tfd.html) for details.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from

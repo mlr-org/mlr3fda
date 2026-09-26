@@ -12,6 +12,22 @@ For more details, see
 [`tf::tfb_fpc()`](https://tidyfun.github.io/tf/reference/tfb_fpc.html),
 which is called internally.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html),
+as well as:
+
+- `fpc` ::
+  [`data.table`](https://rdrr.io/pkg/data.table/man/data.table.html)  
+  The fitted
+  [`tf::tfb_fpc()`](https://tidyfun.github.io/tf/reference/tfb_fpc.html)
+  object for each functional column, used as basis to project new data
+  during prediction.
+
+- `n_components` :: `integer(1)`  
+  The value of the `n_components` parameter during training.
+
 ## Parameters
 
 The parameters are the parameters inherited from
@@ -32,13 +48,6 @@ The new names generally append a `_pc_{number}` to the corresponding
 column name. If a column was called `"x"` and there are three principal
 components, the corresponding new columns will be called
 `"x_pc_1", "x_pc_2", "x_pc_3"`.
-
-## State
-
-`$state$fpc` contains the fitted
-[`tf::tfb_fpc()`](https://tidyfun.github.io/tf/reference/tfb_fpc.html)
-object for each functional column, and `$state$n_components` the number
-of components used during training.
 
 ## Super classes
 

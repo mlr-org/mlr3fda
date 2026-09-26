@@ -63,6 +63,16 @@ extracts the principal components as features. This is done using a (truncated) 
 
 
     <div class="section level2">
+    <h2 id="state">State<a class="anchor" aria-label="anchor" href="#state"></a></h2>
+
+
+<p>The <code>$state</code> is a named <code>list</code> with the <code>$state</code> elements inherited from
+<code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html" class="external-link">PipeOpTaskPreproc</a></code>, as well as:</p><ul><li><p><code>fpc</code> :: <code><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></code><br>
+The fitted <code><a href="https://tidyfun.github.io/tf/reference/tfb_fpc.html" class="external-link">tf::tfb_fpc()</a></code> object for each functional column, used as basis to project new data during prediction.</p></li>
+<li><p><code>n_components</code> :: <code>integer(1)</code><br>
+The value of the <code>n_components</code> parameter during training.</p></li>
+</ul></div>
+    <div class="section level2">
     <h2 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a></h2>
 
 
@@ -79,13 +89,6 @@ The number of principal components to extract. This parameter is initialized to 
 <p>The new names generally append a <code>_pc_{number}</code> to the corresponding column name.
 If a column was called <code>"x"</code> and there are three principal components, the corresponding
 new columns will be called <code>"x_pc_1", "x_pc_2", "x_pc_3"</code>.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="state">State<a class="anchor" aria-label="anchor" href="#state"></a></h2>
-
-
-<p><code>$state$fpc</code> contains the fitted <code><a href="https://tidyfun.github.io/tf/reference/tfb_fpc.html" class="external-link">tf::tfb_fpc()</a></code> object for each functional column,
-and <code>$state$n_components</code> the number of components used during training.</p>
     </div>
     <div class="section level2">
     <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>

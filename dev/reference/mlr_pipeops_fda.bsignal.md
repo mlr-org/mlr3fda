@@ -7,6 +7,11 @@ details, see
 [`FDboost::bsignal()`](https://rdrr.io/pkg/FDboost/man/bsignal.html),
 which is called internally.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from

@@ -6,6 +6,17 @@ scale\\, where \\scale\\ is \\(upper - lower) / (max(x) - min(x))\\ and
 \\offset\\ is \\-min(x) \* scale + lower\\. The same transformation is
 applied during training and prediction.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html),
+as well as:
+
+- `trafos` :: named [`list()`](https://rdrr.io/r/base/list.html)  
+  For each functional column, a
+  [`list()`](https://rdrr.io/r/base/list.html) with the training
+  `domain`, and the `scale` and `offset` of the transformation.
+
 ## Parameters
 
 The parameters are the parameters inherited from
@@ -17,11 +28,6 @@ as well as the following parameters:
 
 - `upper` :: `numeric(1)`  
   Target value of greatest item of input data. Initialized to `1`.
-
-## State
-
-`$state$trafos` contains the training `domain`, `scale`, and `offset`
-for each functional column.
 
 ## Super classes
 

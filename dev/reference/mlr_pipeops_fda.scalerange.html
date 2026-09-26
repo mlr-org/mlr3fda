@@ -63,6 +63,15 @@ where \(scale\) is \((upper - lower) / (max(x) - min(x))\) and
 
 
     <div class="section level2">
+    <h2 id="state">State<a class="anchor" aria-label="anchor" href="#state"></a></h2>
+
+
+<p>The <code>$state</code> is a named <code>list</code> with the <code>$state</code> elements inherited from
+<code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html" class="external-link">PipeOpTaskPreproc</a></code>, as well as:</p><ul><li><p><code>trafos</code> :: named <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code><br>
+For each functional column, a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> with the training <code>domain</code>,
+and the <code>scale</code> and <code>offset</code> of the transformation.</p></li>
+</ul></div>
+    <div class="section level2">
     <h2 id="parameters">Parameters<a class="anchor" aria-label="anchor" href="#parameters"></a></h2>
 
 
@@ -72,12 +81,6 @@ Target value of smallest item of input data. Initialized to <code>0</code>.</p><
 <li><p><code>upper</code> :: <code>numeric(1)</code><br>
 Target value of greatest item of input data. Initialized to <code>1</code>.</p></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="state">State<a class="anchor" aria-label="anchor" href="#state"></a></h2>
-
-
-<p><code>$state$trafos</code> contains the training <code>domain</code>, <code>scale</code>, and <code>offset</code> for each functional column.</p>
-    </div>
     <div class="section level2">
     <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>
     <p><code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOp.html" class="external-link">mlr3pipelines::PipeOp</a></code> -&gt; <code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html" class="external-link">mlr3pipelines::PipeOpTaskPreproc</a></code> -&gt; <code><a href="https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html" class="external-link">mlr3pipelines::PipeOpTaskPreprocSimple</a></code> -&gt; <code>PipeOpFDAScaleRange</code></p>

@@ -13,6 +13,11 @@ for other tasks such as regression.
 For other time series feature extractors, see
 [`PipeOpFDATsfeatures`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.tsfeats.md).
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from

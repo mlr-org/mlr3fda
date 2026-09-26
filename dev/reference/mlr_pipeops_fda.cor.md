@@ -11,6 +11,11 @@ first using
 If you need to change the domain of the columns, use
 [`PipeOpFDAScaleRange`](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange.md).
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from
