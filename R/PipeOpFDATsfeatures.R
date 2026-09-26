@@ -7,6 +7,10 @@
 #'
 #' For more details, see [tsfeatures::tsfeatures()], which is called internally.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:

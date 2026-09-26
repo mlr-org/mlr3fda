@@ -7,6 +7,10 @@
 #' For `tfd` inputs derivatives are obtained by finite differencing of the function evaluations,
 #' for `tfb` inputs by finite differencing of the basis functions.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:

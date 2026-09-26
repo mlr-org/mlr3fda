@@ -9,6 +9,12 @@ Smoothes functional data using \code{\link[tf:tf_smooth]{tf::tf_smooth()}}.
 This preprocessing operator is similar to \code{\link{PipeOpFDAInterpol}}, however it does not interpolate to unobserved
 x-values, but rather smooths the observed values.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

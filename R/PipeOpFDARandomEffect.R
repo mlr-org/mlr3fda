@@ -10,6 +10,10 @@
 #' while subject id determines the grouping structure. After model estimation, the random effects are extracted and
 #' assigned to the correct id.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple].
 #'

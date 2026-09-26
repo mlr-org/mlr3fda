@@ -7,6 +7,10 @@
 #' This is useful if you want to compare functional features across observations.
 #' The interpolation is done using the `tf` package. See [`tfd()`][tf::tfd] for details.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:

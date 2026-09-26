@@ -12,6 +12,12 @@ The target variable is the value of the functional feature which is regressed on
 while subject id determines the grouping structure. After model estimation, the random effects are extracted and
 assigned to the correct id.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}}.

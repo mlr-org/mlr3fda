@@ -18,6 +18,10 @@
 #' The `"RPD"` method relies on random projections, so set a seed (e.g. via [set.seed()]) before training for
 #' reproducible results.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:

@@ -16,6 +16,13 @@
 #' data, which does not fit a stateful preprocessing step. For landmark registration, use [tf::tf_register()]
 #' directly and feed the aligned data into the task.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc], as well as:
+#' * `templates` :: named `list()`\cr
+#'   The learned template (as a length-1 `tf` vector) for each functional column,
+#'   used for registration during prediction.
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
 #' as well as the following parameters:
@@ -39,9 +46,6 @@
 #'   Ignored at predict time because the stored template is used directly.
 #' * `tol` :: `numeric(1)`\cr
 #'   Convergence tolerance for template refinement during training. Default is `0.01`.
-#'
-#' @section State:
-#' `$state$templates` contains the learned template (as a length-1 `tf` vector) for each functional column.
 #'
 #' @export
 #' @examples

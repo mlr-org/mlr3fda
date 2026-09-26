@@ -10,6 +10,14 @@
 #'
 #' For more details, see [tf::tfb_fpc()], which is called internally.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc], as well as:
+#' * `fpc` :: [`data.table`][data.table::data.table]\cr
+#'   The fitted [tf::tfb_fpc()] object for each functional column, used as basis to project new data during prediction.
+#' * `n_components` :: `integer(1)`\cr
+#'   The value of the `n_components` parameter during training.
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
 #' as well as the following parameters:
@@ -22,10 +30,6 @@
 #' The new names generally append a `_pc_{number}` to the corresponding column name.
 #' If a column was called `"x"` and there are three principal components, the corresponding
 #' new columns will be called `"x_pc_1", "x_pc_2", "x_pc_3"`.
-#'
-#' @section State:
-#' `$state$fpc` contains the fitted [tf::tfb_fpc()] object for each functional column,
-#' and `$state$n_components` the number of components used during training.
 #'
 #' @export
 #' @examples

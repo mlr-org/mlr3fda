@@ -9,6 +9,12 @@ This \code{PipeOp} extracts features from functional data using B-spline basis f
 The extracted features are B-spline coefficients that represent the functional data in the B-spline basis space.
 For more details, see \code{\link[FDboost:bsignal]{FDboost::bsignal()}}, which is called internally.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

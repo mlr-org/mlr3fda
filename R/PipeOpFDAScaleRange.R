@@ -8,6 +8,13 @@
 #' where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
 #' \eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc], as well as:
+#' * `trafos` :: named `list()`\cr
+#'   For each functional column, a `list()` with the training `domain`,
+#'   and the `scale` and `offset` of the transformation.
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
 #' as well as the following parameters:
@@ -15,9 +22,6 @@
 #'   Target value of smallest item of input data. Initialized to `0`.
 #' * `upper` :: `numeric(1)`\cr
 #'   Target value of greatest item of input data. Initialized to `1`.
-#'
-#' @section State:
-#' `$state$trafos` contains the training `domain`, `scale`, and `offset` for each functional column.
 #'
 #' @export
 #' @examples

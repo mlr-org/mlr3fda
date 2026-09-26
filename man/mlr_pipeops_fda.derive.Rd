@@ -9,6 +9,12 @@ Computes derivatives of functional features via \code{\link[tf:tf_derive]{tf::tf
 For \code{tfd} inputs derivatives are obtained by finite differencing of the function evaluations,
 for \code{tfb} inputs by finite differencing of the basis functions.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

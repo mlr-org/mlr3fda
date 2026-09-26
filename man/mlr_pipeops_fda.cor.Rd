@@ -12,6 +12,12 @@ has the same domain.
 To apply this \code{PipeOp} to irregular data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
 If you need to change the domain of the columns, use \code{\link{PipeOpFDAScaleRange}}.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

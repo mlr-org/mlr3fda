@@ -9,6 +9,12 @@ This \code{PipeOp} extracts Fourier coefficients from functional columns.
 For more details, see \code{\link[stats:fft]{stats::fft()}}, which is called internally.
 Only the one-sided spectrum is returned since the input is real-valued (Oppenheim and Schafer, 2010).
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

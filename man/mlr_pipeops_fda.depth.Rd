@@ -20,6 +20,12 @@ The \code{"MHI"} method ranks functions from lowest (\code{0}) to highest (\code
 The \code{"RPD"} method relies on random projections, so set a seed (e.g. via \code{\link[=set.seed]{set.seed()}}) before training for
 reproducible results.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

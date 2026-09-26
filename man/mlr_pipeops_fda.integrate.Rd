@@ -11,6 +11,12 @@ The integral summarizes each curve into a single scalar, namely the (signed) are
 By default the integral is taken over the full domain of each curve. The \code{lower} and \code{upper} parameters restrict
 the integration to a window. The same operation is applied during training and prediction.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

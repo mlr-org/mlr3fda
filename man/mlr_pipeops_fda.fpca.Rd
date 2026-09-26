@@ -12,6 +12,18 @@ To apply this \code{PipeOp} to irregular data, convert it to a regular grid firs
 
 For more details, see \code{\link[tf:tfb_fpc]{tf::tfb_fpc()}}, which is called internally.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}, as well as:
+\itemize{
+\item \code{fpc} :: \code{\link[data.table:data.table]{data.table}}\cr
+The fitted \code{\link[tf:tfb_fpc]{tf::tfb_fpc()}} object for each functional column, used as basis to project new data during prediction.
+\item \code{n_components} :: \code{integer(1)}\cr
+The value of the \code{n_components} parameter during training.
+}
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
@@ -29,12 +41,6 @@ The number of principal components to extract. This parameter is initialized to 
 The new names generally append a \verb{_pc_\{number\}} to the corresponding column name.
 If a column was called \code{"x"} and there are three principal components, the corresponding
 new columns will be called \verb{"x_pc_1", "x_pc_2", "x_pc_3"}.
-}
-
-\section{State}{
-
-\verb{$state$fpc} contains the fitted \code{\link[tf:tfb_fpc]{tf::tfb_fpc()}} object for each functional column,
-and \verb{$state$n_components} the number of components used during training.
 }
 
 \examples{

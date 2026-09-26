@@ -18,6 +18,17 @@ is not supported because it requires per-observation landmark positions for both
 data, which does not fit a stateful preprocessing step. For landmark registration, use \code{\link[tf:tf_register]{tf::tf_register()}}
 directly and feed the aligned data into the task.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}, as well as:
+\itemize{
+\item \code{templates} :: named \code{list()}\cr
+The learned template (as a length-1 \code{tf} vector) for each functional column,
+used for registration during prediction.
+}
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
@@ -46,11 +57,6 @@ Ignored at predict time because the stored template is used directly.
 \item \code{tol} :: \code{numeric(1)}\cr
 Convergence tolerance for template refinement during training. Default is \code{0.01}.
 }
-}
-
-\section{State}{
-
-\verb{$state$templates} contains the learned template (as a length-1 \code{tf} vector) for each functional column.
 }
 
 \examples{

@@ -10,6 +10,10 @@
 #' To apply this `PipeOp` to irregular data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
 #' If you need to change the domain of the columns, use [`PipeOpFDAScaleRange`].
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:

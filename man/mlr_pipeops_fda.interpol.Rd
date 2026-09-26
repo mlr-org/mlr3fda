@@ -9,6 +9,12 @@ Interpolate functional features (e.g. all individuals are observed at different 
 This is useful if you want to compare functional features across observations.
 The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{tfd()}} for details.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

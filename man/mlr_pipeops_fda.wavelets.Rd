@@ -10,6 +10,12 @@ For more details, see \code{\link[wavelets:dwt]{wavelets::dwt()}}, which is call
 
 To apply this \code{PipeOp} to irregular data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

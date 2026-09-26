@@ -10,6 +10,12 @@ This operation extracts a subset of each function by defining new lower and uppe
 effectively cropping the functional data to focus on a specific region of interest.
 Calls \code{\link[tf:tf_zoom]{tf::tf_zoom()}} from package \CRANpkg{tf}.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

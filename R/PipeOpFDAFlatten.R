@@ -6,6 +6,10 @@
 #' Convert regular functional features (e.g. all individuals are observed at the same time-points)
 #' to new columns, one for each input value to the function.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple].
 #'

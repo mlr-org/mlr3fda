@@ -10,6 +10,17 @@ The formula for this is \eqn{x' = offset + x * scale},
 where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
 \eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}, as well as:
+\itemize{
+\item \code{trafos} :: named \code{list()}\cr
+For each functional column, a \code{list()} with the training \code{domain},
+and the \code{scale} and \code{offset} of the transformation.
+}
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
@@ -20,11 +31,6 @@ Target value of smallest item of input data. Initialized to \code{0}.
 \item \code{upper} :: \code{numeric(1)}\cr
 Target value of greatest item of input data. Initialized to \code{1}.
 }
-}
-
-\section{State}{
-
-\verb{$state$trafos} contains the training \code{domain}, \code{scale}, and \code{offset} for each functional column.
 }
 
 \examples{

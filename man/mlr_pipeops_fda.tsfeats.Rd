@@ -9,6 +9,12 @@ This \code{PipeOp} extracts time series features from functional columns.
 
 For more details, see \code{\link[tsfeatures:tsfeatures]{tsfeatures::tsfeatures()}}, which is called internally.
 }
+\section{State}{
+
+The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+}
+
 \section{Parameters}{
 
 The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},

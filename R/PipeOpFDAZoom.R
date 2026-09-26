@@ -8,6 +8,10 @@
 #' effectively cropping the functional data to focus on a specific region of interest.
 #' Calls [tf::tf_zoom()] from package \CRANpkg{tf}.
 #'
+#' @section State:
+#' The `$state` is a named `list` with the `$state` elements inherited from
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
