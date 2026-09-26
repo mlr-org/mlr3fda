@@ -35,6 +35,10 @@ test_that("PipeOpFPCA works", {
   expect_shape(new_data, dim = c(15L, 3L))
   expect_named(new_data, c("y", "f_pc_1", "f_pc_2"))
 
+  # predict uses n_components from training
+  pop$param_set$set_values(n_components = 1L)
+  expect_identical(predict_pipeop(pop, list(task))[[1L]]$data(), new_data)
+
   # multiple cols work
   dt = data.table(
     id = rep(1:10, each = 3L),

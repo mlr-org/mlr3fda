@@ -23,6 +23,10 @@
 #' If a column was called `"x"` and there are three principal components, the corresponding
 #' new columns will be called `"x_pc_1", "x_pc_2", "x_pc_3"`.
 #'
+#' @section State:
+#' `$state$fpc` contains the fitted [tf::tfb_fpc()] object for each functional column,
+#' and `$state$n_components` the number of components used during training.
+#'
 #' @export
 #' @examples
 #' task = tsk("fuel")
@@ -61,7 +65,7 @@ PipeOpFPCA = R6Class(
       n_components = self$param_set$values$n_components
 
       dt = map_dtc(dt, \(x) invoke(tf::tfb_fpc, data = x, .args = pars))
-      self$state = list(fpc = dt)
+      self$state = list(fpc = dt, n_components = n_components)
 
       dt = imap_dtc(dt, function(col, nm) {
         map(col, function(x) {
@@ -73,7 +77,7 @@ PipeOpFPCA = R6Class(
     },
 
     .predict_dt = function(dt, levels) {
-      n_components = self$param_set$values$n_components
+      n_components = self$state$n_components
 
       dt = imap_dtc(dt, function(col, nm) {
         fpc = invoke(tf::tf_rebase, object = col, basis_from = self$state$fpc[[nm]], arg = tf::tf_arg(col))

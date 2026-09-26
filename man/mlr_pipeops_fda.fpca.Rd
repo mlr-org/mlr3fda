@@ -31,6 +31,12 @@ If a column was called \code{"x"} and there are three principal components, the 
 new columns will be called \verb{"x_pc_1", "x_pc_2", "x_pc_3"}.
 }
 
+\section{State}{
+
+\verb{$state$fpc} contains the fitted \code{\link[tf:tfb_fpc]{tf::tfb_fpc()}} object for each functional column,
+and \verb{$state$n_components} the number of components used during training.
+}
+
 \examples{
 task = tsk("fuel")
 po_fpca = po("fda.fpca", n_components = 3L)
