@@ -6,6 +6,8 @@
 #' This `PipeOp` extracts discrete wavelet transform coefficients from functional columns.
 #' For more details, see [wavelets::dwt()], which is called internally.
 #'
+#' To apply this `PipeOp` to irregular data, convert it to a regular grid first using [`PipeOpFDAInterpol`].
+#'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
@@ -73,7 +75,7 @@ PipeOpFDAWavelets = R6Class(
         param_set = param_set,
         param_vals = param_vals,
         packages = c("mlr3fda", "mlr3pipelines", "tf", "wavelets"),
-        feature_types = c("tfd_reg", "tfd_irreg"),
+        feature_types = "tfd_reg",
         tags = "fda"
       )
     }
@@ -84,15 +86,11 @@ PipeOpFDAWavelets = R6Class(
       pars = self$param_set$get_values(tags = "dwt")
 
       setcbindlist(imap(dt, function(x, nm) {
-        feats = map_dtr(
-          tf::tf_evaluations(x),
-          function(x) {
-            wt = invoke(wavelets::dwt, X = x, .args = pars)
-            feats = unlist(c(wt@W, wt@V[[wt@level]]), use.names = FALSE)
-            as.data.table(t(feats))
-          },
-          .fill = TRUE
-        )
+        feats = map_dtr(tf::tf_evaluations(x), function(x) {
+          wt = invoke(wavelets::dwt, X = x, .args = pars)
+          feats = unlist(c(wt@W, wt@V[[wt@level]]), use.names = FALSE)
+          as.data.table(t(feats))
+        })
         setnames(feats, sprintf("%s_wav_%i", nm, seq_col(feats)))
       }))
     }

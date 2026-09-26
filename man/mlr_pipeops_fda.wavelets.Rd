@@ -7,6 +7,8 @@
 \description{
 This \code{PipeOp} extracts discrete wavelet transform coefficients from functional columns.
 For more details, see \code{\link[wavelets:dwt]{wavelets::dwt()}}, which is called internally.
+
+To apply this \code{PipeOp} to irregular data, convert it to a regular grid first using \code{\link{PipeOpFDAInterpol}}.
 }
 \section{Parameters}{
 

@@ -36,14 +36,9 @@ test_that("PipeOpFDAWavelets works", {
   expect_shape(new_data, dim = c(task$nrow, 726L))
   expect_match(setdiff(names(new_data), c("heatan", "h2o")), "_wav_[0-9]+$")
 
-  # irregular data works
+  # does not touch irreg
   task = tsk("dti")
-  task$select(setdiff(task$feature_names, "sex"))
   pop = po("fda.wavelets")
   task_wav = train_pipeop(pop, list(task))[[1L]]
-  new_data = task_wav$data()
-  expect_task(task_wav)
-  walk(new_data, expect_numeric)
-  expect_shape(new_data, dim = c(task$nrow, 144L))
-  expect_match(setdiff(names(new_data), "pasat"), "_wav_[0-9]+$")
+  expect_set_equal(task_wav$feature_names, task$feature_names)
 })
