@@ -22,6 +22,11 @@ Target value of greatest item of input data. Initialized to \code{1}.
 }
 }
 
+\section{State}{
+
+\verb{$state$trafos} contains the training \code{domain}, \code{scale}, and \code{offset} for each functional column.
+}
+
 \examples{
 task = tsk("fuel")
 po_scale = po("fda.scalerange", lower = -1, upper = 1)
@@ -29,7 +34,7 @@ task_scale = po_scale$train(list(task))[[1L]]
 task_scale$data()
 }
 \section{Super classes}{
-\code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{PipeOpFDAScaleRange}
+\code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFDAScaleRange}
 }
 \section{Methods}{
 \subsection{Public methods}{

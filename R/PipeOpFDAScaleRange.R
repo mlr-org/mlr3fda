@@ -16,6 +16,9 @@
 #' * `upper` :: `numeric(1)`\cr
 #'   Target value of greatest item of input data. Initialized to `1`.
 #'
+#' @section State:
+#' `$state$trafos` contains the training `domain`, `scale`, and `offset` for each functional column.
+#'
 #' @export
 #' @examples
 #' task = tsk("fuel")
@@ -24,7 +27,7 @@
 #' task_scale$data()
 PipeOpFDAScaleRange = R6Class(
   "PipeOpFDAScaleRange",
-  inherit = PipeOpTaskPreproc,
+  inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
@@ -49,27 +52,26 @@ PipeOpFDAScaleRange = R6Class(
     }
   ),
   private = list(
-    .train_dt = function(dt, levels, target) {
+    .get_state_dt = function(dt, levels, target) {
       pars = self$param_set$get_values(tags = "train")
       if (pars$lower >= pars$upper) {
         error_config("'lower' must be smaller than 'upper'.")
       }
 
-      for (j in names(dt)) {
-        x = dt[[j]]
+      trafos = map(dt, function(x) {
         domain = tf::tf_domain(x)
         scale = (pars$upper - pars$lower) / (domain[2L] - domain[1L])
         offset = -domain[1L] * scale + pars$lower
-        self$state[[j]] = list(domain = domain, scale = scale, offset = offset)
-        set(dt, j = j, value = rescale_domain(x, scale, offset))
-      }
-      dt
+        list(domain = domain, scale = scale, offset = offset)
+      })
+      list(trafos = trafos)
     },
 
-    .predict_dt = function(dt, levels) {
+    .transform_dt = function(dt, levels) {
+      trafos = self$state$trafos
       for (j in names(dt)) {
         x = dt[[j]]
-        trafo = self$state[[j]]
+        trafo = trafos[[j]]
         if (!all(trafo$domain == tf::tf_domain(x))) {
           error_input("Domain of new data does not match the domain of the training data.")
         }

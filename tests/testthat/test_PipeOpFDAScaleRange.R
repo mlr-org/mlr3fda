@@ -53,6 +53,15 @@ test_that("PipeOpFDAScaleRange keeps evaluator and scales domain", {
   expect_equal(predict_pipeop(pop, list(task))[[1L]]$data()$x, new_x)
 })
 
+test_that("PipeOpFDAScaleRange state does not clash with base class state", {
+  task = as_task_regr(data.table(y = 1:5, dt_columns = tf::tf_rgp(5L)), target = "y")
+  pop = po("fda.scalerange", upper = 2)
+  train_data = train_pipeop(pop, list(task))[[1L]]$data()
+  expect_named(pop$state$trafos, "dt_columns")
+  expect_identical(pop$state$dt_columns, "dt_columns")
+  expect_equal(predict_pipeop(pop, list(task))[[1L]]$data(), train_data)
+})
+
 test_that("PipeOpFDAScaleRange errors if lower is not smaller than upper", {
   task = tsk("fuel")
   expect_error(train_pipeop(po("fda.scalerange", lower = 1, upper = 0), list(task)), "'lower' must be smaller")
