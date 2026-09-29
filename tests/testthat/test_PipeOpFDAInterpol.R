@@ -17,12 +17,22 @@ test_that("PipeOpFDAInterpol input validation works", {
   pop = po("fda.interpol", grid = 1:3, left = 1, right = 2)
   expect_error(
     train_pipeop(pop, list(task)),
-    "If 'left' and 'right' are specified, 'grid' must be a single count."
+    "If 'left' and 'right' are set, 'grid' must be an integer of at least 2."
   )
   pop = po("fda.interpol", grid = "union", left = 1, right = 2)
   expect_error(
     train_pipeop(pop, list(task)),
-    "If 'left' and 'right' are specified, 'grid' must be a single count."
+    "If 'left' and 'right' are set, 'grid' must be an integer of at least 2."
+  )
+  pop = po("fda.interpol", grid = 1L, left = 1, right = 2)
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "If 'left' and 'right' are set, 'grid' must be an integer of at least 2."
+  )
+  pop = po("fda.interpol", grid = 0L, left = 1, right = 2)
+  expect_error(
+    train_pipeop(pop, list(task)),
+    "If 'left' and 'right' are set, 'grid' must be an integer of at least 2."
   )
   pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
   expect_error(train_pipeop(pop, list(task)), "'left' must be smaller than 'right'.")
@@ -179,13 +189,26 @@ test_that("PipeOpFDAInterpol works with intersect", {
   expect_equal(task_interpol$data(), expected)
 })
 
-test_that("PipeOpFDAInterpol errors if minmax or intersect grid is empty", {
+test_that("PipeOpFDAInterpol errors if minmax or intersect grid has fewer than two points", {
   f = tf::tfd(list(1:3, 5:7), arg = list(1:3, 5:7))
   task = as_task_regr(data.table(y = 1:2, f = f), target = "y")
-  expect_error(train_pipeop(po("fda.interpol", grid = "minmax"), list(task)), "Grid 'minmax' is empty for column 'f'")
+  expect_error(
+    train_pipeop(po("fda.interpol", grid = "minmax"), list(task)),
+    "Grid 'minmax' has fewer than two points for column 'f'"
+  )
   expect_error(
     train_pipeop(po("fda.interpol", grid = "intersect"), list(task)),
-    "Grid 'intersect' is empty for column 'f'"
+    "Grid 'intersect' has fewer than two points for column 'f'"
+  )
+  f = tf::tfd(list(1:3, 3:5), arg = list(1:3, 3:5))
+  task = as_task_regr(data.table(y = 1:2, f = f), target = "y")
+  expect_error(
+    train_pipeop(po("fda.interpol", grid = "minmax"), list(task)),
+    "Grid 'minmax' has fewer than two points for column 'f'"
+  )
+  expect_error(
+    train_pipeop(po("fda.interpol", grid = "intersect"), list(task)),
+    "Grid 'intersect' has fewer than two points for column 'f'"
   )
 })
 

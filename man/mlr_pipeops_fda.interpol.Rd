@@ -22,8 +22,9 @@ as well as the following parameters:
 \itemize{
 \item \code{grid} :: \code{character(1)} | \code{numeric()}\cr
 The grid to use for interpolation.
-If \code{grid} is numeric, it must be a sequence of values to use for the grid or a single value that
-specifies the number of points to use for the grid, requires \code{left} and \code{right} to be specified in the latter case.
+If \code{grid} is numeric, it must be a sequence of values to use for the grid,
+or a single value of at least 2 that specifies the number of points to use for the grid,
+requires \code{left} and \code{right} to be specified in the latter case.
 If \code{grid} is a character, it must be one of:
 \itemize{
 \item \code{"union"}: This option creates a grid based on the union of all argument points from the provided functional

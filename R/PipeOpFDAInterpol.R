@@ -16,8 +16,9 @@
 #' as well as the following parameters:
 #' * `grid` :: `character(1)` | `numeric()`\cr
 #'   The grid to use for interpolation.
-#'   If `grid` is numeric, it must be a sequence of values to use for the grid or a single value that
-#'   specifies the number of points to use for the grid, requires `left` and `right` to be specified in the latter case.
+#'   If `grid` is numeric, it must be a sequence of values to use for the grid,
+#'   or a single value of at least 2 that specifies the number of points to use for the grid,
+#'   requires `left` and `right` to be specified in the latter case.
 #'   If `grid` is a character, it must be one of:
 #'   * `"union"`: This option creates a grid based on the union of all argument points from the provided functional
 #'     features. This means that if the argument points across features are \(t_1, t_2, ..., t_n\), then the grid will
@@ -110,8 +111,8 @@ PipeOpFDAInterpol = R6Class(
         error_config("Either both or none of 'left' and 'right' must be specified.")
       }
       if (has_left && has_right) {
-        if (!test_count(grid)) {
-          error_config("If 'left' and 'right' are specified, 'grid' must be a single count.")
+        if (!test_int(grid, lower = 2L)) {
+          error_config("If 'left' and 'right' are set, 'grid' must be an integer of at least 2.")
         }
         if (left >= right) {
           error_config("'left' must be smaller than 'right'.")
@@ -164,8 +165,12 @@ PipeOpFDAInterpol = R6Class(
               arg[arg >= lower & arg <= upper]
             }
           )
-          if (!length(arg)) {
-            error_input("Grid '%s' is empty for column '%s'. Use grid 'union' or a numeric grid.", grid, names(dt)[[j]])
+          if (length(arg) < 2L) {
+            error_input(
+              "Grid '%s' has fewer than two points for column '%s'. Use grid 'union' or a numeric grid.",
+              grid,
+              names(dt)[[j]]
+            )
           }
           set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
         }
