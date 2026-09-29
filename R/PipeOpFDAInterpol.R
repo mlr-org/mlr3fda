@@ -113,8 +113,8 @@ PipeOpFDAInterpol = R6Class(
         if (!test_count(grid)) {
           error_config("If 'left' and 'right' are specified, 'grid' must be a single count.")
         }
-        if (left > right) {
-          error_config("'left' must not be greater than 'right'.")
+        if (left >= right) {
+          error_config("'left' must be smaller than 'right'.")
         }
       }
       method = method %??% "linear"

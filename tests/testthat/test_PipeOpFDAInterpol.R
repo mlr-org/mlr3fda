@@ -25,7 +25,9 @@ test_that("PipeOpFDAInterpol input validation works", {
     "If 'left' and 'right' are specified, 'grid' must be a single count."
   )
   pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
-  expect_error(train_pipeop(pop, list(task)), "'left' must not be greater than 'right'.")
+  expect_error(train_pipeop(pop, list(task)), "'left' must be smaller than 'right'.")
+  pop = po("fda.interpol", grid = 10L, left = 2, right = 2)
+  expect_error(train_pipeop(pop, list(task)), "'left' must be smaller than 'right'.")
   pop = po("fda.interpol", grid = 10L, left = 2)
   expect_error(
     train_pipeop(pop, list(task)),

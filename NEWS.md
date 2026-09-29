@@ -2,7 +2,7 @@
 
 * fix: `PipeOpFDABsignal` now uses the argument values instead of index positions, which changes the features for grids other than `1, ..., p`.
 * fix: `PipeOpFDAExtract` now errors informatively if `left > right`.
-* fix: `PipeOpFDAInterpol` now errors informatively if `left > right` or if the `"intersect"` or `"minmax"` grid is empty.
+* fix: `PipeOpFDAInterpol` now errors informatively if `left >= right` or if the `"intersect"` or `"minmax"` grid is empty.
 * fix: `PipeOpFDAScaleRange` now keeps the evaluator, maps the domain to `[lower, upper]`, and errors if `lower >= upper`.
 * fix: `PipeOpFDAScaleRange` now stores its state under `$state$trafos`.
 * fix: `PipeOpFDAWavelets` now requires `n.levels` to be at least `1`.
