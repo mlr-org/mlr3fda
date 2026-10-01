@@ -2,6 +2,8 @@ test_that("PipeOpFDACor - basic properties", {
   pop = po("fda.cor")
   expect_pipeop(pop)
   expect_identical(pop$id, "fda.cor")
+  expect_error(po("fda.cor", arg = c(0.5, 0.1)))
+  expect_error(po("fda.cor", arg = 0.5))
 })
 
 test_that("PipeOpFDACor works", {
