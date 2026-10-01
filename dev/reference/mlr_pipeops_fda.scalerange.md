@@ -1,10 +1,11 @@
 # Linearly Transform the Domain of Functional Data
 
-Linearly transform the domain of functional data so they are between
-`lower` and `upper`. The formula for this is \\x' = offset + x \*
-scale\\, where \\scale\\ is \\(upper - lower) / (max(x) - min(x))\\ and
-\\offset\\ is \\-min(x) \* scale + lower\\. The same transformation is
-applied during training and prediction.
+Linearly transform the domain of functional data so it is mapped to
+`[lower, upper]`. The formula for this is \\x' = offset + x \* scale\\,
+where \\scale\\ is \\(upper - lower) / (b - a)\\ and \\offset\\ is \\-a
+\* scale + lower\\, with \\\[a, b\]\\ being the domain of the functional
+column during training. The same transformation is applied during
+training and prediction.
 
 ## State
 
@@ -20,14 +21,14 @@ as well as:
 ## Parameters
 
 The parameters are the parameters inherited from
-[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html),
+[`PipeOpTaskPreprocSimple`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html),
 as well as the following parameters:
 
 - `lower` :: `numeric(1)`  
-  Target value of smallest item of input data. Initialized to `0`.
+  Lower bound of the transformed domain. Initialized to `0`.
 
 - `upper` :: `numeric(1)`  
-  Target value of greatest item of input data. Initialized to `1`.
+  Upper bound of the transformed domain. Initialized to `1`.
 
 ## Super classes
 
