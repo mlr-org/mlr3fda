@@ -20,10 +20,10 @@ as well as the following parameters:
 - `grid` :: `character(1)` \|
   [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   The grid to use for interpolation. If `grid` is numeric, it must be a
-  sequence of values to use for the grid, or a single value of at least
-  2 that specifies the number of points to use for the grid, requires
-  `left` and `right` to be specified in the latter case. If `grid` is a
-  character, it must be one of:
+  sorted sequence of unique, finite values to use for the grid, or a
+  single value of at least 2 that specifies the number of points to use
+  for the grid, requires `left` and `right` to be specified in the
+  latter case. If `grid` is a character, it must be one of:
 
   - `"union"`: This option creates a grid based on the union of all
     argument points from the provided functional features. This means
