@@ -23,7 +23,7 @@ and the \code{scale} and \code{offset} of the transformation.
 
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
+The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
 as well as the following parameters:
 \itemize{
 \item \code{lower} :: \code{numeric(1)}\cr

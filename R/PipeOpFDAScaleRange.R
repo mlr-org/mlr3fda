@@ -16,7 +16,7 @@
 #'   and the `scale` and `offset` of the transformation.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
 #' * `lower` :: `numeric(1)`\cr
 #'   Target value of smallest item of input data. Initialized to `0`.
