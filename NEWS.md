@@ -1,17 +1,10 @@
 # mlr3fda (development version)
 
+* fix: Stricter parameter checks with informative errors in `PipeOpFDACor`, `PipeOpFDADerive`, `PipeOpFDAExtract`, `PipeOpFDAIntegrate`, `PipeOpFDAInterpol`, `PipeOpFDAScaleRange`, `PipeOpFDAWavelets`, and `PipeOpFDAZoom`.
 * fix: `PipeOpFDABsignal` now uses the argument values instead of index positions, which changes the features for grids other than `1, ..., p`.
-* fix: `PipeOpFDACor` now rejects an `arg` that is unsorted, contains duplicated or non-finite values, or has fewer than two points.
-* fix: `PipeOpFDADerive` now rejects duplicated values in `arg`, which previously returned curves with silently dropped points.
-* fix: `PipeOpFDAExtract` now errors informatively if `left > right`.
-* fix: `PipeOpFDAIntegrate` now errors informatively if `lower > upper`.
-* fix: `PipeOpFDAInterpol` now errors informatively if `left >= right`, if `grid` is smaller than `2` when `left` and `right` are set, or if the `"intersect"` or `"minmax"` grid has fewer than two points. A numeric `grid` must now be sorted, unique, and finite.
-* fix: `PipeOpFDAScaleRange` now keeps the evaluator, maps the domain to `[lower, upper]`, and errors if `lower >= upper`.
+* fix: `PipeOpFDAScaleRange` now keeps the evaluator and maps the domain to `[lower, upper]`.
 * fix: `PipeOpFDAScaleRange` now stores its state under `$state$trafos`.
-* fix: `PipeOpFDAWavelets` now rejects an empty numeric `filter` or one with missing or non-finite values.
-* fix: `PipeOpFDAWavelets` now requires `n.levels` to be at least `1`.
 * fix: `PipeOpFDAWavelets` no longer supports irregular functional data, where coefficients of curves with different lengths were misaligned. Use `PipeOpFDAInterpol` first.
-* fix: `PipeOpFDAZoom` now errors informatively if `begin` and `end` have incompatible lengths or `begin >= end`.
 * fix: `PipeOpFPCA` now uses the `n_components` from training during prediction.
 
 # mlr3fda 0.7.2
