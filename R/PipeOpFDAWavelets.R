@@ -63,7 +63,7 @@ PipeOpFDAWavelets = R6Class(
               )
               return(check_choice(x, choices))
             }
-            if (test_numeric(x) && length(x) %% 2L == 0L) {
+            if (test_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 2L) && length(x) %% 2L == 0L) {
               return(TRUE)
             }
             "Must be either a string, an even numeric vector, or a wavelet filter object"

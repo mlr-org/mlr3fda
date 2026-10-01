@@ -7,6 +7,7 @@
 * fix: `PipeOpFDAInterpol` now errors informatively if `left >= right`, if `grid` is smaller than `2` when `left` and `right` are set, or if the `"intersect"` or `"minmax"` grid has fewer than two points. A numeric `grid` must now be sorted, unique, and finite.
 * fix: `PipeOpFDAScaleRange` now keeps the evaluator, maps the domain to `[lower, upper]`, and errors if `lower >= upper`.
 * fix: `PipeOpFDAScaleRange` now stores its state under `$state$trafos`.
+* fix: `PipeOpFDAWavelets` now rejects an empty numeric `filter` or one with missing or non-finite values.
 * fix: `PipeOpFDAWavelets` now requires `n.levels` to be at least `1`.
 * fix: `PipeOpFDAWavelets` no longer supports irregular functional data, where coefficients of curves with different lengths were misaligned. Use `PipeOpFDAInterpol` first.
 * fix: `PipeOpFDAZoom` now errors informatively if `begin` and `end` have incompatible lengths or `begin >= end`.
