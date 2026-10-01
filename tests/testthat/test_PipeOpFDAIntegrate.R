@@ -31,6 +31,8 @@ test_that("PipeOpFDAIntegrate window changes the result", {
   full = train_pipeop(po("fda.integrate"), list(task))[[1L]]$data()$NIR_integral
   windowed = train_pipeop(po("fda.integrate", lower = 50, upper = 100), list(task))[[1L]]$data()$NIR_integral
   expect_false(isTRUE(all.equal(full, windowed)))
+  pop = po("fda.integrate", lower = 100, upper = 50)
+  expect_error(train_pipeop(pop, list(task)), "'lower' must not be greater than 'upper'.")
 })
 
 test_that("PipeOpFDAIntegrate works with affect_columns", {

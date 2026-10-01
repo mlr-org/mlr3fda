@@ -4,6 +4,7 @@
 * fix: `PipeOpFDACor` now rejects an `arg` that is unsorted, contains duplicated or non-finite values, or has fewer than two points.
 * fix: `PipeOpFDADerive` now rejects duplicated values in `arg`, which previously returned curves with silently dropped points.
 * fix: `PipeOpFDAExtract` now errors informatively if `left > right`.
+* fix: `PipeOpFDAIntegrate` now errors informatively if `lower > upper`.
 * fix: `PipeOpFDAInterpol` now errors informatively if `left >= right`, if `grid` is smaller than `2` when `left` and `right` are set, or if the `"intersect"` or `"minmax"` grid has fewer than two points. A numeric `grid` must now be sorted, unique, and finite.
 * fix: `PipeOpFDAScaleRange` now keeps the evaluator, maps the domain to `[lower, upper]`, and errors if `lower >= upper`.
 * fix: `PipeOpFDAScaleRange` now stores its state under `$state$trafos`.

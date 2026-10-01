@@ -60,6 +60,9 @@ PipeOpFDAIntegrate = R6Class(
   private = list(
     .transform_dt = function(dt, levels) {
       pars = self$param_set$get_values(tags = "integrate")
+      if (!is.null(pars$lower) && !is.null(pars$upper) && pars$lower > pars$upper) {
+        error_config("'lower' must not be greater than 'upper'.")
+      }
       setcbindlist(imap(dt, function(x, nm) {
         integral = invoke(tf::tf_integrate, f = x, .args = pars)
         integral_dt = as.data.table(integral)
