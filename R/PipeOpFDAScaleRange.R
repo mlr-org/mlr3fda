@@ -3,10 +3,11 @@
 #' @name mlr_pipeops_fda.scalerange
 #'
 #' @description
-#' Linearly transform the domain of functional data so they are between `lower` and `upper`.
+#' Linearly transform the domain of functional data so it is mapped to `[lower, upper]`.
 #' The formula for this is \eqn{x' = offset + x * scale},
-#' where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
-#' \eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.
+#' where \eqn{scale} is \eqn{(upper - lower) / (b - a)} and \eqn{offset} is \eqn{-a * scale + lower},
+#' with \eqn{[a, b]} being the domain of the functional column during training.
+#' The same transformation is applied during training and prediction.
 #'
 #' @section State:
 #' The `$state` is a named `list` with the `$state` elements inherited from
@@ -19,9 +20,9 @@
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
 #' * `lower` :: `numeric(1)`\cr
-#'   Target value of smallest item of input data. Initialized to `0`.
+#'   Lower bound of the transformed domain. Initialized to `0`.
 #' * `upper` :: `numeric(1)`\cr
-#'   Target value of greatest item of input data. Initialized to `1`.
+#'   Upper bound of the transformed domain. Initialized to `1`.
 #'
 #' @export
 #' @examples

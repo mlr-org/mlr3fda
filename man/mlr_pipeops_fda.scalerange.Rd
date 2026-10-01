@@ -5,10 +5,11 @@
 \alias{PipeOpFDAScaleRange}
 \title{Linearly Transform the Domain of Functional Data}
 \description{
-Linearly transform the domain of functional data so they are between \code{lower} and \code{upper}.
+Linearly transform the domain of functional data so it is mapped to \verb{[lower, upper]}.
 The formula for this is \eqn{x' = offset + x * scale},
-where \eqn{scale} is \eqn{(upper - lower) / (max(x) - min(x))} and
-\eqn{offset} is \eqn{-min(x) * scale + lower}. The same transformation is applied during training and prediction.
+where \eqn{scale} is \eqn{(upper - lower) / (b - a)} and \eqn{offset} is \eqn{-a * scale + lower},
+with \eqn{[a, b]} being the domain of the functional column during training.
+The same transformation is applied during training and prediction.
 }
 \section{State}{
 
@@ -27,9 +28,9 @@ The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeO
 as well as the following parameters:
 \itemize{
 \item \code{lower} :: \code{numeric(1)}\cr
-Target value of smallest item of input data. Initialized to \code{0}.
+Lower bound of the transformed domain. Initialized to \code{0}.
 \item \code{upper} :: \code{numeric(1)}\cr
-Target value of greatest item of input data. Initialized to \code{1}.
+Upper bound of the transformed domain. Initialized to \code{1}.
 }
 }
 
