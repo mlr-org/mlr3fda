@@ -16,7 +16,7 @@
 #' as well as the following parameters:
 #' * `grid` :: `character(1)` | `numeric()`\cr
 #'   The grid to use for interpolation.
-#'   If `grid` is numeric, it must be a sequence of values to use for the grid,
+#'   If `grid` is numeric, it must be a sorted sequence of unique, finite values to use for the grid,
 #'   or a single value of at least 2 that specifies the number of points to use for the grid,
 #'   requires `left` and `right` to be specified in the latter case.
 #'   If `grid` is a character, it must be one of:
@@ -73,8 +73,8 @@ PipeOpFDAInterpol = R6Class(
             if (test_string(x)) {
               return(check_choice(x, choices = c("union", "intersect", "minmax")))
             }
-            if (test_numeric(x, any.missing = FALSE, min.len = 1L)) {
-              return(TRUE)
+            if (test_numeric(x)) {
+              return(check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L, sorted = TRUE, unique = TRUE))
             }
             "Must be either a string or a numeric vector"
           })
