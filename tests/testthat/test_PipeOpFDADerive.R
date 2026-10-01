@@ -33,9 +33,10 @@ test_that("PipeOpFDADerive works on irregular data", {
   expect_class(new_data$rcst, "tfd_irreg")
 })
 
-test_that("PipeOpFDADerive validates order", {
+test_that("PipeOpFDADerive validates parameters", {
   expect_error(po("fda.derive", order = 0L))
   expect_error(po("fda.derive", order = -1L))
+  expect_error(po("fda.derive", arg = c(10, 10, 20)))
 })
 
 test_that("PipeOpFDADerive works with affect_columns", {

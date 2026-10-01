@@ -42,7 +42,9 @@ PipeOpFDADerive = R6Class(
         order = p_int(lower = 1L, init = 1L, tags = c("train", "predict", "required", "derive")),
         arg = p_uty(
           tags = c("train", "predict", "derive"),
-          custom_check = crate(\(x) check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L, sorted = TRUE))
+          custom_check = crate(function(x) {
+            check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L, sorted = TRUE, unique = TRUE)
+          })
         )
       )
 
