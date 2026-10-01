@@ -2,23 +2,19 @@
 
 ## mlr3fda (development version)
 
+- fix: Stricter parameter checks with informative errors in
+  `PipeOpFDACor`, `PipeOpFDADerive`, `PipeOpFDAExtract`,
+  `PipeOpFDAIntegrate`, `PipeOpFDAInterpol`, `PipeOpFDAScaleRange`,
+  `PipeOpFDAWavelets`, and `PipeOpFDAZoom`.
 - fix: `PipeOpFDABsignal` now uses the argument values instead of index
   positions, which changes the features for grids other than
   `1, ..., p`.
-- fix: `PipeOpFDAExtract` now errors informatively if `left > right`.
-- fix: `PipeOpFDAInterpol` now errors informatively if `left >= right`,
-  if `grid` is smaller than `2` when `left` and `right` are set, or if
-  the `"intersect"` or `"minmax"` grid has fewer than two points. A
-  numeric `grid` must now be sorted, unique, and finite.
-- fix: `PipeOpFDAScaleRange` now keeps the evaluator, maps the domain to
-  `[lower, upper]`, and errors if `lower >= upper`.
+- fix: `PipeOpFDAScaleRange` now keeps the evaluator and maps the domain
+  to `[lower, upper]`.
 - fix: `PipeOpFDAScaleRange` now stores its state under `$state$trafos`.
-- fix: `PipeOpFDAWavelets` now requires `n.levels` to be at least `1`.
 - fix: `PipeOpFDAWavelets` no longer supports irregular functional data,
   where coefficients of curves with different lengths were misaligned.
   Use `PipeOpFDAInterpol` first.
-- fix: `PipeOpFDAZoom` now errors informatively if `begin` and `end`
-  have incompatible lengths or `begin >= end`.
 - fix: `PipeOpFPCA` now uses the `n_components` from training during
   prediction.
 

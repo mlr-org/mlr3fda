@@ -49,14 +49,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="mlr3fda-development-version">mlr3fda (development version)<a class="anchor" aria-label="anchor" href="#mlr3fda-development-version"></a></h2>
-<ul><li>fix: <code>PipeOpFDABsignal</code> now uses the argument values instead of index positions, which changes the features for grids other than <code>1, ..., p</code>.</li>
-<li>fix: <code>PipeOpFDAExtract</code> now errors informatively if <code>left &gt; right</code>.</li>
-<li>fix: <code>PipeOpFDAInterpol</code> now errors informatively if <code>left &gt;= right</code>, if <code>grid</code> is smaller than <code>2</code> when <code>left</code> and <code>right</code> are set, or if the <code>"intersect"</code> or <code>"minmax"</code> grid has fewer than two points. A numeric <code>grid</code> must now be sorted, unique, and finite.</li>
-<li>fix: <code>PipeOpFDAScaleRange</code> now keeps the evaluator, maps the domain to <code>[lower, upper]</code>, and errors if <code>lower &gt;= upper</code>.</li>
+<ul><li>fix: Stricter parameter checks with informative errors in <code>PipeOpFDACor</code>, <code>PipeOpFDADerive</code>, <code>PipeOpFDAExtract</code>, <code>PipeOpFDAIntegrate</code>, <code>PipeOpFDAInterpol</code>, <code>PipeOpFDAScaleRange</code>, <code>PipeOpFDAWavelets</code>, and <code>PipeOpFDAZoom</code>.</li>
+<li>fix: <code>PipeOpFDABsignal</code> now uses the argument values instead of index positions, which changes the features for grids other than <code>1, ..., p</code>.</li>
+<li>fix: <code>PipeOpFDAScaleRange</code> now keeps the evaluator and maps the domain to <code>[lower, upper]</code>.</li>
 <li>fix: <code>PipeOpFDAScaleRange</code> now stores its state under <code>$state$trafos</code>.</li>
-<li>fix: <code>PipeOpFDAWavelets</code> now requires <code>n.levels</code> to be at least <code>1</code>.</li>
 <li>fix: <code>PipeOpFDAWavelets</code> no longer supports irregular functional data, where coefficients of curves with different lengths were misaligned. Use <code>PipeOpFDAInterpol</code> first.</li>
-<li>fix: <code>PipeOpFDAZoom</code> now errors informatively if <code>begin</code> and <code>end</code> have incompatible lengths or <code>begin &gt;= end</code>.</li>
 <li>fix: <code>PipeOpFPCA</code> now uses the <code>n_components</code> from training during prediction.</li>
 </ul></div>
     <div class="section level2">
