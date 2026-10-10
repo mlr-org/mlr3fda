@@ -8,11 +8,9 @@
 Computes the definite integral of functional features via \code{\link[tf:tf_integrate]{tf::tf_integrate()}}.
 The integral summarizes each curve into a single scalar, namely the (signed) area under the curve over its domain.
 
-By default, regular curves are integrated over their full domain,
-and irregular curves over their own observed range, i.e., from their first to their last observed argument.
-Integrals of irregular curves may therefore cover different ranges.
-The \code{lower} and \code{upper} parameters restrict the integration to a common window.
-Curves that are not observed over the whole window get an integral of \code{NA}.
+By default, regular curves are integrated over their domain and irregular curves over their observed range.
+Set \code{lower} and \code{upper} to integrate over a common window.
+Curves not observed over the whole window get \code{NA}.
 The same operation is applied during training and prediction.
 }
 \section{State}{
