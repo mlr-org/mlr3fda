@@ -109,6 +109,10 @@ PipeOpFDARegister = R6Class(
     .predict_dt = function(dt, levels) {
       pars = self$param_set$get_values(tags = c("predict", "register"))
       args = c(remove_named(pars, "args"), pars$args)
+      if ((args$method %??% "srvf") == "srvf" && !is.null(args$penalty_method)) {
+        # with a template, tf aligns via fdasrvf::pair_align_functions(), which names this argument `pen`
+        args = insert_named(remove_named(args, "penalty_method"), list(pen = args$penalty_method))
+      }
       templates = self$state$templates
       for (j in names(dt)) {
         args$template = templates[[j]]

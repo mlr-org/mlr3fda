@@ -109,6 +109,22 @@ test_that("PipeOpFDARegister - srvf method works", {
   expect_length(new_pred$f, 4L)
 })
 
+test_that("PipeOpFDARegister - srvf penalty_method works during prediction", {
+  skip_if_not_installed("fdasrvf")
+  skip_if_not_installed("withr")
+  withr::local_seed(3L)
+
+  t = seq(0, 1, length.out = 41L)
+  mat = t(sapply(c(-0.05, 0, 0.05, 0.1), function(s) dnorm(t, 0.5 + s, 0.12)))
+  dt = data.table(y = 1:4 + 0, f = tf::tfd(mat, arg = t))
+  task = as_task_regr(dt, target = "y")
+
+  pop = po("fda.register", method = "srvf", args = list(lambda = 0.01, penalty_method = "l2gam"))
+  suppressMessages(train_pipeop(pop, list(task)))
+  new_pred = suppressMessages(predict_pipeop(pop, list(task)))[[1L]]$data()
+  expect_length(new_pred$f, 4L)
+})
+
 test_that("PipeOpFDARegister - multiple columns and fuel task", {
   task = tsk("fuel")
   pop = po("fda.register", method = "affine", args = list(type = "shift"))
