@@ -5,9 +5,13 @@ Computes the definite integral of functional features via
 The integral summarizes each curve into a single scalar, namely the
 (signed) area under the curve over its domain.
 
-By default the integral is taken over the full domain of each curve. The
-`lower` and `upper` parameters restrict the integration to a window. The
-same operation is applied during training and prediction.
+By default, regular curves are integrated over their full domain, and
+irregular curves over their own observed range, i.e., from their first
+to their last observed argument. Integrals of irregular curves may
+therefore cover different ranges. The `lower` and `upper` parameters
+restrict the integration to a common window. Curves that are not
+observed over the whole window get an integral of `NA`. The same
+operation is applied during training and prediction.
 
 ## State
 
@@ -22,11 +26,13 @@ as well as the following parameters:
 
 - `lower` :: `numeric(1)`  
   The left boundary of the integration window. If not set, the domain
-  start of each curve is used.
+  start is used for regular curves and the first observed argument for
+  irregular curves.
 
 - `upper` :: `numeric(1)`  
   The right boundary of the integration window. If not set, the domain
-  end of each curve is used.
+  end is used for regular curves and the last observed argument for
+  irregular curves.
 
 ## Naming
 
