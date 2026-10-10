@@ -43,9 +43,12 @@
 #'   for `"affine"`). An optional `template` entry is honored at training time and stored in the state.
 #' * `max_iter` :: `integer(1)`\cr
 #'   Maximum number of Procrustes-style template refinement iterations during training. Default is `3`.
+#'   Only used by `"cc"` and `"affine"` when no `template` is supplied in `args`.
+#'   For `"srvf"`, the template is the Karcher mean computed by \CRANpkg{fdasrvf}, which uses its own iteration limit.
 #'   Ignored at predict time because the stored template is used directly.
 #' * `tol` :: `numeric(1)`\cr
 #'   Convergence tolerance for template refinement during training. Default is `0.01`.
+#'   Only used by `"cc"` and `"affine"` when no `template` is supplied in `args`.
 #'
 #' @export
 #' @examples

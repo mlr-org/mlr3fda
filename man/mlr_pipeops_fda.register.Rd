@@ -53,9 +53,12 @@ Method-specific arguments passed to \code{\link[tf:tf_register]{tf::tf_register(
 for \code{"affine"}). An optional \code{template} entry is honored at training time and stored in the state.
 \item \code{max_iter} :: \code{integer(1)}\cr
 Maximum number of Procrustes-style template refinement iterations during training. Default is \code{3}.
+Only used by \code{"cc"} and \code{"affine"} when no \code{template} is supplied in \code{args}.
+For \code{"srvf"}, the template is the Karcher mean computed by \CRANpkg{fdasrvf}, which uses its own iteration limit.
 Ignored at predict time because the stored template is used directly.
 \item \code{tol} :: \code{numeric(1)}\cr
 Convergence tolerance for template refinement during training. Default is \code{0.01}.
+Only used by \code{"cc"} and \code{"affine"} when no \code{template} is supplied in \code{args}.
 }
 }
 
