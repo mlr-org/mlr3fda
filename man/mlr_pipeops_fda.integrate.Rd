@@ -8,8 +8,12 @@
 Computes the definite integral of functional features via \code{\link[tf:tf_integrate]{tf::tf_integrate()}}.
 The integral summarizes each curve into a single scalar, namely the (signed) area under the curve over its domain.
 
-By default the integral is taken over the full domain of each curve. The \code{lower} and \code{upper} parameters restrict
-the integration to a window. The same operation is applied during training and prediction.
+By default, regular curves are integrated over their full domain,
+and irregular curves over their own observed range, i.e., from their first to their last observed argument.
+Integrals of irregular curves may therefore cover different ranges.
+The \code{lower} and \code{upper} parameters restrict the integration to a common window.
+Curves that are not observed over the whole window get an integral of \code{NA}.
+The same operation is applied during training and prediction.
 }
 \section{State}{
 
@@ -23,9 +27,11 @@ The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeO
 as well as the following parameters:
 \itemize{
 \item \code{lower} :: \code{numeric(1)}\cr
-The left boundary of the integration window. If not set, the domain start of each curve is used.
+The left boundary of the integration window.
+If not set, the domain start is used for regular curves and the first observed argument for irregular curves.
 \item \code{upper} :: \code{numeric(1)}\cr
-The right boundary of the integration window. If not set, the domain end of each curve is used.
+The right boundary of the integration window.
+If not set, the domain end is used for regular curves and the last observed argument for irregular curves.
 }
 }
 
