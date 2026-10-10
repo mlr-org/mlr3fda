@@ -67,9 +67,19 @@ PipeOpFDADepth = R6Class(
           tags = c("train", "predict", "required", "depth")
         ),
         na.rm = p_lgl(init = TRUE, tags = c("train", "predict", "required", "depth")),
-        u = p_dbl(0, 1, tags = c("train", "predict", "depth"), depends = quote(method == "RPD")),
-        n_projections = p_int(1L, tags = c("train", "predict", "depth"), depends = quote(method == "RPD")),
-        n_projections_beta = p_int(1L, tags = c("train", "predict", "depth"), depends = quote(method == "RPD"))
+        u = p_dbl(0, 1, default = 0.01, tags = c("train", "predict", "depth"), depends = quote(method == "RPD")),
+        n_projections = p_int(
+          1L,
+          default = 5000L,
+          tags = c("train", "predict", "depth"),
+          depends = quote(method == "RPD")
+        ),
+        n_projections_beta = p_int(
+          1L,
+          default = 500L,
+          tags = c("train", "predict", "depth"),
+          depends = quote(method == "RPD")
+        )
       )
 
       super$initialize(
