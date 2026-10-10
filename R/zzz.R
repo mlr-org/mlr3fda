@@ -66,8 +66,8 @@ register_mlr3pipelines = function(...) {
 }
 
 .onUnload = function(libpath) {
-  walk(names(mlr3fda_tasks), \(nm) mlr_tasks$remove(nm))
-  walk(names(mlr3fda_pipeops), \(nm) mlr_pipeops$remove(nm))
+  mlr_tasks$remove(names(mlr3fda_tasks))
+  mlr_pipeops$remove(names(mlr3fda_pipeops))
   mlr_reflections$task_feature_types =
     mlr_reflections$task_feature_types[mlr_reflections$task_feature_types %nin% mlr3fda_feature_types]
   mlr_reflections$pipeops$valid_tags = setdiff(mlr_reflections$pipeops$valid_tags, mlr3fda_pipeop_tags)
