@@ -157,64 +157,64 @@ task_reg = po_reg$train(list(task))[[1L]]
 #> Warning: 2 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 54, 57
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 4888 evaluations were `NA`
+#> Warning: ℹ 4769 evaluations were `NA`
+#> ✖ Returning irregular <tfd>.
+#> This happened in PipeOp fda.register's $train()
+#> Warning: 2 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 54, 57
+#> This happened in PipeOp fda.register's $train()
+#> Warning: 2 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 54, 57
+#> This happened in PipeOp fda.register's $train()
+#> Warning: ℹ 4788 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 2 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 54, 57
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 1 `NA` entry (empty function) created.
-#> ℹ Affected index: 54
+#> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 5229 evaluations were `NA`
+#> Warning: ℹ 5063 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 1 `NA` entry (empty function) created.
-#> ℹ Affected index: 54
-#> This happened in PipeOp fda.register's $train()
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 54, 57
-#> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 4872 evaluations were `NA`
-#> ✖ Returning irregular <tfd>.
-#> This happened in PipeOp fda.register's $train()
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 54, 57
+#> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
 #> Iterative registration reached `max_iter` = 3 without convergence (tol = 0.01).
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 54, 57
+#> Warning: 1 `NA` entry (empty function) created.
+#> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 4872 evaluations were `NA`
+#> Warning: ℹ 5063 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 54, 57
+#> Warning: 1 `NA` entry (empty function) created.
+#> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 6 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 43, 83, 92, 94, 97, 102
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 5305 evaluations were `NA`
+#> Warning: ℹ 5330 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 6 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 43, 83, 92, 94, 97, 102
 #> This happened in PipeOp fda.register's $train()
-#> Warning: 6 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 43, 83, 85, 92, 94, 97
+#> Warning: 4 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 43, 92, 94, 97
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 5165 evaluations were `NA`
+#> Warning: ℹ 5283 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
-#> Warning: 6 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 43, 83, 85, 92, 94, 97
+#> Warning: 4 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 43, 92, 94, 97
 #> This happened in PipeOp fda.register's $train()
 #> Iterative registration stopped after 1 of 3 iterations: alignment worsened
-#> (objective 0.1591 > 0.1551 against the current template).
+#> (objective 0.159 > 0.1559 against the current template).
 #> Warning: 6 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 43, 83, 92, 94, 97, 102
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 5305 evaluations were `NA`
+#> Warning: ℹ 5330 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 6 `NA` entries (empty functions) created.
