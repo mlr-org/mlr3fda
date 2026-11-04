@@ -73,6 +73,9 @@ PipeOpFDAInterpol = R6Class(
             if (test_string(x)) {
               return(check_choice(x, choices = c("union", "intersect", "minmax")))
             }
+            if (test_number(x)) {
+              return(check_int(x, lower = 2L))
+            }
             if (test_numeric(x)) {
               return(check_numeric(x, finite = TRUE, any.missing = FALSE, min.len = 1L, sorted = TRUE, unique = TRUE))
             }
@@ -167,9 +170,10 @@ PipeOpFDAInterpol = R6Class(
           )
           if (length(arg) < 2L) {
             error_input(
-              "Grid '%s' has fewer than two points for column '%s'. Use grid 'union' or a numeric grid.",
+              "Grid '%s' has fewer than two points for column '%s'. Use %s.",
               grid,
-              names(dt)[[j]]
+              names(dt)[[j]],
+              if (grid == "union") "a numeric grid" else "grid 'union' or a numeric grid"
             )
           }
           set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))

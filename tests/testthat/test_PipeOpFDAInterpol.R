@@ -27,16 +27,9 @@ test_that("PipeOpFDAInterpol input validation works", {
     train_pipeop(pop, list(task)),
     "If 'left' and 'right' are set, 'grid' must be an integer of at least 2."
   )
-  pop = po("fda.interpol", grid = 1L, left = 1, right = 2)
-  expect_error(
-    train_pipeop(pop, list(task)),
-    "If 'left' and 'right' are set, 'grid' must be an integer of at least 2."
-  )
-  pop = po("fda.interpol", grid = 0L, left = 1, right = 2)
-  expect_error(
-    train_pipeop(pop, list(task)),
-    "If 'left' and 'right' are set, 'grid' must be an integer of at least 2."
-  )
+  expect_error(po("fda.interpol", grid = 1L, left = 1, right = 2), ">= 2")
+  expect_error(po("fda.interpol", grid = 0L), ">= 2")
+  expect_error(po("fda.interpol", grid = 2.5), "integerish")
   pop = po("fda.interpol", grid = 10L, left = 2, right = 1)
   expect_error(train_pipeop(pop, list(task)), "'left' must be smaller than 'right'.")
   pop = po("fda.interpol", grid = 10L, left = 2, right = 2)
