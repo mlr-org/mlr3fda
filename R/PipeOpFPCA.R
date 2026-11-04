@@ -19,7 +19,7 @@
 #'   The value of the `n_components` parameter during training.
 #'
 #' @section Parameters:
-#' The parameters are the parameters inherited from [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc],
+#' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
 #' as well as the following parameters:
 #' * `pve` :: `numeric(1)`\cr
 #'   The percentage of variance explained that should be retained. Default is `0.995`.
@@ -39,7 +39,7 @@
 #' task_fpca$data()
 PipeOpFPCA = R6Class(
   "PipeOpFPCA",
-  inherit = PipeOpTaskPreproc,
+  inherit = PipeOpTaskPreprocSimple,
   public = list(
     #' @description Initializes a new instance of this Class.
     #' @param id (`character(1)`)\cr
@@ -64,23 +64,13 @@ PipeOpFPCA = R6Class(
     }
   ),
   private = list(
-    .train_dt = function(dt, levels, target) {
+    .get_state_dt = function(dt, levels, target) {
       pars = self$param_set$get_values(tags = "fpc")
-      n_components = self$param_set$values$n_components
-
-      dt = map_dtc(dt, \(x) invoke(tf::tfb_fpc, data = x, .args = pars))
-      self$state = list(fpc = dt, n_components = n_components)
-
-      dt = imap_dtc(dt, function(col, nm) {
-        map(col, function(x) {
-          pc = as.list(x[2:min(n_components + 1L, length(x))])
-          set_names(pc, sprintf("%s_pc_%i", nm, seq_along(pc)))
-        })
-      })
-      unnest(dt, names(dt))
+      fpc = map_dtc(dt, \(x) invoke(tf::tfb_fpc, data = x, .args = pars))
+      list(fpc = fpc, n_components = self$param_set$values$n_components)
     },
 
-    .predict_dt = function(dt, levels) {
+    .transform_dt = function(dt, levels) {
       n_components = self$state$n_components
 
       dt = imap_dtc(dt, function(col, nm) {
