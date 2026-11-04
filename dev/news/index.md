@@ -10,7 +10,8 @@
   positions, which changes the features for grids other than
   `1, ..., p`.
 - fix: `PipeOpFDARegister` no longer fails during prediction when the
-  `"srvf"` method gets `penalty_method` in `args`.
+  `"srvf"` method gets `fdasrvf::time_warping()` arguments such as
+  `penalty_method` or `centroid_type` in `args`.
 - fix: `PipeOpFDAScaleRange` now keeps the evaluator and maps the domain
   to `[lower, upper]`.
 - fix: `PipeOpFDAScaleRange` now stores its state under `$state$trafos`.
