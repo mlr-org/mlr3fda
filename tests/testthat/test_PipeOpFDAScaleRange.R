@@ -47,7 +47,7 @@ test_that("PipeOpFDAScaleRange keeps evaluator and scales domain", {
   task = as_task_regr(data.table(y = 1:2, x = x), target = "y")
   pop = po("fda.scalerange")
   new_x = train_pipeop(pop, list(task))[[1L]]$data()$x
-  expect_identical(attr(new_x, "evaluator_name"), "tf_approx_spline")
+  expect_identical(tf::tf_evaluator(new_x), tf::tf_approx_spline)
   expect_equal(tf::tf_domain(new_x), c(0, 1))
   expect_equal(tf::tf_arg(new_x), c(1, 1.5, 2) / 3)
   expect_equal(predict_pipeop(pop, list(task))[[1L]]$data()$x, new_x)
