@@ -39,12 +39,10 @@ register_task = function(name, constructor) {
 }
 
 register_mlr3 = function(...) {
-  # add data types
   mlr_reflections = utils::getFromNamespace("mlr_reflections", ns = "mlr3")
   mlr_reflections$task_feature_types = named_union(mlr_reflections$task_feature_types, mlr3fda_feature_types)
   mlr_reflections$loaded_packages = union(mlr_reflections$loaded_packages, "mlr3fda")
 
-  # add tasks
   mlr_tasks = utils::getFromNamespace("mlr_tasks", ns = "mlr3")
   iwalk(as.list(mlr3fda_tasks), \(task, id) mlr_tasks$add(id, task))
 }

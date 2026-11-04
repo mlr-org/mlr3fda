@@ -98,7 +98,7 @@ PipeOpFDABsignal = R6Class(
 
       setcbindlist(imap(dt, function(x, nm) {
         blrn = invoke(FDboost::bsignal, x = as.matrix(x), s = tf::tf_arg(x), .args = pars)
-        bsignal = mboost::extract(object = blrn, what = "design") # get the design matrix of the base learner
+        bsignal = mboost::extract(object = blrn, what = "design")
         feats = as.data.table(bsignal)
         setnames(feats, sprintf("%s_bsig_%i", nm, seq_col(feats)))
       }))

@@ -135,7 +135,6 @@ PipeOpFDAExtract = R6Class(
         error_config("'left' must not be greater than 'right'.")
       }
 
-      # handle name clashes of generated features with existing columns
       feature_names = imap_chr(features, \(value, nm) if (is.function(value)) nm else value)
       feature_names = as.vector(t(outer(cols, feature_names, paste, sep = "_")))
 
