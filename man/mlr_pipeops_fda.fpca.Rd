@@ -26,7 +26,7 @@ The value of the \code{n_components} parameter during training.
 
 \section{Parameters}{
 
-The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}},
+The parameters are the parameters inherited from \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{PipeOpTaskPreprocSimple}},
 as well as the following parameters:
 \itemize{
 \item \code{pve} :: \code{numeric(1)}\cr
@@ -50,7 +50,7 @@ task_fpca = po_fpca$train(list(task))[[1L]]
 task_fpca$data()
 }
 \section{Super classes}{
-\code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{PipeOpFPCA}
+\code{\link[mlr3pipelines:PipeOp]{mlr3pipelines::PipeOp}} -> \code{\link[mlr3pipelines:PipeOpTaskPreproc]{mlr3pipelines::PipeOpTaskPreproc}} -> \code{\link[mlr3pipelines:PipeOpTaskPreprocSimple]{mlr3pipelines::PipeOpTaskPreprocSimple}} -> \code{PipeOpFPCA}
 }
 \section{Methods}{
 \subsection{Public methods}{
