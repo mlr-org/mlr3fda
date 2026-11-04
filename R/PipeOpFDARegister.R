@@ -41,6 +41,8 @@
 #'   [tf::tf_estimate_warps()] for valid arguments (e.g. `lambda` / `penalty_method` for `"srvf"`;
 #'   `nbasis`, `lambda`, `crit`, `conv`, `iterlim` for `"cc"`; `type`, `shift_range`, `scale_range`
 #'   for `"affine"`). An optional `template` entry is honored at training time and stored in the state.
+#'   For `"srvf"`, prediction aligns each curve to the stored template via [fdasrvf::pair_align_functions()],
+#'   so only `lambda` and `penalty_method` are used at predict time.
 #' * `max_iter` :: `integer(1)`\cr
 #'   Maximum number of Procrustes-style template refinement iterations during training. Default is `3`.
 #'   Only used by `"cc"` and `"affine"` when no `template` is supplied in `args`.
@@ -109,9 +111,9 @@ PipeOpFDARegister = R6Class(
     .predict_dt = function(dt, levels) {
       pars = self$param_set$get_values(tags = c("predict", "register"))
       args = c(remove_named(pars, "args"), pars$args)
-      if ((args$method %??% "srvf") == "srvf" && !is.null(args$penalty_method)) {
-        # with a template, tf aligns via fdasrvf::pair_align_functions(), which names this argument `pen`
-        args = insert_named(remove_named(args, "penalty_method"), list(pen = args$penalty_method))
+      if ((args$method %??% "srvf") == "srvf") {
+        # with a template, tf uses fdasrvf::pair_align_functions(), which only accepts `lambda` and `pen`
+        args = discard(list(method = args$method, lambda = args$lambda, pen = args$penalty_method), is.null)
       }
       templates = self$state$templates
       for (j in names(dt)) {
