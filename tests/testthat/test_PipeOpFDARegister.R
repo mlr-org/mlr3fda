@@ -136,6 +136,21 @@ test_that("PipeOpFDARegister - srvf training args work during prediction", {
   expect_equal(new_pred$f, tf::tf_aligned(reg_direct))
 })
 
+test_that("PipeOpFDARegister - srvf with template in args aligns the same in train and predict", {
+  skip_if_not_installed("fdasrvf")
+
+  t = seq(0, 1, length.out = 41L)
+  mat = t(sapply(c(-0.05, 0, 0.05, 0.1), function(s) dnorm(t, 0.5 + s, 0.12)))
+  dt = data.table(y = 1:4 + 0, f = tf::tfd(mat, arg = t))
+  task = as_task_regr(dt, target = "y")
+
+  args = list(template = mean(dt$f), lambda = 0.5, pen = "geodesic", centroid_type = "median")
+  pop = po("fda.register", method = "srvf", args = args)
+  new_train = suppressMessages(train_pipeop(pop, list(task)))[[1L]]$data()
+  new_pred = suppressMessages(predict_pipeop(pop, list(task)))[[1L]]$data()
+  expect_equal(new_pred$f, new_train$f)
+})
+
 test_that("PipeOpFDARegister - multiple columns and fuel task", {
   task = tsk("fuel")
   pop = po("fda.register", method = "affine", args = list(type = "shift"))

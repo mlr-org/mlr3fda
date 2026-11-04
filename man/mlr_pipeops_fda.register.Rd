@@ -51,8 +51,9 @@ Method-specific arguments passed to \code{\link[tf:tf_register]{tf::tf_register(
 \code{\link[tf:tf_estimate_warps]{tf::tf_estimate_warps()}} for valid arguments (e.g. \code{lambda} / \code{penalty_method} for \code{"srvf"};
 \code{nbasis}, \code{lambda}, \code{crit}, \code{conv}, \code{iterlim} for \code{"cc"}; \code{type}, \code{shift_range}, \code{scale_range}
 for \code{"affine"}). An optional \code{template} entry is honored at training time and stored in the state.
-For \code{"srvf"}, prediction aligns each curve to the stored template via \code{\link[fdasrvf:pair_align_functions]{fdasrvf::pair_align_functions()}},
-so only \code{lambda} and \code{penalty_method} are used at predict time.
+For \code{"srvf"} with a template (always during prediction, and during training if \code{args} contains \code{template}),
+each curve is aligned via \code{\link[fdasrvf:pair_align_functions]{fdasrvf::pair_align_functions()}},
+so only \code{lambda}, \code{penalty_method} (or \code{pen}), \code{w}, and \code{iter} are used.
 \item \code{max_iter} :: \code{integer(1)}\cr
 Maximum number of Procrustes-style template refinement iterations during training. Default is \code{3}.
 Only used by \code{"cc"} and \code{"affine"} when no \code{template} is supplied in \code{args}.

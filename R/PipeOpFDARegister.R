@@ -41,8 +41,9 @@
 #'   [tf::tf_estimate_warps()] for valid arguments (e.g. `lambda` / `penalty_method` for `"srvf"`;
 #'   `nbasis`, `lambda`, `crit`, `conv`, `iterlim` for `"cc"`; `type`, `shift_range`, `scale_range`
 #'   for `"affine"`). An optional `template` entry is honored at training time and stored in the state.
-#'   For `"srvf"`, prediction aligns each curve to the stored template via [fdasrvf::pair_align_functions()],
-#'   so only `lambda` and `penalty_method` are used at predict time.
+#'   For `"srvf"` with a template (always during prediction, and during training if `args` contains `template`),
+#'   each curve is aligned via [fdasrvf::pair_align_functions()],
+#'   so only `lambda`, `penalty_method` (or `pen`), `w`, and `iter` are used.
 #' * `max_iter` :: `integer(1)`\cr
 #'   Maximum number of Procrustes-style template refinement iterations during training. Default is `3`.
 #'   Only used by `"cc"` and `"affine"` when no `template` is supplied in `args`.
@@ -97,6 +98,9 @@ PipeOpFDARegister = R6Class(
     .train_dt = function(dt, levels, target) {
       pars = self$param_set$get_values(tags = c("train", "register"))
       args = c(remove_named(pars, "args"), pars$args)
+      if (!is.null(args$template)) {
+        args = srvf_template_args(args)
+      }
       templates = vector("list", length(dt))
       names(templates) = names(dt)
       for (j in names(dt)) {
@@ -110,11 +114,7 @@ PipeOpFDARegister = R6Class(
 
     .predict_dt = function(dt, levels) {
       pars = self$param_set$get_values(tags = c("predict", "register"))
-      args = c(remove_named(pars, "args"), pars$args)
-      if ((args$method %??% "srvf") == "srvf") {
-        # with a template, tf uses fdasrvf::pair_align_functions(), which only accepts `lambda` and `pen`
-        args = discard(list(method = args$method, lambda = args$lambda, pen = args$penalty_method), is.null)
-      }
+      args = srvf_template_args(c(remove_named(pars, "args"), pars$args))
       templates = self$state$templates
       for (j in names(dt)) {
         args$template = templates[[j]]
@@ -128,3 +128,11 @@ PipeOpFDARegister = R6Class(
 
 #' @include zzz.R
 register_po("fda.register", PipeOpFDARegister)
+
+srvf_template_args = function(args) {
+  if ((args$method %??% "srvf") != "srvf") {
+    return(args)
+  }
+  args$pen = args$pen %??% args$penalty_method
+  args[intersect(names(args), c("method", "template", "max_iter", "tol", "lambda", "pen", "w", "iter"))]
+}
