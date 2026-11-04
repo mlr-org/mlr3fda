@@ -133,7 +133,7 @@ glrn$predict(task, row_ids = ids$test)
 | [fda.random_effect](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.random_effect) | Extract Random Effects from Functional Columns | [tf](https://cran.r-project.org/package=tf), [lme4](https://cran.r-project.org/package=lme4) | fda, data transform |
 | [fda.register](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.register) | Register (Align) Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.scalerange](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.scalerange) | Linearly Transform the Domain of Functional Data | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
-| [fda.smooth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth) | Smooth Functional Columns | [tf](https://cran.r-project.org/package=tf), stats | fda, data transform |
+| [fda.smooth](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.smooth) | Smooth Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |
 | [fda.tsfeats](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.tsfeats) | Time Series Feature Extraction | [tf](https://cran.r-project.org/package=tf), [tsfeatures](https://cran.r-project.org/package=tsfeatures) | fda, data transform |
 | [fda.wavelets](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.wavelets) | Discrete Wavelet Transform Features | [tf](https://cran.r-project.org/package=tf), [wavelets](https://cran.r-project.org/package=wavelets) | fda, data transform |
 | [fda.zoom](https://mlr3fda.mlr-org.com/dev/reference/mlr_pipeops_fda.zoom) | Zoom In/Out on Functional Columns | [tf](https://cran.r-project.org/package=tf) | fda, data transform |

@@ -31,7 +31,7 @@ as well as:
 ## Parameters
 
 The parameters are the parameters inherited from
-[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html),
+[`PipeOpTaskPreprocSimple`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html),
 as well as the following parameters:
 
 - `pve` :: `numeric(1)`  
@@ -54,6 +54,8 @@ components, the corresponding new columns will be called
 [`mlr3pipelines::PipeOp`](https://mlr3pipelines.mlr-org.com/reference/PipeOp.html)
 -\>
 [`mlr3pipelines::PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html)
+-\>
+[`mlr3pipelines::PipeOpTaskPreprocSimple`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreprocSimple.html)
 -\> `PipeOpFPCA`
 
 ## Methods
