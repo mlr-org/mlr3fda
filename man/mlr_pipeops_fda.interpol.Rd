@@ -8,11 +8,17 @@
 Interpolate functional features (e.g. all individuals are observed at different time-points) to a common grid.
 This is useful if you want to compare functional features across observations.
 The interpolation is done using the \code{tf} package. See \code{\link[tf:tfd]{tfd()}} for details.
+
+The grid of each functional column is determined during training and reused during prediction.
 }
 \section{State}{
 
 The \verb{$state} is a named \code{list} with the \verb{$state} elements inherited from
-\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}.
+\code{\link[mlr3pipelines:PipeOpTaskPreproc]{PipeOpTaskPreproc}}, as well as:
+\itemize{
+\item \code{grids} :: named \code{list()}\cr
+The interpolation grid for each functional column, or \code{NULL} if the column is left unchanged.
+}
 }
 
 \section{Parameters}{

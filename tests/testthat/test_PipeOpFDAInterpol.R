@@ -208,6 +208,24 @@ test_that("PipeOpFDAInterpol errors if minmax or intersect grid has fewer than t
   )
 })
 
+test_that("PipeOpFDAInterpol reuses the training grid during prediction", {
+  f = tf::tfd(
+    list(1:3, 4:6, 7:9, 10:12),
+    arg = list(c(0, 0.5, 1), c(0.25, 0.5, 1), c(0, 0.75, 1), c(0, 0.1, 1)),
+    domain = c(0, 1)
+  )
+  task = as_task_regr(data.table(y = 1:4 + 0, f = f), target = "y")
+  grids = list(union = c(0, 0.25, 0.5, 1), intersect = c(0.5, 1), minmax = c(0.25, 0.5, 1))
+  for (grid in names(grids)) {
+    pop = po("fda.interpol", grid = grid, method = "fill_extend")
+    train_pipeop(pop, list(task$clone()$filter(1:2)))
+    expected = grids[[grid]]
+    expect_equal(pop$state$grids$f, expected)
+    new_pred = predict_pipeop(pop, list(task$clone()$filter(3:4)))[[1L]]$data()
+    expect_equal(tf::tf_arg(new_pred$f), expected)
+  }
+})
+
 test_that("PipeOpFDAInterpol works with union", {
   # tfr works
   dt = data.table(

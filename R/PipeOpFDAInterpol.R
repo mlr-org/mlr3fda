@@ -7,9 +7,13 @@
 #' This is useful if you want to compare functional features across observations.
 #' The interpolation is done using the `tf` package. See [`tfd()`][tf::tfd] for details.
 #'
+#' The grid of each functional column is determined during training and reused during prediction.
+#'
 #' @section State:
 #' The `$state` is a named `list` with the `$state` elements inherited from
-#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc].
+#' [`PipeOpTaskPreproc`][mlr3pipelines::PipeOpTaskPreproc], as well as:
+#' * `grids` :: named `list()`\cr
+#'   The interpolation grid for each functional column, or `NULL` if the column is left unchanged.
 #'
 #' @section Parameters:
 #' The parameters are the parameters inherited from [`PipeOpTaskPreprocSimple`][mlr3pipelines::PipeOpTaskPreprocSimple],
@@ -102,10 +106,9 @@ PipeOpFDAInterpol = R6Class(
     }
   ),
   private = list(
-    .transform_dt = function(dt, levels) {
+    .get_state_dt = function(dt, levels, target) {
       pars = self$param_set$get_values()
       grid = pars$grid
-      method = pars$method
       left = pars$left
       right = pars$right
       has_left = !is.null(left)
@@ -121,62 +124,58 @@ PipeOpFDAInterpol = R6Class(
           error_config("'left' must be smaller than 'right'.")
         }
       }
-      method = method %??% "linear"
-      evaluator = sprintf("tf_approx_%s", method)
-
-      if (is.numeric(grid)) {
-        if (length(grid) > 1L && !has_left && !has_right) {
-          max_grid = max(grid)
-          min_grid = min(grid)
-          for (j in seq_along(dt)) {
-            x = dt[[j]]
-            domain = tf::tf_domain(x)
-            if (min_grid < domain[[1L]] || max_grid > domain[[2L]]) {
-              error_config("'grid' must be within the domain of column '%s'.", names(dt)[[j]])
-            }
-            set(dt, j = j, value = invoke(tf::tfd, data = x, arg = grid, .args = list(evaluator = evaluator)))
-          }
-          return(dt)
-        }
+      if (is.numeric(grid) && length(grid) == 1L) {
         if (!has_left) {
           error_config("If 'grid' is a single count, 'left' and 'right' must be specified.")
         }
-        arg = seq(left, right, length.out = grid)
-        for (j in seq_along(dt)) {
-          x = dt[[j]]
-          domain = tf::tf_domain(x)
-          if (left < domain[[1L]] || right > domain[[2L]]) {
-            error_config("'left' and 'right' must be within the domain of column '%s'.", names(dt)[[j]])
-          }
-          set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
-        }
-        return(dt)
+        grid = seq(left, right, length.out = grid)
       }
 
-      for (j in seq_along(dt)) {
-        x = dt[[j]]
-        if (tf::is_irreg(x)) {
-          arg = tf::tf_arg(x)
-          arg = switch(
-            grid,
-            union = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE))),
-            intersect = Reduce(intersect, arg),
-            minmax = {
-              lower = max(map_dbl(arg, 1L))
-              upper = min(map_dbl(arg, \(arg) arg[[length(arg)]]))
-              arg = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE)))
-              arg[arg >= lower & arg <= upper]
+      grids = imap(dt, function(x, nm) {
+        if (is.numeric(grid)) {
+          domain = tf::tf_domain(x)
+          if (grid[[1L]] < domain[[1L]] || grid[[length(grid)]] > domain[[2L]]) {
+            if (has_left) {
+              error_config("'left' and 'right' must be within the domain of column '%s'.", nm)
             }
-          )
-          if (length(arg) < 2L) {
-            error_input(
-              "Grid '%s' has fewer than two points for column '%s'. Use %s.",
-              grid,
-              names(dt)[[j]],
-              if (grid == "union") "a numeric grid" else "grid 'union' or a numeric grid"
-            )
+            error_config("'grid' must be within the domain of column '%s'.", nm)
           }
-          set(dt, j = j, value = invoke(tf::tfd, data = x, arg = arg, .args = list(evaluator = evaluator)))
+          return(grid)
+        }
+        if (tf::is_reg(x)) {
+          return(NULL)
+        }
+        arg = tf::tf_arg(x)
+        arg = switch(
+          grid,
+          union = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE))),
+          intersect = Reduce(intersect, arg),
+          minmax = {
+            lower = max(map_dbl(arg, 1L))
+            upper = min(map_dbl(arg, \(arg) arg[[length(arg)]]))
+            arg = sort(unique(unlist(arg, recursive = FALSE, use.names = FALSE)))
+            arg[arg >= lower & arg <= upper]
+          }
+        )
+        if (length(arg) < 2L) {
+          error_input(
+            "Grid '%s' has fewer than two points for column '%s'. Use %s.",
+            grid,
+            nm,
+            if (grid == "union") "a numeric grid" else "grid 'union' or a numeric grid"
+          )
+        }
+        arg
+      })
+      list(grids = grids)
+    },
+
+    .transform_dt = function(dt, levels) {
+      evaluator = sprintf("tf_approx_%s", self$param_set$values$method %??% "linear")
+      for (j in names(dt)) {
+        arg = self$state$grids[[j]]
+        if (!is.null(arg)) {
+          set(dt, j = j, value = invoke(tf::tfd, data = dt[[j]], arg = arg, .args = list(evaluator = evaluator)))
         }
       }
       dt
