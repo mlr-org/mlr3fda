@@ -107,8 +107,9 @@ Method-specific arguments passed to <code><a href="https://tidyfun.github.io/tf/
 <code><a href="https://tidyfun.github.io/tf/reference/tf_estimate_warps.html" class="external-link">tf::tf_estimate_warps()</a></code> for valid arguments (e.g. <code>lambda</code> / <code>penalty_method</code> for <code>"srvf"</code>;
 <code>nbasis</code>, <code>lambda</code>, <code>crit</code>, <code>conv</code>, <code>iterlim</code> for <code>"cc"</code>; <code>type</code>, <code>shift_range</code>, <code>scale_range</code>
 for <code>"affine"</code>). An optional <code>template</code> entry is honored at training time and stored in the state.
-For <code>"srvf"</code>, prediction aligns each curve to the stored template via <code>fdasrvf::pair_align_functions()</code>,
-so only <code>lambda</code> and <code>penalty_method</code> are used at predict time.</p></li>
+For <code>"srvf"</code> with a template (always during prediction, and during training if <code>args</code> contains <code>template</code>),
+each curve is aligned via <code>fdasrvf::pair_align_functions()</code>,
+so only <code>lambda</code>, <code>penalty_method</code> (or <code>pen</code>), <code>w</code>, and <code>iter</code> are used.</p></li>
 <li><p><code>max_iter</code> :: <code>integer(1)</code><br>
 Maximum number of Procrustes-style template refinement iterations during training. Default is <code>3</code>.
 Only used by <code>"cc"</code> and <code>"affine"</code> when no <code>template</code> is supplied in <code>args</code>.

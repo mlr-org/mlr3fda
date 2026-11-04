@@ -65,9 +65,10 @@ as well as the following parameters:
   `nbasis`, `lambda`, `crit`, `conv`, `iterlim` for `"cc"`; `type`,
   `shift_range`, `scale_range` for `"affine"`). An optional `template`
   entry is honored at training time and stored in the state. For
-  `"srvf"`, prediction aligns each curve to the stored template via
-  `fdasrvf::pair_align_functions()`, so only `lambda` and
-  `penalty_method` are used at predict time.
+  `"srvf"` with a template (always during prediction, and during
+  training if `args` contains `template`), each curve is aligned via
+  `fdasrvf::pair_align_functions()`, so only `lambda`, `penalty_method`
+  (or `pen`), `w`, and `iter` are used.
 
 - `max_iter` :: `integer(1)`  
   Maximum number of Procrustes-style template refinement iterations

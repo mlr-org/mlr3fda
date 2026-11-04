@@ -33,7 +33,8 @@ as well as the following parameters:
 
 - `args` :: named [`list()`](https://rdrr.io/r/base/list.html)  
   List of named arguments that is passed to `tf_smooth()`. See the help
-  page of `tf_smooth()` for default values.
+  page of `tf_smooth()` for default values. Must not contain `method` or
+  `verbose`, use the parameters of this `PipeOp` instead.
 
 - `verbose` :: `logical(1)`  
   Whether to print messages during the transformation. Is initialized to

@@ -79,7 +79,8 @@ One of:</p><ul><li><p><code>"lowess"</code>: locally weighted scatterplot smooth
 </ul><p>All methods but <code>"lowess"</code> ignore non-equidistant arg values.</p></li>
 <li><p><code>args</code> :: named <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code><br>
 List of named arguments that is passed to <code>tf_smooth()</code>. See the help page of <code>tf_smooth()</code> for
-default values.</p></li>
+default values.
+Must not contain <code>method</code> or <code>verbose</code>, use the parameters of this <code>PipeOp</code> instead.</p></li>
 <li><p><code>verbose</code> :: <code>logical(1)</code><br>
 Whether to print messages during the transformation.
 Is initialized to <code>FALSE</code>.</p></li>
