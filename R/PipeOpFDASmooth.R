@@ -25,6 +25,7 @@
 #' * `args` :: named `list()`\cr
 #'   List of named arguments that is passed to `tf_smooth()`. See the help page of `tf_smooth()` for
 #'   default values.
+#'   Must not contain `method` or `verbose`, use the parameters of this `PipeOp` instead.
 #' * `verbose` :: `logical(1)`\cr
 #'   Whether to print messages during the transformation.
 #'   Is initialized to `FALSE`.
@@ -56,7 +57,13 @@ PipeOpFDASmooth = R6Class(
         args = p_uty(
           init = list(),
           tags = c("train", "predict", "required"),
-          custom_check = crate(\(x) check_list(x, names = "unique"))
+          custom_check = crate(function(x) {
+            res = check_list(x, names = "unique")
+            if (!isTRUE(res)) {
+              return(res)
+            }
+            check_disjunct(names(x), c("x", "method", "verbose"))
+          })
         ),
         verbose = p_lgl(init = FALSE, tags = c("train", "predict", "required"))
       )

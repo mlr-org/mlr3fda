@@ -4,6 +4,11 @@ test_that("PipeOpFDASmooth - basic properties", {
   expect_identical(pop$id, "fda.smooth")
 })
 
+test_that("PipeOpFDASmooth - args must not contain method or verbose", {
+  expect_error(po("fda.smooth", args = list(verbose = TRUE)), "disjunct")
+  expect_error(po("fda.smooth", args = list(method = "rollmean")), "disjunct")
+})
+
 test_that("PipeOpFDASmooth", {
   test_cca = function(method, args) {
     po_smooth = po("fda.smooth")

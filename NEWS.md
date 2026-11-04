@@ -1,6 +1,6 @@
 # mlr3fda (development version)
 
-* fix: Stricter parameter checks with informative errors in `PipeOpFDACor`, `PipeOpFDADerive`, `PipeOpFDAExtract`, `PipeOpFDAIntegrate`, `PipeOpFDAInterpol`, `PipeOpFDAScaleRange`, `PipeOpFDAWavelets`, and `PipeOpFDAZoom`.
+* fix: Stricter parameter checks with informative errors in `PipeOpFDACor`, `PipeOpFDADerive`, `PipeOpFDAExtract`, `PipeOpFDAIntegrate`, `PipeOpFDAInterpol`, `PipeOpFDAScaleRange`, `PipeOpFDASmooth`, `PipeOpFDAWavelets`, and `PipeOpFDAZoom`.
 * fix: `PipeOpFDABsignal` now uses the argument values instead of index positions, which changes the features for grids other than `1, ..., p`.
 * fix: `PipeOpFDARegister` no longer fails during prediction when the `"srvf"` method gets `fdasrvf::time_warping()` arguments such as `penalty_method` or `centroid_type` in `args`.
 * fix: `PipeOpFDAScaleRange` now keeps the evaluator and maps the domain to `[lower, upper]`.

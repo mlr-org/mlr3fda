@@ -33,6 +33,7 @@ All methods but \code{"lowess"} ignore non-equidistant arg values.
 \item \code{args} :: named \code{list()}\cr
 List of named arguments that is passed to \code{tf_smooth()}. See the help page of \code{tf_smooth()} for
 default values.
+Must not contain \code{method} or \code{verbose}, use the parameters of this \code{PipeOp} instead.
 \item \code{verbose} :: \code{logical(1)}\cr
 Whether to print messages during the transformation.
 Is initialized to \code{FALSE}.
