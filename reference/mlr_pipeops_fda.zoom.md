@@ -7,6 +7,11 @@ functional data to focus on a specific region of interest. Calls
 [`tf::tf_zoom()`](https://tidyfun.github.io/tf/reference/tf_zoom.html)
 from package [tf](https://CRAN.R-project.org/package=tf).
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from

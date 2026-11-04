@@ -22,6 +22,16 @@ preprocessing step. For landmark registration, use
 [`tf::tf_register()`](https://tidyfun.github.io/tf/reference/tf_register.html)
 directly and feed the aligned data into the task.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html),
+as well as:
+
+- `templates` :: named [`list()`](https://rdrr.io/r/base/list.html)  
+  The learned template (as a length-1 `tf` vector) for each functional
+  column, used for registration during prediction.
+
 ## Parameters
 
 The parameters are the parameters inherited from
@@ -54,21 +64,25 @@ as well as the following parameters:
   for valid arguments (e.g. `lambda` / `penalty_method` for `"srvf"`;
   `nbasis`, `lambda`, `crit`, `conv`, `iterlim` for `"cc"`; `type`,
   `shift_range`, `scale_range` for `"affine"`). An optional `template`
-  entry is honored at training time and stored in the state.
+  entry is honored at training time and stored in the state. For
+  `"srvf"` with a template (always during prediction, and during
+  training if `args` contains `template`), each curve is aligned via
+  `fdasrvf::pair_align_functions()`, so only `lambda`, `penalty_method`
+  (or `pen`), `w`, and `iter` are used.
 
 - `max_iter` :: `integer(1)`  
   Maximum number of Procrustes-style template refinement iterations
-  during training. Default is `3`. Ignored at predict time because the
-  stored template is used directly.
+  during training. Default is `3`. Only used by `"cc"` and `"affine"`
+  when no `template` is supplied in `args`. For `"srvf"`, the template
+  is the Karcher mean computed by
+  [fdasrvf](https://CRAN.R-project.org/package=fdasrvf), which uses its
+  own iteration limit. Ignored at predict time because the stored
+  template is used directly.
 
 - `tol` :: `numeric(1)`  
   Convergence tolerance for template refinement during training. Default
-  is `0.01`.
-
-## State
-
-`$state$templates` contains the learned template (as a length-1 `tf`
-vector) for each functional column.
+  is `0.01`. Only used by `"cc"` and `"affine"` when no `template` is
+  supplied in `args`.
 
 ## Super classes
 
@@ -143,7 +157,16 @@ task_reg = po_reg$train(list(task))[[1L]]
 #> Warning: 2 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 54, 57
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 4888 evaluations were `NA`
+#> Warning: ℹ 4769 evaluations were `NA`
+#> ✖ Returning irregular <tfd>.
+#> This happened in PipeOp fda.register's $train()
+#> Warning: 2 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 54, 57
+#> This happened in PipeOp fda.register's $train()
+#> Warning: 2 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 54, 57
+#> This happened in PipeOp fda.register's $train()
+#> Warning: ℹ 4788 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 2 `NA` entries (empty functions) created.
@@ -152,55 +175,46 @@ task_reg = po_reg$train(list(task))[[1L]]
 #> Warning: 1 `NA` entry (empty function) created.
 #> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 4942 evaluations were `NA`
+#> Warning: ℹ 5063 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 1 `NA` entry (empty function) created.
 #> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 57, 81
-#> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 4689 evaluations were `NA`
-#> ✖ Returning irregular <tfd>.
-#> This happened in PipeOp fda.register's $train()
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 57, 81
-#> This happened in PipeOp fda.register's $train()
 #> Iterative registration reached `max_iter` = 3 without convergence (tol = 0.01).
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 57, 81
+#> Warning: 1 `NA` entry (empty function) created.
+#> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 4689 evaluations were `NA`
+#> Warning: ℹ 5063 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
-#> Warning: 2 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 57, 81
+#> Warning: 1 `NA` entry (empty function) created.
+#> ℹ Affected index: 57
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 6 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 43, 83, 92, 94, 97, 102
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 5239 evaluations were `NA`
+#> Warning: ℹ 5330 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 6 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 43, 83, 92, 94, 97, 102
 #> This happened in PipeOp fda.register's $train()
-#> Warning: 5 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 83, 92, 94, 97, 106
+#> Warning: 4 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 43, 92, 94, 97
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 5341 evaluations were `NA`
+#> Warning: ℹ 5283 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
-#> Warning: 5 `NA` entries (empty functions) created.
-#> ℹ Affected indices: 83, 92, 94, 97, 106
+#> Warning: 4 `NA` entries (empty functions) created.
+#> ℹ Affected indices: 43, 92, 94, 97
 #> This happened in PipeOp fda.register's $train()
 #> Iterative registration stopped after 1 of 3 iterations: alignment worsened
-#> (objective 0.1588 > 0.1586 against the current template).
+#> (objective 0.159 > 0.1559 against the current template).
 #> Warning: 6 `NA` entries (empty functions) created.
 #> ℹ Affected indices: 43, 83, 92, 94, 97, 102
 #> This happened in PipeOp fda.register's $train()
-#> Warning: ℹ 5239 evaluations were `NA`
+#> Warning: ℹ 5330 evaluations were `NA`
 #> ✖ Returning irregular <tfd>.
 #> This happened in PipeOp fda.register's $train()
 #> Warning: 6 `NA` entries (empty functions) created.

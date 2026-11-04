@@ -5,6 +5,11 @@ more details, see [`stats::fft()`](https://rdrr.io/r/stats/fft.html),
 which is called internally. Only the one-sided spectrum is returned
 since the input is real-valued (Oppenheim and Schafer, 2010).
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from

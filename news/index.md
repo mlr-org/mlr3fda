@@ -1,6 +1,32 @@
 # Changelog
 
+## mlr3fda 0.8.0
+
+- fix: Stricter parameter checks with informative errors in
+  `PipeOpFDACor`, `PipeOpFDADerive`, `PipeOpFDAExtract`,
+  `PipeOpFDAIntegrate`, `PipeOpFDAInterpol`, `PipeOpFDAScaleRange`,
+  `PipeOpFDASmooth`, `PipeOpFDAWavelets`, and `PipeOpFDAZoom`.
+- fix: `PipeOpFDABsignal` now uses the argument values instead of index
+  positions, which changes the features for grids other than
+  `1, ..., p`.
+- fix: `PipeOpFDAInterpol` now determines the `"union"`, `"intersect"`,
+  and `"minmax"` grids during training and reuses them during
+  prediction, instead of computing them from the prediction data.
+- fix: `PipeOpFDARegister` no longer fails during prediction when the
+  `"srvf"` method gets `fdasrvf::time_warping()` arguments such as
+  `penalty_method` or `centroid_type` in `args`.
+- fix: `PipeOpFDAScaleRange` now keeps the evaluator and maps the domain
+  to `[lower, upper]`.
+- fix: `PipeOpFDAScaleRange` now stores its state under `$state$trafos`.
+- fix: `PipeOpFDAWavelets` no longer supports irregular functional data,
+  where coefficients of curves with different lengths were misaligned.
+  Use `PipeOpFDAInterpol` first.
+- fix: `PipeOpFPCA` now uses the `n_components` from training during
+  prediction.
+
 ## mlr3fda 0.7.2
+
+CRAN release: 2026-08-21
 
 - docs: Various documentation improvements.
 - fix: `PipeOp`s no longer forward `affect_columns` to their backend

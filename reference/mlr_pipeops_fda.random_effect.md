@@ -10,6 +10,11 @@ regressed on the functional feature's argument while subject id
 determines the grouping structure. After model estimation, the random
 effects are extracted and assigned to the correct id.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from

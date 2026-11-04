@@ -6,6 +6,11 @@ For more details, see
 [`tsfeatures::tsfeatures()`](http://pkg.robjhyndman.com/tsfeatures/reference/tsfeatures.md),
 which is called internally.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from

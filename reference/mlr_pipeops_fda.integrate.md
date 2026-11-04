@@ -5,9 +5,16 @@ Computes the definite integral of functional features via
 The integral summarizes each curve into a single scalar, namely the
 (signed) area under the curve over its domain.
 
-By default the integral is taken over the full domain of each curve. The
-`lower` and `upper` parameters restrict the integration to a window. The
-same operation is applied during training and prediction.
+By default, regular curves are integrated over their domain and
+irregular curves over their observed range. Set `lower` and `upper` to
+integrate over a common window. Curves not observed over the whole
+window get `NA`. The same operation is applied during training and
+prediction.
+
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
 
 ## Parameters
 
@@ -17,11 +24,13 @@ as well as the following parameters:
 
 - `lower` :: `numeric(1)`  
   The left boundary of the integration window. If not set, the domain
-  start of each curve is used.
+  start is used for regular curves and the first observed argument for
+  irregular curves.
 
 - `upper` :: `numeric(1)`  
   The right boundary of the integration window. If not set, the domain
-  end of each curve is used.
+  end is used for regular curves and the last observed argument for
+  irregular curves.
 
 ## Naming
 

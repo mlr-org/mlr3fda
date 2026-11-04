@@ -6,6 +6,19 @@ compare functional features across observations. The interpolation is
 done using the `tf` package. See
 [`tfd()`](https://tidyfun.github.io/tf/reference/tfd.html) for details.
 
+The grid of each functional column is determined during training and
+reused during prediction.
+
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html),
+as well as:
+
+- `grids` :: named [`list()`](https://rdrr.io/r/base/list.html)  
+  The interpolation grid for each functional column, or `NULL` if the
+  column is left unchanged.
+
 ## Parameters
 
 The parameters are the parameters inherited from
@@ -15,9 +28,9 @@ as well as the following parameters:
 - `grid` :: `character(1)` \|
   [`numeric()`](https://rdrr.io/r/base/numeric.html)  
   The grid to use for interpolation. If `grid` is numeric, it must be a
-  sequence of values to use for the grid or a single value that
-  specifies the number of points to use for the grid, requires `left`
-  and `right` to be specified in the latter case. If `grid` is a
+  sequence of values to use for the grid, or a single value of at least
+  2 that specifies the number of points to use for the grid, requires
+  `left` and `right` to be specified in the latter case. If `grid` is a
   character, it must be one of:
 
   - `"union"`: This option creates a grid based on the union of all

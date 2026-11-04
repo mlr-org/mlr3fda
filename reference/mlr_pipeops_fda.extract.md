@@ -4,6 +4,11 @@ This is the class that extracts simple features from functional columns.
 Note that it only operates on values that were actually observed and
 does not interpolate.
 
+## State
+
+The `$state` is a named `list` with the `$state` elements inherited from
+[`PipeOpTaskPreproc`](https://mlr3pipelines.mlr-org.com/reference/PipeOpTaskPreproc.html).
+
 ## Parameters
 
 The parameters are the parameters inherited from
