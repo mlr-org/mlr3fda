@@ -2,6 +2,8 @@
 
 ## mlr3fda (development version)
 
+## mlr3fda 0.8.0
+
 - fix: Stricter parameter checks with informative errors in
   `PipeOpFDACor`, `PipeOpFDADerive`, `PipeOpFDAExtract`,
   `PipeOpFDAIntegrate`, `PipeOpFDAInterpol`, `PipeOpFDAScaleRange`,
