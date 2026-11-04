@@ -101,8 +101,7 @@ PipeOpFDARegister = R6Class(
       if (!is.null(args$template)) {
         args = srvf_template_args(args)
       }
-      templates = vector("list", length(dt))
-      names(templates) = names(dt)
+      templates = named_list(names(dt))
       for (j in names(dt)) {
         reg = invoke(tf::tf_register, x = dt[[j]], store_x = FALSE, .args = args)
         templates[[j]] = tf::tf_template(reg)

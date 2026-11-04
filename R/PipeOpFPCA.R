@@ -76,7 +76,7 @@ PipeOpFPCA = R6Class(
       dt = imap_dtc(dt, function(col, nm) {
         fpc = invoke(tf::tf_rebase, object = col, basis_from = self$state$fpc[[nm]], arg = tf::tf_arg(col))
         map(fpc, function(x) {
-          pc = as.list(x[2:min(n_components + 1L, length(x))])
+          pc = as.list(head(x[-1L], n_components))
           set_names(pc, sprintf("%s_pc_%i", nm, seq_along(pc)))
         })
       })

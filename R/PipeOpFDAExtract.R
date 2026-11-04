@@ -141,7 +141,7 @@ PipeOpFDAExtract = R6Class(
       if (anyDuplicated(c(task$col_info$id, feature_names))) {
         unique_names = make.unique(c(task$col_info$id, feature_names), sep = "_")
         feature_names = tail(unique_names, length(feature_names))
-        lg$debug(sprintf("Renamed duplicate feature names in PipeOp '%s'.", self$id), feature_names = feature_names)
+        lg$debug("Renamed duplicate feature names in PipeOp '%s'.", self$id, feature_names = feature_names)
       }
 
       features = map(features, function(feature) {
