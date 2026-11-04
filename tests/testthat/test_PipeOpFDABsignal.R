@@ -14,14 +14,12 @@ test_that("PipeOpFDABsignal works", {
   new_data = task_bsignal$data()
   expect_task(task_bsignal)
   expect_shape(new_data, dim = c(129L, 30L))
-  expect_named(new_data, names(new_data))
+  expect_match(setdiff(names(new_data), c("heatan", "h2o")), "^(NIR|UVVIS)_bsig_[0-9]+$")
 
-  # irregular data works
+  # does not touch irreg
   task = tsk("dti")
-  pop = po("fda.bsignal")
-  task_bsignal = train_pipeop(pop, list(task))[[1L]]
-  new_data = task_bsignal$data()
-  expect_task(task_bsignal)
+  task_bsignal = train_pipeop(po("fda.bsignal"), list(task))[[1L]]
+  expect_set_equal(task_bsignal$feature_names, task$feature_names)
 })
 
 test_that("PipeOpFDABsignal uses argument values", {
